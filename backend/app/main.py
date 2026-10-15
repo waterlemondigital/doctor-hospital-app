@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 
 from app.config import settings
-from app.db.neo4j import neo4j_client
 from app.db.postgres import check_postgres_connection, init_db
 from app.api.v1.router import api_v1_router
 
@@ -22,31 +21,23 @@ async def lifespan(app: FastAPI):
     # Check PostgreSQL
     pg_ok, pg_msg = await check_postgres_connection()
     if pg_ok:
-        logger.info("PostgreSQL is connected. Ensuring tables exist...")
+        logger.info("PostgreSQL is connected. Ensuring all relational tables exist...")
         try:
             await init_db()
-            logger.info("PostgreSQL tables verified.")
+            logger.info("PostgreSQL relational schema verified.")
         except Exception as e:
             logger.error(f"Error initializing database tables: {e}")
     else:
-        logger.warning(f"PostgreSQL not connected at startup: {pg_msg}. Please configure .env credentials.")
-
-    # Check Neo4j
-    neo_ok, neo_msg = await neo4j_client.check_connection()
-    if neo_ok:
-        logger.info("Neo4j graph database is connected.")
-    else:
-        logger.warning(f"Neo4j not connected at startup: {neo_msg}. Please configure .env credentials.")
+        logger.warning(f"PostgreSQL not connected at startup: {pg_msg}. Please configure DATABASE_URL in .env.")
 
     yield
 
     # Shutdown
     logger.info("Shutting down backend services...")
-    await neo4j_client.close()
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="Backend API for HealthDiscover — PostgreSQL for User data & Auth, Neo4j for Doctors & Hospitals knowledge graph.",
+    description="Backend API for HealthDiscover — Completely powered by PostgreSQL for Users, Doctors, Hospitals, and Relational Affiliations.",
     version="1.0.0",
     lifespan=lifespan,
     docs_url="/docs",
@@ -70,6 +61,7 @@ async def root():
     return {
         "app": settings.PROJECT_NAME,
         "version": "1.0.0",
+        "database": "PostgreSQL",
         "status": "online",
         "docs": "/docs",
         "health": "/api/v1/health",

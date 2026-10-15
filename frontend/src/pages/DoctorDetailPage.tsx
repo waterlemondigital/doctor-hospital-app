@@ -110,7 +110,13 @@ export function DoctorDetailPage() {
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="secondary" className="bg-[#caf0f8] text-[#03045e]">
-                  {doctor.speciality}
+                  <Link
+                    to={`/doctors?speciality=${encodeURIComponent(doctor.speciality)}`}
+                    className="hover:underline cursor-pointer"
+                    title={`Filter all ${doctor.speciality} doctors`}
+                  >
+                    {doctor.speciality}
+                  </Link>
                 </Badge>
                 <span className="rounded-md bg-slate-100 border border-slate-200 px-2.5 py-0.5 text-xs font-mono font-medium text-slate-700">
                   Dept: {doctor.department} <span className="text-slate-400">({doctor.departmentSlug})</span>
@@ -125,7 +131,21 @@ export function DoctorDetailPage() {
                 {doctor.title}
               </p>
 
-              <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-slate-500 pt-1">
+              <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-500 pt-1">
+                {doctor.city && (
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <MapPin className="h-3.5 w-3.5 text-[#0077b6] shrink-0" />
+                    <span>City:</span>
+                    <Link
+                      to={`/doctors?city=${encodeURIComponent(doctor.city.toLowerCase())}`}
+                      className="inline-flex items-center gap-1 text-[#0077b6] font-bold bg-[#caf0f8]/80 hover:bg-[#90e0ef]/60 px-2.5 py-0.5 rounded-full transition-colors"
+                      title={`Filter all doctors in ${doctor.city}`}
+                    >
+                      <span>{doctor.city}{doctor.area ? ` (${doctor.area})` : ''}</span>
+                      <span className="text-[10px] font-normal underline opacity-80">(Filter by city)</span>
+                    </Link>
+                  </div>
+                )}
                 {doctor.experienceYears && (
                   <div className="flex items-center gap-1">
                     <Award className="h-3.5 w-3.5 text-[#0077b6]" />
@@ -165,8 +185,8 @@ export function DoctorDetailPage() {
           </div>
         </div>
 
-        {/* Credentials / Sub-Speciality Strip */}
-        <div className="rounded-2xl bg-[#caf0f8]/30 border border-[#90e0ef]/50 p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        {/* Relational Credentials Strip: Qualifications, City, Speciality, Hospital */}
+        <div className="rounded-2xl bg-[#caf0f8]/30 border border-[#90e0ef]/50 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div className="flex items-start gap-2">
             <GraduationCap className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
             <div>
@@ -175,17 +195,46 @@ export function DoctorDetailPage() {
             </div>
           </div>
           <div className="flex items-start gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
+            <MapPin className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-[#03045e]">Department & Slug</p>
-              <p className="text-slate-600">{doctor.department} <code className="font-mono text-[11px] bg-white/70 px-1 py-0.5 rounded text-[#0077b6]">({doctor.departmentSlug})</code></p>
+              <p className="font-bold text-[#03045e]">City Location</p>
+              <Link
+                to={`/doctors?city=${encodeURIComponent(doctor.city?.toLowerCase() || 'pune')}`}
+                className="text-[#0077b6] font-semibold hover:underline block"
+                title={`Filter doctors in ${doctor.city || 'Pune'}`}
+              >
+                {doctor.city ? `${doctor.city}${doctor.state ? `, ${doctor.state}` : ''}` : 'Pune, Maharashtra'}
+              </Link>
             </div>
           </div>
           <div className="flex items-start gap-2">
-            <Award className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
+            <CheckCircle2 className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-[#03045e]">Sub-Speciality Focus</p>
-              <p className="text-slate-600">{doctor.subSpeciality}</p>
+              <p className="font-bold text-[#03045e]">Clinical Speciality</p>
+              <Link
+                to={`/doctors?speciality=${encodeURIComponent(doctor.speciality)}`}
+                className="text-[#0077b6] font-semibold hover:underline block"
+                title={`Filter ${doctor.speciality} doctors`}
+              >
+                {doctor.speciality}
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <Building2 className="h-4 w-4 text-[#0077b6] shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-[#03045e]">Consulting Hospital</p>
+              {doctor.hospitals.length > 0 ? (
+                <Link
+                  to={`/doctors?hospital=${encodeURIComponent(doctor.hospitals[0].hospitalId)}`}
+                  className="text-[#0077b6] font-semibold hover:underline block truncate max-w-[180px]"
+                  title={`Filter doctors at ${doctor.hospitals[0].hospitalName}`}
+                >
+                  {doctor.hospitals[0].hospitalName}
+                </Link>
+              ) : (
+                <p className="text-slate-600">{doctor.department}</p>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, ArrowRight, Clock } from 'lucide-react';
+import { Building2, ArrowRight, Clock, MapPin } from 'lucide-react';
 import { Doctor } from '../types';
 import { Card, CardContent } from './ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
@@ -46,6 +46,12 @@ export function DoctorCard({ doctor, className, showHospitalList = true }: Docto
               <span className="text-[10px] font-mono text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded">
                 {doctor.departmentSlug}
               </span>
+              {doctor.city && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-[#caf0f8]/60 border border-[#90e0ef]/60 px-1.5 py-0.5 rounded-md">
+                  <MapPin className="h-3 w-3 text-[#0077b6]" />
+                  {doctor.city}{doctor.area ? ` · ${doctor.area}` : ''}
+                </span>
+              )}
             </div>
             <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
               {doctor.qualifications}

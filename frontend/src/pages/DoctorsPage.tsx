@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, UserRound, Filter, AlertCircle, RefreshCw, X, Stethoscope, Building2 } from 'lucide-react';
-import { DOCTORS_DATA } from '../data/doctors';
+import { Search, UserRound, RefreshCw, X, Stethoscope, Building2, MapPin, AlertCircle } from 'lucide-react';
+import { DOCTORS_DATA, DOCTOR_CITIES } from '../data/doctors';
 import { HOSPITALS_DATA } from '../data/hospitals';
 import { SPECIALITIES_DATA } from '../data/specialities';
 import { DoctorCard } from '../components/DoctorCard';
@@ -13,32 +13,80 @@ export function DoctorsPage() {
   const initialQuery = searchParams.get('search') || '';
   const initialSpeciality = searchParams.get('speciality') || 'all';
   const initialHospital = searchParams.get('hospital') || 'all';
+  const initialCity = searchParams.get('city') || searchParams.get('location') || 'all';
 
   const [query, setQuery] = React.useState(initialQuery);
+  const [selectedCity, setSelectedCity] = React.useState(initialCity);
   const [selectedSpeciality, setSelectedSpeciality] = React.useState(initialSpeciality);
   const [selectedHospital, setSelectedHospital] = React.useState(initialHospital);
 
+  // Sync state when URL params change
   React.useEffect(() => {
     const s = searchParams.get('speciality');
     if (s) setSelectedSpeciality(s);
+    const c = searchParams.get('city') || searchParams.get('location');
+    if (c) setSelectedCity(c);
+    const h = searchParams.get('hospital');
+    if (h) setSelectedHospital(h);
   }, [searchParams]);
+
+  // Relational linkage: Hospitals available in the selected city
+  const availableHospitals = React.useMemo(() => {
+    if (selectedCity === 'all') {
+      return HOSPITALS_DATA;
+    }
+    return HOSPITALS_DATA.filter(
+      (hosp) => hosp.city.toLowerCase() === selectedCity.toLowerCase()
+    );
+  }, [selectedCity]);
+
+  // If the currently selected hospital is not in the filtered city, reset it
+  React.useEffect(() => {
+    if (selectedHospital !== 'all') {
+      const hospitalExistsInCity = availableHospitals.some((h) => h.id === selectedHospital);
+      if (!hospitalExistsInCity) {
+        setSelectedHospital('all');
+        setSearchParams((prev) => {
+          const next = new URLSearchParams(prev);
+          next.delete('hospital');
+          return next;
+        });
+      }
+    }
+  }, [selectedCity, availableHospitals, selectedHospital, setSearchParams]);
 
   const cleanQuery = query.toLowerCase().trim();
 
+  // Relational Doctor Filtering: City + Speciality + Hospital
   const filteredDoctors = DOCTORS_DATA.filter((d) => {
-    // Speciality filter
-    if (selectedSpeciality !== 'all' && d.speciality.toLowerCase() !== selectedSpeciality.toLowerCase()) {
-      return false;
+    // 1. City Filter
+    if (selectedCity !== 'all') {
+      const cityLower = selectedCity.toLowerCase();
+      const matchesDoctorCity = d.city?.toLowerCase() === cityLower;
+      const matchesHospitalCity = d.hospitals.some((h) => {
+        const hosp = HOSPITALS_DATA.find((item) => item.id === h.hospitalId);
+        return hosp && hosp.city.toLowerCase() === cityLower;
+      });
+      if (!matchesDoctorCity && !matchesHospitalCity) {
+        return false;
+      }
     }
 
-    // Hospital filter
-    if (
-      selectedHospital !== 'all' &&
-      !d.hospitals.some((h) => h.hospitalId === selectedHospital)
-    ) {
-      return false;
+    // 2. Speciality Filter
+    if (selectedSpeciality !== 'all') {
+      if (d.speciality.toLowerCase() !== selectedSpeciality.toLowerCase()) {
+        return false;
+      }
     }
 
+    // 3. Hospital Filter
+    if (selectedHospital !== 'all') {
+      if (!d.hospitals.some((h) => h.hospitalId === selectedHospital)) {
+        return false;
+      }
+    }
+
+    // 4. Free text Search
     if (!cleanQuery) return true;
 
     return (
@@ -47,6 +95,9 @@ export function DoctorsPage() {
       d.departmentSlug.toLowerCase().includes(cleanQuery) ||
       d.speciality.toLowerCase().includes(cleanQuery) ||
       d.subSpeciality.toLowerCase().includes(cleanQuery) ||
+      (d.city && d.city.toLowerCase().includes(cleanQuery)) ||
+      (d.area && d.area.toLowerCase().includes(cleanQuery)) ||
+      d.hospitals.some((h) => (h.hospitalName && h.hospitalName.toLowerCase().includes(cleanQuery))) ||
       d.areasOfPractice.some((a) => a.toLowerCase().includes(cleanQuery)) ||
       d.summary.toLowerCase().includes(cleanQuery)
     );
@@ -54,10 +105,56 @@ export function DoctorsPage() {
 
   const resetFilters = () => {
     setQuery('');
+    setSelectedCity('all');
     setSelectedSpeciality('all');
     setSelectedHospital('all');
     setSearchParams({});
   };
+
+  const updateCityFilter = (cityId: string) => {
+    setSelectedCity(cityId);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (cityId !== 'all') {
+        next.set('city', cityId);
+      } else {
+        next.delete('city');
+      }
+      next.delete('location'); // clear legacy location param if any
+      return next;
+    });
+  };
+
+  const updateSpecialityFilter = (spec: string) => {
+    setSelectedSpeciality(spec);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (spec !== 'all') {
+        next.set('speciality', spec);
+      } else {
+        next.delete('speciality');
+      }
+      return next;
+    });
+  };
+
+  const updateHospitalFilter = (hospitalId: string) => {
+    setSelectedHospital(hospitalId);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (hospitalId !== 'all') {
+        next.set('hospital', hospitalId);
+      } else {
+        next.delete('hospital');
+      }
+      return next;
+    });
+  };
+
+  const currentCityName =
+    selectedCity === 'all'
+      ? null
+      : DOCTOR_CITIES.find((c) => c.id.toLowerCase() === selectedCity.toLowerCase())?.name || selectedCity;
 
   return (
     <div className="space-y-8">
@@ -68,14 +165,14 @@ export function DoctorsPage() {
           <span>Verified Medical Directory</span>
         </div>
         <h1 className="text-3xl font-extrabold text-[#03045e] tracking-tight">
-          Consulting Doctors in Pune
+          Consulting Doctors {currentCityName ? `in ${currentCityName}` : ''}
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
-          Factual credentials, verified hospital consulting schedules, and direct hospital booking desks. HealthDiscover never ranks or endorses doctors.
+          Factual credentials, verified hospital consulting schedules, and direct hospital booking desks. Filter doctors by city, clinical speciality, and consulting hospital.
         </p>
       </div>
 
-      {/* Redesigned Clean & Spacious Filter Bar */}
+      {/* Redesigned Relational Filter Bar: Cities, Speciality, and Hospital */}
       <div className="rounded-3xl border border-[#90e0ef] bg-white p-5 sm:p-6 shadow-sm space-y-4">
         {/* Main Search Input */}
         <div className="relative flex items-center">
@@ -84,7 +181,7 @@ export function DoctorsPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by doctor name, clinical speciality, or sub-speciality focus..."
+            placeholder="Search by doctor name, speciality, hospital, or city..."
             className="w-full h-13 pl-12 pr-12 rounded-2xl border-2 border-slate-200 bg-slate-50/50 text-sm font-medium text-[#03045e] placeholder:text-slate-400 focus:outline-none focus:border-[#0077b6] focus:bg-white transition-all shadow-2xs"
           />
           {query && (
@@ -92,7 +189,11 @@ export function DoctorsPage() {
               type="button"
               onClick={() => {
                 setQuery('');
-                setSearchParams({});
+                setSearchParams((prev) => {
+                  const next = new URLSearchParams(prev);
+                  next.delete('search');
+                  return next;
+                });
               }}
               className="absolute right-4 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 hover:text-[#03045e] hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Clear search query"
@@ -102,16 +203,36 @@ export function DoctorsPage() {
           )}
         </div>
 
-        {/* Structured Filter Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-          {/* Speciality Filter */}
+        {/* Structured Relational Filter Row: Cities, Speciality, Hospital */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+          {/* 1. Cities Filter */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              City
+            </label>
+            <Select
+              value={selectedCity}
+              onChange={(e) => updateCityFilter(e.target.value)}
+              icon={<MapPin className="h-3.5 w-3.5 text-[#0077b6]" />}
+              aria-label="Filter by city"
+            >
+              <option value="all">All Cities</option>
+              {DOCTOR_CITIES.map((city) => (
+                <option key={city.id} value={city.id}>
+                  {city.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+
+          {/* 2. Speciality Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Clinical Speciality
             </label>
             <Select
               value={selectedSpeciality}
-              onChange={(e) => setSelectedSpeciality(e.target.value)}
+              onChange={(e) => updateSpecialityFilter(e.target.value)}
               icon={<Stethoscope className="h-3.5 w-3.5 text-[#0077b6]" />}
               aria-label="Filter speciality"
             >
@@ -124,21 +245,23 @@ export function DoctorsPage() {
             </Select>
           </div>
 
-          {/* Hospital Filter */}
+          {/* 3. Hospital Filter (Relational to City) */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              Consulting Hospital
+              Consulting Hospital {currentCityName ? `(${currentCityName})` : ''}
             </label>
             <Select
               value={selectedHospital}
-              onChange={(e) => setSelectedHospital(e.target.value)}
+              onChange={(e) => updateHospitalFilter(e.target.value)}
               icon={<Building2 className="h-3.5 w-3.5 text-[#0077b6]" />}
               aria-label="Filter consulting hospital"
             >
-              <option value="all">All Hospitals</option>
-              {HOSPITALS_DATA.map((hosp) => (
+              <option value="all">
+                {currentCityName ? `All Hospitals in ${currentCityName}` : 'All Hospitals'}
+              </option>
+              {availableHospitals.map((hosp) => (
                 <option key={hosp.id} value={hosp.id}>
-                  {hosp.name}
+                  {hosp.name} {selectedCity === 'all' ? `(${hosp.city})` : ''}
                 </option>
               ))}
             </Select>
@@ -148,10 +271,39 @@ export function DoctorsPage() {
         {/* Quick Filter Pills & Result Counter */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-slate-400 font-medium">Quick Speciality:</span>
+            <span className="text-slate-400 font-medium">Cities:</span>
             <button
               type="button"
-              onClick={() => setSelectedSpeciality('all')}
+              onClick={() => updateCityFilter('all')}
+              className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
+                selectedCity === 'all'
+                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              All Cities
+            </button>
+            {DOCTOR_CITIES.map((city) => (
+              <button
+                key={city.id}
+                type="button"
+                onClick={() => updateCityFilter(city.id)}
+                className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
+                  selectedCity.toLowerCase() === city.id.toLowerCase()
+                    ? 'bg-[#0077b6] text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {city.name}
+              </button>
+            ))}
+
+            <span className="text-slate-300 mx-1">|</span>
+
+            <span className="text-slate-400 font-medium">Speciality:</span>
+            <button
+              type="button"
+              onClick={() => updateSpecialityFilter('all')}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
                 selectedSpeciality === 'all'
                   ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
@@ -162,10 +314,10 @@ export function DoctorsPage() {
             </button>
             <button
               type="button"
-              onClick={() => setSelectedSpeciality('Cardiology')}
+              onClick={() => updateSpecialityFilter('Cardiology')}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
                 selectedSpeciality === 'Cardiology'
-                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
+                  ? 'bg-[#0077b6] text-white shadow-2xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -173,10 +325,10 @@ export function DoctorsPage() {
             </button>
             <button
               type="button"
-              onClick={() => setSelectedSpeciality('General Medicine')}
+              onClick={() => updateSpecialityFilter('General Medicine')}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
                 selectedSpeciality === 'General Medicine'
-                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
+                  ? 'bg-[#0077b6] text-white shadow-2xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -188,7 +340,7 @@ export function DoctorsPage() {
             <span className="text-slate-500 font-medium">
               Showing <strong>{filteredDoctors.length}</strong> {filteredDoctors.length === 1 ? 'specialist' : 'specialists'}
             </span>
-            {(query || selectedSpeciality !== 'all' || selectedHospital !== 'all') && (
+            {(query || selectedSpeciality !== 'all' || selectedHospital !== 'all' || selectedCity !== 'all') && (
               <button
                 type="button"
                 onClick={resetFilters}
@@ -220,7 +372,7 @@ export function DoctorsPage() {
               No verified doctors match your criteria
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              We are actively verifying additional consultants across cardiology, general medicine, and allied branches in Pune. Profiles are published only after statutory council confirmation.
+              We are actively verifying additional consultants across cities and hospital networks. Profiles are published only after statutory council confirmation.
             </p>
           </div>
           <Button onClick={resetFilters} variant="outline" size="sm" className="gap-2">

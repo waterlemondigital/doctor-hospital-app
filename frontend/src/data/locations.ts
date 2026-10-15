@@ -21,8 +21,8 @@ export const LOCATIONS_DATA: StateLocation[] = [
         id: "mumbai",
         name: "Mumbai",
         stateId: "maharashtra",
-        isActive: false,
-        hospitalCount: 0,
+        isActive: true,
+        hospitalCount: 1,
       },
       {
         id: "nagpur",

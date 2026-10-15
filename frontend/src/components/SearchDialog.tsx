@@ -55,6 +55,8 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
       d.departmentSlug.toLowerCase().includes(cleanQuery) ||
       d.speciality.toLowerCase().includes(cleanQuery) ||
       d.subSpeciality.toLowerCase().includes(cleanQuery) ||
+      (d.city && d.city.toLowerCase().includes(cleanQuery)) ||
+      (d.area && d.area.toLowerCase().includes(cleanQuery)) ||
       d.areasOfPractice.some((a) => a.toLowerCase().includes(cleanQuery))
     );
   });
@@ -183,7 +185,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                         {d.name}
                       </p>
                       <p className="text-xs text-slate-500">
-                        {d.title} · {d.speciality}
+                        {d.title} · {d.speciality} · {d.city}{d.area ? ` (${d.area})` : ''}
                       </p>
                     </div>
                     <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-[#0077b6] group-hover:translate-x-0.5 transition-all" />

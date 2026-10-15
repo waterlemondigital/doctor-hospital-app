@@ -76,6 +76,10 @@ export interface Doctor {
   summary: string;
   areasOfPractice: string[];
   hospitals: DoctorHospitalAffiliation[];
+  location?: string;
+  area?: string;
+  city?: string;
+  state?: string;
   phone: string;
   whatsapp: string;
   verificationStatus: VerificationStatus;

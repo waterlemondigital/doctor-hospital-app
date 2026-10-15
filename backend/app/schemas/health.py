@@ -8,5 +8,4 @@ class HealthResponse(BaseModel):
     status: str
     app_name: str
     environment: str
-    postgres: ServiceHealth
-    neo4j: ServiceHealth
+    database: ServiceHealth

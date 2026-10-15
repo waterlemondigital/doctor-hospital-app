@@ -2,7 +2,6 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import json
-import os
 from pathlib import Path
 
 # Base backend directory
@@ -32,16 +31,10 @@ class Settings(BaseSettings):
             return v
         return ["*"]
 
-    # PostgreSQL Configuration
+    # PostgreSQL Configuration (Entire database: Users, Doctors, Hospitals, Relations)
     DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/healthdiscover_db"
 
-    # Neo4j Configuration
-    NEO4J_URI: str = "bolt://localhost:7687"
-    NEO4J_USER: str = "neo4j"
-    NEO4J_PASSWORD: str = "your_neo4j_password"
-    NEO4J_DATABASE: str = "neo4j"
-
-    # JWT Configuration
+    # JWT Authentication Configuration
     JWT_SECRET_KEY: str = "replace-this-with-a-secure-random-secret-key"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
