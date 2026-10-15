@@ -4,7 +4,6 @@ import { Search, Building2, MapPin, Globe, AlertCircle, RefreshCw, X } from 'luc
 import { HOSPITALS_DATA } from '../data/hospitals';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { HospitalCard } from '../components/HospitalCard';
-import { AdSlot } from '../components/AdSlot';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
 
@@ -193,7 +192,7 @@ export function HospitalsPage() {
 
       {/* Hospital Cards Grid */}
       {filteredHospitals.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredHospitals.map((hospital) => (
             <HospitalCard key={hospital.id} hospital={hospital} />
           ))}
@@ -218,9 +217,6 @@ export function HospitalsPage() {
           </Button>
         </div>
       )}
-
-      {/* Ad slot at bottom of listing */}
-      <AdSlot size="banner" label="Sponsored Placement" />
     </div>
   );
 }

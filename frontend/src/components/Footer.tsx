@@ -7,7 +7,7 @@ export function Footer() {
 
   return (
     <footer className="bg-[#03045e] text-white pt-14 pb-10 border-t border-[#0077b6]/40">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Brand & Purpose */}
           <div className="space-y-4 md:col-span-1">

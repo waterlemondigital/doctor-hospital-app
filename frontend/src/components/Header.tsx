@@ -13,6 +13,9 @@ import {
   LogOut,
   ChevronDown,
   ShieldCheck,
+  FlaskConical,
+  Leaf,
+  Sparkles,
 } from 'lucide-react';
 import { SITE_NAME } from '../data/config';
 import { Sheet } from './ui/sheet';
@@ -27,15 +30,25 @@ export function Header() {
   const [authMode, setAuthMode] = React.useState<'login' | 'signup'>('login');
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
 
+  const [isAyushDropdownOpen, setIsAyushDropdownOpen] = React.useState(false);
+  const ayushDropdownRef = React.useRef<HTMLDivElement>(null);
+  const [isMobileAyushOpen, setIsMobileAyushOpen] = React.useState(false);
+
   const { user, logout } = useAuth();
   const location = useLocation();
   const userMenuRef = React.useRef<HTMLDivElement>(null);
 
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'Hospitals', path: '/hospitals' },
-    { label: 'Doctors', path: '/doctors' },
-    { label: 'About & Verification', path: '/about' },
+  const mainNavLinks = [
+    { label: 'Hospital', path: '/hospitals' },
+    { label: 'Find Doctors', path: '/doctors' },
+    { label: 'Laboratories', path: '/laboratories' },
+    { label: 'Wellness center', path: '/wellness-centers' },
+  ];
+
+  const ayushLinks = [
+    { label: 'Unani', path: '/unani', desc: 'Regimental therapy & herbal medicine' },
+    { label: 'Homeopathy', path: '/homeopathy', desc: 'Classical constitutional clinics' },
+    { label: 'Ayurvedic', path: '/ayurvedic', desc: 'Panchakarma & holistic care' },
   ];
 
   const isActive = (path: string) => {
@@ -43,16 +56,29 @@ export function Header() {
     return location.pathname.startsWith(path);
   };
 
+  const isAyushActive = ayushLinks.some((l) => location.pathname.startsWith(l.path));
+
   const openAuth = (mode: 'login' | 'signup') => {
     setAuthMode(mode);
     setIsAuthOpen(true);
   };
 
-  // Close user dropdown if clicked outside
+  // Close dropdowns on route change
+  React.useEffect(() => {
+    setIsAyushDropdownOpen(false);
+    setIsUserMenuOpen(false);
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close dropdowns if clicked outside
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (userMenuRef.current && !userMenuRef.current.contains(target)) {
         setIsUserMenuOpen(false);
+      }
+      if (ayushDropdownRef.current && !ayushDropdownRef.current.contains(target)) {
+        setIsAyushDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -62,8 +88,8 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-[#90e0ef]/60 bg-white/95 backdrop-blur-md shadow-2xs">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-          {/* Zone 1: Brand Wordmark (Single text element in display face, 1 line) */}
+        <div className="w-full flex h-16 items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-14">
+          {/* Zone 1: Brand Wordmark */}
           <Link
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#03045e] hover:text-[#0077b6] transition-colors whitespace-nowrap shrink-0"
@@ -74,9 +100,9 @@ export function Header() {
             <span>{SITE_NAME}</span>
           </Link>
 
-          {/* Zone 2: Navigation Links (Single line, whitespace-nowrap) */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-            {navLinks.map((link) => (
+          {/* Zone 2: Navigation Links */}
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs 2xl:text-sm font-semibold text-slate-600">
+            {mainNavLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -89,6 +115,111 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Dropdown for Traditional / AYUSH (Unani, Homeopathy, Ayurvedic) - Commented out for now
+            <div className="relative" ref={ayushDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsAyushDropdownOpen(!isAyushDropdownOpen)}
+                className={`relative flex items-center gap-1.5 py-1 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] cursor-pointer ${
+                  isAyushActive
+                    ? 'text-[#0077b6] font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#0077b6] after:rounded-full'
+                    : 'text-slate-600'
+                }`}
+                aria-expanded={isAyushDropdownOpen}
+              >
+                <span>Alternative Medicine</span>
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                    isAyushDropdownOpen ? 'rotate-180 text-[#0077b6]' : 'text-slate-400'
+                  }`}
+                />
+              </button>
+
+              {isAyushDropdownOpen && (
+                <div className="absolute left-0 mt-2.5 w-64 rounded-2xl bg-white p-2 shadow-xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150 z-50">
+                  <div className="px-3 py-1.5 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      Traditional & AYUSH Care
+                    </span>
+                  </div>
+                  <div className="space-y-1 mt-1">
+                    <Link
+                      to="/unani"
+                      onClick={() => setIsAyushDropdownOpen(false)}
+                      className={`flex flex-col p-2.5 rounded-xl transition-colors text-left group ${
+                        isActive('/unani') ? 'bg-[#caf0f8]/60 text-[#03045e]' : 'hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-[#03045e] group-hover:text-[#0077b6]">
+                          Unani
+                        </span>
+                        <span className="text-[10px] font-semibold text-[#0077b6] bg-[#caf0f8] px-1.5 py-0.5 rounded">
+                          Tibb
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-500 mt-0.5">
+                        Regimental therapy & Hijama
+                      </span>
+                    </Link>
+
+                    <Link
+                      to="/homeopathy"
+                      onClick={() => setIsAyushDropdownOpen(false)}
+                      className={`flex flex-col p-2.5 rounded-xl transition-colors text-left group ${
+                        isActive('/homeopathy') ? 'bg-[#caf0f8]/60 text-[#03045e]' : 'hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-[#03045e] group-hover:text-[#0077b6]">
+                          Homeopathy
+                        </span>
+                        <span className="text-[10px] font-semibold text-[#0077b6] bg-[#caf0f8] px-1.5 py-0.5 rounded">
+                          NCH
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-500 mt-0.5">
+                        Classical constitutional clinics
+                      </span>
+                    </Link>
+
+                    <Link
+                      to="/ayurvedic"
+                      onClick={() => setIsAyushDropdownOpen(false)}
+                      className={`flex flex-col p-2.5 rounded-xl transition-colors text-left group ${
+                        isActive('/ayurvedic') ? 'bg-[#caf0f8]/60 text-[#03045e]' : 'hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-[#03045e] group-hover:text-[#0077b6]">
+                          Ayurvedic
+                        </span>
+                        <span className="text-[10px] font-semibold text-[#0077b6] bg-[#caf0f8] px-1.5 py-0.5 rounded">
+                          NCISM
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-500 mt-0.5">
+                        Panchakarma & herbal hospital
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+            */}
+
+            {/* About Link */}
+            <Link
+              to="/about"
+              className={`relative py-1 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] ${
+                isActive('/about')
+                  ? 'text-[#0077b6] font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#0077b6] after:rounded-full'
+                  : 'text-slate-600'
+              }`}
+            >
+              About
+            </Link>
           </nav>
 
           {/* Zone 3: Search Action, Auth Buttons & Mobile Trigger */}
@@ -287,15 +418,6 @@ export function Header() {
 
           <nav className="flex flex-col space-y-1.5 py-2">
             <Link
-              to="/"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors ${
-                isActive('/') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              <span>Home</span>
-            </Link>
-            <Link
               to="/hospitals"
               onClick={() => setIsMobileMenuOpen(false)}
               className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors ${
@@ -303,8 +425,9 @@ export function Header() {
               }`}
             >
               <Building2 className="h-4 w-4 text-[#0077b6]" />
-              <span>Hospitals in Pune</span>
+              <span>Hospital</span>
             </Link>
+
             <Link
               to="/doctors"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -313,8 +436,88 @@ export function Header() {
               }`}
             >
               <UserRound className="h-4 w-4 text-[#0077b6]" />
-              <span>Consulting Doctors</span>
+              <span>Find Doctors</span>
             </Link>
+
+            <Link
+              to="/laboratories"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors ${
+                isActive('/laboratories') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              <FlaskConical className="h-4 w-4 text-[#0077b6]" />
+              <span>Laboratories</span>
+            </Link>
+
+            <Link
+              to="/wellness-centers"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors ${
+                isActive('/wellness-centers') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              <Sparkles className="h-4 w-4 text-[#0077b6]" />
+              <span>Wellness center</span>
+            </Link>
+
+            {/* Mobile Collapsible Dropdown: Alternative Medicine - Commented out for now
+            <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setIsMobileAyushOpen(!isMobileAyushOpen)}
+                className="w-full flex items-center justify-between px-3.5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Leaf className="h-4 w-4 text-emerald-600" />
+                  <span>Alternative Medicine</span>
+                </div>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+                    isMobileAyushOpen ? 'rotate-180 text-[#0077b6]' : ''
+                  }`}
+                />
+              </button>
+
+              {isMobileAyushOpen && (
+                <div className="px-3 pb-2 pt-1 space-y-1 bg-white border-t border-slate-100">
+                  <Link
+                    to="/unani"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-2 rounded-lg text-xs font-semibold ${
+                      isActive('/unani') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>Unani</span>
+                    <span className="text-[10px] text-[#0077b6]">Tibb & Hijama</span>
+                  </Link>
+
+                  <Link
+                    to="/homeopathy"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-2 rounded-lg text-xs font-semibold ${
+                      isActive('/homeopathy') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>Homeopathy</span>
+                    <span className="text-[10px] text-[#0077b6]">Classical Clinics</span>
+                  </Link>
+
+                  <Link
+                    to="/ayurvedic"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-2 rounded-lg text-xs font-semibold ${
+                      isActive('/ayurvedic') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>Ayurvedic</span>
+                    <span className="text-[10px] text-[#0077b6]">Panchakarma</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            */}
+
             <Link
               to="/about"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -323,7 +526,7 @@ export function Header() {
               }`}
             >
               <Info className="h-4 w-4 text-[#0077b6]" />
-              <span>Verification Methodology</span>
+              <span>About</span>
             </Link>
           </nav>
 

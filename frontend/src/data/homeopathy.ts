@@ -1,0 +1,116 @@
+import { Hospital } from '../types';
+
+export const HOMEOPATHY_CENTERS_DATA: Hospital[] = [
+  {
+    id: "hosp_homoeo_01",
+    slug: "bharati-vidyapeeth-homoeopathic-hospital-pune",
+    name: "Bharati Vidyapeeth Homoeopathic Hospital & Research Centre",
+    state: "Maharashtra",
+    city: "pune",
+    area: "Katraj",
+    address: "Pune-Satara Road, Katraj Campus, Pune",
+    pincode: "411043",
+    facilityType: "Super-Speciality Tertiary Care",
+    facilityTypeBadge: "Teaching Homoeopathic Hospital",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop&q=80",
+        alt: "Bharati Vidyapeeth Homoeopathic Hospital",
+        caption: "Homoeopathic medical college & clinical hospital block",
+      },
+    ],
+    overview:
+      "A 100-bed classical Homoeopathic teaching hospital offering outpatient and inpatient care for chronic autoimmune, pediatric, dermatological, and psychosomatic disorders with computerized repertorization systems.",
+    services: [
+      "Classical Individualized Homoeopathy",
+      "Pediatric Constitutional Clinics",
+      "Allergic Rhinitis & Respiratory Clinics",
+      "Dermatology & Eczema Homoeopathic Care",
+      "Computerized Repertory Labs (RADAR / MacRepertory)",
+      "Clinical Pathology & Inpatient Monitoring",
+    ],
+    departments: [
+      { name: "Homoeopathic Materia Medica", slug: "materia-medica" },
+      { name: "Organon of Medicine", slug: "organon" },
+      { name: "Repertory", slug: "repertory" },
+      { name: "Practice of Medicine", slug: "medicine" },
+    ],
+    facilities: [
+      "100 Inpatient Beds",
+      "Computerized Case-Taking Suites",
+      "Specialized Dispensing Pharmacy",
+      "Emergency Medical Support Unit",
+    ],
+    bedCount: 100,
+    emergencyAvailable24x7: false,
+    website: "https://homoeopathy.bharatividyapeeth.edu",
+    phone: "+91 20 2437 2175",
+    whatsapp: "+91 97630 44556",
+    mapsUrl: "https://maps.google.com/?q=Bharati+Vidyapeeth+Homoeopathic+Hospital+Pune",
+    verificationStatus: "independently-checked",
+    lastChecked: "2026-03-21",
+    sources: [
+      {
+        label: "National Commission for Homoeopathy (NCH)",
+        url: "https://nch.org.in",
+        type: "statutory-license",
+        dateChecked: "2026-03-21",
+      },
+    ],
+    doctorIds: [],
+  },
+  {
+    id: "hosp_homoeo_02",
+    slug: "dhondumama-sathe-homoeopathic-hospital-pune",
+    name: "Dhondumama Sathe Homoeopathic Hospital & Medical College",
+    state: "Maharashtra",
+    city: "pune",
+    area: "Erandwane",
+    address: "Off Karve Road, F.P. No. 23, Erandwane, Pune",
+    pincode: "411004",
+    facilityType: "Multispeciality Hospital",
+    facilityTypeBadge: "Charitable Homoeopathic Trust",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&auto=format&fit=crop&q=80",
+        alt: "Dhondumama Sathe Homoeopathic Hospital",
+      },
+    ],
+    overview:
+      "One of Maharashtra's historic homoeopathic institutions, Dhondumama Sathe Hospital provides subsidized classical homoeopathic consultations and inpatient facilities for chronic rheumatology, migraine, and gastrointestinal complaints.",
+    services: [
+      "General Homoeopathic Outpatient Clinics",
+      "Rheumatology & Joint Pain Specialty Clinic",
+      "Chronic Migraine & Neurological Consultation",
+      "Pediatric Behavioral & Nutritional Care",
+      "Subsidized Charitable Pharmacy",
+    ],
+    departments: [
+      { name: "Clinical Homoeopathy", slug: "clinical-homoeopathy" },
+      { name: "Pediatrics", slug: "pediatrics" },
+      { name: "Surgery & Gynecology (Allied)", slug: "allied-surgery" },
+    ],
+    facilities: [
+      "75 Inpatient Beds",
+      "Diagnostic Laboratory",
+      "Central Homoeopathic Dispensary",
+    ],
+    bedCount: 75,
+    emergencyAvailable24x7: false,
+    website: "https://dshmc.org",
+    phone: "+91 20 2544 2603",
+    whatsapp: "+91 98222 33445",
+    mapsUrl: "https://maps.google.com/?q=Dhondumama+Sathe+Homoeopathic+Hospital+Pune",
+    verificationStatus: "independently-checked",
+    lastChecked: "2026-03-19",
+    sources: [
+      {
+        label: "MUHS Homoeopathic Colleges Register",
+        url: "https://muhs.ac.in",
+        type: "official-registry",
+        dateChecked: "2026-03-19",
+      },
+    ],
+    doctorIds: [],
+  },
+];

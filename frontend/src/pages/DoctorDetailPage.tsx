@@ -17,7 +17,6 @@ import {
 import { DOCTORS_DATA } from '../data/doctors';
 import { HOSPITALS_DATA } from '../data/hospitals';
 import { ContactActionsBar } from '../components/ContactActionsBar';
-import { AdSlot } from '../components/AdSlot';
 import { QueryDialog } from '../components/QueryDialog';
 import {
   Breadcrumb,
@@ -319,9 +318,6 @@ export function DoctorDetailPage() {
               Read full policy →
             </Link>
           </div>
-
-          {/* Ad slot */}
-          <AdSlot size="sidebar-square" label="Medical Partner" />
         </div>
       </div>
 

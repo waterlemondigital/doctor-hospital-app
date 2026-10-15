@@ -5,7 +5,6 @@ import { DOCTORS_DATA } from '../data/doctors';
 import { HOSPITALS_DATA } from '../data/hospitals';
 import { SPECIALITIES_DATA } from '../data/specialities';
 import { DoctorCard } from '../components/DoctorCard';
-import { AdSlot } from '../components/AdSlot';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
 
@@ -205,7 +204,7 @@ export function DoctorsPage() {
 
       {/* Doctor Cards Grid */}
       {filteredDoctors.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredDoctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
@@ -230,9 +229,6 @@ export function DoctorsPage() {
           </Button>
         </div>
       )}
-
-      {/* Ad slot */}
-      <AdSlot size="banner" label="Sponsored Placement" />
     </div>
   );
 }

@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { SITE_NAME, SUPPORT_EMAIL } from '../data/config';
 import { Button } from '../components/ui/button';
-import { AdSlot } from '../components/AdSlot';
 
 export function AboutPage() {
   const openCorrectionDialog = () => {
@@ -157,9 +156,6 @@ export function AboutPage() {
           <span>Submit a Correction</span>
         </Button>
       </section>
-
-      {/* Ad slot */}
-      <AdSlot size="banner" label="Sponsored Placement" />
     </div>
   );
 }

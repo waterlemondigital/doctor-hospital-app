@@ -105,4 +105,4 @@ export interface SpecialityMeta {
   iconName: string;
 }
 
-export type AdSlotSize = 'sidebar-tall' | 'sidebar-square' | 'banner';
+export type AdSlotSize = 'sidebar-tall' | 'sidebar-square' | 'banner' | 'full-width';

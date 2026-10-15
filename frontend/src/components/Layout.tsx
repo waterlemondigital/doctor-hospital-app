@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { AdSlot } from './AdSlot';
 import { CorrectionDialog } from './CorrectionDialog';
 
 export function Layout() {
@@ -39,31 +38,11 @@ export function Layout() {
       {/* Sticky Header */}
       <Header />
 
-      {/* Main Layout Container with 3-column desktop layout on xl+ */}
-      <div className="flex-1 w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex items-start justify-center gap-6">
-          {/* Left Desktop Advertisement Rail (xl screens and up) */}
-          <aside className="hidden xl:block w-[180px] shrink-0 sticky top-24 self-start space-y-4">
-            <AdSlot size="sidebar-tall" label="Sponsored" />
-            <div className="text-[10px] text-slate-400 text-center">
-              Advertisement rail · Decoupled from clinical rankings
-            </div>
-          </aside>
-
-          {/* Central Main Content Area */}
-          <main className="flex-1 w-full max-w-5xl min-w-0">
-            <Outlet />
-          </main>
-
-          {/* Right Desktop Advertisement Rail (xl screens and up) */}
-          <aside className="hidden xl:block w-[180px] shrink-0 sticky top-24 self-start space-y-4">
-            <AdSlot size="sidebar-square" label="Sponsored" />
-            <AdSlot size="sidebar-square" label="Advertisement" />
-            <div className="text-[10px] text-slate-400 text-center">
-              Partner Placement
-            </div>
-          </aside>
-        </div>
+      {/* Main Layout Container - Full page width with balanced side padding */}
+      <div className="flex-1 w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-14 py-6">
+        <main className="w-full min-w-0">
+          <Outlet />
+        </main>
       </div>
 
       {/* Global Correction / Error Report Dialog */}

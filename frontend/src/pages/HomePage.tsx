@@ -489,6 +489,15 @@ export function HomePage() {
         </Link>
       </section>
 
+      {/* Inter-Section Clickable Ad Banner Slot 1 */}
+      <AdSlot
+        size="full-width"
+        label="Ad"
+        slotName="Sponsored Display Ad"
+        dimensions="Full-Width Click Banner (1200×200)"
+        href="#"
+      />
+
       {/* 4. Featured Hospitals */}
       <section className="space-y-4">
         <div className="flex items-end justify-between border-b border-slate-200 pb-3">
@@ -510,15 +519,21 @@ export function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {HOSPITALS_DATA.map((hospital) => (
             <HospitalCard key={hospital.id} hospital={hospital} />
           ))}
         </div>
       </section>
 
-      {/* 8. Responsive Banner Ad Slot Between Sections */}
-      <AdSlot size="banner" label="Sponsored Partner" />
+      {/* Inter-Section Clickable Ad Banner Slot 2 */}
+      <AdSlot
+        size="full-width"
+        label="Ad"
+        slotName="Sponsored Display Ad"
+        dimensions="Full-Width Click Banner (1200×200)"
+        href="#"
+      />
 
       {/* 5. Featured Doctors */}
       <section className="space-y-4">
@@ -541,7 +556,7 @@ export function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {DOCTORS_DATA.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}

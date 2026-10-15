@@ -19,7 +19,6 @@ import { HospitalGallery } from '../components/HospitalGallery';
 import { EmergencyNoticeCard } from '../components/EmergencyNoticeCard';
 import { ContactActionsBar } from '../components/ContactActionsBar';
 import { DoctorCard } from '../components/DoctorCard';
-import { AdSlot } from '../components/AdSlot';
 import { QueryDialog } from '../components/QueryDialog';
 import {
   Breadcrumb,
@@ -409,9 +408,6 @@ export function HospitalDetailPage() {
               </AccordionItem>
             </Accordion>
           </div>
-
-          {/* Small sidebar banner ad slot */}
-          <AdSlot size="sidebar-square" label="Healthcare Partner" />
         </div>
       </div>
 

@@ -8,6 +8,11 @@ import { DoctorDetailPage } from './pages/DoctorDetailPage';
 import { AboutPage } from './pages/AboutPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { UnaniPage } from './pages/UnaniPage';
+import { HomeopathyPage } from './pages/HomeopathyPage';
+import { AyurvedicPage } from './pages/AyurvedicPage';
+import { LaboratoriesPage } from './pages/LaboratoriesPage';
+import { WellnessPage } from './pages/WellnessPage';
 import { AuthProvider } from './lib/auth';
 
 export default function App() {
@@ -21,6 +26,11 @@ export default function App() {
             <Route path="hospitals/:slug" element={<HospitalDetailPage />} />
             <Route path="doctors" element={<DoctorsPage />} />
             <Route path="doctors/:slug" element={<DoctorDetailPage />} />
+            <Route path="laboratories" element={<LaboratoriesPage />} />
+            <Route path="wellness-centers" element={<WellnessPage />} />
+            <Route path="unani" element={<UnaniPage />} />
+            <Route path="homeopathy" element={<HomeopathyPage />} />
+            <Route path="ayurvedic" element={<AyurvedicPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="medical-disclaimer" element={<DisclaimerPage />} />
             <Route path="*" element={<NotFoundPage />} />
