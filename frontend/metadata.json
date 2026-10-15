@@ -1,0 +1,6 @@
+{
+  "name": "HealthDiscover — Pune Healthcare Directory",
+  "description": "Ethical, verified healthcare discovery directory for hospitals and consulting doctors in Pune, Maharashtra. Factual infrastructure, verified credentials, and no commercial rankings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

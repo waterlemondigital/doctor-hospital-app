@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --deep-twilight: #03045e;
+  --bright-teal-blue: #0077b6;
+  --turquoise-surf: #00b4d8;
+  --frosted-blue: #90e0ef;
+  --light-cyan: #caf0f8;
+
+  --background: #ffffff;
+  --foreground: #03045e;
+
+  --card: #ffffff;
+  --card-foreground: #03045e;
+
+  --popover: #ffffff;
+  --popover-foreground: #03045e;
+
+  --primary: #0077b6;
+  --primary-foreground: #ffffff;
+
+  --secondary: #caf0f8;
+  --secondary-foreground: #03045e;
+
+  --muted: #f0f9fc;
+  --muted-foreground: #475569;
+
+  --accent: #caf0f8;
+  --accent-foreground: #03045e;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #90e0ef;
+  --input: #cbd5e1;
+  --ring: #00b4d8;
+
+  --radius: 0.875rem;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1e293b;
+  background-color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #90e0ef;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00b4d8;
+}
+
+/* Hide scrollbar completely across all browsers */
+.no-scrollbar::-webkit-scrollbar,
+[data-no-scrollbar]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+.no-scrollbar,
+[data-no-scrollbar] {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
