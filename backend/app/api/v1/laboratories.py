@@ -5,6 +5,7 @@ from sqlalchemy import select, or_
 from app.db.postgres import get_db
 from app.models.laboratory import Laboratory
 from app.schemas.laboratory import LaboratoryOut
+from app.core.cache import api_cache
 
 router = APIRouter(prefix="/laboratories", tags=["Laboratories"])
 
@@ -14,6 +15,11 @@ async def list_laboratories(
     search: Optional[str] = Query(None, description="Search by lab name, area, or service"),
     db: AsyncSession = Depends(get_db),
 ):
+    cache_key = f"laboratories:list:{city}:{search}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = select(Laboratory)
     if city:
         stmt = stmt.where(Laboratory.city == city.strip().lower())
@@ -29,13 +35,20 @@ async def list_laboratories(
         )
     stmt = stmt.order_by(Laboratory.name.asc())
     result = await db.execute(stmt)
-    return result.scalars().all()
+    data = result.scalars().all()
+    api_cache.set(cache_key, data, ttl=300)
+    return data
 
 @router.get("/{slug_or_id}", response_model=LaboratoryOut)
 async def get_laboratory(
     slug_or_id: str,
     db: AsyncSession = Depends(get_db),
 ):
+    cache_key = f"laboratories:item:{slug_or_id}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = select(Laboratory).where(
         or_(Laboratory.id == slug_or_id, Laboratory.slug == slug_or_id)
     )
@@ -46,4 +59,5 @@ async def get_laboratory(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Laboratory '{slug_or_id}' not found",
         )
+    api_cache.set(cache_key, lab, ttl=300)
     return lab

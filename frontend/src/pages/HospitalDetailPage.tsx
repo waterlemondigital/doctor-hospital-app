@@ -13,9 +13,9 @@ import {
   Stethoscope,
   Sparkles,
 } from 'lucide-react';
-import { HOSPITALS_DATA } from '../data/hospitals';
-import { LABORATORIES_DATA } from '../data/laboratories';
-import { DOCTORS_DATA } from '../data/doctors';
+import { fetchHospitalBySlug } from '../api/hospitals';
+import { fetchDoctors } from '../api/doctors';
+import { Hospital, Doctor } from '../types';
 import { HospitalGallery } from '../components/HospitalGallery';
 import { EmergencyNoticeCard } from '../components/EmergencyNoticeCard';
 import { ContactActionsBar } from '../components/ContactActionsBar';
@@ -40,13 +40,37 @@ export function HospitalDetailPage() {
   const navigate = useNavigate();
   const [isQueryOpen, setIsQueryOpen] = React.useState(false);
 
-  // If a laboratory slug is accessed via /hospitals/:slug, redirect to /laboratories/:slug
-  const isLab = LABORATORIES_DATA.some((l) => l.slug === slug);
-  if (isLab) {
-    return <Navigate to={`/laboratories/${slug}`} replace />;
-  }
+  const [hospital, setHospital] = React.useState<Hospital | null>(null);
+  const [allDoctors, setAllDoctors] = React.useState<Doctor[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  const hospital = HOSPITALS_DATA.find((h) => h.slug === slug);
+  React.useEffect(() => {
+    let isMounted = true;
+    if (slug) {
+      setIsLoading(true);
+      Promise.all([fetchHospitalBySlug(slug), fetchDoctors()])
+        .then(([h, docs]) => {
+          if (isMounted) {
+            setHospital(h);
+            if (docs) setAllDoctors(docs);
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isMounted) setIsLoading(false);
+        });
+    }
+    return () => { isMounted = false; };
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="py-24 text-center space-y-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0077b6] border-t-transparent mx-auto" />
+        <p className="text-sm font-medium text-slate-500">Loading hospital profile from verified database...</p>
+      </div>
+    );
+  }
 
   if (!hospital) {
     return (
@@ -63,7 +87,7 @@ export function HospitalDetailPage() {
   }
 
   // Doctors affiliated with this hospital
-  const consultingDoctors = DOCTORS_DATA.filter((d) =>
+  const consultingDoctors = allDoctors.filter((d) =>
     d.hospitals.some((aff) => aff.hospitalId === hospital.id) ||
     hospital.doctorIds.includes(d.id)
   );

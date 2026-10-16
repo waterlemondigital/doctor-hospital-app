@@ -14,8 +14,9 @@ import {
   AlertCircle,
   Award,
 } from 'lucide-react';
-import { DOCTORS_DATA } from '../data/doctors';
-import { HOSPITALS_DATA } from '../data/hospitals';
+import { fetchDoctorBySlug } from '../api/doctors';
+import { fetchHospitals } from '../api/hospitals';
+import { Doctor, Hospital } from '../types';
 import { ContactActionsBar } from '../components/ContactActionsBar';
 import { QueryDialog } from '../components/QueryDialog';
 import {
@@ -35,7 +36,37 @@ export function DoctorDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const [isQueryOpen, setIsQueryOpen] = React.useState(false);
 
-  const doctor = DOCTORS_DATA.find((d) => d.slug === slug);
+  const [doctor, setDoctor] = React.useState<Doctor | null>(null);
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (slug) {
+      setIsLoading(true);
+      Promise.all([fetchDoctorBySlug(slug), fetchHospitals()])
+        .then(([doc, hosps]) => {
+          if (isMounted) {
+            setDoctor(doc);
+            if (hosps) setHospitals(hosps);
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isMounted) setIsLoading(false);
+        });
+    }
+    return () => { isMounted = false; };
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="py-24 text-center space-y-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0077b6] border-t-transparent mx-auto" />
+        <p className="text-sm font-medium text-slate-500">Loading doctor profile from verified database...</p>
+      </div>
+    );
+  }
 
   if (!doctor) {
     return (
@@ -270,7 +301,7 @@ export function DoctorDetailPage() {
 
             <div className="grid grid-cols-1 gap-4 pt-1">
               {doctor.hospitals.map((affiliation, idx) => {
-                const hospitalData = HOSPITALS_DATA.find((h) => h.id === affiliation.hospitalId);
+                const hospitalData = hospitals.find((h) => h.id === affiliation.hospitalId || h.slug === affiliation.hospitalId);
                 return (
                   <div
                     key={idx}

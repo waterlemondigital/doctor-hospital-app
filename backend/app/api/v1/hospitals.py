@@ -6,6 +6,7 @@ from sqlalchemy.orm import selectinload
 from app.db.postgres import get_db
 from app.models import Hospital, DoctorHospitalAffiliation
 from app.schemas.hospital import HospitalOut, HospitalDoctorAffiliationOut
+from app.core.cache import api_cache
 
 router = APIRouter(prefix="/hospitals", tags=["Hospitals"])
 
@@ -62,6 +63,11 @@ async def list_hospitals(
     db: AsyncSession = Depends(get_db),
 ):
     """List hospitals with city, state, and text search filters."""
+    cache_key = f"hospitals:list:{city}:{state}:{search}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = select(Hospital)
 
     if city and city != "all":
@@ -87,11 +93,18 @@ async def list_hospitals(
     ).order_by(Hospital.name.asc())
     result = await db.execute(stmt)
     hospitals = result.scalars().all()
-    return [format_hospital_response(h) for h in hospitals]
+    data = [format_hospital_response(h) for h in hospitals]
+    api_cache.set(cache_key, data, ttl=300)
+    return data
 
 @router.get("/{slug}", response_model=HospitalOut)
 async def get_hospital_by_slug(slug: str, db: AsyncSession = Depends(get_db)):
     """Retrieve full hospital profile by URL slug."""
+    cache_key = f"hospitals:slug:{slug}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = (
         select(Hospital)
         .options(selectinload(Hospital.affiliations).selectinload(DoctorHospitalAffiliation.doctor))
@@ -106,4 +119,6 @@ async def get_hospital_by_slug(slug: str, db: AsyncSession = Depends(get_db)):
             detail=f"Hospital with slug '{slug}' not found",
         )
 
-    return format_hospital_response(hospital)
+    data = format_hospital_response(hospital)
+    api_cache.set(cache_key, data, ttl=300)
+    return data

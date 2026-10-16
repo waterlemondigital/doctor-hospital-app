@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, FlaskConical, MapPin, Globe, AlertCircle, RefreshCw, X, ShieldCheck, Home, CheckCircle2 } from 'lucide-react';
-import { LABORATORIES_DATA } from '../data/laboratories';
+import { Hospital } from '../types';
+import { fetchLaboratories } from '../api/laboratories';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { LaboratoryCard } from '../components/LaboratoryCard';
 import { Button } from '../components/ui/button';
@@ -14,6 +15,24 @@ export function LaboratoriesPage() {
   const initialAccreditation = searchParams.get('accreditation') || 'all';
   const initialCollection = searchParams.get('collection') || 'all';
   const initialCategory = searchParams.get('category') || 'all';
+
+  const [laboratories, setLaboratories] = React.useState<Hospital[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    fetchLaboratories()
+      .then((data) => {
+        if (isMounted) {
+          if (data) setLaboratories(data);
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) setIsLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, []);
 
   const [query, setQuery] = React.useState(initialQuery);
   const [selectedAccreditation, setSelectedAccreditation] = React.useState(initialAccreditation);
@@ -59,7 +78,7 @@ export function LaboratoriesPage() {
   const cleanQuery = query.toLowerCase().trim();
 
   // Filter laboratories based on search, location, accreditation, home collection, and category
-  const filteredLabs = LABORATORIES_DATA.filter((lab) => {
+  const filteredLabs = laboratories.filter((lab) => {
     // 1. Location Filters
     if (selectedState && lab.state.toLowerCase() !== currentState.name.toLowerCase()) {
       return false;

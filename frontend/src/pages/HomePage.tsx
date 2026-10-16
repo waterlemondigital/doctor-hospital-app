@@ -16,9 +16,10 @@ import {
 } from 'lucide-react';
 import { SITE_NAME, SITE_TAGLINE, SITE_SUBTITLE } from '../data/config';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
-import { HOSPITALS_DATA } from '../data/hospitals';
-import { DOCTORS_DATA } from '../data/doctors';
+import { Hospital, Doctor } from '../types';
 import { SPECIALITIES_DATA } from '../data/specialities';
+import { fetchHospitals } from '../api/hospitals';
+import { fetchDoctors } from '../api/doctors';
 import { HospitalCard } from '../components/HospitalCard';
 import { DoctorCard } from '../components/DoctorCard';
 import { AdSlot } from '../components/AdSlot';
@@ -27,6 +28,20 @@ import { Select } from '../components/ui/select';
 
 export function HomePage() {
   const navigate = useNavigate();
+
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [doctors, setDoctors] = React.useState<Doctor[]>([]);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    Promise.all([fetchHospitals(), fetchDoctors()]).then(([h, d]) => {
+      if (isMounted) {
+        if (h && h.length > 0) setHospitals(h);
+        if (d && d.length > 0) setDoctors(d);
+      }
+    });
+    return () => { isMounted = false; };
+  }, []);
 
   // Search state
   const [searchCategory, setSearchCategory] = React.useState<'all' | 'hospitals' | 'doctors' | 'specialities'>('all');
@@ -64,7 +79,7 @@ export function HomePage() {
   const cleanHeroQuery = searchQuery.toLowerCase().trim();
 
   const suggestedHospitals = cleanHeroQuery
-    ? HOSPITALS_DATA.filter(
+    ? hospitals.filter(
         (h) =>
           (searchCategory === 'all' || searchCategory === 'hospitals') &&
           (h.name.toLowerCase().includes(cleanHeroQuery) ||
@@ -79,7 +94,7 @@ export function HomePage() {
     : [];
 
   const suggestedDoctors = cleanHeroQuery
-    ? DOCTORS_DATA.filter(
+    ? doctors.filter(
         (d) =>
           (searchCategory === 'all' || searchCategory === 'doctors') &&
           (d.name.toLowerCase().includes(cleanHeroQuery) ||
@@ -458,7 +473,7 @@ export function HomePage() {
             </p>
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-[#0077b6]">
-            <span>View {HOSPITALS_DATA.length} Verified Facilities</span>
+            <span>View {hospitals.length} Verified Facilities</span>
             <span aria-hidden="true">→</span>
           </div>
         </Link>
@@ -483,7 +498,7 @@ export function HomePage() {
             </p>
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-[#0077b6]">
-            <span>View Consulting Specialists</span>
+            <span>View {doctors.length} Consulting Specialists</span>
             <span aria-hidden="true">→</span>
           </div>
         </Link>
@@ -520,7 +535,7 @@ export function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {HOSPITALS_DATA.map((hospital) => (
+          {hospitals.map((hospital) => (
             <HospitalCard key={hospital.id} hospital={hospital} />
           ))}
         </div>
@@ -557,7 +572,7 @@ export function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {DOCTORS_DATA.map((doctor) => (
+          {doctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>

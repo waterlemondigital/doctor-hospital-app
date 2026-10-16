@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Building2, MapPin, Globe, AlertCircle, RefreshCw, X } from 'lucide-react';
-import { HOSPITALS_DATA } from '../data/hospitals';
+import { Hospital } from '../types';
+import { fetchHospitals } from '../api/hospitals';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { HospitalCard } from '../components/HospitalCard';
 import { Button } from '../components/ui/button';
@@ -10,6 +11,25 @@ import { Select } from '../components/ui/select';
 export function HospitalsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('search') || '';
+
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    fetchHospitals()
+      .then((data) => {
+        if (isMounted) {
+          setHospitals(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to fetch hospitals:', err);
+        if (isMounted) setIsLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, []);
 
   const [query, setQuery] = React.useState(initialQuery);
   const [selectedCountry, setSelectedCountry] = React.useState('india');
@@ -31,7 +51,7 @@ export function HospitalsPage() {
   const cleanQuery = query.toLowerCase().trim();
 
   // Filter hospitals based on search and locations
-  const filteredHospitals = HOSPITALS_DATA.filter((h) => {
+  const filteredHospitals = hospitals.filter((h) => {
     // State filter check
     if (selectedState && h.state.toLowerCase() !== currentState.name.toLowerCase()) {
       return false;

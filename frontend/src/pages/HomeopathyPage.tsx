@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, HeartPulse, MapPin, Globe, AlertCircle, RefreshCw, X } from 'lucide-react';
-import { HOMEOPATHY_CENTERS_DATA } from '../data/homeopathy';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { HospitalCard } from '../components/HospitalCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
+import { Hospital } from '../types';
+
+const HOMEOPATHY_CENTERS_DATA: Hospital[] = [];
 
 export function HomeopathyPage() {
   const [searchParams, setSearchParams] = useSearchParams();

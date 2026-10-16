@@ -6,6 +6,7 @@ from sqlalchemy.orm import selectinload
 from app.db.postgres import get_db
 from app.models import Doctor, Hospital, DoctorHospitalAffiliation
 from app.schemas.doctor import DoctorOut, AffiliationOut
+from app.core.cache import api_cache
 
 router = APIRouter(prefix="/doctors", tags=["Doctors"])
 
@@ -66,6 +67,11 @@ async def list_doctors(
     List doctors with relational filtering on City, Speciality, and Hospital.
     Uses subquery filtering to avoid JSON column equality operators in PostgreSQL.
     """
+    cache_key = f"doctors:list:{city}:{speciality}:{hospital}:{search}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = select(Doctor)
 
     # 1. Hospital filter
@@ -114,11 +120,18 @@ async def list_doctors(
     ).order_by(Doctor.name.asc())
     result = await db.execute(stmt)
     doctors = result.scalars().all()
-    return [format_doctor_response(d) for d in doctors]
+    data = [format_doctor_response(d) for d in doctors]
+    api_cache.set(cache_key, data, ttl=300)
+    return data
 
 @router.get("/{slug}", response_model=DoctorOut)
 async def get_doctor_by_slug(slug: str, db: AsyncSession = Depends(get_db)):
     """Retrieve full doctor profile by URL slug."""
+    cache_key = f"doctors:slug:{slug}"
+    cached = api_cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     stmt = (
         select(Doctor)
         .options(selectinload(Doctor.affiliations).selectinload(DoctorHospitalAffiliation.hospital))
@@ -133,4 +146,6 @@ async def get_doctor_by_slug(slug: str, db: AsyncSession = Depends(get_db)):
             detail=f"Doctor with slug '{slug}' not found",
         )
 
-    return format_doctor_response(doctor)
+    data = format_doctor_response(doctor)
+    api_cache.set(cache_key, data, ttl=300)
+    return data

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, UserRound, RefreshCw, X, Stethoscope, Building2, MapPin, AlertCircle } from 'lucide-react';
-import { DOCTORS_DATA } from '../data/doctors';
-import { HOSPITALS_DATA } from '../data/hospitals';
+import { Doctor, Hospital } from '../types';
+import { fetchDoctors } from '../api/doctors';
+import { fetchHospitals } from '../api/hospitals';
 import { DoctorCard } from '../components/DoctorCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
@@ -13,6 +14,23 @@ export function DoctorsPage() {
   const initialSpeciality = searchParams.get('speciality') || 'all';
   const initialHospital = searchParams.get('hospital') || 'all';
   const initialCity = searchParams.get('city') || searchParams.get('location') || 'all';
+
+  const [doctors, setDoctors] = React.useState<Doctor[]>([]);
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    Promise.all([fetchDoctors(), fetchHospitals()])
+      .then(([docData, hospData]) => {
+        if (isMounted) {
+          if (docData && docData.length > 0) setDoctors(docData);
+          if (hospData && hospData.length > 0) setHospitals(hospData);
+        }
+      })
+      .catch((err) => console.error('Failed to fetch doctors from API:', err));
+    return () => { isMounted = false; };
+  }, []);
 
   const [query, setQuery] = React.useState(initialQuery);
   const [selectedCity, setSelectedCity] = React.useState(initialCity);
@@ -32,12 +50,12 @@ export function DoctorsPage() {
   // 1. Dynamically extract all unique cities present in the doctor and hospital datasets
   const availableCities = React.useMemo(() => {
     const cityMap = new Map<string, string>();
-    DOCTORS_DATA.forEach((d) => {
+    doctors.forEach((d) => {
       if (d.city) {
         cityMap.set(d.city.toLowerCase(), d.city);
       }
     });
-    HOSPITALS_DATA.forEach((h) => {
+    hospitals.forEach((h) => {
       if (h.city) {
         cityMap.set(h.city.toLowerCase(), h.city);
       }
@@ -45,34 +63,34 @@ export function DoctorsPage() {
     return Array.from(cityMap.entries())
       .map(([id, name]) => ({ id, name }))
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, []);
+  }, [doctors, hospitals]);
 
   // 2. Dynamically extract all unique clinical specialities present in doctor data
   const availableSpecialities = React.useMemo(() => {
     const specMap = new Map<string, string>();
-    DOCTORS_DATA.forEach((d) => {
+    doctors.forEach((d) => {
       if (d.speciality) {
         specMap.set(d.speciality.toLowerCase(), d.speciality);
       }
     });
     return Array.from(specMap.values()).sort((a, b) => a.localeCompare(b));
-  }, []);
+  }, [doctors]);
 
   // 3. Dynamically extract available consulting hospitals (relational to selected city)
   const availableHospitals = React.useMemo(() => {
     const hospMap = new Map<string, { id: string; name: string; city: string }>();
 
-    HOSPITALS_DATA.forEach((h) => {
+    hospitals.forEach((h) => {
       if (selectedCity === 'all' || h.city.toLowerCase() === selectedCity.toLowerCase()) {
         hospMap.set(h.id, { id: h.id, name: h.name, city: h.city });
       }
     });
 
     // Also include any hospital referenced by doctors in that city
-    DOCTORS_DATA.forEach((d) => {
+    doctors.forEach((d) => {
       d.hospitals.forEach((aff) => {
         if (!hospMap.has(aff.hospitalId)) {
-          const matchedHosp = HOSPITALS_DATA.find((h) => h.id === aff.hospitalId);
+          const matchedHosp = hospitals.find((h) => h.id === aff.hospitalId);
           if (matchedHosp) {
             if (selectedCity === 'all' || matchedHosp.city.toLowerCase() === selectedCity.toLowerCase()) {
               hospMap.set(matchedHosp.id, { id: matchedHosp.id, name: matchedHosp.name, city: matchedHosp.city });
@@ -89,7 +107,7 @@ export function DoctorsPage() {
     });
 
     return Array.from(hospMap.values()).sort((a, b) => a.name.localeCompare(b.name));
-  }, [selectedCity]);
+  }, [selectedCity, hospitals, doctors]);
 
   // If the currently selected hospital is not in the filtered city, reset it
   React.useEffect(() => {
@@ -111,13 +129,13 @@ export function DoctorsPage() {
   const cleanQuery = query.toLowerCase().trim();
 
   // Relational Doctor Filtering: City + Speciality + Consulting Hospital
-  const filteredDoctors = DOCTORS_DATA.filter((d) => {
+  const filteredDoctors = doctors.filter((d) => {
     // 1. City Filter
     if (selectedCity !== 'all') {
       const cityLower = selectedCity.toLowerCase();
       const matchesDoctorCity = d.city?.toLowerCase() === cityLower;
       const matchesHospitalCity = d.hospitals.some((h) => {
-        const hosp = HOSPITALS_DATA.find((item) => item.id === h.hospitalId);
+        const hosp = hospitals.find((item) => item.id === h.hospitalId);
         return hosp && hosp.city.toLowerCase() === cityLower;
       });
       if (!matchesDoctorCity && !matchesHospitalCity) {
@@ -140,7 +158,7 @@ export function DoctorsPage() {
           h.hospitalId.toLowerCase() === target ||
           (h.hospitalName && h.hospitalName.toLowerCase() === target)
       );
-      const hosp = HOSPITALS_DATA.find((item) => item.id.toLowerCase() === target);
+      const hosp = hospitals.find((item) => item.id.toLowerCase() === target);
       const matchesDoctorIds = hosp ? hosp.doctorIds.includes(d.id) : false;
 
       if (!matchesAffiliation && !matchesDoctorIds) {

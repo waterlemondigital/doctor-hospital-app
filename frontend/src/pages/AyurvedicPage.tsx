@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Leaf, MapPin, Globe, AlertCircle, RefreshCw, X } from 'lucide-react';
-import { AYURVEDIC_CENTERS_DATA } from '../data/ayurvedic';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { HospitalCard } from '../components/HospitalCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
+import { Hospital } from '../types';
+
+const AYURVEDIC_CENTERS_DATA: Hospital[] = [];
 
 export function AyurvedicPage() {
   const [searchParams, setSearchParams] = useSearchParams();

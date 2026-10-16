@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Building2, UserRound, Stethoscope, ArrowRight } from 'lucide-react';
 import { Dialog, DialogContent } from './ui/dialog';
-import { HOSPITALS_DATA } from '../data/hospitals';
-import { DOCTORS_DATA } from '../data/doctors';
+import { Hospital, Doctor } from '../types';
+import { fetchHospitals } from '../api/hospitals';
+import { fetchDoctors } from '../api/doctors';
 import { SPECIALITIES_DATA } from '../data/specialities';
 
 interface SearchDialogProps {
@@ -14,6 +15,8 @@ interface SearchDialogProps {
 export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   const [query, setQuery] = React.useState('');
   const [categoryFilter, setCategoryFilter] = React.useState<'all' | 'hospitals' | 'doctors' | 'specialities'>('all');
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [doctors, setDoctors] = React.useState<Doctor[]>([]);
   const navigate = useNavigate();
 
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -21,6 +24,8 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   React.useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 50);
+      fetchHospitals().then((h) => { if (h) setHospitals(h); });
+      fetchDoctors().then((d) => { if (d) setDoctors(d); });
     } else {
       setQuery('');
       setCategoryFilter('all');
@@ -30,7 +35,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   const cleanQuery = query.toLowerCase().trim();
 
   // Filter hospitals
-  const filteredHospitals = HOSPITALS_DATA.filter((h) => {
+  const filteredHospitals = hospitals.filter((h) => {
     if (categoryFilter !== 'all' && categoryFilter !== 'hospitals') return false;
     if (!cleanQuery) return true;
     return (
@@ -46,7 +51,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   });
 
   // Filter doctors
-  const filteredDoctors = DOCTORS_DATA.filter((d) => {
+  const filteredDoctors = doctors.filter((d) => {
     if (categoryFilter !== 'all' && categoryFilter !== 'doctors') return false;
     if (!cleanQuery) return true;
     return (

@@ -19,8 +19,9 @@ import {
   FileCheck,
   Search,
 } from 'lucide-react';
-import { LABORATORIES_DATA } from '../data/laboratories';
-import { HOSPITALS_DATA } from '../data/hospitals';
+import { fetchLaboratoryBySlug } from '../api/laboratories';
+import { fetchHospitals } from '../api/hospitals';
+import { Hospital } from '../types';
 import { QueryDialog } from '../components/QueryDialog';
 import {
   Breadcrumb,
@@ -40,7 +41,37 @@ export function LaboratoryDetailPage() {
   const navigate = useNavigate();
   const [isQueryOpen, setIsQueryOpen] = React.useState(false);
 
-  const laboratory = LABORATORIES_DATA.find((l) => l.slug === slug || l.id === slug);
+  const [laboratory, setLaboratory] = React.useState<Hospital | null>(null);
+  const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (slug) {
+      setIsLoading(true);
+      Promise.all([fetchLaboratoryBySlug(slug), fetchHospitals()])
+        .then(([lab, data]) => {
+          if (isMounted) {
+            setLaboratory(lab);
+            if (data) setHospitals(data);
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isMounted) setIsLoading(false);
+        });
+    }
+    return () => { isMounted = false; };
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="py-24 text-center space-y-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0077b6] border-t-transparent mx-auto" />
+        <p className="text-sm font-medium text-slate-500">Loading diagnostic center profile from verified database...</p>
+      </div>
+    );
+  }
 
   if (!laboratory) {
     return (
@@ -60,7 +91,7 @@ export function LaboratoryDetailPage() {
   }
 
   // Find connected hospitals based on relations or name matching (e.g. Deenanath Mangeshkar Hospital)
-  const connectedHospitals = HOSPITALS_DATA.filter((h) => {
+  const connectedHospitals = hospitals.filter((h) => {
     const labName = laboratory.name.toLowerCase();
     const hospName = h.name.toLowerCase();
     if (labName.includes('deenanath') && hospName.includes('deenanath')) return true;

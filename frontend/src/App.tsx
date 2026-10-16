@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
@@ -15,8 +16,17 @@ import { LaboratoriesPage } from './pages/LaboratoriesPage';
 import { LaboratoryDetailPage } from './pages/LaboratoryDetailPage';
 import { WellnessPage } from './pages/WellnessPage';
 import { AuthProvider } from './lib/auth';
+import { fetchHospitals } from './api/hospitals';
+import { fetchDoctors } from './api/doctors';
+import { fetchLaboratories } from './api/laboratories';
 
 export default function App() {
+  React.useEffect(() => {
+    // Silently pre-fetch public directory data so all page transitions are instant
+    fetchHospitals().catch(() => {});
+    fetchDoctors().catch(() => {});
+    fetchLaboratories().catch(() => {});
+  }, []);
   return (
     <AuthProvider>
       <BrowserRouter>
