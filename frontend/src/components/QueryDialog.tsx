@@ -52,7 +52,7 @@ type QueryFormData = z.infer<typeof queryFormSchema>;
 interface QueryDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  targetType: 'hospital' | 'doctor';
+  targetType: 'hospital' | 'doctor' | 'laboratory';
   targetName: string;
   targetId: string;
 }

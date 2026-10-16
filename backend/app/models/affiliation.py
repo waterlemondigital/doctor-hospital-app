@@ -22,3 +22,34 @@ class DoctorHospitalAffiliation(Base):
 
     def __repr__(self) -> str:
         return f"<Affiliation Doctor:{self.doctor_id} <-> Hospital:{self.hospital_id}>"
+
+
+class HospitalLaboratoryAffiliation(Base):
+    __tablename__ = "hospital_laboratory_affiliations"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    hospital_id = Column(String(64), ForeignKey("hospitals.id", ondelete="CASCADE"), nullable=False, index=True)
+    laboratory_id = Column(String(64), ForeignKey("laboratories.id", ondelete="CASCADE"), nullable=False, index=True)
+
+    __table_args__ = (
+        UniqueConstraint("hospital_id", "laboratory_id", name="uq_hospital_laboratory"),
+    )
+
+    def __repr__(self) -> str:
+        return f"<Affiliation Hospital:{self.hospital_id} <-> Laboratory:{self.laboratory_id}>"
+
+
+class DoctorLaboratoryAffiliation(Base):
+    __tablename__ = "doctor_laboratory_affiliations"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    doctor_id = Column(String(64), ForeignKey("doctors.id", ondelete="CASCADE"), nullable=False, index=True)
+    laboratory_id = Column(String(64), ForeignKey("laboratories.id", ondelete="CASCADE"), nullable=False, index=True)
+
+    __table_args__ = (
+        UniqueConstraint("doctor_id", "laboratory_id", name="uq_doctor_laboratory"),
+    )
+
+    def __repr__(self) -> str:
+        return f"<Affiliation Doctor:{self.doctor_id} <-> Laboratory:{self.laboratory_id}>"
+

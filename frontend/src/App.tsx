@@ -12,6 +12,7 @@ import { UnaniPage } from './pages/UnaniPage';
 import { HomeopathyPage } from './pages/HomeopathyPage';
 import { AyurvedicPage } from './pages/AyurvedicPage';
 import { LaboratoriesPage } from './pages/LaboratoriesPage';
+import { LaboratoryDetailPage } from './pages/LaboratoryDetailPage';
 import { WellnessPage } from './pages/WellnessPage';
 import { AuthProvider } from './lib/auth';
 
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="doctors" element={<DoctorsPage />} />
             <Route path="doctors/:slug" element={<DoctorDetailPage />} />
             <Route path="laboratories" element={<LaboratoriesPage />} />
+            <Route path="laboratories/:slug" element={<LaboratoryDetailPage />} />
             <Route path="wellness-centers" element={<WellnessPage />} />
             <Route path="unani" element={<UnaniPage />} />
             <Route path="homeopathy" element={<HomeopathyPage />} />

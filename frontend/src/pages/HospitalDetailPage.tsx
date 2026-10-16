@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { HOSPITALS_DATA } from '../data/hospitals';
+import { LABORATORIES_DATA } from '../data/laboratories';
 import { DOCTORS_DATA } from '../data/doctors';
 import { HospitalGallery } from '../components/HospitalGallery';
 import { EmergencyNoticeCard } from '../components/EmergencyNoticeCard';
@@ -39,17 +40,18 @@ export function HospitalDetailPage() {
   const navigate = useNavigate();
   const [isQueryOpen, setIsQueryOpen] = React.useState(false);
 
-  const hospital = HOSPITALS_DATA.find((h) => h.slug === slug);
+  const isLab = LABORATORIES_DATA.some((l) => l.slug === slug);
+  const hospital = HOSPITALS_DATA.find((h) => h.slug === slug) || LABORATORIES_DATA.find((l) => l.slug === slug);
 
   if (!hospital) {
     return (
       <div className="py-16 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-[#03045e]">Hospital Listing Not Found</h2>
+        <h2 className="text-2xl font-bold text-[#03045e]">Listing Not Found</h2>
         <p className="text-sm text-slate-600 max-w-md mx-auto">
-          The requested hospital profile may have been relocated or updated. Please browse our verified directory.
+          The requested healthcare profile may have been relocated or updated. Please browse our verified directory.
         </p>
         <Button asChild variant="default" className="bg-[#0077b6]">
-          <Link to="/hospitals">Back to Hospitals Directory</Link>
+          <Link to="/hospitals">Back to Healthcare Directory</Link>
         </Button>
       </div>
     );
@@ -91,7 +93,9 @@ export function HospitalDetailPage() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/hospitals">Hospitals</Link>
+              <Link to={isLab ? "/laboratories" : "/hospitals"}>
+                {isLab ? "Laboratories" : "Hospitals"}
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

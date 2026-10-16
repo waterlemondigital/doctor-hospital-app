@@ -40,8 +40,14 @@ python -m app.db.seed
 
 ### 4. Run Development Server
 
+
+
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+cd backend
+# 1. Activate the Python virtual environment
+source .venv/bin/activate
+# 2. Run the Uvicorn server with hot-reload
+uvicorn app.main:app --reload --port 8000
 ```
 
 - API Root: `http://localhost:8000/`

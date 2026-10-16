@@ -15,14 +15,14 @@ export const LOCATIONS_DATA: StateLocation[] = [
         name: "Pune",
         stateId: "maharashtra",
         isActive: true,
-        hospitalCount: 2,
+        hospitalCount: 10,
       },
       {
         id: "mumbai",
         name: "Mumbai",
         stateId: "maharashtra",
         isActive: true,
-        hospitalCount: 1,
+        hospitalCount: 0,
       },
       {
         id: "nagpur",

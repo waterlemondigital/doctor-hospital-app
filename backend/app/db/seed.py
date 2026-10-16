@@ -408,35 +408,10 @@ async def seed_database():
         await session.commit()
         logger.info("Seeded specialities.")
 
-        # 3. Seed Hospitals
-        for item in HOSPITALS_SEED:
-            existing = await session.get(Hospital, item["id"])
-            if not existing:
-                session.add(Hospital(**item))
-        await session.commit()
-        logger.info("Seeded hospitals.")
-
-        # 4. Seed Doctors
-        for item in DOCTORS_SEED:
-            existing = await session.get(Doctor, item["id"])
-            if not existing:
-                session.add(Doctor(**item))
-        await session.commit()
-        logger.info("Seeded doctors.")
-
-        # 5. Seed Doctor-Hospital Affiliations
-        for item in AFFILIATIONS_SEED:
-            stmt = select(DoctorHospitalAffiliation).where(
-                DoctorHospitalAffiliation.doctor_id == item["doctor_id"],
-                DoctorHospitalAffiliation.hospital_id == item["hospital_id"],
-            )
-            result = await session.execute(stmt)
-            if not result.scalar_one_or_none():
-                session.add(DoctorHospitalAffiliation(**item))
-        await session.commit()
-        logger.info("Seeded doctor-hospital affiliations.")
-
-    logger.info("Database seeding completed successfully.")
+    # 3. Import directory entities from markdown files
+    from app.db.import_markdown_data import import_data
+    await import_data()
+    logger.info("Database directory import completed successfully.")
 
 if __name__ == "__main__":
     asyncio.run(seed_database())

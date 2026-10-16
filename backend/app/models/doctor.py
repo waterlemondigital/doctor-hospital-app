@@ -27,10 +27,10 @@ class Doctor(Base):
     location = Column(String(255), nullable=True)
 
     # Contacts & Verification
-    phone = Column(String(50), nullable=True)
-    whatsapp = Column(String(50), nullable=True)
-    verification_status = Column(String(50), default="independently-checked")
-    last_checked = Column(String(50), nullable=True)
+    phone = Column(String(255), nullable=True)
+    whatsapp = Column(String(255), nullable=True)
+    verification_status = Column(Text, default="independently-checked")
+    last_checked = Column(Text, nullable=True)
 
     # Structured JSON data
     languages = Column(JSON, default=list)

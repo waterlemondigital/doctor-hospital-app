@@ -36,6 +36,9 @@ def get_normalized_database_url_and_args(raw_url: str) -> Tuple[str, Dict[str, A
     if ssl_requested:
         connect_args["ssl"] = True
 
+    # Disable statement caching to avoid cache invalidation issues with connection poolers and schema migrations
+    connect_args["statement_cache_size"] = 0
+
     # Strip parameters that asyncpg doesn't accept directly in query string
     ignored_params = {"sslmode", "channel_binding"}
     clean_params = {k: v[0] for k, v in query_params.items() if k not in ignored_params}

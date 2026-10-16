@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, UserRound, RefreshCw, X, Stethoscope, Building2, MapPin, AlertCircle } from 'lucide-react';
-import { DOCTORS_DATA, DOCTOR_CITIES } from '../data/doctors';
+import { DOCTORS_DATA } from '../data/doctors';
 import { HOSPITALS_DATA } from '../data/hospitals';
-import { SPECIALITIES_DATA } from '../data/specialities';
 import { DoctorCard } from '../components/DoctorCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
@@ -30,20 +29,74 @@ export function DoctorsPage() {
     if (h) setSelectedHospital(h);
   }, [searchParams]);
 
-  // Relational linkage: Hospitals available in the selected city
+  // 1. Dynamically extract all unique cities present in the doctor and hospital datasets
+  const availableCities = React.useMemo(() => {
+    const cityMap = new Map<string, string>();
+    DOCTORS_DATA.forEach((d) => {
+      if (d.city) {
+        cityMap.set(d.city.toLowerCase(), d.city);
+      }
+    });
+    HOSPITALS_DATA.forEach((h) => {
+      if (h.city) {
+        cityMap.set(h.city.toLowerCase(), h.city);
+      }
+    });
+    return Array.from(cityMap.entries())
+      .map(([id, name]) => ({ id, name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
+
+  // 2. Dynamically extract all unique clinical specialities present in doctor data
+  const availableSpecialities = React.useMemo(() => {
+    const specMap = new Map<string, string>();
+    DOCTORS_DATA.forEach((d) => {
+      if (d.speciality) {
+        specMap.set(d.speciality.toLowerCase(), d.speciality);
+      }
+    });
+    return Array.from(specMap.values()).sort((a, b) => a.localeCompare(b));
+  }, []);
+
+  // 3. Dynamically extract available consulting hospitals (relational to selected city)
   const availableHospitals = React.useMemo(() => {
-    if (selectedCity === 'all') {
-      return HOSPITALS_DATA;
-    }
-    return HOSPITALS_DATA.filter(
-      (hosp) => hosp.city.toLowerCase() === selectedCity.toLowerCase()
-    );
+    const hospMap = new Map<string, { id: string; name: string; city: string }>();
+
+    HOSPITALS_DATA.forEach((h) => {
+      if (selectedCity === 'all' || h.city.toLowerCase() === selectedCity.toLowerCase()) {
+        hospMap.set(h.id, { id: h.id, name: h.name, city: h.city });
+      }
+    });
+
+    // Also include any hospital referenced by doctors in that city
+    DOCTORS_DATA.forEach((d) => {
+      d.hospitals.forEach((aff) => {
+        if (!hospMap.has(aff.hospitalId)) {
+          const matchedHosp = HOSPITALS_DATA.find((h) => h.id === aff.hospitalId);
+          if (matchedHosp) {
+            if (selectedCity === 'all' || matchedHosp.city.toLowerCase() === selectedCity.toLowerCase()) {
+              hospMap.set(matchedHosp.id, { id: matchedHosp.id, name: matchedHosp.name, city: matchedHosp.city });
+            }
+          } else if (selectedCity === 'all' || (d.city && d.city.toLowerCase() === selectedCity.toLowerCase())) {
+            hospMap.set(aff.hospitalId, {
+              id: aff.hospitalId,
+              name: aff.hospitalName || aff.hospitalId,
+              city: d.city || 'Pune',
+            });
+          }
+        }
+      });
+    });
+
+    return Array.from(hospMap.values()).sort((a, b) => a.name.localeCompare(b.name));
   }, [selectedCity]);
 
   // If the currently selected hospital is not in the filtered city, reset it
   React.useEffect(() => {
     if (selectedHospital !== 'all') {
-      const hospitalExistsInCity = availableHospitals.some((h) => h.id === selectedHospital);
+      const hospitalExistsInCity = availableHospitals.some(
+        (h) => h.id.toLowerCase() === selectedHospital.toLowerCase()
+      );
       if (!hospitalExistsInCity) {
         setSelectedHospital('all');
         setSearchParams((prev) => {
@@ -57,7 +110,7 @@ export function DoctorsPage() {
 
   const cleanQuery = query.toLowerCase().trim();
 
-  // Relational Doctor Filtering: City + Speciality + Hospital
+  // Relational Doctor Filtering: City + Speciality + Consulting Hospital
   const filteredDoctors = DOCTORS_DATA.filter((d) => {
     // 1. City Filter
     if (selectedCity !== 'all') {
@@ -81,7 +134,16 @@ export function DoctorsPage() {
 
     // 3. Hospital Filter
     if (selectedHospital !== 'all') {
-      if (!d.hospitals.some((h) => h.hospitalId === selectedHospital)) {
+      const target = selectedHospital.toLowerCase();
+      const matchesAffiliation = d.hospitals.some(
+        (h) =>
+          h.hospitalId.toLowerCase() === target ||
+          (h.hospitalName && h.hospitalName.toLowerCase() === target)
+      );
+      const hosp = HOSPITALS_DATA.find((item) => item.id.toLowerCase() === target);
+      const matchesDoctorIds = hosp ? hosp.doctorIds.includes(d.id) : false;
+
+      if (!matchesAffiliation && !matchesDoctorIds) {
         return false;
       }
     }
@@ -97,7 +159,7 @@ export function DoctorsPage() {
       d.subSpeciality.toLowerCase().includes(cleanQuery) ||
       (d.city && d.city.toLowerCase().includes(cleanQuery)) ||
       (d.area && d.area.toLowerCase().includes(cleanQuery)) ||
-      d.hospitals.some((h) => (h.hospitalName && h.hospitalName.toLowerCase().includes(cleanQuery))) ||
+      d.hospitals.some((h) => h.hospitalName && h.hospitalName.toLowerCase().includes(cleanQuery)) ||
       d.areasOfPractice.some((a) => a.toLowerCase().includes(cleanQuery)) ||
       d.summary.toLowerCase().includes(cleanQuery)
     );
@@ -120,7 +182,7 @@ export function DoctorsPage() {
       } else {
         next.delete('city');
       }
-      next.delete('location'); // clear legacy location param if any
+      next.delete('location');
       return next;
     });
   };
@@ -154,7 +216,12 @@ export function DoctorsPage() {
   const currentCityName =
     selectedCity === 'all'
       ? null
-      : DOCTOR_CITIES.find((c) => c.id.toLowerCase() === selectedCity.toLowerCase())?.name || selectedCity;
+      : availableCities.find((c) => c.id.toLowerCase() === selectedCity.toLowerCase())?.name || selectedCity;
+
+  const currentHospitalName =
+    selectedHospital === 'all'
+      ? null
+      : availableHospitals.find((h) => h.id.toLowerCase() === selectedHospital.toLowerCase())?.name || selectedHospital;
 
   return (
     <div className="space-y-8">
@@ -181,7 +248,7 @@ export function DoctorsPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by doctor name, speciality, hospital, or city..."
+            placeholder="Search by doctor name, speciality, hospital, or area..."
             className="w-full h-13 pl-12 pr-12 rounded-2xl border-2 border-slate-200 bg-slate-50/50 text-sm font-medium text-[#03045e] placeholder:text-slate-400 focus:outline-none focus:border-[#0077b6] focus:bg-white transition-all shadow-2xs"
           />
           {query && (
@@ -217,7 +284,7 @@ export function DoctorsPage() {
               aria-label="Filter by city"
             >
               <option value="all">All Cities</option>
-              {DOCTOR_CITIES.map((city) => (
+              {availableCities.map((city) => (
                 <option key={city.id} value={city.id}>
                   {city.name}
                 </option>
@@ -236,10 +303,10 @@ export function DoctorsPage() {
               icon={<Stethoscope className="h-3.5 w-3.5 text-[#0077b6]" />}
               aria-label="Filter speciality"
             >
-              <option value="all">All Specialities</option>
-              {SPECIALITIES_DATA.map((spec) => (
-                <option key={spec.id} value={spec.name}>
-                  {spec.name}
+              <option value="all">All Specialities ({availableSpecialities.length})</option>
+              {availableSpecialities.map((spec) => (
+                <option key={spec} value={spec}>
+                  {spec}
                 </option>
               ))}
             </Select>
@@ -257,89 +324,99 @@ export function DoctorsPage() {
               aria-label="Filter consulting hospital"
             >
               <option value="all">
-                {currentCityName ? `All Hospitals in ${currentCityName}` : 'All Hospitals'}
+                {currentCityName ? `All Hospitals in ${currentCityName}` : 'All Hospitals'} ({availableHospitals.length})
               </option>
               {availableHospitals.map((hosp) => (
                 <option key={hosp.id} value={hosp.id}>
-                  {hosp.name} {selectedCity === 'all' ? `(${hosp.city})` : ''}
+                  {hosp.name} {selectedCity === 'all' && hosp.city ? `(${hosp.city})` : ''}
                 </option>
               ))}
             </Select>
           </div>
         </div>
 
-        {/* Quick Filter Pills & Result Counter */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
+        {/* Quick Filter Pills Row: All Cities & All Specialities present in Data */}
+        <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
+          {/* Speciality Pills */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-slate-400 font-medium">Cities:</span>
-            <button
-              type="button"
-              onClick={() => updateCityFilter('all')}
-              className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                selectedCity === 'all'
-                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              All Cities
-            </button>
-            {DOCTOR_CITIES.map((city) => (
-              <button
-                key={city.id}
-                type="button"
-                onClick={() => updateCityFilter(city.id)}
-                className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                  selectedCity.toLowerCase() === city.id.toLowerCase()
-                    ? 'bg-[#0077b6] text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {city.name}
-              </button>
-            ))}
-
-            <span className="text-slate-300 mx-1">|</span>
-
-            <span className="text-slate-400 font-medium">Speciality:</span>
+            <span className="text-slate-400 font-semibold shrink-0">Speciality:</span>
             <button
               type="button"
               onClick={() => updateSpecialityFilter('all')}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
                 selectedSpeciality === 'all'
-                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs'
+                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs font-bold'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              All Specialities
+              All
             </button>
-            <button
-              type="button"
-              onClick={() => updateSpecialityFilter('Cardiology')}
-              className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                selectedSpeciality === 'Cardiology'
-                  ? 'bg-[#0077b6] text-white shadow-2xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              Cardiology
-            </button>
-            <button
-              type="button"
-              onClick={() => updateSpecialityFilter('General Medicine')}
-              className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                selectedSpeciality === 'General Medicine'
-                  ? 'bg-[#0077b6] text-white shadow-2xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              General Medicine
-            </button>
+            {availableSpecialities.map((spec) => (
+              <button
+                key={spec}
+                type="button"
+                onClick={() => updateSpecialityFilter(spec)}
+                className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
+                  selectedSpeciality.toLowerCase() === spec.toLowerCase()
+                    ? 'bg-[#0077b6] text-white shadow-2xs font-bold'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {spec}
+              </button>
+            ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-slate-500 font-medium">
-              Showing <strong>{filteredDoctors.length}</strong> {filteredDoctors.length === 1 ? 'specialist' : 'specialists'}
-            </span>
+          {/* Active Filter Chips / Status summary & Reset */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-slate-500 font-medium">
+                Showing <strong>{filteredDoctors.length}</strong> {filteredDoctors.length === 1 ? 'specialist' : 'specialists'}
+              </span>
+
+              {selectedCity !== 'all' && (
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#caf0f8] px-2 py-0.5 text-xs font-bold text-[#03045e]">
+                  City: {currentCityName}
+                  <button
+                    type="button"
+                    onClick={() => updateCityFilter('all')}
+                    className="hover:text-red-600 cursor-pointer ml-0.5"
+                    aria-label="Remove city filter"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+
+              {selectedSpeciality !== 'all' && (
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#caf0f8] px-2 py-0.5 text-xs font-bold text-[#03045e]">
+                  Speciality: {selectedSpeciality}
+                  <button
+                    type="button"
+                    onClick={() => updateSpecialityFilter('all')}
+                    className="hover:text-red-600 cursor-pointer ml-0.5"
+                    aria-label="Remove speciality filter"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+
+              {selectedHospital !== 'all' && (
+                <span className="inline-flex items-center gap-1 rounded-md bg-[#caf0f8] px-2 py-0.5 text-xs font-bold text-[#03045e]">
+                  Hospital: {currentHospitalName}
+                  <button
+                    type="button"
+                    onClick={() => updateHospitalFilter('all')}
+                    className="hover:text-red-600 cursor-pointer ml-0.5"
+                    aria-label="Remove hospital filter"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+            </div>
+
             {(query || selectedSpeciality !== 'all' || selectedHospital !== 'all' || selectedCity !== 'all') && (
               <button
                 type="button"
@@ -347,7 +424,7 @@ export function DoctorsPage() {
                 className="inline-flex items-center gap-1 font-bold text-[#0077b6] hover:underline cursor-pointer"
               >
                 <RefreshCw className="h-3 w-3" />
-                <span>Reset</span>
+                <span>Reset All Filters</span>
               </button>
             )}
           </div>
@@ -372,7 +449,7 @@ export function DoctorsPage() {
               No verified doctors match your criteria
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              We are actively verifying additional consultants across cities and hospital networks. Profiles are published only after statutory council confirmation.
+              Try choosing another city, clinical speciality, or consulting hospital.
             </p>
           </div>
           <Button onClick={resetFilters} variant="outline" size="sm" className="gap-2">
