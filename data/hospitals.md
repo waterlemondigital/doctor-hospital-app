@@ -25,7 +25,7 @@ This file follows the Markdown structure supplied in the sample. Each hospital i
 
 #### Relations
 - **Connected Doctors**: Dr. Rashida Patanwala Melinkeri, Dr. Shilpa Naik, Dr. Abhijeet Palshikar
-- **Connected Laboratories**: Apollo Diagnostics Central Reference Laboratory, Metropolis Healthcare Regional Reference Laboratory
+- **Connected Laboratories**: Not populated; verify official relationship first.
 
 ### Overview
 Sahyadri Super Speciality Hospital, Deccan Gymkhana is the flagship quaternary-care hospital of Western India. It houses dedicated centers of excellence for cardiology, neurosciences, organ transplants, orthopaedics, and critical care.
@@ -72,7 +72,7 @@ Sahyadri Super Speciality Hospital, Deccan Gymkhana is the flagship quaternary-c
 
 #### Relations
 - **Connected Doctors**: Dr. Haridas B. Prasad, Dr. Anita Bawaswraj, Dr. Sonali P. Salvi
-- **Connected Laboratories**: Metropolis Healthcare Regional Reference Laboratory
+- **Connected Laboratories**: Not populated; verify official relationship first.
 
 ### Overview
 Sassoon General Hospital is a historic 1,296-bed public tertiary teaching hospital affiliated with B.J. Government Medical College. Founded in 1867, it provides comprehensive subsidised and free clinical healthcare across all medical and surgical sub-specialities.
@@ -223,7 +223,7 @@ Longstanding multispeciality tertiary-care centre in central Pune. The official 
 
 #### Relations
 - **Connected Doctors**: Dr. Hemant Wakankar, Dr. Anand Shinde, Dr. Asha Gokhale
-- **Connected Laboratories**: Not populated; verify official relationship first.
+- **Connected Laboratories**: Deenanath Mangeshkar Hospital — Pathology Laboratory
 
 ### Overview
 Charitable multispeciality hospital in Erandwane. Its official website describes an 800-bed hospital with diagnostic, therapeutic and intensive-care services.

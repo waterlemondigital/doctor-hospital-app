@@ -44,14 +44,14 @@ In `hospitals.md`, you can also list the doctors:
 In `doctors.md`:
 ```markdown
 #### Laboratory Affiliations
-- **Connected Laboratories**: Apollo Diagnostics Central Reference Laboratory, Metropolis Healthcare Regional Reference Laboratory
+- **Connected Laboratories**: <Laboratory Name, e.g. Deenanath Mangeshkar Hospital — Pathology Laboratory>
 ```
 
 In `laboratories.md`:
 ```markdown
 #### Relations
-- **Connected Hospitals**: Sahyadri Super Speciality Hospital, Sassoon General Hospital & B.J. Government Medical College
-- **Connected Doctors**: Dr. Charulata Bapaye, Dr. Sudhir Kothari
+- **Connected Hospitals**: <Hospital Name, e.g. Deenanath Mangeshkar Hospital & Research Center>
+- **Connected Doctors**: <Doctor Name>
 ```
 
 ### 3. Wellness Centers (Standalone)

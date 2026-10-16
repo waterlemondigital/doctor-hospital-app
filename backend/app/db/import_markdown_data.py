@@ -315,15 +315,21 @@ async def import_data(
 
         def resolve_hosp(ref: str) -> str | None:
             c = ref.strip().lower()
+            if not c or any(neg in c for neg in ["no formal", "not populated", "not specified", "verify official"]):
+                return None
+            c_norm = c.replace("&", "and").replace("-", " ")
             if c in hosp_lookup:
                 return hosp_lookup[c]
             for k, v in hosp_lookup.items():
-                if c in k or k in c:
+                k_norm = k.replace("&", "and").replace("-", " ")
+                if c_norm in k_norm or k_norm in c_norm:
                     return v
             return None
 
         def resolve_doc(ref: str) -> str | None:
             c = ref.strip().lower()
+            if not c or any(neg in c for neg in ["no formal", "not populated", "not specified"]):
+                return None
             if c in doc_lookup:
                 return doc_lookup[c]
             for k, v in doc_lookup.items():
@@ -333,10 +339,14 @@ async def import_data(
 
         def resolve_lab(ref: str) -> str | None:
             c = ref.strip().lower()
+            if not c or any(neg in c for neg in ["no formal", "not populated", "not specified", "verify official"]):
+                return None
+            c_norm = c.replace("&", "and").replace("-", " ")
             if c in lab_lookup:
                 return lab_lookup[c]
             for k, v in lab_lookup.items():
-                if c in k or k in c:
+                k_norm = k.replace("&", "and").replace("-", " ")
+                if c_norm in k_norm or k_norm in c_norm:
                     return v
             return None
 

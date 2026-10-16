@@ -82,13 +82,9 @@ export function LaboratoriesPage() {
     // 3. Home Sample Collection Filter
     if (selectedCollection !== 'all') {
       const hasCollection =
-        lab.overview.toLowerCase().includes('home sample collection') ||
-        lab.services.some((s) => s.toLowerCase().includes('home collection')) ||
-        lab.name.toLowerCase().includes('lal') ||
-        lab.name.toLowerCase().includes('metropolis') ||
-        lab.name.toLowerCase().includes('apollo') ||
-        lab.name.toLowerCase().includes('suburban') ||
-        lab.name.toLowerCase().includes('ag diagnostics');
+        lab.homeSampleCollection ??
+        (lab.overview.toLowerCase().includes('home sample collection') ||
+          lab.services.some((s) => s.toLowerCase().includes('home collection')));
 
       if (selectedCollection === 'home' && !hasCollection) {
         return false;

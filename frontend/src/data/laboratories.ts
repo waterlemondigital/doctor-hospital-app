@@ -43,6 +43,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: This is one brand-level record only. Do not create separate Balewadi and Baner records unless the product later requires branch-level listings."
     ],
+    "accreditation": "Verify NABL accreditation and scope for the exact processing laboratory and test",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.lalpathlabs.com/",
     "phone": "Use official website / centre locator to confirm current Pune contact details",
@@ -102,6 +104,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Use a single brand-level record, not separate records for each collection point."
     ],
+    "accreditation": "NABL accreditation stated by provider; verify current certificate and scope",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.agdiagnostics.com/",
     "phone": "Use official website to confirm current phone and address details",
@@ -161,6 +165,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Use one canonical brand-level record. Confirm a real operating Pune address before import."
     ],
+    "accreditation": "Verify accreditation and scope for the exact processing laboratory and test",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.metropolisindia.com/",
     "phone": "Use official website / centre locator to confirm current Pune contact details",
@@ -225,6 +231,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Brand-level record only; verify current Pune location and services."
     ],
+    "accreditation": "Provider publishes accreditation information; verify current certificate and test-specific scope",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.suburbandiagnostics.com/accreditation",
     "phone": "Use official website contact channel",
@@ -284,6 +292,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: One canonical brand-level entry; do not duplicate by Wagholi or other localities."
     ],
+    "accreditation": "Verify accreditation and scope for the exact processing laboratory and test",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://apollodiagnostics.in/",
     "phone": "Use official website / centre locator to confirm current Pune number",
@@ -353,6 +363,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Hospital laboratory rather than a chain branch."
     ],
+    "accreditation": "Hospital reports NABL accreditation history; verify current certificate and scope",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.dmhospital.org/specialty-details/PATHOLOGY",
     "phone": "Use official hospital contact channels",
@@ -437,6 +449,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Hospital laboratory rather than a chain branch."
     ],
+    "accreditation": "NABL accreditation stated by hospital; verify current certificate and scope",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://bharatihospital.com/center-of-excellence/pathology/",
     "phone": "Use official hospital contact channels",
@@ -496,6 +510,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Single provider record; confirm exact operating address before publishing."
     ],
+    "accreditation": "Accreditation not confirmed from source reviewed",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.google.com/maps/search/?api=1&query=Vijaya+PH+Diagnostic+Centre+Pune",
     "phone": "Confirm current contact through official listing",
@@ -560,6 +576,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Single provider record; confirm current address and services."
     ],
+    "accreditation": "Accreditation not confirmed from source reviewed",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.google.com/maps/search/?api=1&query=Texas+Imaging+and+Labs+Pune",
     "phone": "Confirm current contact via provider",
@@ -634,6 +652,8 @@ export const LABORATORIES_DATA: Hospital[] = [
       "Confirm exact tests, equipment, opening hours, sample collection and reporting options directly with the provider.",
       "**Data note**: Single provider record; confirm current address and available services."
     ],
+    "accreditation": "Accreditation not confirmed from source reviewed",
+    "homeSampleCollection": false,
     "emergencyAvailable24x7": false,
     "website": "https://www.pioneerdiagnostics.in/",
     "phone": "Use official website contact channels",

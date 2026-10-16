@@ -59,16 +59,12 @@ export function LaboratoryDetailPage() {
     );
   }
 
-  // Find connected hospitals based on relations or name matching
+  // Find connected hospitals based on relations or name matching (e.g. Deenanath Mangeshkar Hospital)
   const connectedHospitals = HOSPITALS_DATA.filter((h) => {
     const labName = laboratory.name.toLowerCase();
     const hospName = h.name.toLowerCase();
-    // E.g. Deenanath Mangeshkar Hospital, Bharati Hospital
     if (labName.includes('deenanath') && hospName.includes('deenanath')) return true;
     if (labName.includes('bharati') && hospName.includes('bharati')) return true;
-    // Known affiliations from dataset: Sahyadri & Sassoon with Apollo & Metropolis
-    if (labName.includes('apollo') && hospName.includes('sahyadri')) return true;
-    if (labName.includes('metropolis') && (hospName.includes('sahyadri') || hospName.includes('sassoon'))) return true;
     return false;
   });
 

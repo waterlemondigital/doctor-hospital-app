@@ -40,6 +40,8 @@ export interface Hospital {
   departments: Department[];
   facilities: string[];
   bedCount?: number;
+  accreditation?: string;
+  homeSampleCollection?: boolean;
   emergencyAvailable24x7: boolean;
   website: string;
   phone: string;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import {
   MapPin,
   ExternalLink,
@@ -40,8 +40,13 @@ export function HospitalDetailPage() {
   const navigate = useNavigate();
   const [isQueryOpen, setIsQueryOpen] = React.useState(false);
 
+  // If a laboratory slug is accessed via /hospitals/:slug, redirect to /laboratories/:slug
   const isLab = LABORATORIES_DATA.some((l) => l.slug === slug);
-  const hospital = HOSPITALS_DATA.find((h) => h.slug === slug) || LABORATORIES_DATA.find((l) => l.slug === slug);
+  if (isLab) {
+    return <Navigate to={`/laboratories/${slug}`} replace />;
+  }
+
+  const hospital = HOSPITALS_DATA.find((h) => h.slug === slug);
 
   if (!hospital) {
     return (
@@ -93,9 +98,7 @@ export function HospitalDetailPage() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to={isLab ? "/laboratories" : "/hospitals"}>
-                {isLab ? "Laboratories" : "Hospitals"}
-              </Link>
+              <Link to="/hospitals">Hospitals</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

@@ -217,6 +217,8 @@ async def sync():
                 "services": l.services or [],
                 "departments": depts,
                 "facilities": l.facilities or [],
+                "accreditation": l.accreditation or "",
+                "homeSampleCollection": bool(l.home_sample_collection),
                 "emergencyAvailable24x7": bool(l.emergency_available_24x7),
                 "website": l.website or "",
                 "phone": l.phone or "",
