@@ -1,5 +1,5 @@
-from typing import Callable, List
-from fastapi import Depends, HTTPException, status
+from typing import Callable, List, Optional
+from fastapi import Depends, HTTPException, Request, Response, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -7,12 +7,40 @@ from sqlalchemy import select
 from app.db.postgres import get_db
 from app.core.security import decode_access_token
 from app.models.user import User
-from app.schemas.token import TokenPayload
 
+# OAuth2 fallback for swagger / explicit Authorization header
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
 
+async def get_current_user_optional(
+    request: Request,
+    header_token: Optional[str] = Depends(oauth2_scheme),
+    db: AsyncSession = Depends(get_db),
+) -> Optional[User]:
+    """
+    Extract access token preferentially from HttpOnly cookie 'access_token',
+    falling back to Authorization Bearer header. Returns None if unauthenticated.
+    """
+    token = request.cookies.get("access_token") or header_token
+    if not token:
+        return None
+
+    payload = decode_access_token(token)
+    if not payload:
+        return None
+
+    user_id: str = payload.get("sub")
+    if not user_id:
+        return None
+
+    query = select(User).where(User.id == user_id)
+    result = await db.execute(query)
+    user = result.scalar_one_or_none()
+    return user
+
+
 async def get_current_user(
-    token: str = Depends(oauth2_scheme),
+    request: Request,
+    header_token: Optional[str] = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db),
 ) -> User:
     credentials_exception = HTTPException(
@@ -20,6 +48,8 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+    token = request.cookies.get("access_token") or header_token
     if not token:
         raise credentials_exception
 
@@ -39,6 +69,7 @@ async def get_current_user(
         raise credentials_exception
     return user
 
+
 async def get_current_active_user(
     current_user: User = Depends(get_current_user),
 ) -> User:
@@ -49,12 +80,17 @@ async def get_current_active_user(
         )
     return current_user
 
+
 def require_role(allowed_roles: List[str]) -> Callable:
+    """
+    Dependency factory to enforce role-based access control (RBAC).
+    e.g. require_role(['doctor']), require_role(['patient', 'doctor'])
+    """
     async def role_checker(current_user: User = Depends(get_current_active_user)) -> User:
         if current_user.role not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail=f"Operation not permitted. Required roles: {allowed_roles}",
+                detail=f"Operation not permitted. Required roles: {allowed_roles}. Your role: {current_user.role}",
             )
         return current_user
     return role_checker

@@ -7,7 +7,13 @@ class Token(BaseModel):
     token_type: str = "bearer"
     user: UserRead
 
+class AuthResponse(BaseModel):
+    status: str = "success"
+    message: str
+    user: UserRead
+
 class TokenPayload(BaseModel):
     sub: Optional[str] = None
     role: Optional[str] = None
+    type: Optional[str] = None
     exp: Optional[int] = None

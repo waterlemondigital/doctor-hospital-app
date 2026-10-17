@@ -13,6 +13,7 @@ class User(Base):
     role = Column(String(50), nullable=False, default="patient")  # 'patient', 'doctor', 'admin'
     phone = Column(String(50), nullable=True)
     avatar = Column(Text, nullable=True)
+    hashed_refresh_token = Column(String(255), nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
     is_verified = Column(Boolean, default=False, nullable=False)
     

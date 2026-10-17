@@ -1,19 +1,23 @@
 import * as React from 'react';
+import {
+  User as AuthUser,
+  SignupPayload,
+  LoginPayload,
+  loginUser,
+  signupUser,
+  logoutUser,
+  getCurrentUser,
+  refreshSession,
+} from '../api/auth';
 
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  role: 'patient' | 'doctor' | 'admin';
-  phone?: string;
-  avatar?: string;
-}
+export type { AuthUser };
 
 interface AuthContextType {
   user: AuthUser | null;
-  login: (email: string, role?: 'patient' | 'doctor', name?: string) => void;
-  signup: (data: { name: string; email: string; phone?: string; role: 'patient' | 'doctor' }) => void;
-  logout: () => void;
+  isLoading: boolean;
+  login: (payload: LoginPayload) => Promise<AuthUser>;
+  signup: (payload: SignupPayload) => Promise<AuthUser>;
+  logout: () => Promise<void>;
   isAuthDialogOpen: boolean;
   authDialogMode: 'login' | 'signup';
   openAuthDialog: (mode?: 'login' | 'signup') => void;
@@ -22,23 +26,38 @@ interface AuthContextType {
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'punemed_auth_user';
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<AuthUser | null>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch {
-      // Ignore parsing errors
-    }
-    return null;
-  });
-
+  const [user, setUser] = React.useState<AuthUser | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [isAuthDialogOpen, setIsAuthDialogOpen] = React.useState(false);
   const [authDialogMode, setAuthDialogMode] = React.useState<'login' | 'signup'>('login');
+
+  // Verify session on initial load via /auth/me, automatically falling back to /auth/refresh
+  React.useEffect(() => {
+    let isMounted = true;
+
+    async function initializeSession() {
+      try {
+        const currentUser = await getCurrentUser();
+        if (isMounted) setUser(currentUser);
+      } catch (err) {
+        // If access token expired or not set, try refreshing with the 7-day refresh cookie
+        try {
+          const refreshed = await refreshSession();
+          if (isMounted) setUser(refreshed.user);
+        } catch {
+          if (isMounted) setUser(null);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+
+    initializeSession();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const openAuthDialog = React.useCallback((mode: 'login' | 'signup' = 'login') => {
     setAuthDialogMode(mode);
@@ -49,55 +68,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthDialogOpen(false);
   }, []);
 
-  const login = React.useCallback((email: string, role: 'patient' | 'doctor' = 'patient', name?: string) => {
-    const determinedName =
-      name ||
-      (role === 'doctor'
-        ? 'Dr. Rajesh Deshmukh'
-        : email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1) || 'Pune Resident');
-
-    const newUser: AuthUser = {
-      id: `usr_${Date.now()}`,
-      name: determinedName,
-      email,
-      role,
-      avatar: undefined,
-    };
-
-    setUser(newUser);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-    } catch {
-      // storage unavailable
-    }
+  const login = React.useCallback(async (payload: LoginPayload): Promise<AuthUser> => {
+    const res = await loginUser(payload);
+    setUser(res.user);
     setIsAuthDialogOpen(false);
+    return res.user;
   }, []);
 
-  const signup = React.useCallback((data: { name: string; email: string; phone?: string; role: 'patient' | 'doctor' }) => {
-    const newUser: AuthUser = {
-      id: `usr_${Date.now()}`,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      role: data.role,
-      avatar: undefined,
-    };
-
-    setUser(newUser);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-    } catch {
-      // storage unavailable
-    }
+  const signup = React.useCallback(async (payload: SignupPayload): Promise<AuthUser> => {
+    const res = await signupUser(payload);
+    setUser(res.user);
     setIsAuthDialogOpen(false);
+    return res.user;
   }, []);
 
-  const logout = React.useCallback(() => {
-    setUser(null);
+  const logout = React.useCallback(async () => {
     try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // storage unavailable
+      await logoutUser();
+    } catch (e) {
+      console.warn('Logout request failed:', e);
+    } finally {
+      setUser(null);
     }
   }, []);
 
@@ -105,6 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
+        isLoading,
         login,
         signup,
         logout,

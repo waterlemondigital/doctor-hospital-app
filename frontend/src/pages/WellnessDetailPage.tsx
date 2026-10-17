@@ -329,7 +329,7 @@ export function WellnessDetailPage() {
             </div>
 
             {/* Website */}
-            {center.website && (
+            {/* {center.website && (
               <div className="space-y-1 text-xs">
                 <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">
                   Official Website
@@ -345,7 +345,7 @@ export function WellnessDetailPage() {
                   <ExternalLink className="h-3 w-3 shrink-0 ml-0.5" />
                 </a>
               </div>
-            )}
+            )} */}
 
             {/* Google Maps Button */}
             {center.mapsUrl && (

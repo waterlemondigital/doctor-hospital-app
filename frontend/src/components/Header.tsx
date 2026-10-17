@@ -88,28 +88,30 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-[#90e0ef]/60 bg-white/95 backdrop-blur-md shadow-2xs">
-        <div className="w-full flex h-16 items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-14">
-          {/* Zone 1: Brand Wordmark */}
+        <div className="w-full flex h-20 items-center justify-between gap-3 sm:gap-6 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-14">
+          {/* Zone 1: Brand Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-[#03045e] hover:text-[#0077b6] transition-colors whitespace-nowrap shrink-0"
+            className="flex items-center transition-opacity hover:opacity-90 shrink-0"
+            aria-label="MedVexa Home"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#0077b6] to-[#03045e] text-white shadow-xs">
-              <HeartPulse className="h-5 w-5 text-[#90e0ef]" />
-            </div>
-            <span>{SITE_NAME}</span>
+            <img
+              src="/images/logo.png"
+              alt="MedVexa"
+              className="h-12 sm:h-13 md:h-14 w-auto object-contain"
+            />
           </Link>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs 2xl:text-sm font-semibold text-slate-600">
+          <nav className="hidden xl:flex items-center gap-6 2xl:gap-8 text-sm 2xl:text-base font-semibold text-slate-700">
             {mainNavLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative py-1 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] ${
+                className={`relative py-1.5 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] ${
                   isActive(link.path)
                     ? 'text-[#0077b6] font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#0077b6] after:rounded-full'
-                    : 'text-slate-600'
+                    : 'text-slate-700'
                 }`}
               >
                 {link.label}
@@ -212,10 +214,10 @@ export function Header() {
             {/* About Link */}
             <Link
               to="/about"
-              className={`relative py-1 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] ${
+              className={`relative py-1.5 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] ${
                 isActive('/about')
                   ? 'text-[#0077b6] font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#0077b6] after:rounded-full'
-                  : 'text-slate-600'
+                  : 'text-slate-700'
               }`}
             >
               About
@@ -223,15 +225,15 @@ export function Header() {
           </nav>
 
           {/* Zone 3: Search Action, Auth Buttons & Mobile Trigger */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
             {/* Search Trigger Button */}
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-500 hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 hover:text-[#03045e] transition-all cursor-pointer shadow-2xs"
+              className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs sm:text-sm font-medium text-slate-500 hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 hover:text-[#03045e] transition-all cursor-pointer shadow-2xs"
               aria-label="Open search modal"
             >
-              <Search className="h-4 w-4 text-[#0077b6]" />
+              <Search className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-[#0077b6]" />
               <span className="hidden sm:inline">Search directory...</span>
               <kbd className="hidden xl:inline-flex h-5 items-center gap-0.5 rounded border border-slate-300 bg-white px-1.5 font-mono text-[10px] text-slate-400">
                 ⌘K
@@ -245,21 +247,21 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-[#03045e] hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 transition-all cursor-pointer shadow-2xs"
+                  className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-[#03045e] hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 transition-all cursor-pointer shadow-2xs"
                 >
                 {user.avatar ? (
                   <img
                     src={user.avatar}
                     alt={user.name}
-                    className="h-6 w-6 rounded-full object-cover border border-[#0077b6]"
+                    className="h-7 w-7 rounded-full object-cover border border-[#0077b6]"
                   />
                 ) : (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#caf0f8] text-[11px] font-bold text-[#0077b6] border border-[#0077b6]">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#caf0f8] text-xs font-bold text-[#0077b6] border border-[#0077b6]">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                 )}
-                <span className="hidden sm:inline max-w-[100px] truncate">{user.name}</span>
-                <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+                <span className="hidden sm:inline max-w-[120px] truncate">{user.name}</span>
+                <ChevronDown className="h-4 w-4 text-slate-400" />
                 </button>
 
                 {/* Dropdown Menu */}
@@ -289,17 +291,17 @@ export function Header() {
               </div>
             ) : (
               /* Non-authenticated Auth Controls */
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 {/* Thin divider */}
-                <div className="hidden sm:block h-4 w-px bg-slate-200 mx-0.5" />
+                <div className="hidden sm:block h-5 w-px bg-slate-200 mx-1" />
 
                 {/* Log In Button */}
                 <button
                   type="button"
                   onClick={() => openAuth('login')}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:text-[#0077b6] hover:bg-[#caf0f8]/40 rounded-xl border border-transparent hover:border-[#90e0ef]/50 transition-all cursor-pointer whitespace-nowrap"
+                  className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-[#0077b6] hover:bg-[#caf0f8]/40 rounded-xl border border-transparent hover:border-[#90e0ef]/50 transition-all cursor-pointer whitespace-nowrap"
                 >
-                  <LogIn className="h-3.5 w-3.5 text-slate-500" />
+                  <LogIn className="h-4 w-4 text-slate-500" />
                   <span>Log In</span>
                 </button>
 
@@ -307,9 +309,9 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => openAuth('signup')}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-[#0077b6] to-[#03045e] hover:from-[#023e8a] hover:to-[#03045e] rounded-xl shadow-xs hover:shadow transition-all cursor-pointer whitespace-nowrap"
+                  className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#0077b6] to-[#03045e] hover:from-[#023e8a] hover:to-[#03045e] rounded-xl shadow-xs hover:shadow transition-all cursor-pointer whitespace-nowrap"
                 >
-                  <UserPlus className="h-3.5 w-3.5 text-[#90e0ef]" />
+                  <UserPlus className="h-4 w-4 text-[#90e0ef]" />
                   <span>Sign Up</span>
                 </button>
 
@@ -317,10 +319,10 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => openAuth('login')}
-                  className="sm:hidden flex items-center justify-center h-9 w-9 rounded-xl border border-slate-200 text-slate-700 hover:bg-[#caf0f8]/40 hover:text-[#0077b6] transition-colors cursor-pointer"
+                  className="sm:hidden flex items-center justify-center h-10 w-10 rounded-xl border border-slate-200 text-slate-700 hover:bg-[#caf0f8]/40 hover:text-[#0077b6] transition-colors cursor-pointer"
                   aria-label="Account Login or Signup"
                 >
-                  <User className="h-4 w-4" />
+                  <User className="h-4.5 w-4.5" />
                 </button>
               </div>
             )}
@@ -329,7 +331,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden rounded-xl border border-slate-200 p-2 text-slate-700 hover:bg-[#caf0f8]/50 hover:text-[#03045e] transition-colors cursor-pointer"
+              className="lg:hidden rounded-xl border border-slate-200 p-2.5 text-slate-700 hover:bg-[#caf0f8]/50 hover:text-[#03045e] transition-colors cursor-pointer"
               aria-label="Open mobile navigation menu"
             >
               <Menu className="h-5 w-5" />
@@ -348,10 +350,18 @@ export function Header() {
       <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} side="right">
         <div className="flex flex-col h-full pt-6">
           <div className="flex items-center gap-2 pb-5 border-b border-slate-100">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0077b6] text-white">
-              <HeartPulse className="h-4 w-4 text-[#90e0ef]" />
-            </div>
-            <span className="font-extrabold text-lg text-[#03045e]">{SITE_NAME}</span>
+            <Link
+              to="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center"
+              aria-label="MedVexa Home"
+            >
+              <img
+                src="/images/logo.png"
+                alt="MedVexa"
+                className="h-8 w-auto object-contain"
+              />
+            </Link>
           </div>
 
           {/* Mobile Auth Smart Bar */}

@@ -24,6 +24,7 @@ import { HospitalCard } from '../components/HospitalCard';
 import { DoctorCard } from '../components/DoctorCard';
 import { AdSlot } from '../components/AdSlot';
 import { MultiSpecialtySection } from '../components/MultiSpecialtySection';
+import { HeroInquiryForm } from '../components/HeroInquiryForm';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
 
@@ -161,25 +162,29 @@ export function HomePage() {
           <div className="absolute -left-20 bottom-0 h-48 w-48 rounded-full bg-[#00b4d8]/15 blur-2xl pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
-          <a
-            href={CONTACT_PHONE_CALL_HREF}
-            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1 text-xs font-bold text-[#0077b6] border border-[#90e0ef] shadow-2xs hover:bg-white transition-colors"
-          >
-            <Phone className="h-4 w-4 text-[#0077b6]" />
-            <span>{CONTACT_PHONE}</span>
-          </a>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Column: Shifted to Left Alignment */}
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
+            <div>
+              <a
+                href={CONTACT_PHONE_CALL_HREF}
+                className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1 text-xs font-bold text-[#0077b6] border border-[#90e0ef] shadow-2xs hover:bg-white transition-colors"
+              >
+                <Phone className="h-4 w-4 text-[#0077b6]" />
+                <span>{CONTACT_PHONE}</span>
+              </a>
+            </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#03045e] leading-tight text-balance">
-            {SITE_TAGLINE}
-          </h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#03045e] leading-tight text-balance">
+              {SITE_TAGLINE}
+            </h1>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-balance max-w-2xl mx-auto">
-            {SITE_SUBTITLE}
-          </p>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-balance max-w-xl">
+              {SITE_SUBTITLE}
+            </p>
 
-          {/* Large Search Bar with Live Suggestions */}
-          <div ref={searchContainerRef} className="relative z-30 max-w-3xl mx-auto">
+            {/* Large Search Bar with Live Suggestions */}
+            <div ref={searchContainerRef} className="relative z-30 w-full max-w-2xl">
             <form
               onSubmit={handleSearchSubmit}
               className="flex flex-col sm:flex-row items-stretch gap-2.5 bg-white p-2 rounded-2xl border-2 border-[#90e0ef] shadow-md focus-within:border-[#0077b6] transition-colors"
@@ -378,21 +383,27 @@ export function HomePage() {
             )}
           </div>
 
-          {/* Interactive Speciality Filter Chips (Confirmed in Phase 1) */}
-          <div className="pt-2">
-            <div className="flex items-center justify-center gap-1.5 flex-wrap text-xs">
-              <span className="text-slate-500 font-medium mr-1">Popular Specialities:</span>
-              {SPECIALITIES_DATA.slice(0, 4).map((spec) => (
-                <button
-                  key={spec.id}
-                  type="button"
-                  onClick={() => navigate(`/doctors?speciality=${encodeURIComponent(spec.name)}`)}
-                  className="rounded-lg bg-white/90 border border-slate-200 hover:border-[#0077b6] hover:bg-[#caf0f8] px-2.5 py-1 text-xs font-medium text-[#03045e] transition-all cursor-pointer shadow-2xs"
-                >
-                  {spec.name}
-                </button>
-              ))}
+            {/* Interactive Speciality Filter Chips */}
+            <div className="pt-2">
+              <div className="flex items-center justify-start gap-1.5 flex-wrap text-xs">
+                <span className="text-slate-500 font-medium mr-1">Popular Specialities:</span>
+                {SPECIALITIES_DATA.slice(0, 4).map((spec) => (
+                  <button
+                    key={spec.id}
+                    type="button"
+                    onClick={() => navigate(`/doctors?speciality=${encodeURIComponent(spec.name)}`)}
+                    className="rounded-lg bg-white/90 border border-slate-200 hover:border-[#0077b6] hover:bg-[#caf0f8] px-2.5 py-1 text-xs font-medium text-[#03045e] transition-all cursor-pointer shadow-2xs"
+                  >
+                    {spec.name}
+                  </button>
+                ))}
+              </div>
             </div>
+          </div>
+
+          {/* Right Column: Hero Consultation Inquiry Form */}
+          <div className="lg:col-span-5 w-full">
+            <HeroInquiryForm />
           </div>
         </div>
       </section>

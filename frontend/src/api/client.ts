@@ -48,6 +48,7 @@ export async function apiFetch<T>(endpoint: string, options?: ApiFetchOptions): 
   const executeFetch = async (): Promise<T> => {
     try {
       const response = await fetch(url, {
+        credentials: options?.credentials ?? 'include',
         headers: {
           'Content-Type': 'application/json',
           ...options?.headers,

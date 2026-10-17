@@ -2,7 +2,7 @@
  * Site-wide branding and operational constants.
  * Modify SITE_NAME here to update the name everywhere across the app.
  */
-export const SITE_NAME = "HealthDiscover";
+export const SITE_NAME = "MedVexa";
 export const SITE_TAGLINE = "Find hospitals and doctors, with information you can check";
 export const SITE_SUBTITLE = "Objective, verified healthcare directory starting in Pune, Maharashtra. No star ratings, no ranking bias, and no diagnosis tools.";
 

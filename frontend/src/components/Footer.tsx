@@ -11,11 +11,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Brand & Purpose */}
           <div className="space-y-4 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-white">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0077b6] text-white">
-                <HeartPulse className="h-4 w-4 text-[#caf0f8]" />
-              </div>
-              <span>{SITE_NAME}</span>
+            <Link
+              to="/"
+              className="inline-flex items-center bg-white px-3 py-1.5 rounded-xl shadow-xs hover:bg-slate-50 transition-colors"
+              aria-label="MedVexa Home"
+            >
+              <img
+                src="/images/logo.png"
+                alt="MedVexa"
+                className="h-7 w-auto object-contain"
+              />
             </Link>
             <p className="text-xs text-[#caf0f8]/80 leading-relaxed">
               An independent, verified healthcare directory for patients and families. Factual facilities, registered credentials, and zero sponsored rankings.

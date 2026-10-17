@@ -37,7 +37,10 @@ class Settings(BaseSettings):
     # JWT Authentication Configuration
     JWT_SECRET_KEY: str = "replace-this-with-a-secure-random-secret-key"
     JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15  # 15 minutes access token
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7    # 7 days expiry
+    AUTH_COOKIE_SECURE: bool = False      # True in production HTTPS, False for localhost
+    AUTH_COOKIE_SAMESITE: str = "lax"     # 'lax' supports cross-port localhost requests seamlessly
 
     model_config = SettingsConfigDict(
         env_file=(

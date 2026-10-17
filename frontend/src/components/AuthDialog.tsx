@@ -57,40 +57,75 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
     }
   }, [open, initialMode]);
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!loginEmail || !loginPassword) {
       toast.error('Please enter both email and password.');
       return;
     }
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      const isDoctor = loginEmail.toLowerCase().includes('dr') || loginEmail.toLowerCase().includes('doc');
-      login(loginEmail, isDoctor ? 'doctor' : 'patient');
+    try {
+      const user = await login({
+        email: loginEmail.trim(),
+        password: loginPassword,
+      });
       toast.success('Signed in successfully', {
-        description: `Welcome back to Pune Medical Directory!`,
+        description: `Welcome back, ${user.name}! (${user.role === 'doctor' ? 'Verified Physician' : 'Patient'})`,
       });
       onOpenChange(false);
-    }, 400);
-  };
-
-  const handleQuickLogin = (role: 'patient' | 'doctor') => {
-    if (role === 'doctor') {
-      login('dr.rajesh@punemed.in', 'doctor', 'Dr. Rajesh Deshmukh');
-      toast.success('Signed in as Doctor', {
-        description: 'Verified Physician account active.',
+    } catch (err: any) {
+      const msg = err?.message || 'Invalid credentials';
+      toast.error('Login Failed', {
+        description: msg.includes('429')
+          ? 'Too many login attempts. Please wait a minute before trying again.'
+          : msg.includes('401')
+          ? 'Incorrect email or password.'
+          : msg,
       });
-    } else {
-      login('aarav.patil@gmail.com', 'patient', 'Aarav Patil');
-      toast.success('Signed in as Patient / Citizen', {
-        description: 'Member account active.',
-      });
+    } finally {
+      setIsLoading(false);
     }
-    onOpenChange(false);
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleQuickLogin = async (role: 'patient' | 'doctor') => {
+    setIsLoading(true);
+    const demoEmail = role === 'doctor' ? 'doctor.demo@medvexa.in' : 'patient.demo@medvexa.in';
+    const demoPassword = 'Password123!';
+    const demoName = role === 'doctor' ? 'Dr. Rajesh Deshmukh' : 'Aarav Patil';
+
+    try {
+      // First try to login
+      try {
+        const user = await login({ email: demoEmail, password: demoPassword });
+        toast.success(`Signed in as ${role === 'doctor' ? 'Doctor' : 'Patient'}`, {
+          description: `Account verified and active.`,
+        });
+        onOpenChange(false);
+        return;
+      } catch {
+        // If demo user does not exist, auto-create it
+        const newUser = await signup({
+          name: demoName,
+          email: demoEmail,
+          password: demoPassword,
+          role,
+          phone: '+91 78756 57402',
+        });
+        toast.success(`Demo account ready: ${role === 'doctor' ? 'Doctor' : 'Patient'}`, {
+          description: `Welcome ${newUser.name}!`,
+        });
+        onOpenChange(false);
+      }
+    } catch (err: any) {
+      toast.error('Demo Sign-In Failed', {
+        description: err?.message || 'Could not authenticate demo user.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!signupName.trim()) {
       toast.error('Please enter your full name.');
@@ -110,19 +145,30 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      signup({
+    try {
+      const user = await signup({
         name: signupName.trim(),
         email: signupEmail.trim(),
-        phone: signupPhone.trim(),
+        phone: signupPhone.trim() || undefined,
         role: signupRole,
+        password: signupPassword,
       });
       toast.success('Account created successfully!', {
-        description: `Welcome, ${signupName}! You are now signed in.`,
+        description: `Welcome, ${user.name}! Signed in as ${user.role === 'doctor' ? 'Doctor' : 'Patient'}.`,
       });
       onOpenChange(false);
-    }, 450);
+    } catch (err: any) {
+      const msg = err?.message || 'Signup failed';
+      toast.error('Registration Failed', {
+        description: msg.includes('429')
+          ? 'Too many attempts. Rate limit exceeded.'
+          : msg.includes('already exists')
+          ? 'An account with this email already exists. Please log in.'
+          : msg,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleForgotPassword = () => {
