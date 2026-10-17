@@ -173,7 +173,7 @@ export function LaboratoriesPage() {
           <span>Diagnostic Pathology Directory</span>
         </div>
         <h1 className="text-3xl font-extrabold text-[#03045e] tracking-tight">
-          Find Laboratories & Diagnostic Centers in Pune
+          Find Laboratories & Diagnostic Centers
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
           NABL-accredited pathology reference laboratories, automated blood testing centers, and home sample collection facilities in Pune. Factual accreditation dates, verified test categories, and direct lab contacts.

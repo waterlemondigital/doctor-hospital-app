@@ -1,10 +1,14 @@
 import { Phone, MessageSquare, Send, Clock, ShieldCheck } from 'lucide-react';
-import { Button } from './ui/button';
 import { cn } from '../lib/utils';
+import {
+  CONTACT_PHONE,
+  CONTACT_PHONE_CLEAN,
+  CONTACT_WHATSAPP_CLEAN,
+} from '../data/config';
 
 interface ContactActionsBarProps {
-  phone: string;
-  whatsapp: string;
+  phone?: string;
+  whatsapp?: string;
   targetName: string;
   targetType: 'hospital' | 'doctor';
   onOpenQuery: () => void;
@@ -13,19 +17,18 @@ interface ContactActionsBarProps {
 }
 
 export function ContactActionsBar({
-  phone,
-  whatsapp,
   targetName,
   targetType,
   onOpenQuery,
   className,
   stickyOnMobile = true,
 }: ContactActionsBarProps) {
-  const sanitizedPhone = phone.replace(/[^\d+]/g, '');
-  const cleanWaNumber = whatsapp.replace(/[^\d]/g, '');
+  const displayPhone = CONTACT_PHONE;
+  const sanitizedPhone = CONTACT_PHONE_CLEAN;
+  const cleanWaNumber = CONTACT_WHATSAPP_CLEAN;
 
   const waMessage = encodeURIComponent(
-    `Hello, I found your verified listing for ${targetName} on HealthDiscover. I would like to inquire about general consultation and visiting hours. (Non-emergency)`
+    `Hello, I am reaching out regarding ${targetName}. I would like visiting hours, consultation guidance, and appointment details.`
   );
 
   const waUrl = `https://wa.me/${cleanWaNumber}?text=${waMessage}`;
@@ -45,7 +48,7 @@ export function ContactActionsBar({
               Direct Contact & Inquiries
             </h4>
             <p className="text-xs text-slate-500">
-              Official verified desk · No intermediary booking fee
+              Verified support desk · Guidance & visiting hours
             </p>
           </div>
           <ShieldCheck className="h-4 w-4 text-[#0077b6]" />
@@ -62,8 +65,8 @@ export function ContactActionsBar({
               <Phone className="h-4 w-4" />
             </div>
             <div className="text-left min-w-0">
-              <span className="block font-bold text-[#03045e]">Call Official Desk</span>
-              <span className="text-[11px] text-slate-500 font-normal truncate block">{phone}</span>
+              <span className="block font-bold text-[#03045e]">Call Helpline</span>
+              <span className="text-[11px] text-[#0077b6] font-semibold truncate block">{displayPhone}</span>
             </div>
           </a>
 
@@ -79,7 +82,7 @@ export function ContactActionsBar({
             </div>
             <div className="text-left min-w-0">
               <span className="block font-bold text-emerald-950">Message on WhatsApp</span>
-              <span className="text-[11px] text-emerald-700 font-normal truncate block">OPD hours & general inquiries</span>
+              <span className="text-[11px] text-emerald-700 font-semibold truncate block">{displayPhone} · Quick assistance</span>
             </div>
           </a>
 
@@ -94,14 +97,14 @@ export function ContactActionsBar({
             </div>
             <div className="text-left min-w-0">
               <span className="block font-bold text-white">Send a Non-Clinical Query</span>
-              <span className="text-[11px] text-[#caf0f8] font-normal truncate block">Submit question to hospital helpdesk</span>
+              <span className="text-[11px] text-[#caf0f8] font-normal truncate block">Submit inquiry to our verified desk</span>
             </div>
           </button>
         </div>
 
         <div className="flex items-center gap-1.5 text-[11px] text-slate-500 pt-1">
           <Clock className="h-3 w-3 text-slate-400 shrink-0" />
-          <span>General inquiries answered during business hours (09:00 - 18:00 IST).</span>
+          <span>Inquiries answered during business hours (09:00 - 18:00 IST).</span>
         </div>
       </div>
 

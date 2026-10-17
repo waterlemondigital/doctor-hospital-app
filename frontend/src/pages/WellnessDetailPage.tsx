@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Building2,
   Navigation,
+  MessageSquare,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { fetchWellnessCenterBySlug } from '../api/wellness';
@@ -301,25 +302,31 @@ export function WellnessDetailPage() {
               </p>
             </div>
 
-            {/* Telephone */}
-            {center.phone && (
-              <div className="space-y-1 text-xs">
-                <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">
-                  Phone
-                </span>
-                {center.phone.startsWith('+') ? (
-                  <a
-                    href={`tel:${center.phone.replace(/[^0-9+]/g, '')}`}
-                    className="flex items-center gap-2 text-sm font-bold text-[#0077b6] hover:underline"
-                  >
-                    <Phone className="h-4 w-4" />
-                    <span>{center.phone}</span>
-                  </a>
-                ) : (
-                  <p className="text-slate-600 text-xs">{center.phone}</p>
-                )}
-              </div>
-            )}
+            {/* Telephone & WhatsApp */}
+            <div className="space-y-2 text-xs">
+              <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">
+                Phone & WhatsApp
+              </span>
+              <a
+                href={`tel:${center.phone.replace(/[^0-9+]/g, '')}`}
+                className="flex items-center gap-2 text-sm font-bold text-[#0077b6] hover:underline"
+              >
+                <Phone className="h-4 w-4" />
+                <span>{center.phone}</span>
+              </a>
+
+              <a
+                href={`https://wa.me/${center.whatsapp.replace(/[^\d]/g, '')}?text=${encodeURIComponent(
+                  `Hello, I would like visiting hours and booking information for ${center.name}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 border border-emerald-200 hover:bg-emerald-100 transition-colors w-full justify-center"
+              >
+                <MessageSquare className="h-3.5 w-3.5 text-emerald-600" />
+                <span>Message on WhatsApp</span>
+              </a>
+            </div>
 
             {/* Website */}
             {center.website && (

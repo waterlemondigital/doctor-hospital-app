@@ -14,7 +14,7 @@ import {
   X,
   Stethoscope,
 } from 'lucide-react';
-import { SITE_NAME, SITE_TAGLINE, SITE_SUBTITLE } from '../data/config';
+import { SITE_NAME, SITE_TAGLINE, SITE_SUBTITLE, CONTACT_PHONE, CONTACT_PHONE_CALL_HREF } from '../data/config';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
 import { Hospital, Doctor } from '../types';
 import { SPECIALITIES_DATA } from '../data/specialities';
@@ -23,6 +23,7 @@ import { fetchDoctors } from '../api/doctors';
 import { HospitalCard } from '../components/HospitalCard';
 import { DoctorCard } from '../components/DoctorCard';
 import { AdSlot } from '../components/AdSlot';
+import { MultiSpecialtySection } from '../components/MultiSpecialtySection';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
 
@@ -162,11 +163,11 @@ export function HomePage() {
 
         <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
           <a
-            href="tel:+911234567890"
+            href={CONTACT_PHONE_CALL_HREF}
             className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1 text-xs font-bold text-[#0077b6] border border-[#90e0ef] shadow-2xs hover:bg-white transition-colors"
           >
             <Phone className="h-4 w-4 text-[#0077b6]" />
-            <span>+91 - 1234567890</span>
+            <span>{CONTACT_PHONE}</span>
           </a>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#03045e] leading-tight text-balance">
@@ -396,6 +397,9 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Multi-Specialty Focus Section */}
+      <MultiSpecialtySection />
+
       {/* 2. Location Selector Section */}
       <section className="rounded-2xl border border-[#90e0ef]/70 bg-white p-5 sm:p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -556,10 +560,10 @@ export function HomePage() {
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0077b6]">
               <UserRound className="h-3.5 w-3.5" />
-              <span>Consultants & Specialists</span>
+              <span>Doctors & Specialists</span>
             </div>
             <h2 className="text-2xl font-bold text-[#03045e] mt-0.5">
-              Consulting Doctors at Verified Hospitals
+              Verified Doctors at Listed Hospitals
             </h2>
           </div>
           <Link

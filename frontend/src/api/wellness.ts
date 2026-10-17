@@ -1,5 +1,6 @@
 import { apiFetch } from './client';
 import { WellnessCenter, SourceCitation } from '../types';
+import { CONTACT_PHONE, CONTACT_WHATSAPP } from '../data/config';
 
 interface RawWellnessCenter {
   id: string;
@@ -58,8 +59,8 @@ export function mapWellnessCenter(raw: RawWellnessCenter): WellnessCenter {
     accreditation: raw.accreditation || '',
     overview: raw.overview || '',
     website: raw.website || '',
-    phone: raw.phone || '',
-    whatsapp: raw.whatsapp || '',
+    phone: CONTACT_PHONE,
+    whatsapp: CONTACT_WHATSAPP,
     mapsUrl: raw.maps_url || '',
     verificationStatus: raw.verification_status || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',

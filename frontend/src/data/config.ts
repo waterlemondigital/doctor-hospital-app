@@ -10,3 +10,12 @@ export const EMERGENCY_NUMBER = "112";
 export const AMBULANCE_NUMBER = "108";
 
 export const SUPPORT_EMAIL = "verification@healthdiscover.in";
+
+/**
+ * Universal contact numbers for calls and WhatsApp inquiries across all listings.
+ */
+export const CONTACT_PHONE = "+91 78756 57402";
+export const CONTACT_PHONE_CLEAN = "+917875657402";
+export const CONTACT_PHONE_CALL_HREF = "tel:+917875657402";
+export const CONTACT_WHATSAPP = "+91 78756 57402";
+export const CONTACT_WHATSAPP_CLEAN = "917875657402";

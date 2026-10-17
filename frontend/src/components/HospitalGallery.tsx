@@ -1,6 +1,14 @@
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Building2,
+  LayoutGrid,
+  Image as ImageIcon,
+} from 'lucide-react';
 import { HospitalImage } from '../types';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 interface HospitalGalleryProps {
   images: HospitalImage[];
@@ -8,7 +16,8 @@ interface HospitalGalleryProps {
 }
 
 export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) {
-  const [activeMobileIndex, setActiveMobileIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [viewMode, setViewMode] = React.useState<'featured' | 'grid'>('featured');
   const [failedImages, setFailedImages] = React.useState<Record<number, boolean>>({});
 
   const handleImageError = (index: number) => {
@@ -16,134 +25,190 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
   };
 
   const handleNext = () => {
-    setActiveMobileIndex((prev) => (prev + 1) % images.length);
+    setActiveIndex((prev) => (prev + 1) % images.length);
   };
 
   const handlePrev = () => {
-    setActiveMobileIndex((prev) => (prev - 1 + images.length) % images.length);
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   if (!images || images.length === 0) return null;
 
-  const mainImage = images[0];
-  const sideImages = images.slice(1, 3);
+  const currentImage = images[activeIndex] || images[0];
 
   return (
-    <section aria-label={`Photo gallery of ${hospitalName}`} className="space-y-2">
-      {/* Desktop Layout: 1 Hero + 2 Stacked Side Tiles (Static display - clicking does nothing) */}
-      <div className="hidden md:grid md:grid-cols-3 gap-3 h-[380px] rounded-2xl overflow-hidden border border-[#90e0ef]/70 shadow-xs bg-slate-50 select-none cursor-default">
-        {/* Main Hero Tile (col-span-2) */}
-        <div className="relative md:col-span-2 h-full overflow-hidden bg-slate-100 select-none cursor-default">
-          {failedImages[0] ? (
-            <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-6 text-center text-[#03045e] pointer-events-none">
-              <Building2 className="h-12 w-12 text-[#0077b6] mb-2 opacity-60" />
-              <p className="text-sm font-semibold">{hospitalName}</p>
-              <p className="text-xs text-slate-500">Main Facility View (Placeholder)</p>
-            </div>
-          ) : (
-            <img
-              src={mainImage.url}
-              alt={mainImage.alt}
-              referrerPolicy="no-referrer"
-              draggable={false}
-              onError={() => handleImageError(0)}
-              className="h-full w-full object-cover pointer-events-none select-none cursor-default"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none select-none" />
-          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white pointer-events-none select-none">
-            <span className="text-xs font-medium tracking-wide bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-md">
-              {mainImage.caption || 'Main Entrance'}
-            </span>
+    <section aria-label={`Photo gallery of ${hospitalName}`} className="space-y-3">
+      {/* Gallery Header Controls */}
+      <div className="flex items-center justify-between gap-2 px-1">
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs font-semibold border-[#90e0ef] text-[#0077b6] bg-[#caf0f8]/40">
+            Fixed 16:9
+          </Badge>
+          <span className="text-xs text-slate-500 font-medium">
+            {images.length} Facility Photos
+          </span>
+        </div>
+
+        {images.length > 1 && (
+          <div className="flex items-center gap-1.5">
+            <Button
+              type="button"
+              variant={viewMode === 'featured' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setViewMode('featured')}
+              className={`h-7 px-2.5 text-xs gap-1.5 cursor-pointer ${
+                viewMode === 'featured' ? 'bg-[#0077b6] text-white hover:bg-[#023e8a]' : 'text-slate-600'
+              }`}
+            >
+              <ImageIcon className="h-3.5 w-3.5" />
+              <span>Slideshow</span>
+            </Button>
+            <Button
+              type="button"
+              variant={viewMode === 'grid' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setViewMode('grid')}
+              className={`h-7 px-2.5 text-xs gap-1.5 cursor-pointer ${
+                viewMode === 'grid' ? 'bg-[#0077b6] text-white hover:bg-[#023e8a]' : 'text-slate-600'
+              }`}
+            >
+              <LayoutGrid className="h-3.5 w-3.5" />
+              <span>All 6 Photos (Grid)</span>
+            </Button>
           </div>
-        </div>
-
-        {/* 2 Stacked Side Tiles */}
-        <div className="grid grid-rows-2 gap-3 h-full select-none cursor-default">
-          {sideImages.map((img, idx) => {
-            const actualIndex = idx + 1;
-            return (
-              <div
-                key={actualIndex}
-                className="relative h-full overflow-hidden bg-slate-100 select-none cursor-default"
-              >
-                {failedImages[actualIndex] ? (
-                  <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8]/60 to-slate-100 p-4 text-center text-[#03045e] pointer-events-none">
-                    <Building2 className="h-8 w-8 text-[#0077b6] mb-1 opacity-60" />
-                    <p className="text-xs font-semibold">{img.caption || `View ${actualIndex + 1}`}</p>
-                  </div>
-                ) : (
-                  <img
-                    src={img.url}
-                    alt={img.alt}
-                    referrerPolicy="no-referrer"
-                    draggable={false}
-                    onError={() => handleImageError(actualIndex)}
-                    className="h-full w-full object-cover pointer-events-none select-none cursor-default"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none select-none" />
-                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white pointer-events-none select-none">
-                  <span className="text-xs font-medium bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded-md truncate max-w-[90%]">
-                    {img.caption || `Facility detail ${actualIndex + 1}`}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        )}
       </div>
 
-      {/* Mobile Touch Carousel (Slide switcher only - no lightbox click action) */}
-      <div className="relative md:hidden rounded-2xl overflow-hidden border border-[#90e0ef]/70 shadow-xs bg-slate-100 aspect-16/10">
-        <div className="h-full w-full">
-          {failedImages[activeMobileIndex] ? (
-            <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-6 text-center text-[#03045e]">
-              <Building2 className="h-10 w-10 text-[#0077b6] mb-2 opacity-60" />
-              <p className="text-sm font-semibold">{hospitalName}</p>
-              <p className="text-xs text-slate-500">{images[activeMobileIndex].caption}</p>
+      {viewMode === 'featured' ? (
+        <div className="space-y-3">
+          {/* Main 16:9 Featured Stage */}
+          <div className="relative w-full aspect-video aspect-[16/9] rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-950 select-none group">
+            {failedImages[activeIndex] ? (
+              <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-6 text-center text-[#03045e]">
+                <Building2 className="h-12 w-12 text-[#0077b6] mb-2 opacity-60" />
+                <p className="text-sm font-semibold">{hospitalName}</p>
+                <p className="text-xs text-slate-500">{currentImage.caption || 'Facility Photo'}</p>
+              </div>
+            ) : (
+              <img
+                src={currentImage.url}
+                alt={currentImage.alt || `${hospitalName} - Photo ${activeIndex + 1}`}
+                draggable={false}
+                onError={() => handleImageError(activeIndex)}
+                className="h-full w-full object-cover select-none transition-all duration-300"
+              />
+            )}
+
+            {/* Gradient Scrim & Caption */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+
+            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white pointer-events-none gap-3">
+              <span className="text-xs sm:text-sm font-medium bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 truncate max-w-[80%]">
+                {currentImage.caption || `${hospitalName} Facility Photo`}
+              </span>
+              <span className="text-xs font-mono bg-black/60 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-white/10 shrink-0">
+                {activeIndex + 1} / {images.length}
+              </span>
             </div>
-          ) : (
-            <img
-              src={images[activeMobileIndex].url}
-              alt={images[activeMobileIndex].alt}
-              referrerPolicy="no-referrer"
-              draggable={false}
-              onError={() => handleImageError(activeMobileIndex)}
-              className="h-full w-full object-cover pointer-events-none select-none cursor-default"
-            />
+
+            {/* Nav Arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Previous photo"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white backdrop-blur-md hover:bg-black/80 transition-all shadow-md cursor-pointer opacity-90 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Next photo"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white backdrop-blur-md hover:bg-black/80 transition-all shadow-md cursor-pointer opacity-90 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* 16:9 Thumbnail Strip */}
+          {images.length > 1 && (
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 pt-1">
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveIndex(idx)}
+                  className={`group relative aspect-video aspect-[16/9] rounded-xl overflow-hidden border-2 transition-all cursor-pointer bg-slate-900 ${
+                    activeIndex === idx
+                      ? 'border-[#0077b6] ring-2 ring-[#0077b6]/40 shadow-sm scale-[1.02]'
+                      : 'border-slate-200 hover:border-slate-300 opacity-75 hover:opacity-100'
+                  }`}
+                  aria-label={`View photo ${idx + 1}: ${img.caption || img.alt}`}
+                >
+                  {failedImages[idx] ? (
+                    <div className="flex h-full w-full items-center justify-center bg-slate-100 text-slate-400">
+                      <Building2 className="h-4 w-4" />
+                    </div>
+                  ) : (
+                    <img
+                      src={img.url}
+                      alt={img.alt}
+                      draggable={false}
+                      onError={() => handleImageError(idx)}
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                  <span className="absolute bottom-1 right-1 text-[10px] font-mono bg-black/70 text-white px-1 rounded">
+                    {idx + 1}
+                  </span>
+                </button>
+              ))}
+            </div>
           )}
         </div>
-
-        {/* Gradient Scrim & Caption */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
-        <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white pointer-events-none">
-          <span className="text-xs font-medium bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-md">
-            {images[activeMobileIndex].caption || `Photo ${activeMobileIndex + 1} of ${images.length}`}
-          </span>
-          <span className="text-xs opacity-90 font-mono">
-            {activeMobileIndex + 1} / {images.length}
-          </span>
+      ) : (
+        /* All Photos Grid View - Every photo in fixed 16:9 */
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {images.map((img, idx) => (
+            <div
+              key={idx}
+              onClick={() => {
+                setActiveIndex(idx);
+                setViewMode('featured');
+              }}
+              className="group relative aspect-video aspect-[16/9] rounded-2xl overflow-hidden border border-slate-200 shadow-xs bg-slate-950 cursor-pointer"
+            >
+              {failedImages[idx] ? (
+                <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-4 text-center text-[#03045e]">
+                  <Building2 className="h-8 w-8 text-[#0077b6] mb-1 opacity-60" />
+                  <p className="text-xs font-semibold">{img.caption}</p>
+                </div>
+              ) : (
+                <img
+                  src={img.url}
+                  alt={img.alt}
+                  draggable={false}
+                  onError={() => handleImageError(idx)}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white pointer-events-none">
+                <span className="text-xs font-medium bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md truncate max-w-[80%]">
+                  {img.caption || `Photo ${idx + 1}`}
+                </span>
+                <span className="text-[11px] font-mono opacity-80">
+                  {idx + 1} / {images.length}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
-
-        {/* Carousel controls */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous photo"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-xs hover:bg-black/60 transition-colors cursor-pointer"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next photo"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur-xs hover:bg-black/60 transition-colors cursor-pointer"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
+      )}
     </section>
   );
 }

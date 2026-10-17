@@ -1,5 +1,6 @@
 import { apiFetch } from './client';
 import { Hospital } from '../types';
+import { CONTACT_PHONE, CONTACT_WHATSAPP } from '../data/config';
 
 interface RawHospital {
   id: string;
@@ -78,8 +79,8 @@ export function mapHospital(raw: RawHospital): Hospital {
     bedCount: raw.bed_count,
     emergencyAvailable24x7: raw.emergency_available_24x7 ?? true,
     website: raw.website || '',
-    phone: raw.phone || '',
-    whatsapp: raw.whatsapp || '',
+    phone: CONTACT_PHONE,
+    whatsapp: CONTACT_WHATSAPP,
     mapsUrl: raw.maps_url || '',
     verificationStatus: (raw.verification_status as any) || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',

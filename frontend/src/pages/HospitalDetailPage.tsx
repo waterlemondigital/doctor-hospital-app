@@ -35,6 +35,39 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
 
+const RUBY_HALL_TEMPORARY_IMAGES: HospitalImage[] = [
+  {
+    url: '/images/rubyhall/r1.jpeg',
+    alt: 'Ruby Hall Clinic - Main Campus & Entrance',
+    caption: 'Main Campus & Entrance',
+  },
+  {
+    url: '/images/rubyhall/r2.jpeg',
+    alt: 'Ruby Hall Clinic - Hospital Infrastructure',
+    caption: 'Hospital Infrastructure & Patient Care',
+  },
+  {
+    url: '/images/rubyhall/r3.jpeg',
+    alt: 'Ruby Hall Clinic - Clinical Departments & OPD',
+    caption: 'Clinical Departments & OPD',
+  },
+  {
+    url: '/images/rubyhall/r3.jpg',
+    alt: 'Ruby Hall Clinic - Inpatient & Advanced Medical Complex',
+    caption: 'Inpatient & Advanced Medical Complex',
+  },
+  {
+    url: '/images/rubyhall/r4.jpeg',
+    alt: 'Ruby Hall Clinic - Diagnostic & Imaging Wing',
+    caption: 'Diagnostic & Specialty Wing',
+  },
+  {
+    url: '/images/rubyhall/r5.jpeg',
+    alt: 'Ruby Hall Clinic - Specialty Treatment Facility',
+    caption: 'Specialty Care Wing',
+  },
+];
+
 export function HospitalDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -210,8 +243,18 @@ export function HospitalDetailPage() {
         </div>
       </div>
 
-      {/* Image Gallery (1 Large + 2 Stacked on desktop, carousel on mobile) */}
-      <HospitalGallery images={hospital.images} hospitalName={hospital.name} />
+      {/* Image Gallery */}
+      {(() => {
+        const isRubyHall =
+          hospital.slug === 'ruby-hall-clinic' ||
+          hospital.id === 'ruby_hall_clinic_sassoon_road' ||
+          hospital.name.toLowerCase().includes('ruby hall');
+        const displayImages =
+          isRubyHall && (!hospital.images || hospital.images.length === 0)
+            ? RUBY_HALL_TEMPORARY_IMAGES
+            : hospital.images;
+        return <HospitalGallery images={displayImages} hospitalName={hospital.name} />;
+      })()}
 
       {/* Emergency Guidance Card */}
       <EmergencyNoticeCard />
@@ -354,7 +397,7 @@ export function HospitalDetailPage() {
                             to={`/doctors/${matchingDoctor.slug}`}
                             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0077b6] hover:text-[#03045e] hover:underline"
                           >
-                            <span>Consultant: {matchingDoctor.name}</span>
+                            <span>Doctor: {matchingDoctor.name}</span>
                             <span aria-hidden="true">&rarr;</span>
                           </Link>
                         </div>

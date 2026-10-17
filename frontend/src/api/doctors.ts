@@ -1,5 +1,6 @@
 import { apiFetch } from './client';
 import { Doctor, DoctorHospitalAffiliation } from '../types';
+import { CONTACT_PHONE, CONTACT_WHATSAPP } from '../data/config';
 
 interface RawDoctorAffiliation {
   hospital_id: string;
@@ -78,8 +79,8 @@ export function mapDoctor(raw: RawDoctor): Doctor {
     area: raw.area || 'Pune',
     city: raw.city ? raw.city.charAt(0).toUpperCase() + raw.city.slice(1) : 'Pune',
     state: raw.state || 'Maharashtra',
-    phone: raw.phone || '',
-    whatsapp: raw.whatsapp || '',
+    phone: CONTACT_PHONE,
+    whatsapp: CONTACT_WHATSAPP,
     verificationStatus: (raw.verification_status as any) || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',
     sources,

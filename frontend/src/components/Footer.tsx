@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { HeartPulse, ShieldAlert, Mail, MapPin } from 'lucide-react';
-import { SITE_NAME, SUPPORT_EMAIL } from '../data/config';
+import { HeartPulse, ShieldAlert, Mail, MapPin, Phone } from 'lucide-react';
+import { SITE_NAME, SUPPORT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_CALL_HREF } from '../data/config';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -94,18 +94,27 @@ export function Footer() {
           {/* Contact & Emergency Notice */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#90e0ef]">
-              Editorial Contact
+              Support & Helpdesk
             </h4>
             <p className="text-xs text-white/80 leading-relaxed">
-              Healthcare providers seeking to update statutory registration data:
+              For appointments, facility guidance, and direct inquiries:
             </p>
-            <a
-              href={`mailto:${SUPPORT_EMAIL}`}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#90e0ef] hover:underline"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              <span>{SUPPORT_EMAIL}</span>
-            </a>
+            <div className="flex flex-col gap-2">
+              <a
+                href={CONTACT_PHONE_CALL_HREF}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#90e0ef] hover:underline"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                <span>Call / WhatsApp: {CONTACT_PHONE}</span>
+              </a>
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#90e0ef] hover:underline"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>{SUPPORT_EMAIL}</span>
+              </a>
+            </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-[11px] text-red-200">
               <span className="font-bold text-red-300 flex items-center gap-1 mb-1">
                 <ShieldAlert className="h-3 w-3" /> Urgent Medical Need?

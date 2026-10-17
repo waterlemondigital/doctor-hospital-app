@@ -105,7 +105,7 @@ export function WellnessPage() {
           <span>Holistic Health & Naturopathy Directory</span>
         </div>
         <h1 className="text-3xl font-extrabold text-[#03045e] tracking-tight">
-          Find Wellness Centers & Naturopathy in Pune
+          Find Wellness Centers & Naturopathy
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
           Verified yoga research institutes, accredited naturopathy ashrams, and integrative holistic wellness retreats in Pune and surrounding valleys. Factual facilities and direct contacts fetched live from database.
