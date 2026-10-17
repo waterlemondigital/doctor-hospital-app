@@ -112,7 +112,7 @@ async def sync():
                     })
 
             # Placeholder clean doctor portrait avatar if photo is empty
-            photo_url = d.photo or f"https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=600"
+            photo_url = d.photo or ""
 
             d_dict = {
                 "id": d.id,
@@ -147,18 +147,7 @@ async def sync():
         labs = (await session.execute(select(Laboratory))).scalars().all()
 
         frontend_labs = []
-        lab_images = [
-            "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1582560475093-ba66accbc424?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1583912267670-6575ad3726f8?w=800&auto=format&fit=crop&q=80",
-        ]
+        lab_images = []
 
         for idx, l in enumerate(labs):
             depts = []
