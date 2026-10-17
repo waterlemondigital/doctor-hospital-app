@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
@@ -12,6 +13,8 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 logger = logging.getLogger("healthdiscover-backend")
+
+from app.core.directory_store import directory_store
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,12 +30,30 @@ async def lifespan(app: FastAPI):
             logger.info("PostgreSQL relational schema verified.")
         except Exception as e:
             logger.error(f"Error initializing database tables: {e}")
+
+        # Pre-warm in-memory directory store for instant sub-millisecond responses
+        try:
+            await directory_store.warm()
+        except Exception as e:
+            logger.error(f"Error warming directory store: {e}")
     else:
         logger.warning(f"PostgreSQL not connected at startup: {pg_msg}. Please configure DATABASE_URL in .env.")
+
+    # Background periodic refresh task
+    async def periodic_refresh():
+        while True:
+            await asyncio.sleep(300)
+            try:
+                await directory_store.warm(force=True)
+            except Exception as exc:
+                logger.warning(f"Background directory refresh failed: {exc}")
+
+    refresh_task = asyncio.create_task(periodic_refresh())
 
     yield
 
     # Shutdown
+    refresh_task.cancel()
     logger.info("Shutting down backend services...")
 
 app = FastAPI(

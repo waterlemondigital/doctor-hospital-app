@@ -20,9 +20,19 @@ export function BreadcrumbLink({
   children,
   ...props
 }: React.ComponentProps<'a'> & { asChild?: boolean }) {
+  const classes = cn('hover:text-[#0077b6] transition-colors font-medium', className);
+
+  if (asChild && React.isValidElement(children)) {
+    const childElement = children as React.ReactElement<{ className?: string }>;
+    return React.cloneElement(childElement, {
+      className: cn(classes, childElement.props.className),
+      ...props,
+    });
+  }
+
   return (
     <a
-      className={cn('hover:text-[#0077b6] transition-colors font-medium', className)}
+      className={classes}
       {...props}
     >
       {children}

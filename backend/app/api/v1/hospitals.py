@@ -55,6 +55,8 @@ def format_hospital_response(hospital: Hospital) -> HospitalOut:
         doctors=doctors_out,
     )
 
+from app.core.directory_store import directory_store
+
 @router.get("", response_model=List[HospitalOut])
 async def list_hospitals(
     city: Optional[str] = Query(None, description="Filter by city (e.g. pune, mumbai)"),
@@ -62,63 +64,20 @@ async def list_hospitals(
     search: Optional[str] = Query(None, description="Free text search query"),
     db: AsyncSession = Depends(get_db),
 ):
-    """List hospitals with city, state, and text search filters."""
-    cache_key = f"hospitals:list:{city}:{state}:{search}"
-    cached = api_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    stmt = select(Hospital)
-
-    if city and city != "all":
-        stmt = stmt.where(Hospital.city.ilike(f"%{city.strip()}%"))
-
-    if state and state != "all":
-        stmt = stmt.where(Hospital.state.ilike(f"%{state.strip()}%"))
-
-    if search:
-        s = f"%{search.strip().lower()}%"
-        stmt = stmt.where(
-            or_(
-                Hospital.name.ilike(s),
-                Hospital.city.ilike(s),
-                Hospital.area.ilike(s),
-                Hospital.address.ilike(s),
-                Hospital.facility_type.ilike(s),
-            )
-        )
-
-    stmt = stmt.options(
-        selectinload(Hospital.affiliations).selectinload(DoctorHospitalAffiliation.doctor)
-    ).order_by(Hospital.name.asc())
-    result = await db.execute(stmt)
-    hospitals = result.scalars().all()
-    data = [format_hospital_response(h) for h in hospitals]
-    api_cache.set(cache_key, data, ttl=300)
-    return data
+    """List hospitals with city, state, and text search filters with sub-millisecond response."""
+    if not directory_store.is_loaded:
+        await directory_store.warm()
+    return directory_store.get_hospitals(city=city, state=state, search=search)
 
 @router.get("/{slug}", response_model=HospitalOut)
 async def get_hospital_by_slug(slug: str, db: AsyncSession = Depends(get_db)):
     """Retrieve full hospital profile by URL slug."""
-    cache_key = f"hospitals:slug:{slug}"
-    cached = api_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
-    stmt = (
-        select(Hospital)
-        .options(selectinload(Hospital.affiliations).selectinload(DoctorHospitalAffiliation.doctor))
-        .where(Hospital.slug == slug)
-    )
-    result = await db.execute(stmt)
-    hospital = result.scalar_one_or_none()
-
-    if not hospital:
+    if not directory_store.is_loaded:
+        await directory_store.warm()
+    hosp = directory_store.get_hospital_by_slug_or_id(slug)
+    if not hosp:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Hospital with slug '{slug}' not found",
         )
-
-    data = format_hospital_response(hospital)
-    api_cache.set(cache_key, data, ttl=300)
-    return data
+    return hosp

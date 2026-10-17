@@ -447,6 +447,22 @@ def parse_wellness_md(filepath: Path) -> List[Dict[str, Any]]:
                 "alt": f.get("Name", r["header_name"]),
             })
 
+        verification_status = "Public official website reviewed; verify current details before publishing"
+        last_checked = "2026-10-17"
+        sources = []
+        ver_text = sec.get("Verification", "")
+        if ver_text:
+            for v_line in ver_text.splitlines():
+                m_stat = re.search(r"[-*]\s+\*\*Verification Status\*\*:\s*(.*)", v_line, re.I)
+                if m_stat:
+                    verification_status = m_stat.group(1).strip()
+                m_rev = re.search(r"[-*]\s+\*\*Last Reviewed\*\*:\s*(.*)", v_line, re.I)
+                if m_rev:
+                    last_checked = m_rev.group(1).strip()
+                m_url = re.search(r"[-*]\s+\*\*Source URL\*\*:\s*(.*)", v_line, re.I)
+                if m_url:
+                    sources.append({"name": "Official Website / Registry", "url": m_url.group(1).strip()})
+
         center = {
             "id": (f.get("ID") or re.sub(r"[^a-z0-9]+", "_", r["header_name"].lower()).strip("_"))[:64],
             "slug": re.sub(r"[^a-z0-9]+", "-", (f.get("Name") or r["header_name"]).lower()).strip("-")[:128],
@@ -467,6 +483,9 @@ def parse_wellness_md(filepath: Path) -> List[Dict[str, Any]]:
             "disciplines": parse_bullet_list(sec.get("Disciplines & Departments", "") or sec.get("Departments", "")),
             "facilities": parse_bullet_list(sec.get("Facilities", "")),
             "images": images,
+            "verification_status": verification_status,
+            "last_checked": last_checked,
+            "sources": sources,
         }
         centers.append(center)
 

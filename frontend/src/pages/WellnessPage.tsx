@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Sparkles, MapPin, Globe, AlertCircle, RefreshCw, X } from 'lucide-react';
-import { WELLNESS_CENTERS_DATA } from '../data/wellness';
+import { Search, Sparkles, MapPin, Globe, AlertCircle, RefreshCw, X, Filter } from 'lucide-react';
+import { fetchWellnessCenters } from '../api/wellness';
+import { WellnessCenter } from '../types';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
-import { HospitalCard } from '../components/HospitalCard';
+import { WellnessCard } from '../components/WellnessCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
 
@@ -11,12 +12,37 @@ export function WellnessPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('search') || '';
 
+  const [wellnessCenters, setWellnessCenters] = React.useState<WellnessCenter[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const [query, setQuery] = React.useState(initialQuery);
+  const [selectedCategory, setSelectedCategory] = React.useState('all');
   const [selectedCountry, setSelectedCountry] = React.useState('india');
   const [selectedState, setSelectedState] = React.useState(ACTIVE_STATE.id);
   const [selectedCity, setSelectedCity] = React.useState(ACTIVE_CITY.id);
 
   const currentState = LOCATIONS_DATA.find((s) => s.id === selectedState) || ACTIVE_STATE;
+
+  React.useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+
+    fetchWellnessCenters()
+      .then((data) => {
+        if (isMounted) {
+          setWellnessCenters(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load wellness centers:', err);
+        if (isMounted) setIsLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -28,13 +54,25 @@ export function WellnessPage() {
     }
   };
 
+  // Derive unique categories for filter
+  const categories = React.useMemo(() => {
+    const set = new Set<string>();
+    wellnessCenters.forEach((w) => {
+      if (w.category) set.add(w.category);
+    });
+    return Array.from(set);
+  }, [wellnessCenters]);
+
   const cleanQuery = query.toLowerCase().trim();
 
-  const filteredCenters = WELLNESS_CENTERS_DATA.filter((h) => {
+  const filteredCenters = wellnessCenters.filter((h) => {
     if (selectedState && h.state.toLowerCase() !== currentState.name.toLowerCase()) {
       return false;
     }
     if (selectedCity && h.city.toLowerCase() !== selectedCity.toLowerCase()) {
+      return false;
+    }
+    if (selectedCategory !== 'all' && h.category !== selectedCategory) {
       return false;
     }
     if (!cleanQuery) return true;
@@ -43,17 +81,15 @@ export function WellnessPage() {
       h.name.toLowerCase().includes(cleanQuery) ||
       h.area.toLowerCase().includes(cleanQuery) ||
       h.address.toLowerCase().includes(cleanQuery) ||
-      h.services.some((s) => s.toLowerCase().includes(cleanQuery)) ||
-      h.departments.some(
-        (d) =>
-          d.name.toLowerCase().includes(cleanQuery) ||
-          d.slug.toLowerCase().includes(cleanQuery)
-      )
+      h.category.toLowerCase().includes(cleanQuery) ||
+      h.programs.some((s) => s.toLowerCase().includes(cleanQuery)) ||
+      h.disciplines.some((d) => d.toLowerCase().includes(cleanQuery))
     );
   });
 
   const resetFilters = () => {
     setQuery('');
+    setSelectedCategory('all');
     setSelectedCountry('india');
     setSelectedState(ACTIVE_STATE.id);
     setSelectedCity(ACTIVE_CITY.id);
@@ -72,7 +108,7 @@ export function WellnessPage() {
           Find Wellness Centers & Naturopathy in Pune
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
-          Verified yoga therapy institutes, accredited naturopathy ashrams, and integrative holistic wellness retreats in Pune and surrounding valleys. Factual facilities and direct contacts.
+          Verified yoga research institutes, accredited naturopathy ashrams, and integrative holistic wellness retreats in Pune and surrounding valleys. Factual facilities and direct contacts fetched live from database.
         </p>
       </div>
 
@@ -85,7 +121,7 @@ export function WellnessPage() {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder="Search by center name, therapy (e.g. Yoga, Naturopathy, Hydrotherapy)..."
+            placeholder="Search by center name, therapy (e.g. Yoga, Naturopathy, Meditation, Ayurveda)..."
             className="w-full h-12 pl-10 pr-10 rounded-xl border border-slate-300 bg-white text-sm font-medium text-[#03045e] placeholder:text-slate-400 focus:outline-none focus:border-[#0077b6] focus:ring-2 focus:ring-[#90e0ef] transition-colors shadow-2xs"
           />
           {query && (
@@ -104,7 +140,27 @@ export function WellnessPage() {
         </div>
 
         {/* Structured Filter Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-1">
+          {/* Category Filter */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              Wellness Discipline
+            </label>
+            <Select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              icon={<Filter className="h-3.5 w-3.5 text-[#0077b6]" />}
+              aria-label="Filter category"
+            >
+              <option value="all">All Disciplines ({wellnessCenters.length})</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </Select>
+          </div>
+
           {/* Country Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
@@ -172,7 +228,7 @@ export function WellnessPage() {
           <span className="text-slate-500 font-medium">
             Showing <strong>{filteredCenters.length}</strong> {filteredCenters.length === 1 ? 'verified wellness center' : 'verified wellness centers'}
           </span>
-          {(query || selectedCountry !== 'india' || selectedState !== ACTIVE_STATE.id || selectedCity !== ACTIVE_CITY.id) && (
+          {(query || selectedCategory !== 'all' || selectedCountry !== 'india' || selectedState !== ACTIVE_STATE.id || selectedCity !== ACTIVE_CITY.id) && (
             <button
               type="button"
               onClick={resetFilters}
@@ -185,11 +241,16 @@ export function WellnessPage() {
         </div>
       </div>
 
-      {/* Cards Grid */}
-      {filteredCenters.length > 0 ? (
+      {/* Cards Grid or Loading */}
+      {isLoading ? (
+        <div className="py-20 text-center space-y-4">
+          <div className="h-10 w-10 border-4 border-[#0077b6] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm font-semibold text-slate-500">Loading verified wellness centers...</p>
+        </div>
+      ) : filteredCenters.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredCenters.map((center) => (
-            <HospitalCard key={center.id} hospital={center} />
+            <WellnessCard key={center.id} center={center} />
           ))}
         </div>
       ) : (

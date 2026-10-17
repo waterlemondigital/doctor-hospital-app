@@ -112,3 +112,28 @@ export interface SpecialityMeta {
 }
 
 export type AdSlotSize = 'sidebar-tall' | 'sidebar-square' | 'banner' | 'full-width';
+
+export interface WellnessCenter {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  state: string;
+  city: string;
+  area: string;
+  address: string;
+  pincode: string;
+  accreditation?: string;
+  overview?: string;
+  website?: string;
+  phone?: string;
+  whatsapp?: string;
+  mapsUrl?: string;
+  verificationStatus: string;
+  lastChecked?: string;
+  images: HospitalImage[];
+  programs: string[];
+  disciplines: string[];
+  facilities: string[];
+  sources: SourceCitation[];
+}

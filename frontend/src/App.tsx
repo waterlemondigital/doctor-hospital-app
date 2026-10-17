@@ -15,10 +15,12 @@ import { AyurvedicPage } from './pages/AyurvedicPage';
 import { LaboratoriesPage } from './pages/LaboratoriesPage';
 import { LaboratoryDetailPage } from './pages/LaboratoryDetailPage';
 import { WellnessPage } from './pages/WellnessPage';
+import { WellnessDetailPage } from './pages/WellnessDetailPage';
 import { AuthProvider } from './lib/auth';
 import { fetchHospitals } from './api/hospitals';
 import { fetchDoctors } from './api/doctors';
 import { fetchLaboratories } from './api/laboratories';
+import { fetchWellnessCenters } from './api/wellness';
 
 export default function App() {
   React.useEffect(() => {
@@ -26,6 +28,7 @@ export default function App() {
     fetchHospitals().catch(() => {});
     fetchDoctors().catch(() => {});
     fetchLaboratories().catch(() => {});
+    fetchWellnessCenters().catch(() => {});
   }, []);
   return (
     <AuthProvider>
@@ -40,6 +43,7 @@ export default function App() {
             <Route path="laboratories" element={<LaboratoriesPage />} />
             <Route path="laboratories/:slug" element={<LaboratoryDetailPage />} />
             <Route path="wellness-centers" element={<WellnessPage />} />
+            <Route path="wellness-centers/:slug" element={<WellnessDetailPage />} />
             <Route path="unani" element={<UnaniPage />} />
             <Route path="homeopathy" element={<HomeopathyPage />} />
             <Route path="ayurvedic" element={<AyurvedicPage />} />
