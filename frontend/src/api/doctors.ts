@@ -1,13 +1,6 @@
 import { apiFetch } from './client';
 import { Doctor, DoctorHospitalAffiliation } from '../types';
 
-const DOCTOR_FALLBACK_AVATARS = [
-  'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1594824813626-d6682627993a?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&auto=format&fit=crop&q=80',
-];
-
 interface RawDoctorAffiliation {
   hospital_id: string;
   hospital_name?: string;
@@ -46,10 +39,8 @@ interface RawDoctor {
   hospitals?: RawDoctorAffiliation[];
 }
 
-export function mapDoctor(raw: RawDoctor, index = 0): Doctor {
-  const photo = raw.photo && raw.photo.trim().length > 0
-    ? raw.photo
-    : DOCTOR_FALLBACK_AVATARS[index % DOCTOR_FALLBACK_AVATARS.length];
+export function mapDoctor(raw: RawDoctor): Doctor {
+  const photo = raw.photo && raw.photo.trim().length > 0 ? raw.photo : undefined;
 
   const affiliations: DoctorHospitalAffiliation[] = (raw.hospitals || []).map((aff) => ({
     hospitalId: aff.hospital_id,

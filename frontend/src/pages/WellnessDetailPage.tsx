@@ -104,11 +104,7 @@ export function WellnessDetailPage() {
     );
   }
 
-  const coverImage = center.images[0] || {
-    url: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1200&auto=format&fit=crop&q=80',
-    alt: center.name,
-    caption: 'Holistic wellness and naturopathy retreat',
-  };
+  const coverImage = (center.images && center.images.length > 0) ? center.images[0] : null;
 
   return (
     <div className="space-y-6 pb-12">
@@ -135,22 +131,21 @@ export function WellnessDetailPage() {
 
       {/* Hero Card */}
       <div className="rounded-3xl border border-[#90e0ef] bg-white overflow-hidden shadow-xs">
-        <div className="relative aspect-21/9 sm:aspect-24/9 w-full bg-slate-100 overflow-hidden max-h-[360px]">
-          {imageError ? (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 text-[#03045e]">
-              <Sparkles className="h-16 w-16 text-[#0077b6] opacity-40" />
-            </div>
-          ) : (
-            <img
-              src={coverImage.url}
-              alt={coverImage.alt}
-              referrerPolicy="no-referrer"
-              onError={() => setImageError(true)}
-              className="h-full w-full object-cover"
-            />
+        <div className="relative aspect-21/9 sm:aspect-24/9 w-full bg-gradient-to-br from-[#03045e] via-[#023e8a] to-[#0077b6] overflow-hidden min-h-[200px] max-h-[360px]">
+          {coverImage && !imageError && (
+            <>
+              <img
+                src={coverImage.url}
+                alt={coverImage.alt}
+                referrerPolicy="no-referrer"
+                onError={() => setImageError(true)}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#03045e]/90 via-[#03045e]/40 to-transparent" />
+            </>
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#03045e]/90 via-[#03045e]/40 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
+          <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="rounded-md bg-emerald-600 px-2.5 py-0.5 text-xs font-bold text-white shadow-xs flex items-center gap-1">
                 <Leaf className="h-3 w-3" />

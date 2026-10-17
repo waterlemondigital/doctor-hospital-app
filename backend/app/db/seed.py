@@ -38,13 +38,7 @@ HOSPITALS_SEED = [
         "pincode": "411004",
         "facility_type": "Super-Speciality Tertiary Care",
         "facility_type_badge": "Super Speciality Tertiary",
-        "images": [
-            {
-                "url": "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1200&q=80",
-                "alt": "Exterior facade of modern multispeciality hospital building in Pune",
-                "caption": "Main entrance and outpatient reception wing",
-            }
-        ],
+        "images": [],
         "overview": "Sahyadri Super Speciality Hospital (Deccan Gymkhana) is a prominent tertiary care hospital in Pune. It houses comprehensive departments spanning cardiology, neurosciences, organ transplantation, oncology, and emergency trauma care with round-the-clock emergency and pathology facilities.",
         "services": [
             "24x7 Emergency & Trauma Care",
@@ -94,13 +88,7 @@ HOSPITALS_SEED = [
         "pincode": "411001",
         "facility_type": "Government Teaching Hospital",
         "facility_type_badge": "Govt. Teaching & Tertiary Care",
-        "images": [
-            {
-                "url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
-                "alt": "Historical stone clock tower of Sassoon General Hospital Pune",
-                "caption": "Historic stone clock-tower building",
-            }
-        ],
+        "images": [],
         "overview": "Sassoon General Hospital is a historic government tertiary care hospital affiliated with B.J. Government Medical College in Pune delivering comprehensive medical care and subsidized treatments.",
         "services": [
             "24x7 Government Casualty & Emergency",
@@ -145,13 +133,7 @@ HOSPITALS_SEED = [
         "pincode": "400012",
         "facility_type": "Government Teaching Hospital",
         "facility_type_badge": "Govt. Teaching & Tertiary Care",
-        "images": [
-            {
-                "url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
-                "alt": "Main heritage hospital building of KEM Hospital Mumbai",
-                "caption": "Main administrative block in Parel",
-            }
-        ],
+        "images": [],
         "overview": "King Edward Memorial Hospital and Seth Gordhandas Sunderdas Medical College is one of the premier government teaching and tertiary care hospitals in Mumbai.",
         "services": [
             "24x7 Government Casualty & Trauma Care",
@@ -197,7 +179,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MD (General Medicine), DM (Cardiology), FACC",
         "experience_years": 16,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Practising interventional cardiologist focusing on adult coronary artery interventions, radial angiographies, and preventative cardiac care in Pune.",
         "areas_of_practice": ["Coronary Angiography", "Radial Artery Interventions", "Hypertension & Lipid Management"],
         "city": "Pune",
@@ -223,7 +205,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MD (Internal Medicine), FACP",
         "experience_years": 21,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1594824813583-3652873130d2?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Senior consultant physician and academic mentor at Sassoon General Hospital managing complex infectious diseases and metabolic disorders in Pune.",
         "areas_of_practice": ["Infectious & Tropical Diseases", "Type 1 & Type 2 Diabetes", "Metabolic Syndrome"],
         "city": "Pune",
@@ -249,7 +231,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MD (General Medicine), DM (Neurology)",
         "experience_years": 14,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Consultant neurologist specializing in acute stroke interventions, Parkinson's disease, and headache disorders in Pune.",
         "areas_of_practice": ["Acute Stroke", "Epilepsy Management", "Movement Disorders"],
         "city": "Pune",
@@ -275,7 +257,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MS (Orthopaedics), MCh (Ortho)",
         "experience_years": 18,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Senior orthopaedic surgeon focusing on joint reconstruction, total knee and hip replacement in Pune.",
         "areas_of_practice": ["Total Knee Arthroplasty", "Total Hip Arthroplasty", "Arthroscopy"],
         "city": "Pune",
@@ -301,7 +283,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MD (Paediatrics), DNB (Paediatrics)",
         "experience_years": 12,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Dedicated paediatrician providing comprehensive child healthcare, routine immunizations, and developmental guidance in Pune.",
         "areas_of_practice": ["Childhood Immunization", "Infant Growth Milestones", "Paediatric Asthma"],
         "city": "Pune",
@@ -327,7 +309,7 @@ DOCTORS_SEED = [
         "qualifications": "MBBS, MD (General Medicine), DM (Cardiology)",
         "experience_years": 15,
         "languages": ["English", "Hindi", "Marathi"],
-        "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80",
+        "photo": None,
         "summary": "Senior consultant cardiologist consulting at KEM Hospital Parel, Mumbai. Specializes in heart failure protocols and adult echocardiography.",
         "areas_of_practice": ["Heart Failure Clinics", "Stress Echocardiography", "Hypertension Management"],
         "city": "Mumbai",

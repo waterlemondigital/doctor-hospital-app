@@ -61,10 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       name: determinedName,
       email,
       role,
-      avatar:
-        role === 'doctor'
-          ? 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80'
-          : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      avatar: undefined,
     };
 
     setUser(newUser);
@@ -83,10 +80,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email: data.email,
       phone: data.phone,
       role: data.role,
-      avatar:
-        data.role === 'doctor'
-          ? 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80'
-          : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      avatar: undefined,
     };
 
     setUser(newUser);

@@ -1,15 +1,6 @@
 import { apiFetch } from './client';
 import { Hospital } from '../types';
 
-const LAB_FALLBACK_IMAGES = [
-  'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&auto=format&fit=crop&q=80',
-];
-
 interface RawLaboratory {
   id: string;
   slug: string;
@@ -36,14 +27,8 @@ interface RawLaboratory {
   sources?: any[];
 }
 
-export function mapLaboratory(raw: RawLaboratory, index = 0): Hospital {
-  const images = (raw.images && raw.images.length > 0)
-    ? raw.images
-    : [{
-        url: LAB_FALLBACK_IMAGES[index % LAB_FALLBACK_IMAGES.length],
-        alt: raw.name,
-        caption: 'Diagnostic pathology laboratory & automated testing center',
-      }];
+export function mapLaboratory(raw: RawLaboratory): Hospital {
+  const images = (raw.images && raw.images.length > 0) ? raw.images : [];
 
   const depts = (raw.departments || []).map((d) => {
     if (typeof d === 'string') {

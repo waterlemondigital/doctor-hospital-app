@@ -1,9 +1,10 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, Query, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, or_
 from app.db.postgres import get_db
+from app.models.laboratory import Laboratory
 from app.schemas.laboratory import LaboratoryOut
-from app.core.directory_store import directory_store
 
 router = APIRouter(prefix="/laboratories", tags=["Laboratories"])
 
@@ -13,20 +14,35 @@ async def list_laboratories(
     search: Optional[str] = Query(None, description="Search by lab name, area, or service"),
     db: AsyncSession = Depends(get_db),
 ):
-    """List laboratories with live filtering in < 1ms."""
-    if not directory_store.is_loaded:
-        await directory_store.warm()
-    return directory_store.get_laboratories(city=city, search=search)
+    """List laboratories with live filtering. Automatically cached by APICacheMiddleware for 5 mins."""
+    stmt = select(Laboratory)
+    if city and city != "all":
+        stmt = stmt.where(Laboratory.city.ilike(f"%{city.strip()}%"))
+    if search:
+        term = f"%{search.strip().lower()}%"
+        stmt = stmt.where(
+            or_(
+                Laboratory.name.ilike(term),
+                Laboratory.area.ilike(term),
+                Laboratory.address.ilike(term),
+                Laboratory.accreditation.ilike(term),
+            )
+        )
+    stmt = stmt.order_by(Laboratory.name.asc())
+    result = await db.execute(stmt)
+    return result.scalars().all()
 
 @router.get("/{slug_or_id}", response_model=LaboratoryOut)
 async def get_laboratory(
     slug_or_id: str,
     db: AsyncSession = Depends(get_db),
 ):
-    """Retrieve laboratory by slug or ID in < 1ms."""
-    if not directory_store.is_loaded:
-        await directory_store.warm()
-    lab = directory_store.get_laboratory_by_slug_or_id(slug_or_id)
+    """Retrieve laboratory by slug or ID. Automatically cached by APICacheMiddleware for 5 mins."""
+    stmt = select(Laboratory).where(
+        or_(Laboratory.id == slug_or_id, Laboratory.slug == slug_or_id)
+    )
+    result = await db.execute(stmt)
+    lab = result.scalar_one_or_none()
     if not lab:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

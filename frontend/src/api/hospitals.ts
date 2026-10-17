@@ -1,13 +1,6 @@
 import { apiFetch } from './client';
 import { Hospital } from '../types';
 
-const HOSPITAL_FALLBACK_IMAGES = [
-  'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80',
-];
-
 interface RawHospital {
   id: string;
   slug: string;
@@ -44,14 +37,8 @@ interface RawHospital {
   }>;
 }
 
-export function mapHospital(raw: RawHospital, index = 0): Hospital {
-  const images = (raw.images && raw.images.length > 0)
-    ? raw.images
-    : [{
-        url: HOSPITAL_FALLBACK_IMAGES[index % HOSPITAL_FALLBACK_IMAGES.length],
-        alt: raw.name,
-        caption: 'Tertiary healthcare facility and outpatient wing',
-      }];
+export function mapHospital(raw: RawHospital): Hospital {
+  const images = (raw.images && raw.images.length > 0) ? raw.images : [];
 
   const depts = (raw.departments || []).map((d) => {
     if (typeof d === 'string') {

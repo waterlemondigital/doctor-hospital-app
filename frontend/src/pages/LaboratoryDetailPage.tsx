@@ -116,11 +116,7 @@ export function LaboratoryDetailPage() {
     );
   };
 
-  const coverImage = laboratory.images[0] || {
-    url: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1200&auto=format&fit=crop&q=80',
-    alt: laboratory.name,
-    caption: 'Diagnostic pathology and automated clinical biochemistry center',
-  };
+  const coverImage = (laboratory.images && laboratory.images.length > 0) ? laboratory.images[0] : null;
 
   const isPhoneDirect = !laboratory.phone.toLowerCase().startsWith('use official');
 
@@ -256,20 +252,22 @@ export function LaboratoryDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column (Content & Tabs) */}
         <div className="lg:col-span-2 space-y-8">
-          {/* Cover Media Gallery */}
-          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xs bg-slate-50">
-            <div className="relative aspect-16/9 w-full bg-slate-100">
-              <img
-                src={coverImage.url}
-                alt={coverImage.alt}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white text-xs">
-                <p className="font-semibold">{coverImage.alt}</p>
-                {coverImage.caption && <p className="text-[11px] text-slate-200">{coverImage.caption}</p>}
+          {/* Cover Media Gallery (only if real image exists) */}
+          {coverImage && (
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xs bg-slate-50">
+              <div className="relative aspect-16/9 w-full bg-slate-100">
+                <img
+                  src={coverImage.url}
+                  alt={coverImage.alt}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white text-xs">
+                  <p className="font-semibold">{coverImage.alt}</p>
+                  {coverImage.caption && <p className="text-[11px] text-slate-200">{coverImage.caption}</p>}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Deep Navigation Tabs */}
           <Tabs defaultValue="overview" className="w-full space-y-4">

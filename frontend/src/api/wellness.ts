@@ -1,15 +1,6 @@
 import { apiFetch } from './client';
 import { WellnessCenter, SourceCitation } from '../types';
 
-const WELLNESS_FALLBACK_IMAGES = [
-  'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=800&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&auto=format&fit=crop&q=80',
-];
-
 interface RawWellnessCenter {
   id: string;
   slug: string;
@@ -35,14 +26,8 @@ interface RawWellnessCenter {
   sources?: any[];
 }
 
-export function mapWellnessCenter(raw: RawWellnessCenter, index = 0): WellnessCenter {
-  const images = (raw.images && raw.images.length > 0)
-    ? raw.images
-    : [{
-        url: WELLNESS_FALLBACK_IMAGES[index % WELLNESS_FALLBACK_IMAGES.length],
-        alt: raw.name,
-        caption: 'Holistic wellness, yoga and naturopathy retreat',
-      }];
+export function mapWellnessCenter(raw: RawWellnessCenter): WellnessCenter {
+  const images = (raw.images && raw.images.length > 0) ? raw.images : [];
 
   const sources: SourceCitation[] = (raw.sources || []).map((s) => ({
     label: s.label || s.name || `${raw.name} Official Registry`,
