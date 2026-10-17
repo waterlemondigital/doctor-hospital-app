@@ -42,6 +42,13 @@ class Settings(BaseSettings):
     AUTH_COOKIE_SECURE: bool = False      # True in production HTTPS, False for localhost
     AUTH_COOKIE_SAMESITE: str = "lax"     # 'lax' supports cross-port localhost requests seamlessly
 
+    # Cloudflare R2 Configuration
+    R2_ACCOUNT_ID: str = ""
+    R2_ACCESS_KEY_ID: str = ""
+    R2_SECRET_ACCESS_KEY: str = ""
+    R2_BUCKET_NAME: str = "medvexa"
+    R2_PUBLIC_URL: str = ""
+
     model_config = SettingsConfigDict(
         env_file=(
             str(BACKEND_DIR / ".env"),

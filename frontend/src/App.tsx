@@ -23,13 +23,6 @@ import { fetchLaboratories } from './api/laboratories';
 import { fetchWellnessCenters } from './api/wellness';
 
 export default function App() {
-  React.useEffect(() => {
-    // Silently pre-fetch public directory data so all page transitions are instant
-    fetchHospitals().catch(() => {});
-    fetchDoctors().catch(() => {});
-    fetchLaboratories().catch(() => {});
-    fetchWellnessCenters().catch(() => {});
-  }, []);
   return (
     <AuthProvider>
       <BrowserRouter>

@@ -13,7 +13,14 @@ interface HospitalCardProps {
 
 export function HospitalCard({ hospital, className }: HospitalCardProps) {
   const [imageError, setImageError] = React.useState(false);
-  const coverImage = hospital.images[0];
+  
+  // Choose first image from DB, or fallback for Ruby Hall if not in DB yet
+  const coverImage =
+    hospital.images && hospital.images.length > 0
+      ? hospital.images[0]
+      : hospital.name.toLowerCase().includes('ruby hall')
+      ? { url: '/images/rubyhall/r1.jpeg', alt: `${hospital.name} Campus & Entrance` }
+      : null;
 
   return (
     <Card className={`overflow-hidden group hover:shadow-md transition-all duration-200 border-[#90e0ef]/70 flex flex-col justify-between ${className || ''}`}>
@@ -27,9 +34,17 @@ export function HospitalCard({ hospital, className }: HospitalCardProps) {
             </div>
           ) : (
             <img
-              src={coverImage.url}
-              alt={coverImage.alt}
+              src={coverImage.card_url || coverImage.thumb_url || coverImage.url}
+              srcSet={
+                coverImage.thumb_url && coverImage.card_url
+                  ? `${coverImage.thumb_url} 400w, ${coverImage.card_url} 800w, ${coverImage.full_url || coverImage.url} 1600w`
+                  : undefined
+              }
+              sizes="(max-width: 768px) 100vw, 400px"
+              alt={coverImage.alt || hospital.name}
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
               onError={() => setImageError(true)}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
             />

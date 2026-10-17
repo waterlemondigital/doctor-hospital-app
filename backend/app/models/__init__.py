@@ -10,6 +10,7 @@ from app.models.city import City
 from app.models.speciality import Speciality
 from app.models.laboratory import Laboratory
 from app.models.wellness import WellnessCenter
+from app.models.image import Image
 
 __all__ = [
     "User",
@@ -22,5 +23,6 @@ __all__ = [
     "Speciality",
     "Laboratory",
     "WellnessCenter",
+    "Image",
 ]
 

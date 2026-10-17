@@ -16,30 +16,44 @@ import {
 } from 'lucide-react';
 import { SITE_NAME, SITE_TAGLINE, SITE_SUBTITLE, CONTACT_PHONE, CONTACT_PHONE_CALL_HREF } from '../data/config';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
-import { Hospital, Doctor } from '../types';
+import { Hospital, Doctor, WellnessCenter } from '../types';
 import { SPECIALITIES_DATA } from '../data/specialities';
 import { fetchHospitals } from '../api/hospitals';
 import { fetchDoctors } from '../api/doctors';
+import { fetchLaboratories } from '../api/laboratories';
+import { fetchWellnessCenters } from '../api/wellness';
 import { HospitalCard } from '../components/HospitalCard';
 import { DoctorCard } from '../components/DoctorCard';
+import { LaboratoryCard } from '../components/LaboratoryCard';
+import { WellnessCard } from '../components/WellnessCard';
 import { AdSlot } from '../components/AdSlot';
 import { MultiSpecialtySection } from '../components/MultiSpecialtySection';
 import { HeroInquiryForm } from '../components/HeroInquiryForm';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
+import { FlaskConical, Sparkles as SparklesIcon, Leaf } from 'lucide-react';
 
 export function HomePage() {
   const navigate = useNavigate();
 
   const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
   const [doctors, setDoctors] = React.useState<Doctor[]>([]);
+  const [laboratories, setLaboratories] = React.useState<Hospital[]>([]);
+  const [wellnessCenters, setWellnessCenters] = React.useState<WellnessCenter[]>([]);
 
   React.useEffect(() => {
     let isMounted = true;
-    Promise.all([fetchHospitals(), fetchDoctors()]).then(([h, d]) => {
+    Promise.all([
+      fetchHospitals(),
+      fetchDoctors(),
+      fetchLaboratories(),
+      fetchWellnessCenters(),
+    ]).then(([h, d, labs, wellness]) => {
       if (isMounted) {
         if (h && h.length > 0) setHospitals(h);
         if (d && d.length > 0) setDoctors(d);
+        if (labs && labs.length > 0) setLaboratories(labs.slice(0, 9));
+        if (wellness && wellness.length > 0) setWellnessCenters(wellness.slice(0, 9));
       }
     });
     return () => { isMounted = false; };
@@ -593,7 +607,67 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 6. "Why trust this information" strip */}
+      {/* 6. Featured Laboratories */}
+      {laboratories.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-end justify-between border-b border-slate-200 pb-3">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0077b6]">
+                <FlaskConical className="h-3.5 w-3.5" />
+                <span>Diagnostic Services</span>
+              </div>
+              <h2 className="text-2xl font-bold text-[#03045e] mt-0.5">
+                Featured Laboratories
+              </h2>
+            </div>
+            <Link
+              to="/laboratories"
+              className="text-xs font-bold text-[#0077b6] hover:text-[#03045e] flex items-center gap-1"
+            >
+              <span>All Laboratories</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {laboratories.map((lab) => (
+              <LaboratoryCard key={lab.id} laboratory={lab} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 7. Featured Wellness Clinics & Centers */}
+      {wellnessCenters.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-end justify-between border-b border-slate-200 pb-3">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0077b6]">
+                <Leaf className="h-3.5 w-3.5 text-emerald-600" />
+                <span>Holistic & Preventive Health</span>
+              </div>
+              <h2 className="text-2xl font-bold text-[#03045e] mt-0.5">
+                Featured Wellness Clinics & Centers
+              </h2>
+            </div>
+            <Link
+              to="/wellness-centers"
+              className="text-xs font-bold text-[#0077b6] hover:text-[#03045e] flex items-center gap-1"
+            >
+              <span>All Wellness Centers</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {wellnessCenters.map((center) => (
+              <WellnessCard key={center.id} center={center} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 8. "Why trust this information" strip */}
       <section className="rounded-3xl border border-[#90e0ef] bg-[#caf0f8]/30 p-6 sm:p-8 space-y-6">
         <div className="max-w-2xl">
           <h2 className="text-xl font-bold text-[#03045e]">

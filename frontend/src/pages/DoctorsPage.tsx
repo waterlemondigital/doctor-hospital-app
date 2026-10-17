@@ -21,14 +21,19 @@ export function DoctorsPage() {
 
   React.useEffect(() => {
     let isMounted = true;
+    setIsLoading(true);
     Promise.all([fetchDoctors(), fetchHospitals()])
       .then(([docData, hospData]) => {
         if (isMounted) {
           if (docData && docData.length > 0) setDoctors(docData);
           if (hospData && hospData.length > 0) setHospitals(hospData);
+          setIsLoading(false);
         }
       })
-      .catch((err) => console.error('Failed to fetch doctors from API:', err));
+      .catch((err) => {
+        console.error('Failed to fetch doctors from API:', err);
+        if (isMounted) setIsLoading(false);
+      });
     return () => { isMounted = false; };
   }, []);
 
@@ -449,8 +454,13 @@ export function DoctorsPage() {
         </div>
       </div>
 
-      {/* Doctor Cards Grid */}
-      {filteredDoctors.length > 0 ? (
+      {/* Doctor Cards Grid or Loading */}
+      {isLoading ? (
+        <div className="py-20 text-center space-y-4">
+          <div className="h-10 w-10 border-4 border-[#0077b6] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm font-semibold text-slate-500">Loading verified medical specialists...</p>
+        </div>
+      ) : filteredDoctors.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredDoctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />

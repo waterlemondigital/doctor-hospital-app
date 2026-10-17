@@ -94,6 +94,8 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
                 src={currentImage.url}
                 alt={currentImage.alt || `${hospitalName} - Photo ${activeIndex + 1}`}
                 draggable={false}
+                loading="eager"
+                decoding="async"
                 onError={() => handleImageError(activeIndex)}
                 className="h-full w-full object-cover select-none transition-all duration-300"
               />
@@ -155,9 +157,11 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
                     </div>
                   ) : (
                     <img
-                      src={img.url}
+                      src={img.thumb_url || img.url}
                       alt={img.alt}
                       draggable={false}
+                      loading="lazy"
+                      decoding="async"
                       onError={() => handleImageError(idx)}
                       className="h-full w-full object-cover"
                     />
@@ -189,9 +193,17 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
                 </div>
               ) : (
                 <img
-                  src={img.url}
+                  src={img.card_url || img.url}
+                  srcSet={
+                    img.thumb_url && img.card_url
+                      ? `${img.thumb_url} 400w, ${img.card_url} 800w`
+                      : undefined
+                  }
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   alt={img.alt}
                   draggable={false}
+                  loading="lazy"
+                  decoding="async"
                   onError={() => handleImageError(idx)}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />

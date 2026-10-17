@@ -210,8 +210,13 @@ export function HospitalsPage() {
         </div>
       </div>
 
-      {/* Hospital Cards Grid */}
-      {filteredHospitals.length > 0 ? (
+      {/* Hospital Cards Grid or Loading */}
+      {isLoading ? (
+        <div className="py-20 text-center space-y-4">
+          <div className="h-10 w-10 border-4 border-[#0077b6] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm font-semibold text-slate-500">Loading verified hospital network...</p>
+        </div>
+      ) : filteredHospitals.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredHospitals.map((hospital) => (
             <HospitalCard key={hospital.id} hospital={hospital} />

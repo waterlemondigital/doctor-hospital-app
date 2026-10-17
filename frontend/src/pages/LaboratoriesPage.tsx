@@ -336,8 +336,13 @@ export function LaboratoriesPage() {
         </div>
       </div>
 
-      {/* Cards Grid using dedicated LaboratoryCard */}
-      {filteredLabs.length > 0 ? (
+      {/* Cards Grid using dedicated LaboratoryCard or Loading */}
+      {isLoading ? (
+        <div className="py-20 text-center space-y-4">
+          <div className="h-10 w-10 border-4 border-[#0077b6] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm font-semibold text-slate-500">Loading verified laboratories & diagnostic centres...</p>
+        </div>
+      ) : filteredLabs.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredLabs.map((lab) => (
             <LaboratoryCard key={lab.id} laboratory={lab} />

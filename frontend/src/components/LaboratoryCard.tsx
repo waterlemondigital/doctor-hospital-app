@@ -36,9 +36,17 @@ export function LaboratoryCard({ laboratory, className }: LaboratoryCardProps) {
             </div>
           ) : (
             <img
-              src={coverImage.url}
-              alt={coverImage.alt}
+              src={coverImage.card_url || coverImage.thumb_url || coverImage.url}
+              srcSet={
+                coverImage.thumb_url && coverImage.card_url
+                  ? `${coverImage.thumb_url} 400w, ${coverImage.card_url} 800w, ${coverImage.full_url || coverImage.url} 1600w`
+                  : undefined
+              }
+              sizes="(max-width: 768px) 100vw, 400px"
+              alt={coverImage.alt || laboratory.name}
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
               onError={() => setImageError(true)}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
             />
