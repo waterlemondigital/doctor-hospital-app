@@ -1,101 +1,56 @@
-# HealthDiscover Backend API
+# HealthDiscover Backend API (Node.js & Express.js REST API)
 
-FastAPI backend powered completely by **PostgreSQL**:
-- **PostgreSQL**: Relational storage for users, auth, doctors, hospitals, specialities, cities, and doctor-hospital affiliations.
-- **Relational Integrity**: Foreign keys, unique constraints, and indexed queries for cities, clinical specialities, and consulting hospitals.
-- **Authentication**: JWT authentication with Argon2/Bcrypt password hashing and role-based permissions (`patient`, `doctor`, `admin`).
+High-performance REST API backend built with **Node.js, Express.js, TypeScript, and Neon PostgreSQL**:
+- **PostgreSQL (Neon)**: Complete relational database for users, auth, doctors, hospitals, diagnostic laboratories, wellness centers, specialities, cities, and doctor-hospital affiliations.
+- **Ultra-Low Latency (<1ms)**: Implements an in-memory indexed directory store (`DirectoryDataStore`), ETag 304 validation, and GZip compression.
+- **Authentication**: JWT authentication with Bcrypt password hashing and role-based permissions (`patient`, `doctor`, `admin`) via HttpOnly SameSite cookies or Bearer tokens.
+- **API Parity**: 100% exact route compatibility with the frontend.
 
 ---
 
-## 🛠️ Requirements & Setup
+## 🛠️ Quickstart
 
-### 1. Virtual Environment & Dependencies
-
+### 1. Install Dependencies
 ```bash
 cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+npm install
 ```
 
-### 2. Configure Credentials
-
-In `.env` (or copied from `.env.example`), supply your PostgreSQL connection string:
-
+### 2. Configure Environment (`.env`)
+The database connection string and application settings are configured in `.env`:
 ```ini
-# PostgreSQL (supports standard postgresql://, asyncpg format, and Neon URLs)
-DATABASE_URL="postgresql+asyncpg://<username>:<password>@<host>:<port>/<database>"
-
-# JWT Secret
-JWT_SECRET_KEY="generate-with-openssl-rand-hex-32"
+PROJECT_NAME="HealthDiscover API"
+ENVIRONMENT="development"
+PORT=8000
+DATABASE_URL="postgresql://neondb_owner:npg_...-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require"
+JWT_SECRET_KEY="replace-this-with-a-secure-random-secret-key"
+CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]
 ```
 
-### 3. Seed Database (Optional)
-
-Populate initial verified Pune & Mumbai hospitals, doctors, and specialities:
-
+### 3. Start Development Server
 ```bash
-python -m app.db.seed
+npm run dev
 ```
+The server will start on `http://localhost:8000`.
 
-### 4. Run Development Server
-
-
-
+### 4. Build for Production
 ```bash
-cd backend
-# 1. Activate the Python virtual environment
-source .venv/bin/activate
-# 2. Run the Uvicorn server with hot-reload
-uvicorn app.main:app --reload --port 8000
+npm run build
+npm start
 ```
-
-- API Root: `http://localhost:8000/`
-- Interactive Swagger UI: `http://localhost:8000/docs`
-- Health Probe: `http://localhost:8000/api/v1/health`
-- Doctors Directory: `http://localhost:8000/api/v1/doctors`
-- Hospitals Directory: `http://localhost:8000/api/v1/hospitals`
-- Cities & Specialities: `http://localhost:8000/api/v1/cities` & `/api/v1/specialities`
 
 ---
 
-## 📁 Directory Structure
+## 📡 Core API Endpoints
 
-```
-backend/
-├── app/
-│   ├── api/
-│   │   ├── deps.py              # Dependencies (get_current_user, role guards)
-│   │   └── v1/
-│   │       ├── auth.py          # /api/v1/auth (signup, login, me)
-│   │       ├── health.py        # /api/v1/health (probes Postgres connectivity)
-│   │       ├── doctors.py       # /api/v1/doctors (relational filter: city, speciality, hospital)
-│   │       ├── hospitals.py     # /api/v1/hospitals (city, state, services)
-│   │       ├── directory.py     # /api/v1/cities, /api/v1/specialities
-│   │       └── router.py        # V1 router aggregation
-│   ├── core/
-│   │   └── security.py          # Password hashing & JWT logic
-│   ├── db/
-│   │   ├── postgres.py          # SQLAlchemy async session, SSL normalizer, & table init
-│   │   └── seed.py              # Database seeder for cities, doctors, & hospitals
-│   ├── models/
-│   │   ├── user.py              # User account & role model
-│   │   ├── hospital.py          # Hospital facility model
-│   │   ├── doctor.py            # Doctor specialist model
-│   │   ├── affiliation.py       # Doctor-Hospital relational affiliation
-│   │   ├── city.py              # Coverage city model
-│   │   └── speciality.py        # Clinical speciality model
-│   ├── schemas/
-│   │   ├── user.py              # User Pydantic schemas
-│   │   ├── doctor.py            # Doctor & Affiliation output schemas
-│   │   ├── hospital.py          # Hospital output schemas
-│   │   ├── directory.py         # City & Speciality schemas
-│   │   ├── token.py             # JWT & token schemas
-│   │   └── health.py            # Health probe schemas
-│   ├── config.py                # Environment configuration
-│   └── main.py                  # FastAPI entrypoint & lifespan
-├── .env.example                 # Sample environment template
-├── .env                         # Active configuration
-├── .gitignore                   # Backend gitignore
-└── requirements.txt             # Pinned Python dependencies
-```
+- **Root Info**: `GET http://localhost:8000/`
+- **Health Check**: `GET http://localhost:8000/api/v1/health`
+- **Cache Status**: `GET http://localhost:8000/api/v1/cache/status`
+- **Hospitals Directory**: `GET http://localhost:8000/api/v1/hospitals`
+- **Single Hospital**: `GET http://localhost:8000/api/v1/hospitals/:slug`
+- **Doctors Directory**: `GET http://localhost:8000/api/v1/doctors`
+- **Single Doctor**: `GET http://localhost:8000/api/v1/doctors/:slug`
+- **Laboratories Directory**: `GET http://localhost:8000/api/v1/laboratories`
+- **Wellness Centers**: `GET http://localhost:8000/api/v1/wellness-centers`
+- **Cities & Specialities**: `GET http://localhost:8000/api/v1/cities` & `/api/v1/specialities`
+- **Auth**: `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me`, `POST /api/v1/auth/logout`
