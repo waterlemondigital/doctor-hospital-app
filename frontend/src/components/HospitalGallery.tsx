@@ -73,7 +73,7 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
               }`}
             >
               <LayoutGrid className="h-3.5 w-3.5" />
-              <span>All 6 Photos (Grid)</span>
+              <span>All {images.length} Photos (Grid)</span>
             </Button>
           </div>
         )}
@@ -157,7 +157,7 @@ export function HospitalGallery({ images, hospitalName }: HospitalGalleryProps) 
                     </div>
                   ) : (
                     <img
-                      src={img.thumb_url || img.url}
+                      src={img.card_url || img.thumb_url || img.url}
                       alt={img.alt}
                       draggable={false}
                       loading="lazy"

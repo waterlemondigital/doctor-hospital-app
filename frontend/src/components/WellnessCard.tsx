@@ -13,13 +13,17 @@ interface WellnessCardProps {
 
 export function WellnessCard({ center, className }: WellnessCardProps) {
   const [imageError, setImageError] = React.useState(false);
-  const coverImage = center.images[0];
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const coverImage = center.images && center.images.length > 0 ? center.images[0] : null;
 
   return (
     <Card className={`overflow-hidden group hover:shadow-md transition-all duration-200 border-[#90e0ef]/70 flex flex-col justify-between ${className || ''}`}>
       <div>
         {/* Cover Image Container */}
         <div className="relative aspect-16/9 w-full overflow-hidden bg-slate-100">
+          {!isLoaded && !imageError && coverImage && (
+            <div className="absolute inset-0 bg-slate-200/80 animate-pulse" />
+          )}
           {imageError || !coverImage ? (
             <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-4 text-[#03045e]">
               <Sparkles className="h-10 w-10 text-[#0077b6] mb-1.5 opacity-60" />
@@ -28,18 +32,15 @@ export function WellnessCard({ center, className }: WellnessCardProps) {
           ) : (
             <img
               src={coverImage.card_url || coverImage.thumb_url || coverImage.url}
-              srcSet={
-                coverImage.thumb_url && coverImage.card_url
-                  ? `${coverImage.thumb_url} 400w, ${coverImage.card_url} 800w, ${coverImage.full_url || coverImage.url} 1600w`
-                  : undefined
-              }
-              sizes="(max-width: 768px) 100vw, 400px"
               alt={coverImage.alt || center.name}
               referrerPolicy="no-referrer"
               loading="lazy"
               decoding="async"
+              onLoad={() => setIsLoaded(true)}
               onError={() => setImageError(true)}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+              className={`h-full w-full object-cover transition-all duration-300 group-hover:scale-105 pointer-events-none select-none ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
             />
           )}
 

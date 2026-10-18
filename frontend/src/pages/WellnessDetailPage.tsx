@@ -22,6 +22,7 @@ import { fetchWellnessCenterBySlug } from '../api/wellness';
 import { WellnessCenter } from '../types';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
+import { HospitalGallery } from '../components/HospitalGallery';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -139,8 +140,10 @@ export function WellnessDetailPage() {
                 src={coverImage.url}
                 alt={coverImage.alt}
                 referrerPolicy="no-referrer"
+                loading="eager"
+                decoding="async"
                 onError={() => setImageError(true)}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-opacity duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#03045e]/90 via-[#03045e]/40 to-transparent" />
             </>
@@ -187,6 +190,11 @@ export function WellnessDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Center Photo Gallery */}
+      {center.images && center.images.length > 0 && (
+        <HospitalGallery images={center.images} hospitalName={center.name} />
+      )}
 
       {/* Main Grid: Left Details & Right Contact Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

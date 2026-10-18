@@ -22,6 +22,7 @@ import {
 import { fetchLaboratoryBySlug } from '../api/laboratories';
 import { fetchHospitals } from '../api/hospitals';
 import { Hospital } from '../types';
+import { HospitalGallery } from '../components/HospitalGallery';
 import { QueryDialog } from '../components/QueryDialog';
 import {
   Breadcrumb,
@@ -115,8 +116,6 @@ export function LaboratoryDetailPage() {
       })
     );
   };
-
-  const coverImage = (laboratory.images && laboratory.images.length > 0) ? laboratory.images[0] : null;
 
   const isPhoneDirect = !laboratory.phone.toLowerCase().startsWith('use official');
 
@@ -248,26 +247,15 @@ export function LaboratoryDetailPage() {
         </div>
       </div>
 
+      {/* Laboratory Photo Gallery */}
+      {laboratory.images && laboratory.images.length > 0 && (
+        <HospitalGallery images={laboratory.images} hospitalName={laboratory.name} />
+      )}
+
       {/* Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column (Content & Tabs) */}
         <div className="lg:col-span-2 space-y-8">
-          {/* Cover Media Gallery (only if real image exists) */}
-          {coverImage && (
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xs bg-slate-50">
-              <div className="relative aspect-16/9 w-full bg-slate-100">
-                <img
-                  src={coverImage.url}
-                  alt={coverImage.alt}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white text-xs">
-                  <p className="font-semibold">{coverImage.alt}</p>
-                  {coverImage.caption && <p className="text-[11px] text-slate-200">{coverImage.caption}</p>}
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Deep Navigation Tabs */}
           <Tabs defaultValue="overview" className="w-full space-y-4">
