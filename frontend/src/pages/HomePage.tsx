@@ -54,15 +54,16 @@ export function HomePage() {
       if (isMounted) {
         if (h && h.length > 0) setHospitals(h);
         if (d && d.length > 0) setDoctors(d);
-        if (labs && labs.length > 0) setLaboratories(labs.slice(0, 9));
-        if (wellness && wellness.length > 0) setWellnessCenters(wellness.slice(0, 9));
+        if (labs && labs.length > 0) setLaboratories(labs);
+        if (wellness && wellness.length > 0) setWellnessCenters(wellness);
       }
     });
     return () => { isMounted = false; };
   }, []);
 
-  // Search state
-  const [searchCategory, setSearchCategory] = React.useState<'all' | 'hospitals' | 'doctors' | 'specialities'>('all');
+  // Search state for all healthcare services
+  type SearchCategory = 'all' | 'hospitals' | 'doctors' | 'laboratories' | 'wellness' | 'specialities';
+  const [searchCategory, setSearchCategory] = React.useState<SearchCategory>('all');
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isSuggestionsOpen, setIsSuggestionsOpen] = React.useState(false);
   const searchContainerRef = React.useRef<HTMLDivElement>(null);
@@ -93,7 +94,7 @@ export function HomePage() {
     };
   }, []);
 
-  // Filter live suggestions
+  // Filter live suggestions across all services
   const cleanHeroQuery = searchQuery.toLowerCase().trim();
 
   const suggestedHospitals = cleanHeroQuery
@@ -101,6 +102,7 @@ export function HomePage() {
         (h) =>
           (searchCategory === 'all' || searchCategory === 'hospitals') &&
           (h.name.toLowerCase().includes(cleanHeroQuery) ||
+            h.city.toLowerCase().includes(cleanHeroQuery) ||
             h.area.toLowerCase().includes(cleanHeroQuery) ||
             h.services.some((s) => s.toLowerCase().includes(cleanHeroQuery)) ||
             h.departments.some(
@@ -116,11 +118,38 @@ export function HomePage() {
         (d) =>
           (searchCategory === 'all' || searchCategory === 'doctors') &&
           (d.name.toLowerCase().includes(cleanHeroQuery) ||
+            (d.city && d.city.toLowerCase().includes(cleanHeroQuery)) ||
+            (d.area && d.area.toLowerCase().includes(cleanHeroQuery)) ||
             d.department.toLowerCase().includes(cleanHeroQuery) ||
             d.departmentSlug.toLowerCase().includes(cleanHeroQuery) ||
             d.speciality.toLowerCase().includes(cleanHeroQuery) ||
             d.subSpeciality.toLowerCase().includes(cleanHeroQuery) ||
             d.areasOfPractice.some((a) => a.toLowerCase().includes(cleanHeroQuery)))
+      ).slice(0, 3)
+    : [];
+
+  const suggestedLaboratories = cleanHeroQuery
+    ? laboratories.filter(
+        (lab) =>
+          (searchCategory === 'all' || searchCategory === 'laboratories') &&
+          (lab.name.toLowerCase().includes(cleanHeroQuery) ||
+            lab.city.toLowerCase().includes(cleanHeroQuery) ||
+            lab.area.toLowerCase().includes(cleanHeroQuery) ||
+            lab.services.some((s) => s.toLowerCase().includes(cleanHeroQuery)) ||
+            (lab.accreditation && lab.accreditation.toLowerCase().includes(cleanHeroQuery)))
+      ).slice(0, 3)
+    : [];
+
+  const suggestedWellness = cleanHeroQuery
+    ? wellnessCenters.filter(
+        (w) =>
+          (searchCategory === 'all' || searchCategory === 'wellness') &&
+          (w.name.toLowerCase().includes(cleanHeroQuery) ||
+            w.city.toLowerCase().includes(cleanHeroQuery) ||
+            w.area.toLowerCase().includes(cleanHeroQuery) ||
+            w.category.toLowerCase().includes(cleanHeroQuery) ||
+            w.programs.some((p) => p.toLowerCase().includes(cleanHeroQuery)) ||
+            w.disciplines.some((disc) => disc.toLowerCase().includes(cleanHeroQuery)))
       ).slice(0, 3)
     : [];
 
@@ -136,6 +165,8 @@ export function HomePage() {
   const hasSuggestions =
     suggestedHospitals.length > 0 ||
     suggestedDoctors.length > 0 ||
+    suggestedLaboratories.length > 0 ||
+    suggestedWellness.length > 0 ||
     suggestedSpecialities.length > 0;
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -145,6 +176,10 @@ export function HomePage() {
     if (!query) {
       if (searchCategory === 'doctors') {
         navigate('/doctors');
+      } else if (searchCategory === 'laboratories') {
+        navigate('/laboratories');
+      } else if (searchCategory === 'wellness') {
+        navigate('/wellness-centers');
       } else {
         navigate('/hospitals');
       }
@@ -153,10 +188,23 @@ export function HomePage() {
 
     if (searchCategory === 'doctors') {
       navigate(`/doctors?search=${encodeURIComponent(query)}`);
+    } else if (searchCategory === 'laboratories') {
+      navigate(`/laboratories?search=${encodeURIComponent(query)}`);
+    } else if (searchCategory === 'wellness') {
+      navigate(`/wellness-centers?search=${encodeURIComponent(query)}`);
     } else if (searchCategory === 'specialities') {
       navigate(`/doctors?speciality=${encodeURIComponent(query)}`);
     } else {
-      navigate(`/hospitals?search=${encodeURIComponent(query)}`);
+      // Smart routing for 'all': navigate to specific service if single match type, otherwise default to hospitals directory search
+      if (suggestedDoctors.length > 0 && suggestedHospitals.length === 0 && suggestedLaboratories.length === 0 && suggestedWellness.length === 0) {
+        navigate(`/doctors?search=${encodeURIComponent(query)}`);
+      } else if (suggestedLaboratories.length > 0 && suggestedHospitals.length === 0 && suggestedDoctors.length === 0 && suggestedWellness.length === 0) {
+        navigate(`/laboratories?search=${encodeURIComponent(query)}`);
+      } else if (suggestedWellness.length > 0 && suggestedHospitals.length === 0 && suggestedDoctors.length === 0 && suggestedLaboratories.length === 0) {
+        navigate(`/wellness-centers?search=${encodeURIComponent(query)}`);
+      } else {
+        navigate(`/hospitals?search=${encodeURIComponent(query)}`);
+      }
     }
   };
 
@@ -216,9 +264,11 @@ export function HomePage() {
                   className="h-12 bg-slate-50 border-slate-200 text-xs font-semibold"
                   aria-label="Filter search category"
                 >
-                  <option value="all">All Categories</option>
+                  <option value="all">All Services</option>
                   <option value="hospitals">Hospitals</option>
                   <option value="doctors">Doctors</option>
+                  <option value="laboratories">Laboratories</option>
+                  <option value="wellness">Wellness Centers</option>
                   <option value="specialities">Specialities</option>
                 </Select>
               </div>
@@ -236,7 +286,7 @@ export function HomePage() {
                   onFocus={() => {
                     if (searchQuery.trim()) setIsSuggestionsOpen(true);
                   }}
-                  placeholder="Search by hospital, doctor or speciality..."
+                  placeholder="Search hospitals, doctors, labs, wellness..."
                   className="w-full h-12 pl-10 pr-9 text-sm text-[#03045e] placeholder:text-slate-400 bg-transparent focus:outline-none font-medium"
                 />
                 {searchQuery && (
@@ -340,6 +390,76 @@ export function HomePage() {
                       </div>
                     )}
 
+                    {/* Matching Diagnostic Laboratories */}
+                    {suggestedLaboratories.length > 0 && (
+                      <div className="pt-1 border-t border-slate-100">
+                        <div className="flex items-center gap-1.5 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                          <FlaskConical className="h-3 w-3 text-[#0077b6]" />
+                          <span>Laboratories ({suggestedLaboratories.length})</span>
+                        </div>
+                        <div className="space-y-1 mt-1">
+                          {suggestedLaboratories.map((lab) => (
+                            <button
+                              key={lab.id}
+                              type="button"
+                              onClick={() => {
+                                setIsSuggestionsOpen(false);
+                                navigate(`/laboratories/${lab.slug}`);
+                              }}
+                              className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-[#caf0f8]/40 transition-colors text-left group cursor-pointer"
+                            >
+                              <div className="min-w-0 pr-2">
+                                <p className="text-xs font-bold text-[#03045e] group-hover:text-[#0077b6] truncate">
+                                  {lab.name}
+                                </p>
+                                <p className="text-[11px] text-slate-500 truncate">
+                                  {lab.area}, {lab.city} {lab.accreditation ? `· ${lab.accreditation}` : ''}
+                                </p>
+                              </div>
+                              <span className="text-[11px] font-semibold text-[#0077b6] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                                View <ArrowRight className="h-3 w-3" />
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Matching Wellness Centers */}
+                    {suggestedWellness.length > 0 && (
+                      <div className="pt-1 border-t border-slate-100">
+                        <div className="flex items-center gap-1.5 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                          <Leaf className="h-3 w-3 text-emerald-600" />
+                          <span>Wellness Centers ({suggestedWellness.length})</span>
+                        </div>
+                        <div className="space-y-1 mt-1">
+                          {suggestedWellness.map((center) => (
+                            <button
+                              key={center.id}
+                              type="button"
+                              onClick={() => {
+                                setIsSuggestionsOpen(false);
+                                navigate(`/wellness-centers/${center.slug}`);
+                              }}
+                              className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-[#caf0f8]/40 transition-colors text-left group cursor-pointer"
+                            >
+                              <div className="min-w-0 pr-2">
+                                <p className="text-xs font-bold text-[#03045e] group-hover:text-[#0077b6] truncate">
+                                  {center.name}
+                                </p>
+                                <p className="text-[11px] text-slate-500 truncate">
+                                  {center.area}, {center.city} · {center.category}
+                                </p>
+                              </div>
+                              <span className="text-[11px] font-semibold text-[#0077b6] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                                View <ArrowRight className="h-3 w-3" />
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Matching Specialities */}
                     {suggestedSpecialities.length > 0 && (
                       <div className="pt-1 border-t border-slate-100">
@@ -379,18 +499,60 @@ export function HomePage() {
                       No verified listings found for &ldquo;{searchQuery}&rdquo;
                     </p>
                     <p className="text-[11px] text-slate-400">
-                      Press Enter or click Search to browse all verified facilities in Pune.
+                      Press Enter or click Search to browse all verified healthcare listings.
                     </p>
                   </div>
                 )}
 
                 {/* Footer strip in suggestion box */}
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 px-2">
-                  <span>Press <kbd className="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px]">Enter</kbd> to view full results</span>
+                <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 px-2">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-semibold text-slate-500">Quick Search:</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSuggestionsOpen(false);
+                        navigate(`/hospitals?search=${encodeURIComponent(searchQuery.trim())}`);
+                      }}
+                      className="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-[#caf0f8] text-[#0077b6] font-medium transition-colors cursor-pointer"
+                    >
+                      Hospitals
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSuggestionsOpen(false);
+                        navigate(`/doctors?search=${encodeURIComponent(searchQuery.trim())}`);
+                      }}
+                      className="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-[#caf0f8] text-[#0077b6] font-medium transition-colors cursor-pointer"
+                    >
+                      Doctors
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSuggestionsOpen(false);
+                        navigate(`/laboratories?search=${encodeURIComponent(searchQuery.trim())}`);
+                      }}
+                      className="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-[#caf0f8] text-[#0077b6] font-medium transition-colors cursor-pointer"
+                    >
+                      Labs
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSuggestionsOpen(false);
+                        navigate(`/wellness-centers?search=${encodeURIComponent(searchQuery.trim())}`);
+                      }}
+                      className="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-[#caf0f8] text-[#0077b6] font-medium transition-colors cursor-pointer"
+                    >
+                      Wellness
+                    </button>
+                  </div>
                   <button
                     type="button"
                     onClick={handleSearchSubmit}
-                    className="font-bold text-[#0077b6] hover:underline cursor-pointer"
+                    className="font-bold text-[#0077b6] hover:underline cursor-pointer ml-auto"
                   >
                     View All Results &rarr;
                   </button>
@@ -650,7 +812,7 @@ export function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {laboratories.map((lab) => (
+            {laboratories.slice(0, 9).map((lab) => (
               <LaboratoryCard key={lab.id} laboratory={lab} />
             ))}
           </div>
@@ -689,7 +851,7 @@ export function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {wellnessCenters.map((center) => (
+            {wellnessCenters.slice(0, 9).map((center) => (
               <WellnessCard key={center.id} center={center} />
             ))}
           </div>

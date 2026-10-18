@@ -13,8 +13,8 @@ class DoctorHospitalAffiliation(Base):
     note = Column(Text, nullable=True)
 
     # Relationships
-    doctor = relationship("Doctor", back_populates="affiliations", lazy="selectin")
-    hospital = relationship("Hospital", back_populates="affiliations", lazy="selectin")
+    doctor = relationship("Doctor", back_populates="affiliations", lazy="select")
+    hospital = relationship("Hospital", back_populates="affiliations", lazy="select")
 
     __table_args__ = (
         UniqueConstraint("doctor_id", "hospital_id", name="uq_doctor_hospital"),

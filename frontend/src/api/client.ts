@@ -3,7 +3,8 @@
  * Includes in-memory caching and in-flight promise deduplication for ultra-fast navigation.
  */
 
-const API_BASE = '/api/v1';
+const rawApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+const API_BASE = rawApiUrl ? `${rawApiUrl.replace(/\/+$/, '')}/api/v1` : '/api/v1';
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {

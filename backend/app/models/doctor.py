@@ -45,7 +45,7 @@ class Doctor(Base):
         "DoctorHospitalAffiliation",
         back_populates="doctor",
         cascade="all, delete-orphan",
-        lazy="selectin",
+        lazy="select",
     )
 
     def __repr__(self) -> str:

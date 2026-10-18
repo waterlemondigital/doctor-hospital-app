@@ -36,8 +36,11 @@ def get_normalized_database_url_and_args(raw_url: str) -> Tuple[str, Dict[str, A
     if ssl_requested:
         connect_args["ssl"] = True
 
-    # Disable statement caching to avoid cache invalidation issues with connection poolers and schema migrations
+    # Disable statement caching for PgBouncer / Neon connection pooler compatibility
     connect_args["statement_cache_size"] = 0
+
+    # Turn off JIT to prevent compilation overhead on small queries
+    connect_args["server_settings"] = {"jit": "off"}
 
     # Strip parameters that asyncpg doesn't accept directly in query string
     ignored_params = {"sslmode", "channel_binding"}
@@ -56,12 +59,16 @@ def get_normalized_database_url_and_args(raw_url: str) -> Tuple[str, Dict[str, A
 
 normalized_url, engine_connect_args = get_normalized_database_url_and_args(settings.DATABASE_URL)
 
-# Async Engine for PostgreSQL
+# Optimized Async Engine for Neon PostgreSQL with lean connection pooling
 engine = create_async_engine(
     normalized_url,
     connect_args=engine_connect_args,
-    echo=settings.DEBUG,
+    echo=False,
     future=True,
+    pool_size=5,
+    max_overflow=5,
+    pool_timeout=15,
+    pool_recycle=300,
     pool_pre_ping=True,
 )
 
