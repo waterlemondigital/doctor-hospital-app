@@ -28,6 +28,8 @@ import { LaboratoryCard } from '../components/LaboratoryCard';
 import { WellnessCard } from '../components/WellnessCard';
 import { AdSlot } from '../components/AdSlot';
 import { MultiSpecialtySection } from '../components/MultiSpecialtySection';
+import { FamousCitiesSection } from '../components/FamousCitiesSection';
+import { FamousHospitalsSection } from '../components/FamousHospitalsSection';
 import { HeroInquiryForm } from '../components/HeroInquiryForm';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
@@ -533,6 +535,12 @@ export function HomePage() {
         </Link>
       </section>
 
+      {/* Famous Cities for Treatment */}
+      <FamousCitiesSection />
+
+      {/* Famous Hospitals for Treatment */}
+      <FamousHospitalsSection />
+
       {/* Inter-Section Clickable Ad Banner Slot 1 */}
       <AdSlot
         size="full-width"
@@ -564,9 +572,12 @@ export function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {hospitals.map((hospital) => (
-            <HospitalCard key={hospital.id} hospital={hospital} />
-          ))}
+          {hospitals
+            .filter((h) => h.city.toLowerCase() === 'pune')
+            .slice(0, 6)
+            .map((hospital) => (
+              <HospitalCard key={hospital.id} hospital={hospital} />
+            ))}
         </div>
       </section>
 
@@ -607,6 +618,15 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Inter-Section Clickable Ad Banner Slot 3 */}
+      <AdSlot
+        size="full-width"
+        label="Ad"
+        slotName="Sponsored Display Ad"
+        dimensions="Full-Width Click Banner (1200×200)"
+        href="#"
+      />
+
       {/* 6. Featured Laboratories */}
       {laboratories.length > 0 && (
         <section className="space-y-4">
@@ -637,6 +657,15 @@ export function HomePage() {
         </section>
       )}
 
+      {/* Inter-Section Clickable Ad Banner Slot 4 */}
+      <AdSlot
+        size="full-width"
+        label="Ad"
+        slotName="Sponsored Display Ad"
+        dimensions="Full-Width Click Banner (1200×200)"
+        href="#"
+      />
+
       {/* 7. Featured Wellness Clinics & Centers */}
       {wellnessCenters.length > 0 && (
         <section className="space-y-4">
@@ -666,6 +695,15 @@ export function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Inter-Section Clickable Ad Banner Slot 5 */}
+      <AdSlot
+        size="full-width"
+        label="Ad"
+        slotName="Sponsored Display Ad"
+        dimensions="Full-Width Click Banner (1200×200)"
+        href="#"
+      />
 
       {/* 8. "Why trust this information" strip */}
       <section className="rounded-3xl border border-[#90e0ef] bg-[#caf0f8]/30 p-6 sm:p-8 space-y-6">

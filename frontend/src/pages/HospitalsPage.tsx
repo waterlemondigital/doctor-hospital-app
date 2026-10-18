@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Building2, MapPin, Globe, AlertCircle, RefreshCw, X } from 'lucide-react';
+import { Search, Building2, MapPin, Globe, AlertCircle, RefreshCw, X, Sparkles } from 'lucide-react';
 import { Hospital } from '../types';
 import { fetchHospitals } from '../api/hospitals';
-import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
+import { LOCATIONS_DATA } from '../data/locations';
+import { FAMOUS_TREATMENT_CITIES } from '../data/treatmentCities';
 import { HospitalCard } from '../components/HospitalCard';
 import { Button } from '../components/ui/button';
 import { Select } from '../components/ui/select';
@@ -11,6 +12,8 @@ import { Select } from '../components/ui/select';
 export function HospitalsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('search') || '';
+  const cityParam = searchParams.get('city') || '';
+  const stateParam = searchParams.get('state') || '';
 
   const [hospitals, setHospitals] = React.useState<Hospital[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -33,33 +36,149 @@ export function HospitalsPage() {
 
   const [query, setQuery] = React.useState(initialQuery);
   const [selectedCountry, setSelectedCountry] = React.useState('india');
-  const [selectedState, setSelectedState] = React.useState(ACTIVE_STATE.id);
-  const [selectedCity, setSelectedCity] = React.useState(ACTIVE_CITY.id);
+  const [selectedState, setSelectedState] = React.useState<string>(() => {
+    if (stateParam) return stateParam;
+    if (cityParam) {
+      const match = FAMOUS_TREATMENT_CITIES.find(
+        (c) => c.name.toLowerCase() === cityParam.toLowerCase() || c.id.toLowerCase() === cityParam.toLowerCase()
+      );
+      if (match) {
+        const stateMatch = LOCATIONS_DATA.find((s) => s.name.toLowerCase() === match.state.toLowerCase());
+        return stateMatch ? stateMatch.id : 'all';
+      }
+    }
+    return 'all';
+  });
 
-  const currentState = LOCATIONS_DATA.find((s) => s.id === selectedState) || ACTIVE_STATE;
+  const [selectedCity, setSelectedCity] = React.useState<string>(() => {
+    if (cityParam) {
+      const match = FAMOUS_TREATMENT_CITIES.find(
+        (c) => c.name.toLowerCase() === cityParam.toLowerCase() || c.id.toLowerCase() === cityParam.toLowerCase()
+      );
+      return match ? match.name : cityParam;
+    }
+    return 'all';
+  });
+
+  // Sync state when URL search params change
+  React.useEffect(() => {
+    if (cityParam) {
+      const match = FAMOUS_TREATMENT_CITIES.find(
+        (c) => c.name.toLowerCase() === cityParam.toLowerCase() || c.id.toLowerCase() === cityParam.toLowerCase()
+      );
+      const matchedCityName = match ? match.name : cityParam;
+      setSelectedCity(matchedCityName);
+
+      if (match) {
+        const stateMatch = LOCATIONS_DATA.find((s) => s.name.toLowerCase() === match.state.toLowerCase());
+        if (stateMatch) {
+          setSelectedState(stateMatch.id);
+        } else {
+          setSelectedState('all');
+        }
+      }
+    } else if (stateParam) {
+      setSelectedState(stateParam);
+    } else {
+      setSelectedState('all');
+      setSelectedCity('all');
+    }
+    if (initialQuery) {
+      setQuery(initialQuery);
+    } else {
+      setQuery('');
+    }
+  }, [cityParam, stateParam, initialQuery]);
+
+  const currentState = LOCATIONS_DATA.find((s) => s.id === selectedState);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setQuery(val);
+    const newParams = new URLSearchParams(searchParams);
     if (val) {
-      setSearchParams({ search: val });
+      newParams.set('search', val);
     } else {
-      setSearchParams({});
+      newParams.delete('search');
     }
+    setSearchParams(newParams);
+  };
+
+  const handleStateChange = (newStateId: string) => {
+    setSelectedState(newStateId);
+    const newParams = new URLSearchParams(searchParams);
+
+    if (newStateId === 'all') {
+      setSelectedCity('all');
+      newParams.delete('state');
+      newParams.delete('city');
+    } else {
+      newParams.set('state', newStateId);
+      const st = LOCATIONS_DATA.find((s) => s.id === newStateId);
+      if (st && st.cities.length > 0) {
+        setSelectedCity(st.cities[0].name);
+        newParams.set('city', st.cities[0].name);
+      } else {
+        setSelectedCity('all');
+        newParams.delete('city');
+      }
+    }
+    setSearchParams(newParams);
+  };
+
+  const handleCityChange = (newCityName: string) => {
+    setSelectedCity(newCityName);
+    const newParams = new URLSearchParams(searchParams);
+
+    if (newCityName === 'all') {
+      newParams.delete('city');
+    } else {
+      newParams.set('city', newCityName);
+      // Auto-sync state if city belongs to a known state
+      const match = FAMOUS_TREATMENT_CITIES.find(
+        (c) => c.name.toLowerCase() === newCityName.toLowerCase()
+      );
+      if (match) {
+        const st = LOCATIONS_DATA.find((s) => s.name.toLowerCase() === match.state.toLowerCase());
+        if (st) {
+          setSelectedState(st.id);
+          newParams.set('state', st.id);
+        }
+      }
+    }
+    setSearchParams(newParams);
   };
 
   const cleanQuery = query.toLowerCase().trim();
 
   // Filter hospitals based on search and locations
   const filteredHospitals = hospitals.filter((h) => {
-    // State filter check
-    if (selectedState && h.state.toLowerCase() !== currentState.name.toLowerCase()) {
-      return false;
-    }
-
     // City filter check
-    if (selectedCity && h.city.toLowerCase() !== selectedCity.toLowerCase()) {
-      return false;
+    if (selectedCity && selectedCity !== 'all') {
+      const normSelected = selectedCity.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const normHCity = (h.city || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+      let isCityMatch = normHCity.includes(normSelected) || normSelected.includes(normHCity);
+
+      // Support common metro cluster regions
+      if (!isCityMatch) {
+        if (normSelected.includes('delhi') || normSelected.includes('ncr')) {
+          isCityMatch = ['delhi', 'newdelhi', 'gurugram', 'faridabad', 'noida', 'ghaziabad'].some((c) => normHCity.includes(c));
+        } else if (normSelected.includes('mumbai') || normSelected.includes('mmr')) {
+          isCityMatch = ['mumbai', 'navimumbai', 'thane'].some((c) => normHCity.includes(c));
+        } else if (normSelected.includes('kochi')) {
+          isCityMatch = ['kochi', 'aluva', 'ernakulam'].some((c) => normHCity.includes(c));
+        }
+      }
+
+      if (!isCityMatch) {
+        return false;
+      }
+    } else if (selectedState && selectedState !== 'all' && currentState) {
+      // Apply state filter when city is 'all'
+      if (h.state.toLowerCase() !== currentState.name.toLowerCase()) {
+        return false;
+      }
     }
 
     if (!cleanQuery) return true;
@@ -80,10 +199,23 @@ export function HospitalsPage() {
   const resetFilters = () => {
     setQuery('');
     setSelectedCountry('india');
-    setSelectedState(ACTIVE_STATE.id);
-    setSelectedCity(ACTIVE_CITY.id);
+    setSelectedState('all');
+    setSelectedCity('all');
     setSearchParams({});
   };
+
+  const currentHeading = React.useMemo(() => {
+    if (selectedCity && selectedCity !== 'all') {
+      const famous = FAMOUS_TREATMENT_CITIES.find(
+        (c) => c.name.toLowerCase() === selectedCity.toLowerCase()
+      );
+      return famous ? `Hospitals in ${famous.name}, ${famous.state}` : `Hospitals in ${selectedCity}`;
+    }
+    if (currentState) {
+      return `Hospitals in ${currentState.name}`;
+    }
+    return 'Hospitals in India';
+  }, [selectedCity, currentState]);
 
   return (
     <div className="space-y-8">
@@ -94,11 +226,30 @@ export function HospitalsPage() {
           <span>Verified Directory</span>
         </div>
         <h1 className="text-3xl font-extrabold text-[#03045e] tracking-tight">
-          Hospitals in Pune, Maharashtra
+          {currentHeading}
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
           Factual, verified healthcare facilities with operational departments, emergency availability, and direct official contacts. Sorted neutrally without commercial rankings.
         </p>
+
+        {/* Active City Filter Pill if filtered */}
+        {selectedCity && selectedCity !== 'all' && (
+          <div className="pt-2 flex items-center gap-2">
+            <span className="text-xs font-semibold text-slate-500">Active City:</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#caf0f8] px-3 py-1 text-xs font-bold text-[#03045e] border border-[#90e0ef]">
+              <MapPin className="h-3 w-3 text-[#0077b6]" />
+              <span>{selectedCity}</span>
+              <button
+                type="button"
+                onClick={() => handleCityChange('all')}
+                className="ml-0.5 rounded-full p-0.5 hover:bg-[#90e0ef] text-slate-500 hover:text-[#03045e] transition-colors cursor-pointer"
+                title="Remove city filter"
+              >
+                <X className="h-3 w-3" />
+              </button>
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Filter & Search Bar: Standard, Clean Proportions */}
@@ -118,7 +269,9 @@ export function HospitalsPage() {
               type="button"
               onClick={() => {
                 setQuery('');
-                setSearchParams({});
+                const newParams = new URLSearchParams(searchParams);
+                newParams.delete('search');
+                setSearchParams(newParams);
               }}
               className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-slate-400 hover:text-[#03045e] hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Clear search query"
@@ -128,7 +281,7 @@ export function HospitalsPage() {
           )}
         </div>
 
-        {/* Structured Filter Row: Only Country, State, and City */}
+        {/* Structured Filter Row: Country, State, and City */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
           {/* Country Filter */}
           <div className="space-y-1">
@@ -149,24 +302,18 @@ export function HospitalsPage() {
           {/* State Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              State
+              State / Region
             </label>
             <Select
               value={selectedState}
-              onChange={(e) => {
-                const newStateId = e.target.value;
-                setSelectedState(newStateId);
-                const newState = LOCATIONS_DATA.find((s) => s.id === newStateId);
-                if (newState && newState.cities.length > 0) {
-                  setSelectedCity(newState.cities[0].id);
-                }
-              }}
+              onChange={(e) => handleStateChange(e.target.value)}
               icon={<MapPin className="h-3.5 w-3.5 text-[#0077b6]" />}
               aria-label="Filter state"
             >
+              <option value="all">All States (Pan-India)</option>
               {LOCATIONS_DATA.map((state) => (
-                <option key={state.id} value={state.id} disabled={!state.isActive}>
-                  {state.name} {!state.isActive ? '(Coming Soon)' : ''}
+                <option key={state.id} value={state.id}>
+                  {state.name} {state.isActive ? '(Active)' : ''}
                 </option>
               ))}
             </Select>
@@ -179,25 +326,42 @@ export function HospitalsPage() {
             </label>
             <Select
               value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
+              onChange={(e) => handleCityChange(e.target.value)}
               icon={<MapPin className="h-3.5 w-3.5 text-[#0077b6]" />}
               aria-label="Filter city"
             >
-              {currentState.cities.map((city) => (
-                <option key={city.id} value={city.id} disabled={!city.isActive}>
-                  {city.name} {!city.isActive ? '(Coming Soon)' : `(${city.hospitalCount} Verified)`}
-                </option>
-              ))}
+              <option value="all">All Cities</option>
+              
+              {/* If a state is selected and not 'all', show cities of that state */}
+              {currentState && currentState.cities.length > 0 ? (
+                <optgroup label={`${currentState.name} Cities`}>
+                  {currentState.cities.map((city) => (
+                    <option key={city.id} value={city.name}>
+                      {city.name} {city.hospitalCount > 0 ? `(${city.hospitalCount} Verified)` : ''}
+                    </option>
+                  ))}
+                </optgroup>
+              ) : null}
+
+              {/* Also show all 20 Famous Treatment Cities for direct jumping */}
+              <optgroup label="Famous Cities for Treatment">
+                {FAMOUS_TREATMENT_CITIES.map((c) => (
+                  <option key={c.id} value={c.name}>
+                    {c.name} ({c.state})
+                  </option>
+                ))}
+              </optgroup>
             </Select>
           </div>
         </div>
 
         {/* Results summary and reset */}
-        <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+        <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100 gap-2">
           <span>
-            Showing <strong>{filteredHospitals.length}</strong> verified {filteredHospitals.length === 1 ? 'hospital' : 'hospitals'} in {currentState.name} &gt; {selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)}
+            Showing <strong>{filteredHospitals.length}</strong> verified {filteredHospitals.length === 1 ? 'hospital' : 'hospitals'}
+            {selectedCity !== 'all' ? ` in ${selectedCity}` : (currentState ? ` in ${currentState.name}` : '')}
           </span>
-          {(query || selectedState !== ACTIVE_STATE.id || selectedCity !== ACTIVE_CITY.id) && (
+          {(query || selectedState !== 'all' || selectedCity !== 'all') && (
             <button
               type="button"
               onClick={resetFilters}
@@ -222,8 +386,40 @@ export function HospitalsPage() {
             <HospitalCard key={hospital.id} hospital={hospital} />
           ))}
         </div>
+      ) : selectedCity && selectedCity !== 'all' && selectedCity.toLowerCase() !== 'pune' ? (
+        /* Empty State for upcoming cities */
+        <div className="rounded-3xl border border-dashed border-[#90e0ef] bg-gradient-to-b from-[#caf0f8]/25 to-white p-10 text-center space-y-5">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#caf0f8] text-[#0077b6] shadow-2xs">
+            <Building2 className="h-7 w-7" />
+          </div>
+          <div className="space-y-2 max-w-lg mx-auto">
+            <span className="inline-block rounded-full bg-[#0077b6] px-3 py-1 text-xs font-bold text-white shadow-2xs">
+              Listings Coming Soon
+            </span>
+            <h3 className="text-xl font-bold text-[#03045e]">
+              Hospitals in {selectedCity} Under Verification
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              We are currently onboarding and independently auditing tertiary care institutions, super-speciality hospitals, and medical centers for <strong>{selectedCity}</strong>. Verified listings will be published shortly.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <Button
+              onClick={() => handleCityChange('Pune')}
+              variant="default"
+              size="sm"
+              className="bg-[#0077b6] hover:bg-[#03045e] text-white font-bold"
+            >
+              <span>Explore Pune Verified Hospitals</span>
+            </Button>
+            <Button onClick={resetFilters} variant="outline" size="sm" className="gap-2">
+              <RefreshCw className="h-3.5 w-3.5" />
+              <span>Browse All Facilities</span>
+            </Button>
+          </div>
+        </div>
       ) : (
-        /* Empty State */
+        /* Standard Empty State */
         <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center space-y-4">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-200 text-slate-500">
             <AlertCircle className="h-6 w-6" />
@@ -233,7 +429,7 @@ export function HospitalsPage() {
               No verified hospitals match your search
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              We currently cover Sahyadri Super Speciality Hospital and Sassoon General Hospital in Pune. We only publish listings that have been independently audited against statutory registries.
+              We currently cover verified facilities in Pune. We only publish listings that have been independently audited against statutory registries.
             </p>
           </div>
           <Button onClick={resetFilters} variant="outline" size="sm" className="gap-2">

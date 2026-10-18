@@ -177,7 +177,7 @@ async def sync():
                     "dateChecked": l.last_checked or "2026-10-17"
                 }]
 
-            img_url = lab_images[idx % len(lab_images)]
+            img_url = lab_images[idx % len(lab_images)] if lab_images else "/images/labs/default_lab.jpg"
             images = l.images or [{
                 "url": img_url,
                 "alt": l.name,
