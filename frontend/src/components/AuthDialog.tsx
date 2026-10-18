@@ -31,6 +31,19 @@ interface AuthDialogProps {
   initialMode?: 'login' | 'signup';
 }
 
+const COUNTRY_DIAL_CODES = [
+  { code: '+91', country: 'India', flag: '🇮🇳' },
+  { code: '+1', country: 'US / Canada', flag: '🇺🇸' },
+  { code: '+44', country: 'United Kingdom', flag: '🇬🇧' },
+  { code: '+971', country: 'UAE', flag: '🇦🇪' },
+  { code: '+65', country: 'Singapore', flag: '🇸🇬' },
+  { code: '+61', country: 'Australia', flag: '🇦🇺' },
+  { code: '+966', country: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: '+49', country: 'Germany', flag: '🇩🇪' },
+  { code: '+33', country: 'France', flag: '🇫🇷' },
+  { code: '+81', country: 'Japan', flag: '🇯🇵' },
+];
+
 export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDialogProps) {
   const { login, signup } = useAuth();
   const [mode, setMode] = React.useState<'login' | 'signup'>(initialMode);
@@ -46,9 +59,39 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
   const [signupRole, setSignupRole] = React.useState<'patient' | 'doctor'>('patient');
   const [signupName, setSignupName] = React.useState('');
   const [signupEmail, setSignupEmail] = React.useState('');
+  const [signupCountryCode, setSignupCountryCode] = React.useState('+91');
   const [signupPhone, setSignupPhone] = React.useState('');
+  const [signupPhoneError, setSignupPhoneError] = React.useState<string | null>(null);
   const [signupPassword, setSignupPassword] = React.useState('');
   const [agreeTerms, setAgreeTerms] = React.useState(true);
+
+  const validatePhoneNumber = (rawPhone: string, countryCode: string): string | null => {
+    const digits = rawPhone.replace(/\D/g, '').trim();
+    if (!digits) {
+      return null;
+    }
+    if (countryCode === '+91') {
+      if (digits.length !== 10) {
+        return 'Mobile number must be exactly 10 digits.';
+      }
+      if (!/^[6-9]/.test(digits)) {
+        return 'Indian mobile numbers must begin with 6, 7, 8, or 9.';
+      }
+    } else {
+      if (digits.length < 7 || digits.length > 15) {
+        return 'International mobile numbers must be between 7 and 15 digits.';
+      }
+    }
+    return null;
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSignupPhone(val);
+    if (signupPhoneError) {
+      setSignupPhoneError(validatePhoneNumber(val, signupCountryCode));
+    }
+  };
 
   // Sync mode with initialMode whenever dialog opens
   React.useEffect(() => {
@@ -139,6 +182,14 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
       toast.error('Password must be at least 6 characters.');
       return;
     }
+    if (signupPhone.trim()) {
+      const phoneErr = validatePhoneNumber(signupPhone, signupCountryCode);
+      if (phoneErr) {
+        setSignupPhoneError(phoneErr);
+        toast.error('Invalid Mobile Number', { description: phoneErr });
+        return;
+      }
+    }
     if (!agreeTerms) {
       toast.error('Please agree to directory verification terms.');
       return;
@@ -149,7 +200,8 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
       const user = await signup({
         name: signupName.trim(),
         email: signupEmail.trim(),
-        phone: signupPhone.trim() || undefined,
+        country_code: signupCountryCode,
+        phone: signupPhone.replace(/\D/g, '').trim() || undefined,
         role: signupRole,
         password: signupPassword,
       });
@@ -437,22 +489,61 @@ export function AuthDialog({ open, onOpenChange, initialMode = 'login' }: AuthDi
               </div>
             </div>
 
-            {/* Mobile Number */}
+            {/* Mobile Number with Country Code */}
             <div className="space-y-1">
-              <Label htmlFor="signup-phone" className="text-xs font-semibold text-slate-700">
-                Mobile Number (optional)
-              </Label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
-                <Input
-                  id="signup-phone"
-                  type="tel"
-                  placeholder="9822012345"
-                  value={signupPhone}
-                  onChange={(e) => setSignupPhone(e.target.value)}
-                  className="pl-9 text-xs rounded-xl border-slate-200 focus-visible:border-[#0077b6]"
-                />
+              <div className="flex items-center justify-between">
+                <Label htmlFor="signup-phone" className="text-xs font-semibold text-slate-700">
+                  Mobile Number <span className="text-slate-400 font-normal">(optional)</span>
+                </Label>
+                {signupCountryCode === '+91' && (
+                  <span className="text-[10px] text-slate-400 font-medium">10 digits</span>
+                )}
               </div>
+              <div className="flex items-center gap-1.5">
+                {/* Country Code Dropdown */}
+                <div className="relative w-28 shrink-0">
+                  <select
+                    id="signup-country-code"
+                    value={signupCountryCode}
+                    onChange={(e) => {
+                      setSignupCountryCode(e.target.value);
+                      if (signupPhone) {
+                        setSignupPhoneError(validatePhoneNumber(signupPhone, e.target.value));
+                      }
+                    }}
+                    className="w-full h-9 pl-2 pr-4 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 focus:outline-none focus:border-[#0077b6] cursor-pointer"
+                    aria-label="Select Country Dial Code"
+                  >
+                    {COUNTRY_DIAL_CODES.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Phone Input */}
+                <div className="relative flex-1">
+                  <Phone className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
+                  <Input
+                    id="signup-phone"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder={signupCountryCode === '+91' ? '98220 12345' : '1234567890'}
+                    value={signupPhone}
+                    onChange={handlePhoneChange}
+                    onBlur={() => setSignupPhoneError(validatePhoneNumber(signupPhone, signupCountryCode))}
+                    className={`pl-9 text-xs rounded-xl border-slate-200 focus-visible:border-[#0077b6] ${
+                      signupPhoneError ? 'border-red-400 focus-visible:border-red-500 bg-red-50/20' : ''
+                    }`}
+                  />
+                </div>
+              </div>
+              {signupPhoneError && (
+                <p className="text-[11px] font-medium text-red-500 mt-1 pl-1">
+                  {signupPhoneError}
+                </p>
+              )}
             </div>
 
             {/* Password */}

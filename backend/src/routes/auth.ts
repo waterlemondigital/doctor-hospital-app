@@ -41,7 +41,7 @@ function clearAuthCookies(res: Response) {
 }
 
 async function handleRegisterOrSignup(req: Request, res: Response) {
-  const { email, password, name, phone, role } = req.body || {};
+  const { email, password, name, phone, country_code, role } = req.body || {};
 
   if (!email || !password || !name) {
     res.status(400).json({ status: 'error', detail: 'Email, password, and name are required' });
@@ -55,15 +55,55 @@ async function handleRegisterOrSignup(req: Request, res: Response) {
     return;
   }
 
+  // Country code validation (defaults to +91 India)
+  const rawCountryCode = (country_code || '+91').toString().trim();
+  const countryCodeRegex = /^\+[1-9]\d{0,3}$/;
+  if (!countryCodeRegex.test(rawCountryCode)) {
+    res.status(400).json({
+      status: 'error',
+      detail: 'Invalid country code format. Must start with + followed by 1 to 4 digits (e.g. +91, +1, +44).',
+    });
+    return;
+  }
+
+  // Mobile number validation
+  let cleanPhone: string | null = null;
+  if (phone) {
+    const formatted = phone.toString().replace(/[\s\-\(\)]/g, '').trim();
+
+    if (rawCountryCode === '+91') {
+      // Indian 10-digit mobile number starting with 6, 7, 8, or 9
+      const indiaMobileRegex = /^[6-9]\d{9}$/;
+      if (!indiaMobileRegex.test(formatted)) {
+        res.status(400).json({
+          status: 'error',
+          detail: 'Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.',
+        });
+        return;
+      }
+    } else {
+      // International phone format: 7 to 15 digits
+      const intlMobileRegex = /^\d{7,15}$/;
+      if (!intlMobileRegex.test(formatted)) {
+        res.status(400).json({
+          status: 'error',
+          detail: 'Please enter a valid mobile number (between 7 and 15 digits).',
+        });
+        return;
+      }
+    }
+    cleanPhone = formatted;
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
   const userId = crypto.randomUUID();
   const assignedRole = ['patient', 'doctor', 'admin'].includes(role) ? role : 'patient';
 
   const insertRes = await query<User>(
-    `INSERT INTO users (id, email, hashed_password, name, phone, role, is_active, is_verified)
-     VALUES ($1, $2, $3, $4, $5, $6, true, false)
-     RETURNING id, email, name, role, phone, avatar, is_active, is_verified, created_at, updated_at`,
-    [userId, normalizedEmail, hashedPassword, name.trim(), phone || null, assignedRole]
+    `INSERT INTO users (id, email, hashed_password, name, phone, country_code, role, is_active, is_verified)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, true, false)
+     RETURNING id, email, name, role, phone, country_code, avatar, is_active, is_verified, created_at, updated_at`,
+    [userId, normalizedEmail, hashedPassword, name.trim(), cleanPhone, rawCountryCode, assignedRole]
   );
 
   const newUser = insertRes.rows[0];
@@ -85,15 +125,19 @@ authRouter.post('/auth/signup', handleRegisterOrSignup);
 authRouter.post('/auth/register', handleRegisterOrSignup);
 
 authRouter.post('/auth/login', async (req: Request, res: Response) => {
-  const { email, username, password } = req.body || {};
-  const userIdentifier = (email || username || '').toLowerCase().trim();
+  const { email, username, phone, password } = req.body || {};
+  const userIdentifier = (email || username || phone || '').toLowerCase().trim();
 
   if (!userIdentifier || !password) {
-    res.status(400).json({ status: 'error', detail: 'Email/username and password are required' });
+    res.status(400).json({ status: 'error', detail: 'Email/username/mobile and password are required' });
     return;
   }
 
-  const userRes = await query<User>('SELECT * FROM users WHERE email = $1', [userIdentifier]);
+  // Allow login by email or phone number
+  const userRes = await query<User>(
+    'SELECT * FROM users WHERE email = $1 OR phone = $1',
+    [userIdentifier]
+  );
   const user = userRes.rows[0];
 
   if (!user) {

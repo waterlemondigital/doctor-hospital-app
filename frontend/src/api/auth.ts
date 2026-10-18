@@ -6,6 +6,7 @@ export interface User {
   email: string;
   role: 'patient' | 'doctor' | 'admin';
   phone?: string;
+  country_code?: string;
   avatar?: string;
   is_active: boolean;
   is_verified: boolean;
@@ -24,6 +25,7 @@ export interface SignupPayload {
   password: string;
   role: 'patient' | 'doctor';
   phone?: string;
+  country_code?: string;
   avatar?: string;
 }
 

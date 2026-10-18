@@ -148,6 +148,7 @@ export interface User {
   name: string;
   role: string;
   phone?: string | null;
+  country_code?: string | null;
   avatar?: string | null;
   hashed_refresh_token?: string | null;
   is_active: boolean;
