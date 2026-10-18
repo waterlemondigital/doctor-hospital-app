@@ -125,11 +125,11 @@ export function DoctorDetailPage() {
       {/* Profile Header Block */}
       <div className="rounded-3xl border border-[#90e0ef]/70 bg-white p-6 sm:p-8 shadow-xs space-y-6">
         <div className="flex flex-col md:flex-row items-start justify-between gap-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Avatar / Photo */}
-            <Avatar className="h-24 w-24 sm:h-28 sm:w-28 border-2 border-[#90e0ef] shadow-sm">
+            <Avatar className="h-32 w-32 sm:h-36 sm:w-36 md:h-40 md:w-40 border-4 border-[#90e0ef]/80 shadow-md shrink-0">
               <AvatarImage src={doctor.photo} alt={doctor.name} />
-              <AvatarFallback className="text-2xl font-extrabold text-[#03045e]">
+              <AvatarFallback className="text-3xl sm:text-4xl font-extrabold text-[#03045e]">
                 {doctor.name
                   .split(' ')
                   .map((n) => n[0])

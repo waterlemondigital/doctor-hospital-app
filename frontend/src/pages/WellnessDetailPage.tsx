@@ -36,7 +36,6 @@ export function WellnessDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const [center, setCenter] = React.useState<WellnessCenter | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [imageError, setImageError] = React.useState(false);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -106,8 +105,6 @@ export function WellnessDetailPage() {
     );
   }
 
-  const coverImage = (center.images && center.images.length > 0) ? center.images[0] : null;
-
   return (
     <div className="space-y-6 pb-12">
       {/* Breadcrumb */}
@@ -131,63 +128,97 @@ export function WellnessDetailPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      {/* Hero Card */}
-      <div className="rounded-3xl border border-[#90e0ef] bg-white overflow-hidden shadow-xs">
-        <div className="relative aspect-21/9 sm:aspect-24/9 w-full bg-gradient-to-br from-[#03045e] via-[#023e8a] to-[#0077b6] overflow-hidden min-h-[200px] max-h-[360px]">
-          {coverImage && !imageError && (
-            <>
-              <img
-                src={coverImage.url}
-                alt={coverImage.alt}
-                referrerPolicy="no-referrer"
-                loading="eager"
-                decoding="async"
-                onError={() => setImageError(true)}
-                className="h-full w-full object-cover transition-opacity duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#03045e]/90 via-[#03045e]/40 to-transparent" />
-            </>
-          )}
-
-          <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white">
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="rounded-md bg-emerald-600 px-2.5 py-0.5 text-xs font-bold text-white shadow-xs flex items-center gap-1">
-                <Leaf className="h-3 w-3" />
+      {/* Header Profile Block */}
+      <div className="rounded-3xl border border-[#90e0ef]/70 bg-white p-6 sm:p-8 shadow-xs space-y-5">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="space-y-3 max-w-2xl">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="secondary" className="bg-[#caf0f8] text-[#03045e] font-semibold flex items-center gap-1.5 py-1 px-3">
+                <Leaf className="h-3.5 w-3.5 text-[#0077b6]" />
                 <span>{center.category}</span>
-              </span>
-              <span className="rounded-md bg-white/20 backdrop-blur-md px-2.5 py-0.5 text-xs font-semibold text-white border border-white/30">
-                {center.city.toUpperCase()} · {center.area}
-              </span>
+              </Badge>
+              <Badge variant="outline" className="border-emerald-300 bg-emerald-50 text-emerald-800 font-semibold flex items-center gap-1 py-1 px-2.5">
+                <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                <span>Audited & Verified</span>
+              </Badge>
+              {center.city && (
+                <span className="rounded-md bg-slate-100 text-slate-700 px-2.5 py-0.5 text-xs font-semibold">
+                  {center.city.toUpperCase()} · {center.area}
+                </span>
+              )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#03045e] tracking-tight">
               {center.name}
             </h1>
 
-            <div className="flex items-center gap-2 text-xs text-slate-200 mt-2">
-              <MapPin className="h-4 w-4 text-[#90e0ef] shrink-0" />
-              <span>{center.address}</span>
+            <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs text-slate-600">
+              <div className="flex items-center gap-1.5">
+                <MapPin className="h-4 w-4 text-[#0077b6] shrink-0" />
+                <span>{center.address}</span>
+              </div>
             </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleShare}
+              className="gap-1.5 text-xs"
+            >
+              <Share2 className="h-3.5 w-3.5 text-[#0077b6]" />
+              <span>Share</span>
+            </Button>
+
+            <button
+              type="button"
+              onClick={handleReportError}
+              className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-red-700 hover:border-red-200 transition-colors cursor-pointer"
+            >
+              <Flag className="h-3 w-3" />
+              <span>Report an error</span>
+            </button>
           </div>
         </div>
 
-        {/* Quick action bar */}
-        <div className="p-4 sm:p-5 bg-slate-50/80 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs text-slate-600">
-            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-            <span>Audited & verified listing · Last reviewed: <strong>{center.lastChecked || '2026-10-17'}</strong></span>
-          </div>
+        {/* External Links Bar */}
+        <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100 text-xs font-semibold">
+          {center.website && (
+            <a
+              href={center.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#0077b6] hover:text-[#03045e] hover:underline"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              <span>Official Website</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          )}
 
-          <div className="flex items-center gap-2">
-            <Button onClick={handleShare} variant="outline" size="sm" className="gap-1.5 text-xs">
-              <Share2 className="h-3.5 w-3.5" />
-              <span>Share</span>
-            </Button>
-            <Button onClick={handleReportError} variant="ghost" size="sm" className="gap-1.5 text-xs text-slate-500 hover:text-red-600">
-              <Flag className="h-3.5 w-3.5" />
-              <span>Report Update</span>
-            </Button>
-          </div>
+          {center.mapsUrl && (
+            <>
+              {center.website && <span className="text-slate-300">•</span>}
+              <a
+                href={center.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#0077b6] hover:text-[#03045e] hover:underline"
+              >
+                <Navigation className="h-3.5 w-3.5" />
+                <span>Google Maps Directions</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </>
+          )}
+
+          <span className="text-slate-300">•</span>
+          <span className="text-slate-500">
+            Last Reviewed: {center.lastChecked || '2026-10-17'}
+          </span>
         </div>
       </div>
 

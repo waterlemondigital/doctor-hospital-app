@@ -19,10 +19,10 @@ export function DoctorCard({ doctor, className, showHospitalList = true }: Docto
     <Card className={`overflow-hidden group hover:shadow-md transition-all duration-200 border-[#90e0ef]/70 flex flex-col justify-between ${className || ''}`}>
       <CardContent className="p-5 space-y-4">
         {/* Top Header: Avatar + Speciality & Department */}
-        <div className="flex items-start gap-3.5">
-          <Avatar className="h-14 w-14 border border-[#90e0ef] shrink-0">
+        <div className="flex items-start gap-4">
+          <Avatar className="h-20 w-20 border-2 border-[#90e0ef] shrink-0 shadow-2xs">
             <AvatarImage src={doctor.photo} alt={doctor.name} />
-            <AvatarFallback>
+            <AvatarFallback className="text-lg font-bold text-[#03045e]">
               {doctor.name
                 .split(' ')
                 .map((n) => n[0])
