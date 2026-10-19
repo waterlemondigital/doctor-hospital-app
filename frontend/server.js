@@ -14,11 +14,26 @@ const distPath = fs.existsSync(path.join(__dirname, 'dist', 'index.html'))
   ? path.join(__dirname, 'dist')
   : __dirname;
 
-// Serve static assets from the Vite build output
-app.use(express.static(distPath));
+// Serve static assets with CDN-optimized Cache-Control headers
+app.use(
+  express.static(distPath, {
+    maxAge: '1y',
+    immutable: true,
+    setHeaders: (res, filePath) => {
+      // Never cache HTML so users receive fresh deploys instantly
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+      } else if (filePath.match(/\.(js|css|woff2?|ttf|png|jpe?g|webp|svg|ico)$/)) {
+        // Hashed JS, CSS, fonts, and images can be cached aggressively by CDN edge
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
+    },
+  })
+);
 
-// Fallback to index.html for client-side routing (React Router)
+// Fallback to index.html for client-side routing (React Router SPA)
 app.get('*', (req, res) => {
+  res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
