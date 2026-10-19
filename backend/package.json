@@ -11,10 +11,15 @@
     "test:latency": "node ../backend/scripts/test_all_api_latency.js",
     "media:optimize": "node scripts/media_optimizer_pipeline.js",
     "media:upload": "node scripts/media_optimizer_pipeline.js --upload",
-    "media:upload-hospitals": "node scripts/media_optimizer_pipeline.js --upload --type=hospitals",
-    "media:upload-wellness": "node scripts/media_optimizer_pipeline.js --upload --type=wellness",
-    "media:upload-labs": "node scripts/media_optimizer_pipeline.js --upload --type=labs",
-    "media:upload-doctors": "node scripts/media_optimizer_pipeline.js --upload --type=doctors"
+    "media:sync": "node scripts/sync_media_folders.js",
+    "media:sync:hospitals": "node scripts/sync_media_folders.js --type=hospitals",
+    "media:sync:wellness": "node scripts/sync_media_folders.js --type=wellness",
+    "media:sync:labs": "node scripts/sync_media_folders.js --type=labs",
+    "media:upload-hospitals": "node scripts/upload_hospitals_data_folder.js",
+    "media:upload-wellness": "node scripts/upload_wellness_data_folder.js",
+    "media:upload-labs": "node scripts/upload_labs_data_folder.js",
+    "media:upload-doctors": "node scripts/media_optimizer_pipeline.js --upload --type=doctors",
+    "media:cache-bust": "node scripts/cache_bust_media_urls.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1152.0",

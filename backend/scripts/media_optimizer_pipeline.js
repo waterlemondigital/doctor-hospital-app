@@ -160,6 +160,22 @@ function extractKeyFromUrl(url) {
   return url.replace(PUBLIC_BASE, '').replace(/^\/+/, '');
 }
 
+/**
+ * Enforces the strict rule that an image named 'image_1' (image_1.jpg, image_1.png, etc.)
+ * is ALWAYS placed first at index 0 of the array. Subsequent images follow naturally.
+ */
+export function sortFilesWithImage1First(files) {
+  return [...files].sort((a, b) => {
+    const isA1 = /^image_?1(\.|$)/i.test(path.parse(a).name);
+    const isB1 = /^image_?1(\.|$)/i.test(path.parse(b).name);
+
+    if (isA1 && !isB1) return -1;
+    if (!isA1 && isB1) return 1;
+
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+  });
+}
+
 async function reloadBackendCache() {
   console.log('\n========================================');
   console.log('🔄 RELOADING IN-MEMORY DIRECTORY CACHE');
@@ -455,8 +471,9 @@ export async function uploadLocalHospitals(customDir) {
     const folderPath = path.join(dir, item.folderName);
     if (!fs.existsSync(folderPath)) continue;
 
-    const files = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
-    if (files.length === 0) continue;
+    const rawFiles = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
+    if (rawFiles.length === 0) continue;
+    const files = sortFilesWithImage1First(rawFiles);
 
     console.log(`📁 "${item.hospitalName}" (${files.length} images)...`);
     const imageObjects = [];
@@ -504,8 +521,9 @@ export async function uploadLocalWellness(customDir) {
     const folderPath = path.join(dir, item.folderName);
     if (!fs.existsSync(folderPath)) continue;
 
-    const files = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
-    if (files.length === 0) continue;
+    const rawFiles = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
+    if (rawFiles.length === 0) continue;
+    const files = sortFilesWithImage1First(rawFiles);
 
     console.log(`📁 "${item.centerName}" (${files.length} images)...`);
     const imageObjects = [];
@@ -583,15 +601,9 @@ export async function uploadLocalLabs(customDir) {
       continue;
     }
 
-    const files = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
-    if (files.length === 0) continue;
-
-    // Natural sort prioritizing main image first
-    files.sort((a, b) => {
-      if (a.startsWith('image.') && !b.startsWith('image.')) return -1;
-      if (!a.startsWith('image.') && b.startsWith('image.')) return 1;
-      return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
-    });
+    const rawFiles = fs.readdirSync(folderPath).filter((f) => ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase()));
+    if (rawFiles.length === 0) continue;
+    const files = sortFilesWithImage1First(rawFiles);
 
     console.log(`📁 "${item.labName}" (${files.length} images)...`);
     const imageObjects = [];
@@ -623,6 +635,138 @@ export async function uploadLocalLabs(customDir) {
   }
 }
 
+export async function uploadDynamicNamedFolders(sourceDir, defaultCategory = 'hospitals') {
+  if (!fs.existsSync(sourceDir)) {
+    console.error(`❌ Source folder not found: ${sourceDir}`);
+    return;
+  }
+
+  const entries = fs.readdirSync(sourceDir, { withFileTypes: true });
+  const subfolders = entries.filter((e) => e.isDirectory()).map((e) => e.name);
+
+  if (subfolders.length === 0) {
+    console.warn(`⚠️ No subdirectories found in ${sourceDir}`);
+    return;
+  }
+
+  console.log(`\n========================================`);
+  console.log(`📂 DYNAMIC ENTITY INGESTION (${subfolders.length} subfolders)`);
+  console.log(`Source: ${sourceDir}`);
+  console.log(`========================================`);
+
+  for (let sIdx = 0; sIdx < subfolders.length; sIdx++) {
+    const folderName = subfolders[sIdx];
+    const folderPath = path.join(sourceDir, folderName);
+
+    const rawFiles = fs.readdirSync(folderPath).filter((f) =>
+      ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase())
+    );
+
+    if (rawFiles.length === 0) {
+      console.warn(`⚠️ [${sIdx + 1}/${subfolders.length}] "${folderName}" has no supported image files.`);
+      continue;
+    }
+
+    // STRICT: Sort with image_1 first
+    const files = sortFilesWithImage1First(rawFiles);
+
+    // Identify category & match DB record
+    let targetTable = null;
+    let targetPrefix = null;
+    let matchedRecord = null;
+
+    // 1. Try Hospitals
+    if (!targetTable || defaultCategory === 'hospitals') {
+      const hRes = await pool.query(
+        'SELECT id, name, slug FROM hospitals WHERE name ILIKE $1 OR slug ILIKE $2 OR id ILIKE $3 LIMIT 1',
+        [`%${folderName.trim()}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_')}%`]
+      );
+      if (hRes.rows.length > 0) {
+        targetTable = 'hospitals';
+        targetPrefix = 'hospitals';
+        matchedRecord = hRes.rows[0];
+      }
+    }
+
+    // 2. Try Wellness
+    if (!targetTable || defaultCategory === 'wellness') {
+      const wRes = await pool.query(
+        'SELECT id, name, slug FROM wellness_centers WHERE name ILIKE $1 OR slug ILIKE $2 OR id ILIKE $3 LIMIT 1',
+        [`%${folderName.trim()}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_')}%`]
+      );
+      if (wRes.rows.length > 0) {
+        targetTable = 'wellness_centers';
+        targetPrefix = 'wellness';
+        matchedRecord = wRes.rows[0];
+      }
+    }
+
+    // 3. Try Laboratories
+    if (!targetTable || defaultCategory === 'labs' || defaultCategory === 'laboratories') {
+      const lRes = await pool.query(
+        'SELECT id, name, slug FROM laboratories WHERE name ILIKE $1 OR slug ILIKE $2 OR id ILIKE $3 LIMIT 1',
+        [`%${folderName.trim()}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}%`, `%${folderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_')}%`]
+      );
+      if (lRes.rows.length > 0) {
+        targetTable = 'laboratories';
+        targetPrefix = 'labs';
+        matchedRecord = lRes.rows[0];
+      }
+    }
+
+    if (!matchedRecord) {
+      console.warn(`⚠️ [${sIdx + 1}/${subfolders.length}] No database record matched for folder: "${folderName}". Skipping.`);
+      continue;
+    }
+
+    const entityId = matchedRecord.id;
+    const entityName = matchedRecord.name;
+    const entitySlug = matchedRecord.slug || entityId;
+
+    console.log(`\n📁 [${sIdx + 1}/${subfolders.length}] Ingesting "${entityName}" (${targetTable})`);
+    console.log(`   Found ${files.length} images | Primary image: ${files[0]}`);
+
+    const imageObjects = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const rawBuf = fs.readFileSync(path.join(folderPath, file));
+
+      const fullBuf = await sharp(rawBuf)
+        .resize({ width: 1200, withoutEnlargement: true })
+        .webp({ quality: 80, effort: 4 })
+        .toBuffer();
+
+      const cardBuf = await sharp(rawBuf)
+        .resize({ width: 600, withoutEnlargement: true })
+        .webp({ quality: 75, effort: 4 })
+        .toBuffer();
+
+      const fullKey = `${targetPrefix}/${entitySlug}/image_${i + 1}.webp`;
+      const cardKey = `${targetPrefix}/${entitySlug}/image_${i + 1}_card.webp`;
+
+      const fullUrl = await uploadWebpToR2(fullKey, fullBuf);
+      const cardUrl = await uploadWebpToR2(cardKey, cardBuf);
+
+      imageObjects.push({
+        url: fullUrl,
+        card_url: cardUrl,
+        alt: `${entityName} - View ${i + 1} (${file})`,
+        caption: i === 0 ? `${entityName} - Main Campus & Entrance` : `${entityName} - Facility View ${i + 1}`,
+      });
+
+      console.log(`   ⬆️ [${i + 1}/${files.length}] ${file} -> ${fullKey}`);
+    }
+
+    await pool.query(
+      `UPDATE ${targetTable} SET images = $1, updated_at = NOW() WHERE id = $2`,
+      [JSON.stringify(imageObjects), entityId]
+    );
+
+    console.log(`   💾 Database updated: ${imageObjects.length} images saved for "${entityName}"`);
+  }
+}
+
 // -------------------------------------------------------------
 // CLI Dispatcher
 // -------------------------------------------------------------
@@ -632,15 +776,22 @@ async function main() {
   const isUpload = args.includes('--upload');
   const typeArg = args.find((a) => a.startsWith('--type='));
   const type = typeArg ? typeArg.split('=')[1] : 'all';
+  const sourceArg = args.find((a) => a.startsWith('--source=') || a.startsWith('--dir=') || a.startsWith('--path='));
+  const customSource = sourceArg ? sourceArg.split('=')[1] : null;
 
   console.log('⚡ HealthDiscover Unified Media Pipeline');
   console.log(`Bucket: ${BUCKET} | Action: ${isUpload ? 'LOCAL_UPLOAD' : 'OPTIMIZE_R2'} | Target: ${type}`);
+  if (customSource) console.log(`Custom Source: ${customSource}`);
 
   if (isUpload) {
-    if (type === 'all' || type === 'hospitals') await uploadLocalHospitals();
-    if (type === 'all' || type === 'wellness') await uploadLocalWellness();
-    if (type === 'all' || type === 'labs' || type === 'laboratories') await uploadLocalLabs();
-    if (type === 'all' || type === 'doctors') await uploadLocalDoctors();
+    if (customSource) {
+      await uploadDynamicNamedFolders(customSource, type);
+    } else {
+      if (type === 'all' || type === 'hospitals') await uploadLocalHospitals();
+      if (type === 'all' || type === 'wellness') await uploadLocalWellness();
+      if (type === 'all' || type === 'labs' || type === 'laboratories') await uploadLocalLabs();
+      if (type === 'all' || type === 'doctors') await uploadLocalDoctors();
+    }
   } else {
     if (type === 'all' || type === 'doctors') await optimizeAllDoctors();
     if (type === 'all' || type === 'hospitals') await optimizeAllHospitals();
