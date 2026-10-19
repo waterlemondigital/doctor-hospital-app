@@ -4,10 +4,22 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'patient' | 'doctor' | 'admin';
+  role: 'patient' | 'doctor' | 'hospital' | 'laboratory' | 'wellness' | 'admin';
   phone?: string;
   country_code?: string;
   avatar?: string;
+  speciality?: string;
+  experience?: string;
+  whatsapp_number?: string;
+  clinic_address?: string;
+  medical_reg_no?: string;
+  city?: string;
+  address?: string;
+  pincode?: string;
+  authorized_person_name?: string;
+  authorized_person_phone?: string;
+  registration_cert_url?: string;
+  address_proof_url?: string;
   is_active: boolean;
   is_verified: boolean;
   created_at: string;
@@ -23,15 +35,56 @@ export interface SignupPayload {
   name: string;
   email: string;
   password: string;
-  role: 'patient' | 'doctor';
+  role: 'patient' | 'doctor' | 'hospital' | 'laboratory' | 'wellness';
   phone?: string;
   country_code?: string;
   avatar?: string;
+  speciality?: string;
+  experience?: string;
+  whatsapp_number?: string;
+  clinic_address?: string;
+  medical_reg_no?: string;
+  city?: string;
+  address?: string;
+  pincode?: string;
+  authorized_person_name?: string;
+  authorized_person_phone?: string;
+  registration_cert_url?: string;
+  address_proof_url?: string;
 }
 
 export interface LoginPayload {
   email: string;
   password: string;
+}
+
+/**
+ * Upload PDF document directly to Cloudflare R2 via secure backend endpoint.
+ * Enforces PDF only and < 5MB limit.
+ */
+export async function uploadDocument(
+  file: File,
+  entityType: 'hospital' | 'laboratory' | 'wellness' | 'doctor',
+  docType: string,
+  entityName: string
+): Promise<{ status: string; url: string; key: string; fileName: string; fileSize: number }> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('entityType', entityType);
+  formData.append('docType', docType);
+  formData.append('entityName', entityName);
+
+  const res = await fetch('/api/v1/upload/document', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || err.error || 'Failed to upload document');
+  }
+
+  return res.json();
 }
 
 /**

@@ -16,6 +16,8 @@ import {
   FlaskConical,
   Leaf,
   Sparkles,
+  LayoutDashboard,
+  Activity,
 } from 'lucide-react';
 import { SITE_NAME } from '../data/config';
 import { Sheet } from './ui/sheet';
@@ -242,52 +244,110 @@ export function Header() {
 
             {/* Smart Auth Buttons (Desktop/Tablet) */}
             {user ? (
-              /* User Profile Menu */
-              <div className="relative" ref={userMenuRef}>
-                <button
-                  type="button"
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-[#03045e] hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 transition-all cursor-pointer shadow-2xs"
-                >
-                {user.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt={user.name}
-                    className="h-7 w-7 rounded-full object-cover border border-[#0077b6]"
-                  />
-                ) : (
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#caf0f8] text-xs font-bold text-[#0077b6] border border-[#0077b6]">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
+              <div className="flex items-center gap-2">
+                {/* Dedicated Provider / Institution Dashboard Button */}
+                {['doctor', 'hospital', 'laboratory', 'wellness'].includes(user.role) && (
+                  <Link
+                    to="/portal/dashboard"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#0077b6] to-[#03045e] hover:from-[#023e8a] hover:to-[#03045e] rounded-xl shadow-xs hover:shadow transition-all whitespace-nowrap"
+                  >
+                    {user.role === 'hospital' ? (
+                      <Building2 className="h-4 w-4 text-[#90e0ef]" />
+                    ) : user.role === 'laboratory' ? (
+                      <FlaskConical className="h-4 w-4 text-teal-300" />
+                    ) : user.role === 'wellness' ? (
+                      <Activity className="h-4 w-4 text-purple-300" />
+                    ) : (
+                      <LayoutDashboard className="h-4 w-4 text-[#90e0ef]" />
+                    )}
+                    <span className="hidden sm:inline">
+                      {user.role === 'hospital'
+                        ? 'Hospital Dashboard'
+                        : user.role === 'laboratory'
+                        ? 'Lab Dashboard'
+                        : user.role === 'wellness'
+                        ? 'Wellness Dashboard'
+                        : 'Doctor Dashboard'}
+                    </span>
+                    <span className="sm:hidden">Dashboard</span>
+                  </Link>
                 )}
-                <span className="hidden sm:inline max-w-[120px] truncate">{user.name}</span>
-                <ChevronDown className="h-4 w-4 text-slate-400" />
-                </button>
 
-                {/* Dropdown Menu */}
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white p-2 shadow-xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150 z-50">
-                    <div className="px-3 py-2 border-b border-slate-100">
-                      <p className="font-bold text-xs text-[#03045e] truncate">{user.name}</p>
-                      <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
-                      <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#0077b6] bg-[#caf0f8]/50 px-1.5 py-0.5 rounded">
-                        <ShieldCheck className="h-3 w-3" />
-                        {user.role === 'doctor' ? 'Verified Physician' : 'Registered Member'}
-                      </span>
+                {/* User Profile Menu */}
+                <div className="relative" ref={userMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-[#03045e] hover:border-[#90e0ef] hover:bg-[#caf0f8]/30 transition-all cursor-pointer shadow-2xs"
+                  >
+                  {user.avatar ? (
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="h-7 w-7 rounded-full object-cover border border-[#0077b6]"
+                    />
+                  ) : (
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#caf0f8] text-xs font-bold text-[#0077b6] border border-[#0077b6]">
+                      {user.name.charAt(0).toUpperCase()}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsUserMenuOpen(false);
-                        logout();
-                      }}
-                      className="w-full flex items-center gap-2 px-3 py-2 mt-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer text-left"
-                    >
-                      <LogOut className="h-3.5 w-3.5" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
-                )}
+                  )}
+                  <span className="hidden sm:inline max-w-[120px] truncate">{user.name}</span>
+                  <ChevronDown className="h-4 w-4 text-slate-400" />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isUserMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white p-2 shadow-xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150 z-50">
+                      <div className="px-3 py-2 border-b border-slate-100">
+                        <p className="font-bold text-xs text-[#03045e] truncate">{user.name}</p>
+                        <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
+                        <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#0077b6] bg-[#caf0f8]/50 px-1.5 py-0.5 rounded">
+                          <ShieldCheck className="h-3 w-3" />
+                          {user.role === 'hospital'
+                            ? 'Verified Hospital'
+                            : user.role === 'laboratory'
+                            ? 'Diagnostic Lab'
+                            : user.role === 'wellness'
+                            ? 'Wellness Resort'
+                            : user.role === 'doctor'
+                            ? 'Verified Physician'
+                            : 'Registered Member'}
+                        </span>
+                      </div>
+
+                      {['doctor', 'hospital', 'laboratory', 'wellness'].includes(user.role) && (
+                        <Link
+                          to="/portal/dashboard"
+                          onClick={() => setIsUserMenuOpen(false)}
+                          className="w-full flex items-center gap-2 px-3 py-2 mt-1 text-xs font-semibold text-[#0077b6] hover:bg-[#caf0f8]/40 rounded-xl transition-colors cursor-pointer text-left"
+                        >
+                          <LayoutDashboard className="h-3.5 w-3.5" />
+                          <span>
+                            {user.role === 'hospital'
+                              ? 'Hospital Leads Portal'
+                              : user.role === 'laboratory'
+                              ? 'Laboratory Panel'
+                              : user.role === 'wellness'
+                              ? 'Wellness Dashboard'
+                              : 'Doctor Dashboard'}
+                          </span>
+                        </Link>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          logout();
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-2 mt-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer text-left"
+                      >
+                        <LogOut className="h-3.5 w-3.5" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
               /* Non-authenticated Auth Controls */
@@ -367,34 +427,74 @@ export function Header() {
           {/* Mobile Auth Smart Bar */}
           <div className="pt-4 pb-2">
             {user ? (
-              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  {user.avatar ? (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="h-8 w-8 rounded-full object-cover border border-[#0077b6] shrink-0"
-                    />
-                  ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#caf0f8] text-xs font-bold text-[#0077b6] border border-[#0077b6] shrink-0">
-                      {user.name.charAt(0).toUpperCase()}
+              <div>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    {user.avatar ? (
+                      <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="h-8 w-8 rounded-full object-cover border border-[#0077b6] shrink-0"
+                      />
+                    ) : (
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#caf0f8] text-xs font-bold text-[#0077b6] border border-[#0077b6] shrink-0">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-bold text-xs text-[#03045e] truncate">{user.name}</p>
+                      <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
                     </div>
-                  )}
-                  <div className="min-w-0">
-                    <p className="font-bold text-xs text-[#03045e] truncate">{user.name}</p>
-                    <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="px-2.5 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer shrink-0"
+                  >
+                    Sign Out
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    logout();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="px-2.5 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer shrink-0"
-                >
-                  Sign Out
-                </button>
+
+                {['doctor', 'hospital', 'laboratory', 'wellness'].includes(user.role) && (
+                  <Link
+                    to="/portal/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="mt-2.5 flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-[#0077b6] to-[#03045e] text-white shadow-xs font-semibold text-xs"
+                  >
+                    <div className="flex items-center gap-2">
+                      {user.role === 'hospital' ? (
+                        <Building2 className="h-4 w-4 text-[#90e0ef]" />
+                      ) : user.role === 'laboratory' ? (
+                        <FlaskConical className="h-4 w-4 text-teal-300" />
+                      ) : user.role === 'wellness' ? (
+                        <Activity className="h-4 w-4 text-purple-300" />
+                      ) : (
+                        <LayoutDashboard className="h-4 w-4 text-[#90e0ef]" />
+                      )}
+                      <span>
+                        {user.role === 'hospital'
+                          ? 'Open Hospital Dashboard'
+                          : user.role === 'laboratory'
+                          ? 'Open Lab Panel'
+                          : user.role === 'wellness'
+                          ? 'Open Wellness Dashboard'
+                          : 'Open Doctor Dashboard'}
+                      </span>
+                    </div>
+                    <span className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full uppercase tracking-wider font-bold">
+                      {user.role === 'hospital'
+                        ? 'Hospital Portal'
+                        : user.role === 'laboratory'
+                        ? 'Lab Portal'
+                        : user.role === 'wellness'
+                        ? 'Wellness Portal'
+                        : 'Physician Portal'}
+                    </span>
+                  </Link>
+                )}
               </div>
             ) : (
               <div className="grid grid-cols-2 gap-2">
@@ -439,6 +539,37 @@ export function Header() {
           </div>
 
           <nav className="flex flex-col space-y-1.5 py-2">
+            {user && ['doctor', 'hospital', 'laboratory', 'wellness'].includes(user.role) && (
+              <Link
+                to="/portal/dashboard"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-bold transition-colors ${
+                  isActive('/portal/dashboard') || isActive('/doctor/dashboard')
+                    ? 'bg-[#0077b6] text-white shadow-xs'
+                    : 'bg-[#caf0f8]/60 text-[#03045e] hover:bg-[#caf0f8]'
+                }`}
+              >
+                {user.role === 'hospital' ? (
+                  <Building2 className="h-4 w-4 text-[#0077b6]" />
+                ) : user.role === 'laboratory' ? (
+                  <FlaskConical className="h-4 w-4 text-teal-600" />
+                ) : user.role === 'wellness' ? (
+                  <Activity className="h-4 w-4 text-purple-600" />
+                ) : (
+                  <LayoutDashboard className="h-4 w-4 text-[#0077b6]" />
+                )}
+                <span>
+                  {user.role === 'hospital'
+                    ? 'Hospital Leads Dashboard'
+                    : user.role === 'laboratory'
+                    ? 'Lab Intake Dashboard'
+                    : user.role === 'wellness'
+                    ? 'Wellness Leads Dashboard'
+                    : 'Doctor Leads Dashboard'}
+                </span>
+              </Link>
+            )}
+
             <Link
               to="/hospitals"
               onClick={() => setIsMobileMenuOpen(false)}

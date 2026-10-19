@@ -33,6 +33,13 @@ export const env = {
   JWT_ALGORITHM: process.env.JWT_ALGORITHM || 'HS256',
   ACCESS_TOKEN_EXPIRE_MINUTES: parseInt(process.env.ACCESS_TOKEN_EXPIRE_MINUTES || '1440', 10),
   REFRESH_TOKEN_EXPIRE_DAYS: parseInt(process.env.REFRESH_TOKEN_EXPIRE_DAYS || '7', 10),
+  ADMIN_USERNAME: process.env.ADMIN_USERNAME || 'admin@medvexa.health',
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'MedVexa@Admin2026',
   AUTH_COOKIE_SECURE: process.env.ENVIRONMENT === 'production',
   AUTH_COOKIE_SAMESITE: (process.env.AUTH_COOKIE_SAMESITE || 'lax') as 'lax' | 'strict' | 'none',
+  R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID || '',
+  R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID || '',
+  R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY || '',
+  R2_BUCKET_NAME: process.env.R2_BUCKET_NAME || 'medvexa',
+  R2_PUBLIC_URL: process.env.R2_PUBLIC_URL || 'https://pub-151166afd0294cb99a7c59679d424908.r2.dev/',
 };

@@ -41,7 +41,27 @@ function clearAuthCookies(res: Response) {
 }
 
 async function handleRegisterOrSignup(req: Request, res: Response) {
-  const { email, password, name, phone, country_code, role } = req.body || {};
+  const {
+    email,
+    password,
+    name,
+    phone,
+    country_code,
+    role,
+    experience,
+    speciality,
+    whatsapp_number,
+    clinic_address,
+    medical_reg_no,
+    // Hospital, Lab, Wellness specific fields
+    city,
+    address,
+    pincode,
+    authorized_person_name,
+    authorized_person_phone,
+    registration_cert_url,
+    address_proof_url,
+  } = req.body || {};
 
   if (!email || !password || !name) {
     res.status(400).json({ status: 'error', detail: 'Email, password, and name are required' });
@@ -97,16 +117,199 @@ async function handleRegisterOrSignup(req: Request, res: Response) {
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const userId = crypto.randomUUID();
-  const assignedRole = ['patient', 'doctor', 'admin'].includes(role) ? role : 'patient';
+  
+  // Normalize role
+  let assignedRole = (role || 'patient').toString().toLowerCase().trim();
+  if (assignedRole === 'lab') assignedRole = 'laboratory';
+  if (!['patient', 'doctor', 'hospital', 'laboratory', 'wellness', 'admin'].includes(assignedRole)) {
+    assignedRole = 'patient';
+  }
+
+  const cleanWhatsapp = whatsapp_number ? whatsapp_number.toString().replace(/[\s\-\(\)]/g, '').trim() : cleanPhone;
+  const cleanSpeciality = speciality ? speciality.toString().trim() : (assignedRole === 'doctor' ? 'General Physician' : null);
+  const cleanExperience = experience ? experience.toString().trim() : null;
+  const cleanClinicAddress = clinic_address ? clinic_address.toString().trim() : null;
+  const cleanMedicalRegNo = medical_reg_no ? medical_reg_no.toString().trim() : null;
+
+  const cleanCity = city ? city.toString().trim() : null;
+  const cleanAddress = address ? address.toString().trim() : cleanClinicAddress;
+  const cleanPincode = pincode ? pincode.toString().trim() : null;
+  const cleanAuthName = authorized_person_name ? authorized_person_name.toString().trim() : null;
+  const cleanAuthPhone = authorized_person_phone ? authorized_person_phone.toString().trim() : null;
+  const cleanRegCertUrl = registration_cert_url ? registration_cert_url.toString().trim() : null;
+  const cleanAddrProofUrl = address_proof_url ? address_proof_url.toString().trim() : null;
 
   const insertRes = await query<User>(
-    `INSERT INTO users (id, email, hashed_password, name, phone, country_code, role, is_active, is_verified)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, true, false)
-     RETURNING id, email, name, role, phone, country_code, avatar, is_active, is_verified, created_at, updated_at`,
-    [userId, normalizedEmail, hashedPassword, name.trim(), cleanPhone, rawCountryCode, assignedRole]
+    `INSERT INTO users (
+      id, email, hashed_password, name, phone, country_code, role,
+      speciality, experience, whatsapp_number, clinic_address, medical_reg_no,
+      city, address, pincode, authorized_person_name, authorized_person_phone,
+      registration_cert_url, address_proof_url,
+      is_active, is_verified
+    )
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, true, false)
+    RETURNING id, email, name, role, phone, country_code, avatar,
+              speciality, experience, whatsapp_number, clinic_address, medical_reg_no,
+              city, address, pincode, authorized_person_name, authorized_person_phone,
+              registration_cert_url, address_proof_url,
+              is_active, is_verified, created_at, updated_at`,
+    [
+      userId,
+      normalizedEmail,
+      hashedPassword,
+      name.trim(),
+      cleanPhone,
+      rawCountryCode,
+      assignedRole,
+      cleanSpeciality,
+      cleanExperience,
+      cleanWhatsapp,
+      cleanClinicAddress,
+      cleanMedicalRegNo,
+      cleanCity,
+      cleanAddress,
+      cleanPincode,
+      cleanAuthName,
+      cleanAuthPhone,
+      cleanRegCertUrl,
+      cleanAddrProofUrl,
+    ]
   );
 
   const newUser = insertRes.rows[0];
+
+  // Auto-create active portal account for doctors, hospitals, laboratories, and wellness centers
+  if (['doctor', 'hospital', 'laboratory', 'wellness'].includes(assignedRole)) {
+    try {
+      const prefixMap: Record<string, string> = {
+        doctor: 'DOC',
+        hospital: 'HOSP',
+        laboratory: 'LAB',
+        wellness: 'WELL',
+      };
+      const accountId = `ACC-${prefixMap[assignedRole] || 'ENT'}-${Date.now().toString().slice(-6)}`;
+      await query(
+        `INSERT INTO portal_accounts (
+          id, target_type, target_id, target_name, email, phone, account_status, dashboard_access_enabled
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        ON CONFLICT (target_type, target_id) DO UPDATE
+        SET account_status = 'active', dashboard_access_enabled = true, updated_at = NOW()`,
+        [
+          accountId,
+          assignedRole,
+          newUser.id,
+          newUser.name,
+          newUser.email,
+          cleanPhone ? `${rawCountryCode} ${cleanPhone}` : null,
+          'active',
+          true,
+        ]
+      );
+    } catch (accErr) {
+      console.warn(`Could not auto-create ${assignedRole} portal account:`, accErr);
+    }
+
+    // Sync into corresponding entity table so it's queryable everywhere
+    const slugSuffix = Date.now().toString().slice(-4);
+    const cleanSlug = `${assignedRole}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${slugSuffix}`;
+
+    if (assignedRole === 'hospital') {
+      try {
+        await query(
+          `INSERT INTO hospitals (
+            id, slug, name, state, city, area, address, pincode,
+            facility_type, facility_type_badge, phone, whatsapp,
+            verification_status, images, services, departments, facilities, sources
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
+          ON CONFLICT (id) DO NOTHING`,
+          [
+            newUser.id,
+            cleanSlug,
+            newUser.name,
+            'Maharashtra',
+            cleanCity || 'Pune',
+            cleanAddress || 'City Center',
+            cleanAddress || '',
+            cleanPincode || '',
+            'Hospital & Surgical Center',
+            'Registered Hospital',
+            cleanPhone ? `${rawCountryCode} ${cleanPhone}` : null,
+            cleanWhatsapp ? `${rawCountryCode} ${cleanWhatsapp}` : null,
+            'verified',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+          ]
+        );
+      } catch (hospErr) {
+        console.warn('Could not insert hospital record:', hospErr);
+      }
+    } else if (assignedRole === 'laboratory') {
+      try {
+        await query(
+          `INSERT INTO laboratories (
+            id, slug, name, state, city, area, address, pincode,
+            phone, whatsapp, verification_status, images, services, departments, facilities, sources
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+          ON CONFLICT (id) DO NOTHING`,
+          [
+            newUser.id,
+            cleanSlug,
+            newUser.name,
+            'Maharashtra',
+            cleanCity || 'Pune',
+            cleanAddress || 'City Center',
+            cleanAddress || '',
+            cleanPincode || '',
+            cleanPhone ? `${rawCountryCode} ${cleanPhone}` : null,
+            cleanWhatsapp ? `${rawCountryCode} ${cleanWhatsapp}` : null,
+            'verified',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+          ]
+        );
+      } catch (labErr) {
+        console.warn('Could not insert laboratory record:', labErr);
+      }
+    } else if (assignedRole === 'wellness') {
+      try {
+        await query(
+          `INSERT INTO wellness_centers (
+            id, slug, name, category, state, city, area, address, pincode,
+            phone, whatsapp, verification_status, images, programs, disciplines, facilities, sources
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+          ON CONFLICT (id) DO NOTHING`,
+          [
+            newUser.id,
+            cleanSlug,
+            newUser.name,
+            'Wellness & Integrative Health',
+            'Maharashtra',
+            cleanCity || 'Pune',
+            cleanAddress || 'City Center',
+            cleanAddress || '',
+            cleanPincode || '',
+            cleanPhone ? `${rawCountryCode} ${cleanPhone}` : null,
+            cleanWhatsapp ? `${rawCountryCode} ${cleanWhatsapp}` : null,
+            'verified',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+            '[]',
+          ]
+        );
+      } catch (wellErr) {
+        console.warn('Could not insert wellness center record:', wellErr);
+      }
+    }
+  }
+
   const accessToken = signAccessToken(newUser);
   const refreshToken = signRefreshToken(newUser);
 

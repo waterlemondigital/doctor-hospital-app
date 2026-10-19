@@ -27,7 +27,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-2 text-xs text-[#90e0ef]">
               <MapPin className="h-3.5 w-3.5 shrink-0" />
-              <span>Pune, Maharashtra, India</span>
+              <span>India</span>
             </div>
           </div>
 
@@ -131,11 +131,8 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60">
-          <p className="text-center md:text-left">
-            Information is for general awareness only and is not medical advice.
-          </p>
           <p className="text-center md:text-right">
-            &copy; {currentYear} {SITE_NAME}. All rights reserved. Built for public awareness in Pune, Maharashtra.
+            &copy; {currentYear} {SITE_NAME}. All rights reserved. Built for public awareness in India.
           </p>
         </div>
       </div>

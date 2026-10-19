@@ -151,6 +151,18 @@ export interface User {
   country_code?: string | null;
   avatar?: string | null;
   hashed_refresh_token?: string | null;
+  speciality?: string | null;
+  experience?: string | null;
+  whatsapp_number?: string | null;
+  clinic_address?: string | null;
+  medical_reg_no?: string | null;
+  city?: string | null;
+  address?: string | null;
+  pincode?: string | null;
+  authorized_person_name?: string | null;
+  authorized_person_phone?: string | null;
+  registration_cert_url?: string | null;
+  address_proof_url?: string | null;
   is_active: boolean;
   is_verified: boolean;
   created_at: Date;

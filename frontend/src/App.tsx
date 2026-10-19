@@ -16,6 +16,7 @@ import { LaboratoriesPage } from './pages/LaboratoriesPage';
 import { LaboratoryDetailPage } from './pages/LaboratoryDetailPage';
 import { WellnessPage } from './pages/WellnessPage';
 import { WellnessDetailPage } from './pages/WellnessDetailPage';
+import { DoctorDashboardPage } from './pages/DoctorDashboardPage';
 import { AuthProvider } from './lib/auth';
 import { fetchHospitals } from './api/hospitals';
 import { fetchDoctors } from './api/doctors';
@@ -33,6 +34,8 @@ export default function App() {
             <Route path="hospitals/:slug" element={<HospitalDetailPage />} />
             <Route path="doctors" element={<DoctorsPage />} />
             <Route path="doctors/:slug" element={<DoctorDetailPage />} />
+            <Route path="doctor/dashboard" element={<DoctorDashboardPage />} />
+            <Route path="portal/dashboard" element={<DoctorDashboardPage />} />
             <Route path="laboratories" element={<LaboratoriesPage />} />
             <Route path="laboratories/:slug" element={<LaboratoryDetailPage />} />
             <Route path="wellness-centers" element={<WellnessPage />} />

@@ -7,11 +7,17 @@ import { wellnessRouter } from './wellness.js';
 import { directoryRouter } from './directory.js';
 import { cacheRouter } from './cache.js';
 import { authRouter } from './auth.js';
+import { adminRouter } from './admin.js';
+import { uploadRouter } from './upload.js';
+import { portalRouter } from './portal.js';
 
 export const apiV1Router = Router();
 
 apiV1Router.use(healthRouter);
 apiV1Router.use(authRouter);
+apiV1Router.use(adminRouter);
+apiV1Router.use(uploadRouter);
+apiV1Router.use(portalRouter);
 apiV1Router.use(hospitalsRouter);
 apiV1Router.use(doctorsRouter);
 apiV1Router.use(laboratoriesRouter);

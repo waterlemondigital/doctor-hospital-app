@@ -384,7 +384,7 @@ export function MultiSpecialtySection() {
               </div>
 
               {/* Red Circular Plus Accent Icon with Radiant Gradient */}
-              <div className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-rose-600 to-red-500 text-white shadow-xs group-hover:scale-110 group-hover:from-rose-500 group-hover:to-red-400 group-hover:shadow-sm transition-all duration-300 mt-0.5">
+              <div className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-blue-500 text-white shadow-xs group-hover:scale-110 group-hover:from-rose-500 group-hover:to-red-400 group-hover:shadow-sm transition-all duration-300 mt-0.5">
                 <Plus className="h-3 w-3 sm:h-3.5 sm:w-3.5 stroke-[3]" />
               </div>
             </div>

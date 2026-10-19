@@ -1,0 +1,48 @@
+Hospital
+
+name
+Hospital registration certificate or applicable operating licence (pdf format below 5 MB)
+contact number
+email 
+city
+address
+pincode
+authorized person name
+authorized person number
+password
+
+
+
+
+
+------------
+lab
+
+name
+address
+contact 
+email 
+city
+pincode
+Valid Government Registration/Licence — Applicable laboratory registration or operating licence issued by the relevant authority, where required by law. (pdf format below 5 MB)
+Laboratory Address Proof — An official document verifying the laboratory's operating address.(pdf format below 5 MB)
+password
+
+
+
+
+--------------
+wellness
+
+
+name
+address
+contact 
+email 
+city
+pincode
+password
+Applicable Government Registration/Licence — Upload the relevant registration certificate or operating licence, where applicable. (pdf format below 5 MB)
+Business Address Proof — A document verifying the wellness centre's registered or operating address.(pdf format below 5 MB)
+
+
