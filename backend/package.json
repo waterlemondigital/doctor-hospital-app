@@ -21,7 +21,8 @@
     "media:upload-doctors": "node scripts/media_optimizer_pipeline.js --upload --type=doctors",
     "media:cache-bust": "node scripts/cache_bust_media_urls.js",
     "db:rollback:62": "node scripts/restore_bulk_62_savepoint.js",
-    "db:ingest-hospitals": "node scripts/ingest_62_hospitals.js"
+    "db:ingest-hospitals": "node scripts/ingest_62_hospitals.js",
+    "db:ingest-doctors": "node scripts/ingest_91_doctors.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1152.0",
