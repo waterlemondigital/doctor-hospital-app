@@ -19,6 +19,7 @@
     "media:upload-wellness": "node scripts/upload_wellness_data_folder.js",
     "media:upload-labs": "node scripts/upload_labs_data_folder.js",
     "media:upload-doctors": "node scripts/media_optimizer_pipeline.js --upload --type=doctors",
+    "media:upload-doctor-images": "node scripts/upload_doctor_images_r2.js",
     "media:cache-bust": "node scripts/cache_bust_media_urls.js",
     "db:rollback:62": "node scripts/restore_bulk_62_savepoint.js",
     "db:ingest-hospitals": "node scripts/ingest_62_hospitals.js",
