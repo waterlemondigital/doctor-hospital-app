@@ -60,6 +60,8 @@ class DirectoryDataStore {
         wellRes,
         cityRes,
         specRes,
+        hospLabAffRes,
+        docLabAffRes,
       ] = await Promise.all([
         query(`SELECT * FROM hospitals ORDER BY name ASC`),
         query(`SELECT * FROM doctors ORDER BY name ASC`),
@@ -68,7 +70,30 @@ class DirectoryDataStore {
         query(`SELECT * FROM wellness_centers ORDER BY name ASC`),
         query(`SELECT * FROM cities ORDER BY is_active DESC, name ASC`),
         query(`SELECT * FROM specialities ORDER BY name ASC`),
+        query(`SELECT * FROM hospital_laboratory_affiliations`),
+        query(`SELECT * FROM doctor_laboratory_affiliations`),
       ]);
+
+      // Map hospital-laboratory affiliations
+      const hospitalsByLab = new Map<string, string[]>();
+      for (const aff of hospLabAffRes.rows) {
+        const list = hospitalsByLab.get(aff.laboratory_id) || [];
+        list.push(aff.hospital_id);
+        hospitalsByLab.set(aff.laboratory_id, list);
+      }
+
+      // Map doctor-laboratory affiliations
+      const doctorsByLab = new Map<string, string[]>();
+      const laboratoriesByDoctor = new Map<string, string[]>();
+      for (const aff of docLabAffRes.rows) {
+        const list = doctorsByLab.get(aff.laboratory_id) || [];
+        list.push(aff.doctor_id);
+        doctorsByLab.set(aff.laboratory_id, list);
+
+        const labList = laboratoriesByDoctor.get(aff.doctor_id) || [];
+        labList.push(aff.laboratory_id);
+        laboratoriesByDoctor.set(aff.doctor_id, labList);
+      }
 
       // Map raw doctors by id
       const rawDoctorsMap = new Map<string, any>();
@@ -173,6 +198,7 @@ class DirectoryDataStore {
         areas_of_practice: this.parseJson(d.areas_of_practice),
         sources: this.parseJson(d.sources),
         hospitals: affiliationsByDoctor.get(d.id) || [],
+        connected_laboratory_ids: laboratoriesByDoctor.get(d.id) || [],
       }));
 
       // Format Laboratories
@@ -200,6 +226,8 @@ class DirectoryDataStore {
         departments: this.parseJson(l.departments),
         facilities: this.parseJson(l.facilities),
         sources: this.parseJson(l.sources),
+        connected_hospital_ids: hospitalsByLab.get(l.id) || [],
+        connected_doctor_ids: doctorsByLab.get(l.id) || [],
       }));
 
       // Format Wellness Centers

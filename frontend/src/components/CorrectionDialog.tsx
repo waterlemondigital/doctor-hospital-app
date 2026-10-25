@@ -90,7 +90,7 @@ export function CorrectionDialog({
       };
 
       // TODO: Connect to backend ticketing or moderation API endpoint
-      console.log('[HealthDiscover Correction Submitted]:', payload);
+      console.log('[MedVexa Correction Submitted]:', payload);
 
       await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -102,7 +102,7 @@ export function CorrectionDialog({
       reset();
       onOpenChange(false);
     } catch {
-      toast.error('Submission failed. Please email verification@healthdiscover.in');
+      toast.error('Submission failed. Please email verification@medvexa.in');
     } finally {
       setIsSubmitting(false);
     }
@@ -118,7 +118,7 @@ export function CorrectionDialog({
           </div>
           <DialogTitle>Report an Error / Update Listing</DialogTitle>
           <DialogDescription>
-            Help keep HealthDiscover accurate. Submissions must refer to official registries or verifiable hospital publications.
+            Help keep MedVexa accurate. Submissions must refer to official registries or verifiable hospital publications.
           </DialogDescription>
         </DialogHeader>
 

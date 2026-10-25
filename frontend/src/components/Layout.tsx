@@ -22,7 +22,7 @@ export function Layout() {
       if (customEvent.detail?.subject) {
         setCorrectionSubject(customEvent.detail.subject);
       } else {
-        setCorrectionSubject('General HealthDiscover Listing');
+        setCorrectionSubject('General MedVexa Listing');
       }
       setIsCorrectionOpen(true);
     };

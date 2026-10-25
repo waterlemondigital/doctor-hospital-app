@@ -1,11 +1,3 @@
-# Hospital Data Template
-
-Use this template to add hospital records. You can add multiple hospitals in this single file by repeating the `# Hospital: <Name>` block.
-Separate multiple hospitals using `---`.
-(Note: IDs are generated automatically in the database. Images will be uploaded to cloud storage and linked separately.)
-
----
-
 # Hospital: Sahyadri Super Speciality Hospital
 
 - **Name**: Sahyadri Super Speciality Hospital

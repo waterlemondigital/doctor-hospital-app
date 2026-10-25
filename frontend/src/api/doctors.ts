@@ -39,9 +39,8 @@ interface RawDoctor {
   sources?: any[];
   hospitals?: RawDoctorAffiliation[];
 }
-
 export function mapDoctor(raw: RawDoctor): Doctor {
-  const photo = raw.photo && raw.photo.trim().length > 0 ? raw.photo : undefined;
+  const photo = raw.photo && raw.photo.trim().length > 0 ? raw.photo : '';
 
   const affiliations: DoctorHospitalAffiliation[] = (raw.hospitals || []).map((aff) => ({
     hospitalId: aff.hospital_id,
@@ -79,8 +78,8 @@ export function mapDoctor(raw: RawDoctor): Doctor {
     area: raw.area || 'Pune',
     city: raw.city ? raw.city.charAt(0).toUpperCase() + raw.city.slice(1) : 'Pune',
     state: raw.state || 'Maharashtra',
-    phone: CONTACT_PHONE,
-    whatsapp: CONTACT_WHATSAPP,
+    phone: raw.phone || CONTACT_PHONE,
+    whatsapp: raw.whatsapp || CONTACT_WHATSAPP,
     verificationStatus: (raw.verification_status as any) || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',
     sources,
@@ -102,7 +101,7 @@ export async function fetchDoctors(params?: {
 
     const qs = query.toString() ? `?${query.toString()}` : '';
     const rawList = await apiFetch<RawDoctor[]>(`/doctors${qs}`);
-    return rawList.map((d, i) => mapDoctor(d, i));
+    return rawList.map((d) => mapDoctor(d));
   } catch (err) {
     console.warn('API error fetching doctors:', err);
     return [];

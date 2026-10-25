@@ -1,15 +1,162 @@
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Building2, MapPin, ArrowRight, ShieldCheck, Plus, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Building2, MapPin, ArrowRight, ShieldCheck, Plus, Phone } from 'lucide-react';
 import { FAMOUS_HOSPITALS_LIST, FamousHospitalItem } from '../data/famousHospitals';
+import { Hospital } from '../types';
+import { CONTACT_PHONE } from '../data/config';
+import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 
 const BATCH_SIZE = 12;
 
-export function FamousHospitalsSection() {
-  const navigate = useNavigate();
+interface FamousHospitalsSectionProps {
+  hospitals?: Hospital[];
+}
+
+function FamousHospitalCard({
+  hosp,
+  matchedHospital,
+}: {
+  hosp: FamousHospitalItem;
+  matchedHospital?: Hospital;
+}) {
+  const [imageError, setImageError] = React.useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
+  // Cover Image from hosp or matched DB hospital or fallback
+  const coverImage =
+    hosp.images && hosp.images.length > 0
+      ? hosp.images[0]
+      : matchedHospital?.images && matchedHospital.images.length > 0
+      ? matchedHospital.images[0]
+      : hosp.name.toLowerCase().includes('ruby hall')
+      ? { url: '/images/rubyhall/r1.jpeg', alt: `${hosp.name} Campus & Entrance` }
+      : null;
+
+  const overview =
+    matchedHospital?.overview ||
+    `${hosp.facilityType} located in ${hosp.city}, ${hosp.state}. Recognized for tertiary clinical excellence, advanced diagnostics, and specialist patient care.`;
+
+  return (
+    <Card className="overflow-hidden group hover:shadow-md transition-all duration-200 border-[#90e0ef]/70 flex flex-col justify-between">
+      <div>
+        {/* Cover Image Container */}
+        <div className="relative aspect-16/9 w-full overflow-hidden bg-slate-100">
+          {!isLoaded && !imageError && coverImage && (
+            <div className="absolute inset-0 bg-slate-200/80 animate-pulse" />
+          )}
+          {imageError || !coverImage ? (
+            <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#caf0f8] to-slate-100 p-4 text-[#03045e]">
+              <Building2 className="h-10 w-10 text-[#0077b6] mb-1.5 opacity-60" />
+              <p className="text-xs font-semibold text-center line-clamp-1">{hosp.name}</p>
+            </div>
+          ) : (
+            <img
+              src={coverImage.card_url || coverImage.thumb_url || coverImage.url}
+              alt={coverImage.alt || hosp.name}
+              referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
+              onLoad={() => setIsLoaded(true)}
+              onError={() => setImageError(true)}
+              className={`h-full w-full object-cover transition-all duration-300 group-hover:scale-105 pointer-events-none select-none ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          )}
+
+          {/* Top-Left Rank Badge */}
+          <div className="absolute top-3 left-3">
+            <span className="inline-flex items-center justify-center rounded-lg bg-[#0077b6] text-white px-2.5 py-0.5 text-xs font-black shadow-2xs">
+              #{hosp.rank}
+            </span>
+          </div>
+
+          {/* Facility Type Badge matching Featured Hospitals */}
+          <div className="absolute bottom-3 left-3">
+            <span className="rounded-md bg-white/95 backdrop-blur-xs px-2.5 py-1 text-[11px] font-bold text-[#03045e] shadow-2xs border border-white/60">
+              {hosp.facilityTypeBadge}
+            </span>
+          </div>
+        </div>
+
+        {/* Content Body */}
+        <CardContent className="p-5 space-y-4">
+          <div>
+            <Link
+              to={`/hospitals/${hosp.slug}`}
+              className="block group-hover:text-[#0077b6] transition-colors"
+            >
+              <h3 className="text-lg font-bold text-[#03045e] line-clamp-1 leading-snug">
+                {hosp.name}
+              </h3>
+            </Link>
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+              <MapPin className="h-3.5 w-3.5 text-[#0077b6] shrink-0" />
+              <span>
+                {hosp.area ? `${hosp.area}, ` : ''}
+                {hosp.city}, {hosp.state}
+              </span>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            {overview}
+          </p>
+
+          {/* Clinical Departments directly matching Featured Hospitals */}
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              Departments
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {hosp.departments.slice(0, 3).map((dept, dIdx) => (
+                <Badge
+                  key={dIdx}
+                  variant="secondary"
+                  className="text-[11px] py-0.5 px-2 bg-[#caf0f8]/60 text-[#03045e]"
+                >
+                  {dept}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </div>
+
+      {/* Card Action Footer */}
+      <div className="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+          <Phone className="h-3 w-3 text-[#0077b6]" />
+          <span>{CONTACT_PHONE}</span>
+        </div>
+
+        <Button asChild size="sm" variant="default" className="gap-1.5 bg-[#0077b6] hover:bg-[#03045e]">
+          <Link to={`/hospitals/${hosp.slug}`}>
+            <span>View Hospital</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </Button>
+      </div>
+    </Card>
+  );
+}
+
+export function FamousHospitalsSection({ hospitals }: FamousHospitalsSectionProps) {
   const [visibleCount, setVisibleCount] = React.useState(BATCH_SIZE);
+
+  // Hospital map for matching overview or real photos from database
+  const hospitalMap = React.useMemo(() => {
+    const map = new Map<string, Hospital>();
+    if (hospitals) {
+      hospitals.forEach((h) => {
+        if (h.slug) map.set(h.slug, h);
+        if (h.id) map.set(h.id, h);
+      });
+    }
+    return map;
+  }, [hospitals]);
 
   const visibleHospitals = React.useMemo(() => {
     return FAMOUS_HOSPITALS_LIST.slice(0, visibleCount);
@@ -46,89 +193,16 @@ export function FamousHospitalsSection() {
         </div>
       </div>
 
-      {/* Grid of Famous Hospital Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Grid of Famous Hospital Cards styled identical to Featured Hospitals */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {visibleHospitals.map((hosp: FamousHospitalItem) => {
-          const coverImage = hosp.images && hosp.images.length > 0 ? hosp.images[0] : null;
-
+          const matchedHospital = hospitalMap.get(hosp.slug) || hospitalMap.get(hosp.id);
           return (
-            <div
+            <FamousHospitalCard
               key={hosp.id}
-              onClick={() => navigate(`/hospitals/${hosp.slug}`)}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#90e0ef]/70 bg-gradient-to-b from-white via-white to-[#caf0f8]/20 p-5 shadow-2xs hover:shadow-md hover:border-[#0077b6] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  navigate(`/hospitals/${hosp.slug}`);
-                }
-              }}
-            >
-              <div>
-                {/* Top Strip: Rank Badge & Facility Type */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="inline-flex items-center justify-center rounded-lg bg-[#0077b6] text-white px-2.5 py-0.5 text-xs font-black shadow-2xs">
-                    #{hosp.rank}
-                  </span>
-
-                  <span className="truncate rounded-md bg-white/90 border border-[#90e0ef]/60 px-2 py-0.5 text-[11px] font-bold text-[#03045e] shadow-2xs max-w-[70%]">
-                    {hosp.facilityTypeBadge}
-                  </span>
-                </div>
-
-                {/* Hospital Name & Location */}
-                <div className="space-y-1.5">
-                  <h3 className="text-base font-bold text-[#03045e] group-hover:text-[#0077b6] transition-colors leading-snug line-clamp-2">
-                    {hosp.name}
-                  </h3>
-
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                    <MapPin className="h-3.5 w-3.5 text-[#0077b6] shrink-0" />
-                    <span className="truncate">
-                      {hosp.area ? `${hosp.area}, ` : ''}{hosp.city}, {hosp.state}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Clinical Departments */}
-                {hosp.departments && hosp.departments.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-slate-100 space-y-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      Key Specialties
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {hosp.departments.slice(0, 3).map((dept, dIdx) => (
-                        <Badge
-                          key={dIdx}
-                          variant="secondary"
-                          className="text-[10px] py-0.5 px-2 bg-[#caf0f8]/60 text-[#03045e] font-medium"
-                        >
-                          {dept}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Bottom Footer CTA */}
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0077b6]">
-                <div className="flex items-center gap-1.5">
-                  {hosp.emergency24x7 && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>24x7 Emergency</span>
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  <span>View Hospital</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </div>
-              </div>
-            </div>
+              hosp={hosp}
+              matchedHospital={matchedHospital}
+            />
           );
         })}
       </div>

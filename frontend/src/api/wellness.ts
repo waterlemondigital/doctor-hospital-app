@@ -59,8 +59,8 @@ export function mapWellnessCenter(raw: RawWellnessCenter): WellnessCenter {
     accreditation: raw.accreditation || '',
     overview: raw.overview || '',
     website: raw.website || '',
-    phone: CONTACT_PHONE,
-    whatsapp: CONTACT_WHATSAPP,
+    phone: raw.phone || CONTACT_PHONE,
+    whatsapp: raw.whatsapp || CONTACT_WHATSAPP,
     mapsUrl: raw.maps_url || '',
     verificationStatus: raw.verification_status || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',
@@ -88,7 +88,7 @@ export async function fetchWellnessCenters(params?: WellnessQueryParams): Promis
     const qs = query.toString();
     const endpoint = `/wellness-centers${qs ? `?${qs}` : ''}`;
     const rawList = await apiFetch<RawWellnessCenter[]>(endpoint);
-    return rawList.map((item, idx) => mapWellnessCenter(item, idx));
+    return rawList.map((item) => mapWellnessCenter(item));
   } catch (err) {
     console.error('Failed to fetch wellness centers from API:', err);
     return [];

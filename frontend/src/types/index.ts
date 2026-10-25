@@ -1,5 +1,5 @@
 /**
- * Core domain types for HealthDiscover directory
+ * Core domain types for MedVexa directory
  */
 
 export type VerificationStatus = 'independently-checked' | 'provider-confirmed' | 'unverified';
@@ -51,6 +51,8 @@ export interface Hospital {
   lastChecked: string;
   sources: SourceCitation[];
   doctorIds: string[];
+  connectedHospitalIds?: string[];
+  connectedDoctorIds?: string[];
 }
 
 export interface DoctorHospitalAffiliation {

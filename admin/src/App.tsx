@@ -6,6 +6,7 @@ import { LeadsPipeline } from './components/LeadsPipeline';
 import { TargetDirectory } from './components/TargetDirectory';
 import { TargetPortalModal } from './components/TargetPortalModal';
 import { AdminLoginGate } from './components/AdminLoginGate';
+import { AddEntitySection } from './components/AddEntitySection';
 import {
   AdminStats,
   PatientLead,
@@ -35,7 +36,7 @@ export function App() {
     return null;
   });
 
-  const [currentTab, setCurrentTab] = useState<'dispatch' | 'leads' | 'targets'>('dispatch');
+  const [currentTab, setCurrentTab] = useState<'add-entity' | 'dispatch'>('add-entity');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [doctors, setDoctors] = useState<TargetDoctor[]>([]);
   const [hospitals, setHospitals] = useState<TargetHospital[]>([]);
@@ -136,34 +137,28 @@ export function App() {
         onLogout={handleLogout}
       />
 
-      {/* Main Content Workspace: Focused Lead Generation to Target */}
+      {/* Main Content Workspace */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <PatientDispatchForm
-          doctors={doctors}
-          hospitals={hospitals}
-          laboratories={laboratories}
-          wellness={wellness}
-          onLeadCreated={handleLeadCreated}
-          onPreviewTarget={handlePreviewTarget}
-        />
-
-        {/* Preserved logic for future enablement:
-        {currentTab === 'leads' && (
-          <LeadsPipeline
-            leads={leads}
-            onLeadUpdated={handleLeadUpdated}
-            onPreviewTarget={handlePreviewTarget}
-          />
-        )}
-        {currentTab === 'targets' && (
-          <TargetDirectory
+        {currentTab === 'dispatch' && (
+          <PatientDispatchForm
             doctors={doctors}
             hospitals={hospitals}
+            laboratories={laboratories}
+            wellness={wellness}
+            onLeadCreated={handleLeadCreated}
             onPreviewTarget={handlePreviewTarget}
-            onTargetsUpdated={loadAllData}
           />
         )}
-        */}
+
+        {currentTab === 'add-entity' && (
+          <AddEntitySection
+            doctors={doctors}
+            hospitals={hospitals}
+            laboratories={laboratories}
+            wellness={wellness}
+            onEntityCreated={loadAllData}
+          />
+        )}
       </main>
 
       {/* Target Doctor/Hospital Dashboard Preview Modal */}
@@ -186,12 +181,12 @@ export function App() {
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-              <span>48 Doctors Populated</span>
+              <span>{doctors.length} Doctors Populated</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
               <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-              <span>70 Hospitals Populated</span>
+              <span>{hospitals.length} Hospitals Populated</span>
             </span>
           </div>
         </div>

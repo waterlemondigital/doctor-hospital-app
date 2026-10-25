@@ -358,40 +358,8 @@ export function DoctorsPage() {
           </div>
         </div>
 
-        {/* Quick Filter Pills Row: All Cities & All Specialities present in Data */}
-        <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
-          {/* Speciality Pills */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-slate-400 font-semibold shrink-0">Speciality:</span>
-            <button
-              type="button"
-              onClick={() => updateSpecialityFilter('all')}
-              className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                selectedSpeciality === 'all'
-                  ? 'bg-[#caf0f8] text-[#03045e] shadow-2xs font-bold'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              All
-            </button>
-            {availableSpecialities.map((spec) => (
-              <button
-                key={spec}
-                type="button"
-                onClick={() => updateSpecialityFilter(spec)}
-                className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer ${
-                  selectedSpeciality.toLowerCase() === spec.toLowerCase()
-                    ? 'bg-[#0077b6] text-white shadow-2xs font-bold'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {spec}
-              </button>
-            ))}
-          </div>
-
-          {/* Active Filter Chips / Status summary & Reset */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+        {/* Active Filter Chips / Status summary & Reset */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-slate-500 font-medium">
                 Showing <strong>{filteredDoctors.length}</strong> {filteredDoctors.length === 1 ? 'specialist' : 'specialists'}
@@ -452,7 +420,6 @@ export function DoctorsPage() {
             )}
           </div>
         </div>
-      </div>
 
       {/* Doctor Cards Grid or Loading */}
       {isLoading ? (

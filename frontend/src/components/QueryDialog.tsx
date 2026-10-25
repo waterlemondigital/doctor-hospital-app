@@ -105,7 +105,7 @@ export function QueryDialog({
       };
 
       // TODO: Replace with backend API endpoint call (e.g., await fetch('/api/inquiries', { method: 'POST', body: JSON.stringify(payload) }))
-      console.log('[HealthDiscover Inquiry Submitted]:', payload);
+      console.log('[MedVexa Inquiry Submitted]:', payload);
 
       // Brief simulated network settle
       await new Promise((resolve) => setTimeout(resolve, 600));

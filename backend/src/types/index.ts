@@ -72,6 +72,7 @@ export interface Doctor {
   areas_of_practice: string[];
   sources: any[];
   hospitals: DoctorAffiliation[];
+  connected_laboratory_ids?: string[];
 }
 
 export interface Laboratory {
@@ -98,6 +99,8 @@ export interface Laboratory {
   departments: any[];
   facilities: string[];
   sources: any[];
+  connected_hospital_ids?: string[];
+  connected_doctor_ids?: string[];
 }
 
 export interface WellnessCenter {

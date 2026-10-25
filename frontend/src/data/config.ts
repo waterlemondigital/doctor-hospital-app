@@ -9,7 +9,7 @@ export const SITE_SUBTITLE = "Objective, verified healthcare directory starting 
 export const EMERGENCY_NUMBER = "112";
 export const AMBULANCE_NUMBER = "108";
 
-export const SUPPORT_EMAIL = "verification@healthdiscover.in";
+export const SUPPORT_EMAIL = "verification@medvexa.in";
 
 /**
  * Universal contact numbers for calls and WhatsApp inquiries across all listings.

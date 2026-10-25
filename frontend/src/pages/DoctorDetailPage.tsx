@@ -389,7 +389,7 @@ export function DoctorDetailPage() {
               <span>Medical Disclaimer</span>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              General information only. Not medical advice. HealthDiscover does not provide diagnoses, endorse specific practitioners, or guarantee clinical outcomes. For urgent care, call 112.
+              General information only. Not medical advice. MedVexa does not provide diagnoses, endorse specific practitioners, or guarantee clinical outcomes. For urgent care, call 112.
             </p>
             <Link
               to="/medical-disclaimer"

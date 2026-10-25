@@ -1,13 +1,3 @@
-# Wellness Center Data Template
-
-Use this template to add Wellness, Yoga, Naturopathy, and Holistic Healing Centers.
-Note: Wellness centers are independent and stand alone (not linked to hospital/doctor networks).
-You can add multiple wellness centers in this single file by repeating the `# Wellness: <Name>` block.
-Separate multiple wellness centers using `---`.
-(Note: IDs are generated automatically in the database. Images will be uploaded to cloud storage and linked separately.)
-
----
-
 # Wellness: Kaivalyadhama Health and Yoga Research Center
 
 - **Name**: Kaivalyadhama Health and Yoga Research Center

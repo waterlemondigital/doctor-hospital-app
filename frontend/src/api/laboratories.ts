@@ -26,6 +26,8 @@ interface RawLaboratory {
   departments?: any[];
   facilities?: string[];
   sources?: any[];
+  connected_hospital_ids?: string[];
+  connected_doctor_ids?: string[];
 }
 
 export function mapLaboratory(raw: RawLaboratory): Hospital {
@@ -75,13 +77,15 @@ export function mapLaboratory(raw: RawLaboratory): Hospital {
     homeSampleCollection: raw.home_sample_collection ?? true,
     emergencyAvailable24x7: raw.emergency_available_24x7 ?? false,
     website: raw.website || '',
-    phone: CONTACT_PHONE,
-    whatsapp: CONTACT_WHATSAPP,
+    phone: raw.phone || CONTACT_PHONE,
+    whatsapp: raw.whatsapp || CONTACT_WHATSAPP,
     mapsUrl: raw.maps_url || '',
     verificationStatus: (raw.verification_status as any) || 'independently-checked',
     lastChecked: raw.last_checked || '2026-10-17',
     sources,
-    doctorIds: [],
+    doctorIds: raw.connected_doctor_ids || [],
+    connectedHospitalIds: raw.connected_hospital_ids || [],
+    connectedDoctorIds: raw.connected_doctor_ids || [],
   };
 }
 
@@ -96,7 +100,7 @@ export async function fetchLaboratories(params?: {
 
     const qs = query.toString() ? `?${query.toString()}` : '';
     const rawList = await apiFetch<RawLaboratory[]>(`/laboratories${qs}`);
-    return rawList.map((l, i) => mapLaboratory(l, i));
+    return rawList.map((l) => mapLaboratory(l));
   } catch (err) {
     console.warn('API error fetching laboratories:', err);
     return [];

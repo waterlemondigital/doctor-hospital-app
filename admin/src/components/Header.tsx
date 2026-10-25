@@ -13,8 +13,8 @@ import {
 import { AdminStats } from '../types';
 
 interface HeaderProps {
-  currentTab: 'dispatch' | 'leads' | 'targets';
-  onSelectTab: (tab: 'dispatch' | 'leads' | 'targets') => void;
+  currentTab: 'add-entity' | 'dispatch';
+  onSelectTab: (tab: 'add-entity' | 'dispatch') => void;
   stats: AdminStats | null;
   isLoading: boolean;
   onRefresh: () => void;
@@ -113,49 +113,35 @@ export function Header({
           </div>
         </div>
 
-        {/* Bottom Tier: Single-Focus Intake & Dispatch Navigation */}
+        {/* Bottom Tier: Desk Navigation Tabs */}
         <nav className="flex items-center gap-2 pt-2.5 pb-2 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#0077b6] text-white shadow-xs">
-            <PhoneCall className="h-4 w-4" />
-            <span>Generate Patient Lead & Dispatch to Target</span>
-            <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-md bg-white/20">
-              Active Desk
-            </span>
-          </div>
-
-          {/* Logic preserved for future use:
+          {/* Add Entity Section Tab */}
           <button
-            onClick={() => onSelectTab('leads')}
+            type="button"
+            onClick={() => onSelectTab('add-entity')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 ${
-              currentTab === 'leads'
-                ? 'bg-[#0077b6] text-white shadow-xs'
-                : 'text-slate-600 hover:text-[#03045e] hover:bg-slate-100'
-            }`}
-          >
-            <Activity className="h-4 w-4" />
-            <span>Dispatched Leads Pipeline</span>
-            {stats?.totalLeads ? (
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#caf0f8] text-[#03045e]">
-                {stats.totalLeads}
-              </span>
-            ) : null}
-          </button>
-
-          <button
-            onClick={() => onSelectTab('targets')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 ${
-              currentTab === 'targets'
+              currentTab === 'add-entity'
                 ? 'bg-[#0077b6] text-white shadow-xs'
                 : 'text-slate-600 hover:text-[#03045e] hover:bg-slate-100'
             }`}
           >
             <Building2 className="h-4 w-4" />
-            <span>Target Directory & Portal Accounts</span>
-            <span className="text-[10px] font-semibold text-slate-500">
-              ({(stats?.totalDoctors ?? 0) + (stats?.totalHospitals ?? 0)})
-            </span>
+            <span>Add Entity / Directory Master</span>
           </button>
-          */}
+
+          {/* Dispatch Form Tab */}
+          <button
+            type="button"
+            onClick={() => onSelectTab('dispatch')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 ${
+              currentTab === 'dispatch'
+                ? 'bg-[#0077b6] text-white shadow-xs'
+                : 'text-slate-600 hover:text-[#03045e] hover:bg-slate-100'
+            }`}
+          >
+            <PhoneCall className="h-4 w-4" />
+            <span>Patient Intake & Dispatch</span>
+          </button>
         </nav>
       </div>
     </header>

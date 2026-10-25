@@ -93,6 +93,8 @@ export function LaboratoryDetailPage() {
 
   // Find connected hospitals based on relations or name matching (e.g. Deenanath Mangeshkar Hospital)
   const connectedHospitals = hospitals.filter((h) => {
+    if (laboratory.connectedHospitalIds && laboratory.connectedHospitalIds.includes(h.id)) return true;
+    if ((laboratory as any).connected_hospital_ids && (laboratory as any).connected_hospital_ids.includes(h.id)) return true;
     const labName = laboratory.name.toLowerCase();
     const hospName = h.name.toLowerCase();
     if (labName.includes('deenanath') && hospName.includes('deenanath')) return true;
