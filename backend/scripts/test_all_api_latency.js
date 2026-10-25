@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Comprehensive latency and performance benchmark for all HealthDiscover API endpoints (Node.js version).
+ * Comprehensive latency and performance benchmark for all MedVexa API endpoints (Node.js version).
  */
 
 const BASE_URL = process.env.API_BASE_URL || 'http://localhost:8000';

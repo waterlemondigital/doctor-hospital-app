@@ -22,13 +22,13 @@ function parseCorsOrigins(raw?: string): string[] {
 }
 
 export const env = {
-  PROJECT_NAME: process.env.PROJECT_NAME || 'HealthDiscover API',
+  PROJECT_NAME: process.env.PROJECT_NAME || 'MedVexa API',
   ENVIRONMENT: process.env.ENVIRONMENT || 'development',
   DEBUG: process.env.DEBUG === 'True' || process.env.DEBUG === 'true',
   HOST: process.env.HOST || '0.0.0.0',
   PORT: parseInt(process.env.PORT || '8000', 10),
   CORS_ORIGINS: parseCorsOrigins(process.env.CORS_ORIGINS),
-  DATABASE_URL: process.env.DATABASE_URL || 'postgresql://localhost:5432/healthdiscover_db',
+  DATABASE_URL: process.env.DATABASE_URL || 'postgresql://localhost:5432/medvexa_db',
   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || 'replace-this-with-a-secure-random-secret-key',
   JWT_ALGORITHM: process.env.JWT_ALGORITHM || 'HS256',
   ACCESS_TOKEN_EXPIRE_MINUTES: parseInt(process.env.ACCESS_TOKEN_EXPIRE_MINUTES || '1440', 10),

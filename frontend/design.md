@@ -1,12 +1,12 @@
-# HealthDiscover — System Design & UI/UX Specification (`design.md`)
+# MedVexa — System Design & UI/UX Specification (`design.md`)
 
-> **Comprehensive Design System, Token Architecture, Component Anatomy, and Interaction Patterns for the HealthDiscover Pune Healthcare Directory.**
+> **Comprehensive Design System, Token Architecture, Component Anatomy, and Interaction Patterns for the MedVexa Pune Healthcare Directory.**
 
 ---
 
 ## 1. Executive Summary & Brand Philosophy
 
-**HealthDiscover** is an ethical, factual, and verified healthcare discovery platform for hospitals and medical practitioners in Pune, Maharashtra.
+**MedVexa** is an ethical, factual, and verified healthcare discovery platform for hospitals and medical practitioners in Pune, Maharashtra.
 
 ### Core Principles
 1. **Ethical & Impartial**: Zero commercial promotions, zero pay-to-win hospital rankings, and no fictitious star ratings. Quality of care and medical infrastructure are presented factually.
@@ -18,7 +18,7 @@
 
 ## 2. Color Palette & Token System
 
-HealthDiscover utilizes a clinical, calm, and high-trust palette inspired by surgical steel, oceanic twilight, and crisp cyan accents.
+MedVexa utilizes a clinical, calm, and high-trust palette inspired by surgical steel, oceanic twilight, and crisp cyan accents.
 
 ### Primary Color Tokens
 
@@ -96,12 +96,12 @@ The sticky top header provides continuous orientation and accessibility.
 
 ```
 +-------------------------------------------------------------------------------------------------------------+
-| [HealthDiscover Logo]    [Home]  [Hospitals]  [Doctors]  [About]   | [Quick Search (Cmd+K)]  [Log In] [Sign Up] |
+| [MedVexa Logo]    [Home]  [Hospitals]  [Doctors]  [About]   | [Quick Search (Cmd+K)]  [Log In] [Sign Up] |
 +-------------------------------------------------------------------------------------------------------------+
 ```
 
 ### 1. Brand Zone
-- **Wordmark**: `HealthDiscover` rendered in `text-xl font-extrabold text-[#03045e]` paired with a pulse/stethoscope icon in `#0077b6`.
+- **Wordmark**: `MedVexa` rendered in `text-xl font-extrabold text-[#03045e]` paired with a pulse/stethoscope icon in `#0077b6`.
 - **Direct Link**: Navigates back to the homepage (`/`).
 
 ### 2. Navigation Links
@@ -284,5 +284,5 @@ Powered by **Lucide React** (`lucide-react`):
 ---
 
 *Document Version: 1.0.0*  
-*Maintained by HealthDiscover Design & Engineering Team*  
+*Maintained by MedVexa Design & Engineering Team*  
 *Pune, Maharashtra*

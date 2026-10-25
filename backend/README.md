@@ -1,4 +1,4 @@
-# HealthDiscover Backend API (Node.js & Express.js REST API)
+# MedVexa Backend API (Node.js & Express.js REST API)
 
 High-performance REST API backend built with **Node.js, Express.js, TypeScript, and Neon PostgreSQL**:
 - **PostgreSQL (Neon)**: Complete relational database for users, auth, doctors, hospitals, diagnostic laboratories, wellness centers, specialities, cities, and doctor-hospital affiliations.
@@ -19,7 +19,7 @@ npm install
 ### 2. Configure Environment (`.env`)
 The database connection string and application settings are configured in `.env`:
 ```ini
-PROJECT_NAME="HealthDiscover API"
+PROJECT_NAME="MedVexa API"
 ENVIRONMENT="development"
 PORT=8000
 DATABASE_URL="postgresql://neondb_owner:npg_...-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require"

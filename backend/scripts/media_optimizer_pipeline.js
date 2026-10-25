@@ -1,5 +1,5 @@
 /**
- * HealthDiscover / Medvexa - Unified Media Optimization & Upload Pipeline
+ * MedVexa - Unified Media Optimization & Upload Pipeline
  *
  * This single script handles all media operations for hospitals, wellness centers, and doctors:
  * 1. Optimizes all images using Sharp:
@@ -779,7 +779,7 @@ async function main() {
   const sourceArg = args.find((a) => a.startsWith('--source=') || a.startsWith('--dir=') || a.startsWith('--path='));
   const customSource = sourceArg ? sourceArg.split('=')[1] : null;
 
-  console.log('⚡ HealthDiscover Unified Media Pipeline');
+  console.log('⚡ MedVexa Unified Media Pipeline');
   console.log(`Bucket: ${BUCKET} | Action: ${isUpload ? 'LOCAL_UPLOAD' : 'OPTIMIZE_R2'} | Target: ${type}`);
   if (customSource) console.log(`Custom Source: ${customSource}`);
 

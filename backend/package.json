@@ -1,7 +1,7 @@
 {
-  "name": "healthdiscover-backend-express",
+  "name": "medvexa-backend-express",
   "version": "1.0.0",
-  "description": "HealthDiscover Node.js & Express REST API Backend with Neon PostgreSQL",
+  "description": "MedVexa Node.js & Express REST API Backend with Neon PostgreSQL",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {

@@ -1,5 +1,5 @@
 /**
- * Standard API client for HealthDiscover FastAPI / PostgreSQL backend.
+ * Standard API client for MedVexa Express / PostgreSQL backend.
  * Includes in-memory caching and in-flight promise deduplication for ultra-fast navigation.
  */
 

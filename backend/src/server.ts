@@ -20,7 +20,7 @@ async function startServer() {
 
   // 3. Start Express server
   const server = app.listen(env.PORT, env.HOST, () => {
-    console.log(`🌟 HealthDiscover Express REST API listening on http://${env.HOST}:${env.PORT}`);
+    console.log(`🌟 MedVexa Express REST API listening on http://${env.HOST}:${env.PORT}`);
     console.log(`   - Root Info: http://localhost:${env.PORT}/`);
     console.log(`   - Health Check: http://localhost:${env.PORT}/api/v1/health`);
     console.log(`   - Hospitals Directory: http://localhost:${env.PORT}/api/v1/hospitals`);
