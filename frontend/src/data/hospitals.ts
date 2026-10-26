@@ -144,7 +144,38 @@ export const HOSPITALS_DATA: Hospital[] = [
     "pincode": "411004",
     "facilityType": "Charitable Multispeciality Hospital",
     "facilityTypeBadge": "800-Bed Multispeciality Hospital (official website)",
-    "images": [],
+    "images": [
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1_card.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Main Campus & Entrance (Primary)",
+        "caption": "Deenanath Mangeshkar Hospital & Research Center - Main Campus & Entrance"
+      },
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_2.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_2_card.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Facility & Inpatient View 2",
+        "caption": "Deenanath Mangeshkar Hospital & Research Center - Clinical Care & Facility View 2"
+      },
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_3.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_3_card.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Facility & Inpatient View 3",
+        "caption": "Deenanath Mangeshkar Hospital & Research Center - Clinical Care & Facility View 3"
+      },
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_4.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_4_card.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Facility & Inpatient View 4",
+        "caption": "Deenanath Mangeshkar Hospital & Research Center - Clinical Care & Facility View 4"
+      },
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_5.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_5_card.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Facility & Inpatient View 5",
+        "caption": "Deenanath Mangeshkar Hospital & Research Center - Clinical Care & Facility View 5"
+      }
+    ],
     "overview": "Charitable multispeciality hospital in Erandwane. Its official website describes an 800-bed hospital with diagnostic, therapeutic and intensive-care services.",
     "services": [
       "Cardiology and cardiac surgery",
@@ -2098,73 +2129,6 @@ export const HOSPITALS_DATA: Hospital[] = [
       {
         "label": "Nanavati Max Super Speciality Hospital Official Website",
         "url": "https://www.maxhealthcare.in/",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ],
-    "doctorIds": []
-  },
-  {
-    "id": "deenanath_mangeshkar_hospital_and_research_center",
-    "slug": "deenanath-mangeshkar-hospital-and-research-center",
-    "name": "Deenanath Mangeshkar Hospital and Research Center",
-    "state": "Maharashtra",
-    "city": "Pune",
-    "area": "Erandwane",
-    "address": "Near Mhatre Bridge, Erandwane, Pune",
-    "pincode": "411004",
-    "facilityType": "Private multispecialty hospital and research centre",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "images": [],
-    "overview": "Major Pune multispecialty hospital with specialist and super-specialty services.",
-    "services": [
-      "Multispecialty consultations and treatment",
-      "Diagnostic evaluation and inpatient care",
-      "Specialist and surgical services"
-    ],
-    "departments": [
-      {
-        "name": "Cardiology",
-        "slug": "cardiology"
-      },
-      {
-        "name": "Oncology",
-        "slug": "oncology"
-      },
-      {
-        "name": "Orthopaedics",
-        "slug": "orthopaedics"
-      },
-      {
-        "name": "Neurosciences",
-        "slug": "neurosciences"
-      },
-      {
-        "name": "Gastroenterology",
-        "slug": "gastroenterology"
-      },
-      {
-        "name": "Nephrology",
-        "slug": "nephrology"
-      }
-    ],
-    "facilities": [
-      "Outpatient consultation services",
-      "Inpatient care and clinical diagnostics",
-      "Specialist treatment and surgical facilities"
-    ],
-    "bedCount": null,
-    "emergencyAvailable24x7": true,
-    "website": "https://www.dmhospital.org/",
-    "phone": "020-40151000",
-    "whatsapp": "Not separately listed",
-    "mapsUrl": "https://maps.google.com/?q=Deenanath%20Mangeshkar%20Hospital%20and%20Research%20Center%2C%20Pune%2C%20India",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Deenanath Mangeshkar Hospital and Research Center Official Website",
-        "url": "https://www.dmhospital.org/",
         "type": "official-registry",
         "dateChecked": "2026-10-17"
       }

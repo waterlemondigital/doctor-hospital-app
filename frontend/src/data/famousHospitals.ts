@@ -11,72 +11,12 @@ export interface FamousHospitalItem {
   bedCount: number | null;
   emergency24x7: boolean;
   departments: string[];
-  images: any[];
+  images: Array<{ url: string; alt: string }>;
 }
 
 export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
   {
     "rank": 1,
-    "id": "all_india_institute_of_medical_sciences_aiims_new_delhi",
-    "slug": "all-india-institute-of-medical-sciences-aiims-new-delhi",
-    "name": "All India Institute of Medical Sciences (AIIMS), New Delhi",
-    "city": "New Delhi",
-    "area": "Ansari Nagar",
-    "state": "Delhi",
-    "facilityType": "Government tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Neurology",
-      "Oncology",
-      "Nephrology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 2,
-    "id": "medanta_the_medicity",
-    "slug": "medanta-the-medicity",
-    "name": "Medanta \u2013 The Medicity",
-    "city": "Gurugram",
-    "area": "Sector 38",
-    "state": "Haryana",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiac Sciences",
-      "Cancer Care",
-      "Neurosciences",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 3,
-    "id": "apollo_hospitals_greams_road",
-    "slug": "apollo-hospitals-greams-road",
-    "name": "Apollo Hospitals, Greams Road",
-    "city": "Chennai",
-    "area": "Greams Road",
-    "state": "Tamil Nadu",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurology",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 4,
     "id": "tata_memorial_hospital",
     "slug": "tata-memorial-hospital",
     "name": "Tata Memorial Hospital",
@@ -96,7 +36,27 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 5,
+    "rank": 2,
+    "id": "all_india_institute_of_medical_sciences_aiims_new_delhi",
+    "slug": "all-india-institute-of-medical-sciences-aiims-new-delhi",
+    "name": "All India Institute of Medical Sciences (AIIMS), New Delhi",
+    "city": "New Delhi",
+    "area": "Ansari Nagar",
+    "state": "Delhi",
+    "facilityType": "Government tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Nephrology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 3,
     "id": "christian_medical_college_cmc",
     "slug": "christian-medical-college-cmc",
     "name": "Christian Medical College (CMC)",
@@ -116,7 +76,7 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 6,
+    "rank": 4,
     "id": "postgraduate_institute_of_medical_education_and_research_pgimer",
     "slug": "postgraduate-institute-of-medical-education-and-research-pgimer",
     "name": "Postgraduate Institute of Medical Education and Research (PGIMER)",
@@ -136,52 +96,72 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 7,
-    "id": "sir_ganga_ram_hospital",
-    "slug": "sir-ganga-ram-hospital",
-    "name": "Sir Ganga Ram Hospital",
-    "city": "New Delhi",
-    "area": "Old Rajinder Nagar",
-    "state": "Delhi",
-    "facilityType": "Private multispecialty hospital",
+    "rank": 5,
+    "id": "sanjay_gandhi_postgraduate_institute_of_medical_sciences_sgpgims",
+    "slug": "sanjay-gandhi-postgraduate-institute-of-medical-sciences-sgpgims",
+    "name": "Sanjay Gandhi Postgraduate Institute of Medical Sciences (SGPGIMS)",
+    "city": "Lucknow",
+    "area": "Raebareli Road",
+    "state": "Uttar Pradesh",
+    "facilityType": "Public postgraduate tertiary-care institute",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
     "emergency24x7": true,
     "departments": [
       "Cardiology",
-      "Gastroenterology",
       "Neurology",
-      "Oncology"
+      "Nephrology",
+      "Endocrinology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 6,
+    "id": "jawaharlal_institute_of_postgraduate_medical_education_and_resea",
+    "slug": "jawaharlal-institute-of-postgraduate-medical-education-and-research-jipmer",
+    "name": "Jawaharlal Institute of Postgraduate Medical Education and Research (JIPMER)",
+    "city": "Puducherry",
+    "area": "Dhanvantari Nagar",
+    "state": "Puducherry",
+    "facilityType": "Public teaching and tertiary-care institute",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Nephrology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 7,
+    "id": "king_george_s_medical_university_kgmu",
+    "slug": "king-george-s-medical-university-kgmu",
+    "name": "King George’s Medical University (KGMU)",
+    "city": "Lucknow",
+    "area": "Chowk",
+    "state": "Uttar Pradesh",
+    "facilityType": "Public teaching hospital and medical university",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
     ],
     "images": []
   },
   {
     "rank": 8,
-    "id": "kokilaben_dhirubhai_ambani_hospital",
-    "slug": "kokilaben-dhirubhai-ambani-hospital",
-    "name": "Kokilaben Dhirubhai Ambani Hospital",
-    "city": "Mumbai",
-    "area": "Andheri West",
-    "state": "Maharashtra",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cancer",
-      "Neurosciences",
-      "Cardiac Sciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 9,
-    "id": "fortis_memorial_research_institute",
-    "slug": "fortis-memorial-research-institute",
-    "name": "Fortis Memorial Research Institute",
+    "id": "medanta_the_medicity",
+    "slug": "medanta-the-medicity",
+    "name": "Medanta – The Medicity",
     "city": "Gurugram",
-    "area": "Sector 44",
+    "area": "Sector 38",
     "state": "Haryana",
     "facilityType": "Private multispecialty tertiary-care hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
@@ -189,34 +169,34 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "emergency24x7": true,
     "departments": [
       "Cardiac Sciences",
-      "Oncology",
+      "Cancer Care",
       "Neurosciences",
-      "Orthopaedics"
+      "Gastroenterology"
     ],
     "images": []
   },
   {
-    "rank": 10,
-    "id": "narayana_institute_of_cardiac_sciences",
-    "slug": "narayana-institute-of-cardiac-sciences",
-    "name": "Narayana Institute of Cardiac Sciences",
-    "city": "Bengaluru",
-    "area": "Bommasandra",
-    "state": "Karnataka",
-    "facilityType": "Specialist cardiac and multispecialty hospital",
+    "rank": 9,
+    "id": "apollo_hospitals_greams_road",
+    "slug": "apollo-hospitals-greams-road",
+    "name": "Apollo Hospitals, Greams Road",
+    "city": "Chennai",
+    "area": "Greams Road",
+    "state": "Tamil Nadu",
+    "facilityType": "Private multispecialty tertiary-care hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
     "emergency24x7": true,
     "departments": [
       "Cardiology",
-      "Cardiothoracic Surgery",
-      "Paediatric Cardiology",
-      "Vascular Surgery"
+      "Oncology",
+      "Neurology",
+      "Gastroenterology"
     ],
     "images": []
   },
   {
-    "rank": 11,
+    "rank": 10,
     "id": "indraprastha_apollo_hospitals",
     "slug": "indraprastha-apollo-hospitals",
     "name": "Indraprastha Apollo Hospitals",
@@ -236,7 +216,87 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
+    "rank": 11,
+    "id": "narayana_institute_of_cardiac_sciences",
+    "slug": "narayana-institute-of-cardiac-sciences",
+    "name": "Narayana Institute of Cardiac Sciences",
+    "city": "Bengaluru",
+    "area": "Bommasandra",
+    "state": "Karnataka",
+    "facilityType": "Specialist cardiac and multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Cardiothoracic Surgery",
+      "Paediatric Cardiology",
+      "Vascular Surgery"
+    ],
+    "images": []
+  },
+  {
     "rank": 12,
+    "id": "fortis_escorts_heart_institute_new_delhi",
+    "slug": "fortis-escorts-heart-institute-new-delhi",
+    "name": "Fortis Escorts Heart Institute",
+    "city": "New Delhi",
+    "area": "Okhla Road",
+    "state": "Delhi",
+    "facilityType": "Private cardiac-focused tertiary-care hospital",
+    "facilityTypeBadge": "NABH Accredited Facility",
+    "bedCount": 310,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Cardiac Surgery",
+      "Interventional Cardiology",
+      "Electrophysiology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 13,
+    "id": "amrita_hospital",
+    "slug": "amrita-hospital",
+    "name": "Amrita Hospital",
+    "city": "Faridabad",
+    "area": "Sector 88",
+    "state": "Haryana",
+    "facilityType": "Private multispecialty teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Transplants"
+    ],
+    "images": []
+  },
+  {
+    "rank": 14,
+    "id": "sir_ganga_ram_hospital",
+    "slug": "sir-ganga-ram-hospital",
+    "name": "Sir Ganga Ram Hospital",
+    "city": "New Delhi",
+    "area": "Old Rajinder Nagar",
+    "state": "Delhi",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Gastroenterology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 15,
     "id": "max_super_speciality_hospital_saket",
     "slug": "max-super-speciality-hospital-saket",
     "name": "Max Super Speciality Hospital, Saket",
@@ -256,7 +316,47 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 13,
+    "rank": 16,
+    "id": "kokilaben_dhirubhai_ambani_hospital",
+    "slug": "kokilaben-dhirubhai-ambani-hospital",
+    "name": "Kokilaben Dhirubhai Ambani Hospital",
+    "city": "Mumbai",
+    "area": "Andheri West",
+    "state": "Maharashtra",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cancer",
+      "Neurosciences",
+      "Cardiac Sciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 17,
+    "id": "fortis_memorial_research_institute",
+    "slug": "fortis-memorial-research-institute",
+    "name": "Fortis Memorial Research Institute",
+    "city": "Gurugram",
+    "area": "Sector 44",
+    "state": "Haryana",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiac Sciences",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 18,
     "id": "artemis_hospital",
     "slug": "artemis-hospital",
     "name": "Artemis Hospital",
@@ -276,7 +376,27 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 14,
+    "rank": 19,
+    "id": "tata_main_hospital",
+    "slug": "tata-main-hospital",
+    "name": "Tata Main Hospital",
+    "city": "Jamshedpur",
+    "area": "Bistupur",
+    "state": "Jharkhand",
+    "facilityType": "Multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 20,
     "id": "manipal_hospital_old_airport_road",
     "slug": "manipal-hospital-old-airport-road",
     "name": "Manipal Hospital, Old Airport Road",
@@ -296,27 +416,87 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 15,
-    "id": "aster_cmi_hospital",
-    "slug": "aster-cmi-hospital",
-    "name": "Aster CMI Hospital",
-    "city": "Bengaluru",
-    "area": "Hebbal",
-    "state": "Karnataka",
+    "rank": 21,
+    "id": "aster_medcity",
+    "slug": "aster-medcity",
+    "name": "Aster Medcity",
+    "city": "Kochi",
+    "area": "Cheranalloor",
+    "state": "Kerala",
     "facilityType": "Private multispecialty tertiary-care hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
     "emergency24x7": true,
     "departments": [
-      "Cardiac Sciences",
-      "Neurosciences",
+      "Cardiology",
       "Oncology",
-      "Gastroenterology"
+      "Neurosciences",
+      "Transplants"
     ],
     "images": []
   },
   {
-    "rank": 16,
+    "rank": 22,
+    "id": "miot_international",
+    "slug": "miot-international",
+    "name": "MIOT International",
+    "city": "Chennai",
+    "area": "Manapakkam",
+    "state": "Tamil Nadu",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Orthopaedics",
+      "Cardiology",
+      "Oncology",
+      "Neurosciences"
+    ],
+    "images": []
+  },
+  {
+    "rank": 23,
+    "id": "gleneagles_hospital",
+    "slug": "gleneagles-hospital",
+    "name": "Gleneagles Hospital",
+    "city": "Chennai",
+    "area": "Perumbakkam",
+    "state": "Tamil Nadu",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Liver Transplant",
+      "Renal Sciences",
+      "Cardiology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 24,
+    "id": "sri_ramachandra_medical_centre",
+    "slug": "sri-ramachandra-medical-centre",
+    "name": "Sri Ramachandra Medical Centre",
+    "city": "Chennai",
+    "area": "Porur",
+    "state": "Tamil Nadu",
+    "facilityType": "Teaching hospital and medical university centre",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Oncology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 25,
     "id": "p_d_hinduja_hospital",
     "slug": "p-d-hinduja-hospital",
     "name": "P. D. Hinduja Hospital",
@@ -336,7 +516,7 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 17,
+    "rank": 26,
     "id": "lilavati_hospital_and_research_centre",
     "slug": "lilavati-hospital-and-research-centre",
     "name": "Lilavati Hospital and Research Centre",
@@ -356,7 +536,7 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 18,
+    "rank": 27,
     "id": "nanavati_max_super_speciality_hospital",
     "slug": "nanavati-max-super-speciality-hospital",
     "name": "Nanavati Max Super Speciality Hospital",
@@ -376,7 +556,227 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 19,
+    "rank": 28,
+    "id": "yashoda_hospitals",
+    "slug": "yashoda-hospitals",
+    "name": "Yashoda Hospitals",
+    "city": "Hyderabad",
+    "area": "Somajiguda",
+    "state": "Telangana",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Organ Transplants"
+    ],
+    "images": []
+  },
+  {
+    "rank": 29,
+    "id": "continental_hospitals",
+    "slug": "continental-hospitals",
+    "name": "Continental Hospitals",
+    "city": "Hyderabad",
+    "area": "Gachibowli",
+    "state": "Telangana",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Gastroenterology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 30,
+    "id": "care_hospitals",
+    "slug": "care-hospitals",
+    "name": "CARE Hospitals",
+    "city": "Hyderabad",
+    "area": "Banjara Hills",
+    "state": "Telangana",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Gastroenterology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 31,
+    "id": "apollo_hospitals_ahmedabad",
+    "slug": "apollo-hospitals-ahmedabad",
+    "name": "Apollo Hospitals, Ahmedabad",
+    "city": "Ahmedabad",
+    "area": "Gandhinagar Highway",
+    "state": "Gujarat",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Gastroenterology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 32,
+    "id": "zydus_hospitals",
+    "slug": "zydus-hospitals",
+    "name": "Zydus Hospitals",
+    "city": "Ahmedabad",
+    "area": "Thaltej",
+    "state": "Gujarat",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 33,
+    "id": "shalby_multispecialty_hospital",
+    "slug": "shalby-multispecialty-hospital",
+    "name": "Shalby Multispecialty Hospital",
+    "city": "Ahmedabad",
+    "area": "SG Highway",
+    "state": "Gujarat",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Orthopaedics",
+      "Joint Replacement",
+      "Cardiology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 34,
+    "id": "narayana_multispeciality_hospital",
+    "slug": "narayana-multispeciality-hospital",
+    "name": "Narayana Multispeciality Hospital",
+    "city": "Ahmedabad",
+    "area": "Rakhial",
+    "state": "Gujarat",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 35,
+    "id": "apollo_hospitals_bengaluru",
+    "slug": "apollo-hospitals-bengaluru",
+    "name": "Apollo Hospitals, Bengaluru",
+    "city": "Bengaluru",
+    "area": "Bannerghatta Road",
+    "state": "Karnataka",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Gastroenterology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 36,
+    "id": "fortis_hospital_bannerghatta_road",
+    "slug": "fortis-hospital-bannerghatta-road",
+    "name": "Fortis Hospital, Bannerghatta Road",
+    "city": "Bengaluru",
+    "area": "Bannerghatta Road",
+    "state": "Karnataka",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiac Sciences",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 37,
+    "id": "aster_cmi_hospital",
+    "slug": "aster-cmi-hospital",
+    "name": "Aster CMI Hospital",
+    "city": "Bengaluru",
+    "area": "Hebbal",
+    "state": "Karnataka",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiac Sciences",
+      "Neurosciences",
+      "Oncology",
+      "Gastroenterology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 38,
+    "id": "manipal_hospital_kharadi",
+    "slug": "manipal-hospital",
+    "name": "Manipal Hospital, Kharadi",
+    "city": "Pune",
+    "area": "Kharadi",
+    "state": "Maharashtra",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 39,
     "id": "ruby_hall_clinic_sassoon_road",
     "slug": "ruby-hall-clinic",
     "name": "Ruby Hall Clinic",
@@ -396,16 +796,16 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 20,
-    "id": "deenanath_mangeshkar_hospital_and_research_center",
-    "slug": "deenanath-mangeshkar-hospital-and-research-center",
+    "rank": 40,
+    "id": "deenanath_mangeshkar_hospital_research_center",
+    "slug": "deenanath-mangeshkar-hospital-research-center",
     "name": "Deenanath Mangeshkar Hospital and Research Center",
     "city": "Pune",
     "area": "Erandwane",
     "state": "Maharashtra",
     "facilityType": "Private multispecialty hospital and research centre",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
+    "bedCount": 800,
     "emergency24x7": true,
     "departments": [
       "Cardiology",
@@ -413,10 +813,18 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
       "Orthopaedics",
       "Neurosciences"
     ],
-    "images": []
+    "images": [
+      {
+        "url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1.webp?v=2",
+        "thumb_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1_card.webp?v=2",
+        "card_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1_card.webp?v=2",
+        "full_url": "https://pub-151166afd0294cb99a7c59679d424908.r2.dev/hospitals/deenanath_mangeshkar_hospital_research_center/image_1.webp?v=2",
+        "alt": "Deenanath Mangeshkar Hospital & Research Center - Main Campus & Entrance"
+      }
+    ]
   },
   {
-    "rank": 21,
+    "rank": 41,
     "id": "sahyadri_super_speciality_hospital",
     "slug": "sahyadri-super-speciality-hospital",
     "name": "Sahyadri Super Speciality Hospital",
@@ -482,887 +890,7 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     ]
   },
   {
-    "rank": 22,
-    "id": "kims_hospitals",
-    "slug": "kims-hospitals",
-    "name": "KIMS Hospitals",
-    "city": "Hyderabad",
-    "area": "Secunderabad",
-    "state": "Telangana",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 23,
-    "id": "yashoda_hospitals",
-    "slug": "yashoda-hospitals",
-    "name": "Yashoda Hospitals",
-    "city": "Hyderabad",
-    "area": "Somajiguda",
-    "state": "Telangana",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Organ Transplants"
-    ],
-    "images": []
-  },
-  {
-    "rank": 24,
-    "id": "continental_hospitals",
-    "slug": "continental-hospitals",
-    "name": "Continental Hospitals",
-    "city": "Hyderabad",
-    "area": "Gachibowli",
-    "state": "Telangana",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 25,
-    "id": "gleneagles_hospital",
-    "slug": "gleneagles-hospital",
-    "name": "Gleneagles Hospital",
-    "city": "Chennai",
-    "area": "Perumbakkam",
-    "state": "Tamil Nadu",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Liver Transplant",
-      "Renal Sciences",
-      "Cardiology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 26,
-    "id": "miot_international",
-    "slug": "miot-international",
-    "name": "MIOT International",
-    "city": "Chennai",
-    "area": "Manapakkam",
-    "state": "Tamil Nadu",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Orthopaedics",
-      "Cardiology",
-      "Oncology",
-      "Neurosciences"
-    ],
-    "images": []
-  },
-  {
-    "rank": 27,
-    "id": "sri_ramachandra_medical_centre",
-    "slug": "sri-ramachandra-medical-centre",
-    "name": "Sri Ramachandra Medical Centre",
-    "city": "Chennai",
-    "area": "Porur",
-    "state": "Tamil Nadu",
-    "facilityType": "Teaching hospital and medical university centre",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Oncology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 28,
-    "id": "aster_medcity",
-    "slug": "aster-medcity",
-    "name": "Aster Medcity",
-    "city": "Kochi",
-    "area": "Cheranalloor",
-    "state": "Kerala",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Transplants"
-    ],
-    "images": []
-  },
-  {
-    "rank": 29,
-    "id": "amrita_hospital",
-    "slug": "amrita-hospital",
-    "name": "Amrita Hospital",
-    "city": "Faridabad",
-    "area": "Sector 88",
-    "state": "Haryana",
-    "facilityType": "Private multispecialty teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Transplants"
-    ],
-    "images": []
-  },
-  {
-    "rank": 30,
-    "id": "rajagiri_hospital",
-    "slug": "rajagiri-hospital",
-    "name": "Rajagiri Hospital",
-    "city": "Aluva",
-    "area": "Chunangamvely",
-    "state": "Kerala",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 31,
-    "id": "zydus_hospitals",
-    "slug": "zydus-hospitals",
-    "name": "Zydus Hospitals",
-    "city": "Ahmedabad",
-    "area": "Thaltej",
-    "state": "Gujarat",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 32,
-    "id": "apollo_hospitals_ahmedabad",
-    "slug": "apollo-hospitals-ahmedabad",
-    "name": "Apollo Hospitals, Ahmedabad",
-    "city": "Ahmedabad",
-    "area": "Gandhinagar Highway",
-    "state": "Gujarat",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 33,
-    "id": "shalby_multispecialty_hospital",
-    "slug": "shalby-multispecialty-hospital",
-    "name": "Shalby Multispecialty Hospital",
-    "city": "Ahmedabad",
-    "area": "SG Highway",
-    "state": "Gujarat",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Orthopaedics",
-      "Joint Replacement",
-      "Cardiology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 34,
-    "id": "narayana_multispeciality_hospital",
-    "slug": "narayana-multispeciality-hospital",
-    "name": "Narayana Multispeciality Hospital",
-    "city": "Ahmedabad",
-    "area": "Rakhial",
-    "state": "Gujarat",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 35,
-    "id": "kalinga_institute_of_medical_sciences_kims",
-    "slug": "kalinga-institute-of-medical-sciences-kims",
-    "name": "Kalinga Institute of Medical Sciences (KIMS)",
-    "city": "Bhubaneswar",
-    "area": "Patia",
-    "state": "Odisha",
-    "facilityType": "Teaching hospital and medical college",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 36,
-    "id": "apollo_hospitals_bhubaneswar",
-    "slug": "apollo-hospitals-bhubaneswar",
-    "name": "Apollo Hospitals, Bhubaneswar",
-    "city": "Bhubaneswar",
-    "area": "Sailashree Vihar",
-    "state": "Odisha",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 37,
-    "id": "sum_hospital",
-    "slug": "sum-hospital",
-    "name": "SUM Hospital",
-    "city": "Bhubaneswar",
-    "area": "Kalinga Nagar",
-    "state": "Odisha",
-    "facilityType": "Teaching hospital and medical college",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 38,
-    "id": "sanjay_gandhi_postgraduate_institute_of_medical_sciences_sgpgims",
-    "slug": "sanjay-gandhi-postgraduate-institute-of-medical-sciences-sgpgims",
-    "name": "Sanjay Gandhi Postgraduate Institute of Medical Sciences (SGPGIMS)",
-    "city": "Lucknow",
-    "area": "Raebareli Road",
-    "state": "Uttar Pradesh",
-    "facilityType": "Public postgraduate tertiary-care institute",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Neurology",
-      "Nephrology",
-      "Endocrinology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 39,
-    "id": "king_george_s_medical_university_kgmu",
-    "slug": "king-george-s-medical-university-kgmu",
-    "name": "King George\u2019s Medical University (KGMU)",
-    "city": "Lucknow",
-    "area": "Chowk",
-    "state": "Uttar Pradesh",
-    "facilityType": "Public teaching hospital and medical university",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 40,
-    "id": "medanta",
-    "slug": "medanta",
-    "name": "Medanta",
-    "city": "Lucknow",
-    "area": "Amar Shaheed Path",
-    "state": "Uttar Pradesh",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 41,
-    "id": "sawai_man_singh_sms_hospital",
-    "slug": "sawai-man-singh-sms-hospital",
-    "name": "Sawai Man Singh (SMS) Hospital",
-    "city": "Jaipur",
-    "area": "JLN Marg",
-    "state": "Rajasthan",
-    "facilityType": "Public teaching and tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
     "rank": 42,
-    "id": "eternal_hospital",
-    "slug": "eternal-hospital",
-    "name": "Eternal Hospital",
-    "city": "Jaipur",
-    "area": "Jawahar Circle",
-    "state": "Rajasthan",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Cardiac Surgery",
-      "Oncology",
-      "Neurosciences"
-    ],
-    "images": []
-  },
-  {
-    "rank": 43,
-    "id": "fortis_escorts_hospital",
-    "slug": "fortis-escorts-hospital",
-    "name": "Fortis Escorts Hospital",
-    "city": "Jaipur",
-    "area": "Malviya Nagar",
-    "state": "Rajasthan",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Cardiac Surgery",
-      "Orthopaedics",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 44,
-    "id": "choithram_hospital_and_research_centre",
-    "slug": "choithram-hospital-and-research-centre",
-    "name": "Choithram Hospital and Research Centre",
-    "city": "Indore",
-    "area": "Manik Bagh Road",
-    "state": "Madhya Pradesh",
-    "facilityType": "Charitable teaching and multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Nephrology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 45,
-    "id": "bombay_hospital",
-    "slug": "bombay-hospital",
-    "name": "Bombay Hospital",
-    "city": "Indore",
-    "area": "Ring Road",
-    "state": "Madhya Pradesh",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Neurology",
-      "Orthopaedics",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 46,
-    "id": "sri_aurobindo_institute_of_medical_sciences",
-    "slug": "sri-aurobindo-institute-of-medical-sciences",
-    "name": "Sri Aurobindo Institute of Medical Sciences",
-    "city": "Indore",
-    "area": "Sanwer Road",
-    "state": "Madhya Pradesh",
-    "facilityType": "Teaching hospital and medical college",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 47,
-    "id": "government_medical_college_and_hospital_gmch",
-    "slug": "government-medical-college-and-hospital-gmch",
-    "name": "Government Medical College and Hospital (GMCH)",
-    "city": "Chandigarh",
-    "area": "Sector 32",
-    "state": "Chandigarh",
-    "facilityType": "Public teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 48,
-    "id": "amrita_hospital",
-    "slug": "amrita-hospital",
-    "name": "Amrita Hospital",
-    "city": "Faridabad",
-    "area": "Sector 88",
-    "state": "Haryana",
-    "facilityType": "Private multispecialty teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Transplants"
-    ],
-    "images": []
-  },
-  {
-    "rank": 49,
-    "id": "jawaharlal_institute_of_postgraduate_medical_education_and_resea",
-    "slug": "jawaharlal-institute-of-postgraduate-medical-education-and-research-jipmer",
-    "name": "Jawaharlal Institute of Postgraduate Medical Education and Research (JIPMER)",
-    "city": "Puducherry",
-    "area": "Dhanvantari Nagar",
-    "state": "Puducherry",
-    "facilityType": "Public teaching and tertiary-care institute",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Nephrology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 50,
-    "id": "tata_main_hospital",
-    "slug": "tata-main-hospital",
-    "name": "Tata Main Hospital",
-    "city": "Jamshedpur",
-    "area": "Bistupur",
-    "state": "Jharkhand",
-    "facilityType": "Multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 51,
-    "id": "rajendra_institute_of_medical_sciences_rims",
-    "slug": "rajendra-institute-of-medical-sciences-rims",
-    "name": "Rajendra Institute of Medical Sciences (RIMS)",
-    "city": "Ranchi",
-    "area": "Bariatu",
-    "state": "Jharkhand",
-    "facilityType": "Public teaching and tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 52,
-    "id": "indira_gandhi_institute_of_medical_sciences_igims",
-    "slug": "indira-gandhi-institute-of-medical-sciences-igims",
-    "name": "Indira Gandhi Institute of Medical Sciences (IGIMS)",
-    "city": "Patna",
-    "area": "Sheikhpura",
-    "state": "Bihar",
-    "facilityType": "Public teaching and tertiary-care institute",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 53,
-    "id": "aiims_patna",
-    "slug": "aiims-patna",
-    "name": "AIIMS Patna",
-    "city": "Patna",
-    "area": "Phulwari Sharif",
-    "state": "Bihar",
-    "facilityType": "Public tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 54,
-    "id": "aiims_jodhpur",
-    "slug": "aiims-jodhpur",
-    "name": "AIIMS Jodhpur",
-    "city": "Jodhpur",
-    "area": "Basni Phase-II",
-    "state": "Rajasthan",
-    "facilityType": "Public tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 55,
-    "id": "aiims_rishikesh",
-    "slug": "aiims-rishikesh",
-    "name": "AIIMS Rishikesh",
-    "city": "Rishikesh",
-    "area": "Virbhadra Marg",
-    "state": "Uttarakhand",
-    "facilityType": "Public tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 56,
-    "id": "aiims_bhopal",
-    "slug": "aiims-bhopal",
-    "name": "AIIMS Bhopal",
-    "city": "Bhopal",
-    "area": "Saket Nagar",
-    "state": "Madhya Pradesh",
-    "facilityType": "Public tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 57,
-    "id": "aiims_bhubaneswar",
-    "slug": "aiims-bhubaneswar",
-    "name": "AIIMS Bhubaneswar",
-    "city": "Bhubaneswar",
-    "area": "Sijua",
-    "state": "Odisha",
-    "facilityType": "Public tertiary-care teaching hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 58,
-    "id": "government_medical_college",
-    "slug": "government-medical-college",
-    "name": "Government Medical College",
-    "city": "Thiruvananthapuram",
-    "area": "Medical College PO",
-    "state": "Kerala",
-    "facilityType": "Public teaching and tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Surgery",
-      "Cardiology",
-      "Neurology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 59,
-    "id": "kovai_medical_center_and_hospital_kmch",
-    "slug": "kovai-medical-center-and-hospital-kmch",
-    "name": "Kovai Medical Center and Hospital (KMCH)",
-    "city": "Coimbatore",
-    "area": "Avinashi Road",
-    "state": "Tamil Nadu",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurology",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 60,
-    "id": "psg_hospitals",
-    "slug": "psg-hospitals",
-    "name": "PSG Hospitals",
-    "city": "Coimbatore",
-    "area": "Peelamedu",
-    "state": "Tamil Nadu",
-    "facilityType": "Teaching and multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "General Medicine",
-      "Cardiology",
-      "Neurology",
-      "Oncology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 61,
-    "id": "ganga_hospital",
-    "slug": "ganga-hospital",
-    "name": "Ganga Hospital",
-    "city": "Coimbatore",
-    "area": "Mettupalayam Road",
-    "state": "Tamil Nadu",
-    "facilityType": "Specialist orthopaedics and trauma hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Orthopaedics",
-      "Trauma",
-      "Plastic Surgery",
-      "Hand Surgery"
-    ],
-    "images": []
-  },
-  {
-    "rank": 62,
-    "id": "care_hospitals",
-    "slug": "care-hospitals",
-    "name": "CARE Hospitals",
-    "city": "Hyderabad",
-    "area": "Banjara Hills",
-    "state": "Telangana",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Gastroenterology"
-    ],
-    "images": []
-  },
-  {
-    "rank": 63,
-    "id": "noble_hospitals_research_centre",
-    "slug": "noble-hospitals-research-centre",
-    "name": "Noble Hospitals & Research Centre",
-    "city": "Pune",
-    "area": "Hadapsar",
-    "state": "Maharashtra",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurology",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 64,
-    "id": "jupiter_hospital_baner",
-    "slug": "jupiter-hospital",
-    "name": "Jupiter Hospital",
-    "city": "Pune",
-    "area": "Baner",
-    "state": "Maharashtra",
-    "facilityType": "Private multispecialty tertiary-care hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurosciences",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 65,
-    "id": "jehangir_hospital",
-    "slug": "jehangir-hospital",
-    "name": "Jehangir Hospital",
-    "city": "Pune",
-    "area": "Sassoon Road",
-    "state": "Maharashtra",
-    "facilityType": "Private multispecialty hospital",
-    "facilityTypeBadge": "Major public/private tertiary-care facility",
-    "bedCount": null,
-    "emergency24x7": true,
-    "departments": [
-      "Cardiology",
-      "Oncology",
-      "Neurology",
-      "Orthopaedics"
-    ],
-    "images": []
-  },
-  {
-    "rank": 66,
     "id": "kem_hospital_pune",
     "slug": "kem-hospital",
     "name": "KEM Hospital",
@@ -1382,13 +910,93 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 67,
-    "id": "manipal_hospital_kharadi",
-    "slug": "manipal-hospital",
-    "name": "Manipal Hospital, Kharadi",
+    "rank": 43,
+    "id": "noble_hospitals_research_centre",
+    "slug": "noble-hospitals-research-centre",
+    "name": "Noble Hospitals & Research Centre",
     "city": "Pune",
-    "area": "Kharadi",
+    "area": "Hadapsar",
     "state": "Maharashtra",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurology",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 44,
+    "id": "jehangir_hospital",
+    "slug": "jehangir-hospital",
+    "name": "Jehangir Hospital",
+    "city": "Pune",
+    "area": "Sassoon Road",
+    "state": "Maharashtra",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurology",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 45,
+    "id": "kims_hospitals",
+    "slug": "kims-hospitals",
+    "name": "KIMS Hospitals",
+    "city": "Hyderabad",
+    "area": "Secunderabad",
+    "state": "Telangana",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 46,
+    "id": "aiims_bhubaneswar",
+    "slug": "aiims-bhubaneswar",
+    "name": "AIIMS Bhubaneswar",
+    "city": "Bhubaneswar",
+    "area": "Sijua",
+    "state": "Odisha",
+    "facilityType": "Public tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 47,
+    "id": "apollo_hospitals_bhubaneswar",
+    "slug": "apollo-hospitals-bhubaneswar",
+    "name": "Apollo Hospitals, Bhubaneswar",
+    "city": "Bhubaneswar",
+    "area": "Sailashree Vihar",
+    "state": "Odisha",
     "facilityType": "Private multispecialty hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
@@ -1402,13 +1010,293 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 68,
-    "id": "apollo_hospitals_bengaluru",
-    "slug": "apollo-hospitals-bengaluru",
-    "name": "Apollo Hospitals, Bengaluru",
-    "city": "Bengaluru",
-    "area": "Bannerghatta Road",
-    "state": "Karnataka",
+    "rank": 48,
+    "id": "sum_hospital",
+    "slug": "sum-hospital",
+    "name": "SUM Hospital",
+    "city": "Bhubaneswar",
+    "area": "Kalinga Nagar",
+    "state": "Odisha",
+    "facilityType": "Teaching hospital and medical college",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 49,
+    "id": "aiims_jodhpur",
+    "slug": "aiims-jodhpur",
+    "name": "AIIMS Jodhpur",
+    "city": "Jodhpur",
+    "area": "Basni Phase-II",
+    "state": "Rajasthan",
+    "facilityType": "Public tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 50,
+    "id": "aiims_rishikesh",
+    "slug": "aiims-rishikesh",
+    "name": "AIIMS Rishikesh",
+    "city": "Rishikesh",
+    "area": "Virbhadra Marg",
+    "state": "Uttarakhand",
+    "facilityType": "Public tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 51,
+    "id": "aiims_bhopal",
+    "slug": "aiims-bhopal",
+    "name": "AIIMS Bhopal",
+    "city": "Bhopal",
+    "area": "Saket Nagar",
+    "state": "Madhya Pradesh",
+    "facilityType": "Public tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 52,
+    "id": "aiims_patna",
+    "slug": "aiims-patna",
+    "name": "AIIMS Patna",
+    "city": "Patna",
+    "area": "Phulwari Sharif",
+    "state": "Bihar",
+    "facilityType": "Public tertiary-care teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 53,
+    "id": "indira_gandhi_institute_of_medical_sciences_igims",
+    "slug": "indira-gandhi-institute-of-medical-sciences-igims",
+    "name": "Indira Gandhi Institute of Medical Sciences (IGIMS)",
+    "city": "Patna",
+    "area": "Sheikhpura",
+    "state": "Bihar",
+    "facilityType": "Public teaching and tertiary-care institute",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 54,
+    "id": "rajendra_institute_of_medical_sciences_rims",
+    "slug": "rajendra-institute-of-medical-sciences-rims",
+    "name": "Rajendra Institute of Medical Sciences (RIMS)",
+    "city": "Ranchi",
+    "area": "Bariatu",
+    "state": "Jharkhand",
+    "facilityType": "Public teaching and tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 55,
+    "id": "government_medical_college_and_hospital_gmch",
+    "slug": "government-medical-college-and-hospital-gmch",
+    "name": "Government Medical College and Hospital (GMCH)",
+    "city": "Chandigarh",
+    "area": "Sector 32",
+    "state": "Chandigarh",
+    "facilityType": "Public teaching hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 56,
+    "id": "government_medical_college",
+    "slug": "government-medical-college",
+    "name": "Government Medical College",
+    "city": "Thiruvananthapuram",
+    "area": "Medical College PO",
+    "state": "Kerala",
+    "facilityType": "Public teaching and tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 57,
+    "id": "sawai_man_singh_sms_hospital",
+    "slug": "sawai-man-singh-sms-hospital",
+    "name": "Sawai Man Singh (SMS) Hospital",
+    "city": "Jaipur",
+    "area": "JLN Marg",
+    "state": "Rajasthan",
+    "facilityType": "Public teaching and tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 58,
+    "id": "eternal_hospital",
+    "slug": "eternal-hospital",
+    "name": "Eternal Hospital",
+    "city": "Jaipur",
+    "area": "Jawahar Circle",
+    "state": "Rajasthan",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Cardiac Surgery",
+      "Oncology",
+      "Neurosciences"
+    ],
+    "images": []
+  },
+  {
+    "rank": 59,
+    "id": "fortis_escorts_hospital",
+    "slug": "fortis-escorts-hospital",
+    "name": "Fortis Escorts Hospital",
+    "city": "Jaipur",
+    "area": "Malviya Nagar",
+    "state": "Rajasthan",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Cardiac Surgery",
+      "Orthopaedics",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 60,
+    "id": "medanta",
+    "slug": "medanta",
+    "name": "Medanta",
+    "city": "Lucknow",
+    "area": "Amar Shaheed Path",
+    "state": "Uttar Pradesh",
+    "facilityType": "Private multispecialty tertiary-care hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Neurosciences",
+      "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 61,
+    "id": "kalinga_institute_of_medical_sciences_kims",
+    "slug": "kalinga-institute-of-medical-sciences-kims",
+    "name": "Kalinga Institute of Medical Sciences (KIMS)",
+    "city": "Bhubaneswar",
+    "area": "Patia",
+    "state": "Odisha",
+    "facilityType": "Teaching hospital and medical college",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 62,
+    "id": "rajagiri_hospital",
+    "slug": "rajagiri-hospital",
+    "name": "Rajagiri Hospital",
+    "city": "Aluva",
+    "area": "Chunangamvely",
+    "state": "Kerala",
     "facilityType": "Private multispecialty tertiary-care hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
@@ -1422,22 +1310,122 @@ export const FAMOUS_HOSPITALS_LIST: FamousHospitalItem[] = [
     "images": []
   },
   {
-    "rank": 69,
-    "id": "fortis_hospital_bannerghatta_road",
-    "slug": "fortis-hospital-bannerghatta-road",
-    "name": "Fortis Hospital, Bannerghatta Road",
-    "city": "Bengaluru",
-    "area": "Bannerghatta Road",
-    "state": "Karnataka",
+    "rank": 63,
+    "id": "bombay_hospital",
+    "slug": "bombay-hospital",
+    "name": "Bombay Hospital",
+    "city": "Indore",
+    "area": "Ring Road",
+    "state": "Madhya Pradesh",
+    "facilityType": "Private multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Neurology",
+      "Orthopaedics",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 64,
+    "id": "choithram_hospital_and_research_centre",
+    "slug": "choithram-hospital-and-research-centre",
+    "name": "Choithram Hospital and Research Centre",
+    "city": "Indore",
+    "area": "Manik Bagh Road",
+    "state": "Madhya Pradesh",
+    "facilityType": "Charitable teaching and multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Cardiology",
+      "Oncology",
+      "Nephrology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 65,
+    "id": "sri_aurobindo_institute_of_medical_sciences",
+    "slug": "sri-aurobindo-institute-of-medical-sciences",
+    "name": "Sri Aurobindo Institute of Medical Sciences",
+    "city": "Indore",
+    "area": "Sanwer Road",
+    "state": "Madhya Pradesh",
+    "facilityType": "Teaching hospital and medical college",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Surgery",
+      "Cardiology",
+      "Neurology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 66,
+    "id": "kovai_medical_center_and_hospital_kmch",
+    "slug": "kovai-medical-center-and-hospital-kmch",
+    "name": "Kovai Medical Center and Hospital (KMCH)",
+    "city": "Coimbatore",
+    "area": "Avinashi Road",
+    "state": "Tamil Nadu",
     "facilityType": "Private multispecialty tertiary-care hospital",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "bedCount": null,
     "emergency24x7": true,
     "departments": [
-      "Cardiac Sciences",
+      "Cardiology",
       "Oncology",
-      "Neurosciences",
+      "Neurology",
       "Orthopaedics"
+    ],
+    "images": []
+  },
+  {
+    "rank": 67,
+    "id": "psg_hospitals",
+    "slug": "psg-hospitals",
+    "name": "PSG Hospitals",
+    "city": "Coimbatore",
+    "area": "Peelamedu",
+    "state": "Tamil Nadu",
+    "facilityType": "Teaching and multispecialty hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "General Medicine",
+      "Cardiology",
+      "Neurology",
+      "Oncology"
+    ],
+    "images": []
+  },
+  {
+    "rank": 68,
+    "id": "ganga_hospital",
+    "slug": "ganga-hospital",
+    "name": "Ganga Hospital",
+    "city": "Coimbatore",
+    "area": "Mettupalayam Road",
+    "state": "Tamil Nadu",
+    "facilityType": "Specialist orthopaedics and trauma hospital",
+    "facilityTypeBadge": "Major public/private tertiary-care facility",
+    "bedCount": null,
+    "emergency24x7": true,
+    "departments": [
+      "Orthopaedics",
+      "Trauma",
+      "Plastic Surgery",
+      "Hand Surgery"
     ],
     "images": []
   }

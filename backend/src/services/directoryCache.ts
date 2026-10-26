@@ -357,7 +357,28 @@ class DirectoryDataStore {
   }
 
   public getHospitalBySlug(slug: string): Hospital | undefined {
-    return this.hospitalsBySlug.get(slug) || this.hospitalsById.get(slug);
+    const direct = this.hospitalsBySlug.get(slug) || this.hospitalsById.get(slug);
+    if (direct) return direct;
+
+    // Check variations with or without '-and-' / '_and_'
+    if (slug.includes('-and-') || slug.includes('_and_')) {
+      const withoutAnd = slug.replace(/[-_]and[-_]/g, '-');
+      const found = this.hospitalsBySlug.get(withoutAnd) || this.hospitalsById.get(withoutAnd.replace(/-/g, '_'));
+      if (found) return found;
+    }
+
+    // Normalized alphanumeric match
+    const normSlug = slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+    for (const h of this.hospitals) {
+      if (
+        h.slug.toLowerCase().replace(/[^a-z0-9]/g, '') === normSlug ||
+        h.id.toLowerCase().replace(/[^a-z0-9]/g, '') === normSlug
+      ) {
+        return h;
+      }
+    }
+
+    return undefined;
   }
 
   public getDoctors(filters?: {
