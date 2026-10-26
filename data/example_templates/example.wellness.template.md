@@ -46,8 +46,6 @@ Founded in 1924, Kaivalyadhama is one of the world's foremost institutions dedic
 - **Address**: Pitasphy Village, Mulshi Valley, Pune
 - **Pincode**: 412108
 - **Accreditation**: NABH Accredited Wellness Retreat
-- **Phone**: +91 20 6676 6666
-- **WhatsApp**: +91 98220 11999
 - **Website**: https://atmantan.com
 - **Maps URL**: https://maps.google.com/?q=Atmantan+Wellness+Resort+Mulshi+Pune
 

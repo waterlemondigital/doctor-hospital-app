@@ -10,8 +10,6 @@
 - **Facility Type Badge**: NABH & NABL Accredited Flagship
 - **Bed Count**: 202
 - **Emergency 24x7**: Yes
-- **Phone**: +91 20 6721 5000
-- **WhatsApp**: +91 98220 12345
 - **Website**: https://sahyadrihospital.com
 - **Maps URL**: https://maps.google.com/?q=Sahyadri+Hospital+Deccan+Gymkhana+Pune
 

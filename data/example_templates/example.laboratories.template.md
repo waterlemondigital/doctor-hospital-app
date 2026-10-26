@@ -1,13 +1,3 @@
-# Laboratory Data Template
-
-Use this template to add pathology laboratories and diagnostic imaging centers.
-Laboratories are relationally connected to Hospitals and Doctors.
-You can add multiple laboratories in this single file by repeating the `# Laboratory: <Name>` block.
-Separate multiple laboratories using `---`.
-(Note: IDs are generated automatically in the database. Images will be uploaded to cloud storage and linked separately.)
-
----
-
 # Laboratory: Apollo Diagnostics Central Reference Laboratory
 
 - **Name**: Apollo Diagnostics Central Reference Laboratory
@@ -19,8 +9,6 @@ Separate multiple laboratories using `---`.
 - **Accreditation**: NABL & CAP Accredited Laboratory
 - **Home Sample Collection**: Yes
 - **Emergency 24x7**: Yes
-- **Phone**: +91 20 4444 2424
-- **WhatsApp**: +91 91234 56780
 - **Website**: https://apollodiagnostics.in
 - **Maps URL**: https://maps.google.com/?q=Apollo+Diagnostics+ICC+Trade+Tower+Pune
 

@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, MapPin, ArrowRight, ShieldCheck, Plus, Phone } from 'lucide-react';
+import { Building2, MapPin, ArrowRight, Phone } from 'lucide-react';
 import { FAMOUS_HOSPITALS_LIST, FamousHospitalItem } from '../data/famousHospitals';
 import { Hospital } from '../types';
 import { CONTACT_PHONE } from '../data/config';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-
-const BATCH_SIZE = 12;
 
 interface FamousHospitalsSectionProps {
   hospitals?: Hospital[];
@@ -144,8 +142,6 @@ function FamousHospitalCard({
 }
 
 export function FamousHospitalsSection({ hospitals }: FamousHospitalsSectionProps) {
-  const [visibleCount, setVisibleCount] = React.useState(BATCH_SIZE);
-
   // Hospital map for matching overview or real photos from database
   const hospitalMap = React.useMemo(() => {
     const map = new Map<string, Hospital>();
@@ -157,16 +153,6 @@ export function FamousHospitalsSection({ hospitals }: FamousHospitalsSectionProp
     }
     return map;
   }, [hospitals]);
-
-  const visibleHospitals = React.useMemo(() => {
-    return FAMOUS_HOSPITALS_LIST.slice(0, visibleCount);
-  }, [visibleCount]);
-
-  const hasMore = visibleCount < FAMOUS_HOSPITALS_LIST.length;
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, FAMOUS_HOSPITALS_LIST.length));
-  };
 
   return (
     <section className="space-y-6">
@@ -187,15 +173,14 @@ export function FamousHospitalsSection({ hospitals }: FamousHospitalsSectionProp
 
         <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <span className="text-xs font-semibold text-slate-500">
-            Showing <strong className="text-[#03045e]">{visibleHospitals.length}</strong> of{' '}
-            <strong className="text-[#03045e]">{FAMOUS_HOSPITALS_LIST.length}</strong>
+            Showing <strong className="text-[#03045e]">{FAMOUS_HOSPITALS_LIST.length}</strong> hospitals
           </span>
         </div>
       </div>
 
       {/* Grid of Famous Hospital Cards styled identical to Featured Hospitals */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {visibleHospitals.map((hosp: FamousHospitalItem) => {
+        {FAMOUS_HOSPITALS_LIST.map((hosp: FamousHospitalItem) => {
           const matchedHospital = hospitalMap.get(hosp.slug) || hospitalMap.get(hosp.id);
           return (
             <FamousHospitalCard
@@ -207,30 +192,11 @@ export function FamousHospitalsSection({ hospitals }: FamousHospitalsSectionProp
         })}
       </div>
 
-      {/* Read More / Load More Action Strip */}
-      <div className="pt-4 flex flex-col items-center justify-center gap-3">
-        {hasMore ? (
-          <Button
-            type="button"
-            onClick={handleLoadMore}
-            size="lg"
-            className="bg-[#0077b6] hover:bg-[#03045e] text-white font-bold gap-2 px-8 shadow-sm cursor-pointer transition-all"
-          >
-            <Plus className="h-4 w-4" />
-            <span>Load More Famous Hospitals (+{Math.min(BATCH_SIZE, FAMOUS_HOSPITALS_LIST.length - visibleCount)})</span>
-          </Button>
-        ) : (
-          <div className="text-center space-y-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-700 border border-emerald-200">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>All 69 Famous Hospitals Displayed in Shortlist Order</span>
-            </span>
-          </div>
-        )}
-
+      {/* Explore Directory Link */}
+      <div className="pt-2 flex flex-col items-center justify-center gap-2">
         <Link
           to="/hospitals"
-          className="text-xs font-semibold text-slate-500 hover:text-[#0077b6] transition-colors inline-flex items-center gap-1 pt-1"
+          className="text-xs font-semibold text-slate-500 hover:text-[#0077b6] transition-colors inline-flex items-center gap-1"
         >
           <span>Explore complete national hospital directory</span>
           <ArrowRight className="h-3 w-3" />

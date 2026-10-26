@@ -548,7 +548,13 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
             const rawNote = noteMatch ? noteMatch[1].trim() : '';
 
             const cleanDays = (!rawDays || rawDays.startsWith('- **') || rawDays.startsWith('#')) ? 'By Appointment' : rawDays;
-            const cleanTimings = (!rawTimings || rawTimings.startsWith('- **') || rawTimings.startsWith('#')) ? 'Regular OPD Hours' : rawTimings;
+            const isInvalidTiming = !rawTimings || 
+              rawTimings.startsWith('- **') || 
+              rawTimings.startsWith('#') || 
+              rawTimings.toLowerCase().includes('note') ||
+              rawTimings.toLowerCase().startsWith('confirm') ||
+              rawTimings.toLowerCase().startsWith('book');
+            const cleanTimings = isInvalidTiming ? 'Consult our contact number' : rawTimings;
             const cleanNote = (!rawNote || rawNote.startsWith('- **') || rawNote.startsWith('#')) ? '' : rawNote;
 
             hospitalAffiliations.push({
@@ -924,7 +930,7 @@ async function processDoctorFile(filePath, options = {}) {
               docId.slice(0, 64),
               matched.id.slice(0, 64),
               (hItem.days || 'By Appointment').slice(0, 255),
-              (hItem.timings || 'Regular OPD Hours').slice(0, 255),
+              (hItem.timings || 'Consult our contact number').slice(0, 255),
               (hItem.note || `Consultation at ${matched.name}. Verified from directory.`).slice(0, 1000),
             ]
           );

@@ -13,7 +13,6 @@ import {
   Sparkles,
   X,
   Stethoscope,
-  Plus,
 } from 'lucide-react';
 import { SITE_NAME, SITE_TAGLINE, SITE_SUBTITLE, CONTACT_PHONE, CONTACT_PHONE_CALL_HREF } from '../data/config';
 import { LOCATIONS_DATA, ACTIVE_STATE, ACTIVE_CITY } from '../data/locations';
@@ -43,7 +42,6 @@ export function HomePage() {
   const [doctors, setDoctors] = React.useState<Doctor[]>([]);
   const [laboratories, setLaboratories] = React.useState<Hospital[]>([]);
   const [wellnessCenters, setWellnessCenters] = React.useState<WellnessCenter[]>([]);
-  const [visibleDoctorCount, setVisibleDoctorCount] = React.useState(10);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -776,39 +774,10 @@ export function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {doctors.slice(0, visibleDoctorCount).map((doctor) => (
+          {doctors.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
         </div>
-
-        {/* Show More Doctors Button */}
-        {visibleDoctorCount < doctors.length ? (
-          <div className="pt-4 flex flex-col items-center justify-center gap-2">
-            <Button
-              type="button"
-              onClick={() => setVisibleDoctorCount((prev) => prev + 10)}
-              size="lg"
-              className="bg-[#0077b6] hover:bg-[#03045e] text-white font-bold gap-2 px-8 shadow-sm cursor-pointer transition-all"
-            >
-              <Plus className="h-4 w-4" />
-              <span>
-                Show More Doctors (+{Math.min(10, doctors.length - visibleDoctorCount)})
-              </span>
-            </Button>
-            <span className="text-xs text-slate-500 font-medium">
-              Showing {Math.min(visibleDoctorCount, doctors.length)} of {doctors.length} verified doctors
-            </span>
-          </div>
-        ) : (
-          doctors.length > 10 && (
-            <div className="pt-2 text-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-700 border border-emerald-200">
-                <CheckCircle2 className="h-3.5 w-3.5" />
-                <span>All {doctors.length} Verified Doctors Displayed</span>
-              </span>
-            </div>
-          )
-        )}
       </section>
 
       {/* Inter-Section Clickable Ad Banner Slot 3 */}

@@ -11,8 +11,6 @@
 - **Qualifications**: MBBS, MD (Medicine), DM (Neurology)
 - **Experience Years**: 28
 - **Languages**: English, Hindi, Marathi, Gujarati
-- **Phone**: +91 20 6721 5000
-- **WhatsApp**: +91 98220 54321
 
 #### Hospital Affiliations (Schedule)
 - **Hospital**: Sahyadri Super Speciality Hospital

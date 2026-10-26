@@ -34,10 +34,6 @@ Multiple doctors are in this single file; each `# Doctor: <Name>` block is separ
 ### Summary
 Senior interventional cardiologist with 27+ years of experience listed by Apollo. His profile highlights complex coronary interventions, high-risk percutaneous coronary intervention (PCI), transradial angioplasty and structural-heart interventions.
 
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
-- Secondary source: National Board of Examinations faculty listing
-
 ### Areas of Practice
 - Evaluation and management of coronary artery disease, chest pain, acute myocardial infarction, heart failure and rhythm-related symptoms
 - Coronary angiography and angioplasty/stenting
@@ -76,11 +72,6 @@ Senior interventional cardiologist with 27+ years of experience listed by Apollo
 ### Summary
 Senior cardiologist with 35+ years of experience listed by Apollo. His profile includes a long-standing consultant and interventional-cardiology role at Apollo Main Hospital, with experience in coronary and structural cardiac procedures.
 
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
-- Secondary source: National Board of Examinations faculty listing
-- Research note: Apollo’s international profile and NBE faculty record give different degree years for some credentials. Degree titles are included, while conflicting dates are not presented as definitive.
-
 ### Areas of Practice
 - Cardiology consultation and risk assessment
 - Coronary artery disease and chest-pain evaluation
@@ -118,10 +109,6 @@ Senior cardiologist with 35+ years of experience listed by Apollo. His profile i
 ### Summary
 Interventional cardiologist with 25+ years of experience listed by Apollo. His profile highlights complex coronary interventions, including bifurcation angioplasty, and work with coronary stents and other catheter-based cardiac treatments.
 
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
-- Appointment note: Apollo’s indexed profile showed “doctor unavailable” at the time reviewed. Confirm current availability directly with the hospital.
-
 ### Areas of Practice
 - Assessment and treatment of coronary artery disease and acute coronary syndromes
 - Coronary angiography and angioplasty/stenting
@@ -157,9 +144,6 @@ Interventional cardiologist with 25+ years of experience listed by Apollo. His p
 
 ### Summary
 Cardiothoracic and vascular surgeon with 27+ years of experience listed by Apollo. His profile highlights robotic and minimally invasive cardiac surgery, complex coronary bypass surgery and valve repair/replacement.
-
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
 
 ### Areas of Practice
 - Surgical assessment and management of coronary artery disease
@@ -199,9 +183,6 @@ Cardiothoracic and vascular surgeon with 27+ years of experience listed by Apoll
 ### Summary
 Senior cardiologist and transplant specialist. Apollo identifies him as Clinical Lead – Heart Failure and Transplant Cardiology at its Institutes of Heart-Lung Transplant & Mechanical Circulatory Support (MCS). Apollo reports extensive experience in heart transplantation, LVADs and advanced heart-failure care.
 
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
-
 ### Areas of Practice
 - Advanced heart-failure evaluation
 - Heart-transplant assessment and follow-up
@@ -239,9 +220,6 @@ Senior cardiologist and transplant specialist. Apollo identifies him as Clinical
 
 ### Summary
 Cardiologist and electrophysiologist with 20+ years of experience listed by Apollo. His practice focuses on heart-rhythm disorders and the implantation, management and follow-up of cardiac rhythm devices.
-
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
 
 ### Areas of Practice
 - Assessment of palpitations, fainting/syncope, atrial fibrillation and other arrhythmias
@@ -282,11 +260,6 @@ Cardiologist and electrophysiologist with 20+ years of experience listed by Apol
 ### Summary
 Senior cardiologist with 29+ years of experience listed by Apollo. His profile describes a long association with Apollo Hospitals, including joining as a cardiologist in 1995, and experience in cardiovascular assessment and treatment.
 
-**Official Sources:**
-- Primary profile: Apollo Hospitals official profile
-- Secondary source: National Board of Examinations faculty listing
-- Appointment note: Apollo’s indexed profile showed “doctor unavailable” at the time reviewed. Confirm current availability directly with the hospital.
-
 ### Areas of Practice
 - General and specialist cardiology consultation
 - Assessment of coronary artery disease and cardiovascular risk
@@ -323,11 +296,6 @@ Senior cardiologist with 29+ years of experience listed by Apollo. His profile d
 
 ### Summary
 Senior cardiothoracic and vascular surgeon with over 20 years of clinical, academic and research experience described by Medanta. Before joining Medanta, he was a professor at SGPGIMS, Lucknow. Medanta notes extensive experience in coronary bypass, valve surgery, redo cardiac surgery, thoracic/vascular surgery and paediatric cardiac surgery.
-
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: Qualifications and training are based on Medanta’s doctor profile and the surgeon’s published professional biography. Confirm credential details directly with the institution if used for formal credentialing.
 
 ### Areas of Practice
 - Coronary artery bypass grafting (including anaortic, total-arterial, off-pump techniques)
@@ -367,11 +335,6 @@ Senior cardiothoracic and vascular surgeon with over 20 years of clinical, acade
 
 ### Summary
 Interventional cardiologist with more than 10 years of experience described by Medanta. Before joining Medanta Lucknow, he served as an interventional fellow and senior resident at King George’s Medical University (KGMC/KGMU), Lucknow, performing coronary, structural-heart and electrophysiology procedures.
-
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: Medanta confirms degree titles and fellowship but the public profile reviewed does not specify the awarding institution and year for each qualification.
 
 ### Areas of Practice
 - Coronary artery disease and acute coronary syndromes
@@ -413,11 +376,6 @@ Interventional cardiologist with more than 10 years of experience described by M
 ### Summary
 Senior interventional cardiologist with more than three decades of experience. Medanta describes him as a former Professor and Head of Cardiology at SGPGIMS, Lucknow, and notes that he initiated the coronary angioplasty programme in Uttar Pradesh in 1991. His profile highlights extensive experience in complex coronary intervention.
 
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: FACC, FICC, FSCAI and MAMS are professional fellowships/memberships or distinctions, not medical degrees. The profile lists them separately from MBBS, MD and DM.
-
 ### Areas of Practice
 - Complex coronary interventions
 - Chronic total occlusion (CTO) intervention
@@ -457,11 +415,6 @@ Senior interventional cardiologist with more than three decades of experience. M
 
 ### Summary
 Experienced cardiologist with more than 35 years of experience described by Medanta. His work includes clinical, non-invasive and invasive cardiology, with a substantial academic and research background; Medanta notes more than 100 research publications.
-
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: The public profile confirms qualification titles and professional affiliations, but does not provide a complete degree-by-degree institution/year record.
 
 ### Areas of Practice
 - Acute and chronic coronary artery disease
@@ -503,11 +456,6 @@ Experienced cardiologist with more than 35 years of experience described by Meda
 ### Summary
 Radiation oncologist and Director of Radiation Oncology at Medanta Lucknow. Medanta describes his work as precision-based cancer radiotherapy with emphasis on tailoring treatment to the tumour and limiting toxicity to surrounding healthy tissues.
 
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: The profile’s clinical scope is specialty-based; the technique used for an individual patient depends on cancer type, stage, imaging and the radiation-oncology team’s treatment plan.
-
 ### Areas of Practice
 - Radiation treatment planning and delivery for head-and-neck, brain, lung, breast, prostate and gastrointestinal cancers
 - Stereotactic radiosurgery (SRS) and stereotactic radiotherapy (SRT)
@@ -544,11 +492,6 @@ Radiation oncologist and Director of Radiation Oncology at Medanta Lucknow. Meda
 ### Summary
 Senior radiation oncologist with extensive academic and clinical experience. Medanta reports that he previously served as Professor of Radiation Oncology at SGPGIMS, Lucknow, from 2011 to July 2024, after earlier academic roles and cancer-treatment programme development at other Indian institutions.
 
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: Education years and career timeline are taken from Medanta’s published profile. Confirm current appointment schedules and exact clinic location before patient referral.
-
 ### Areas of Practice
 - Radiotherapy for urogenital cancers (prostate, bladder and testicular)
 - Hepatobiliary cancers (gallbladder, pancreas and periampullary)
@@ -584,11 +527,6 @@ Senior radiation oncologist with extensive academic and clinical experience. Med
 
 ### Summary
 Head-and-neck cancer surgeon with more than 22 years of experience in head-and-neck oncologic surgery and microvascular reconstruction, as described by Medanta. His previous roles include ad-hoc lecturer in head-and-neck oncosurgery at ACTREC/Tata Memorial Hospital and consultant head-and-neck oncosurgeon at Sahara Hospital, Lucknow.
-
-**Official Sources:**
-- Primary profile: Medanta official doctor profile
-- Secondary reference: Medanta official specialty/doctor listing
-- Research note: The profile distinguishes the verified medical degrees from specialist training and past employment. No unverified additional qualifications are inferred.
 
 ### Areas of Practice
 - Surgical assessment and treatment of oral cancer, laryngeal cancer and salivary-gland cancer
@@ -631,10 +569,6 @@ Head-and-neck cancer surgeon with more than 22 years of experience in head-and-n
 ### Summary
 Senior interventional cardiologist with more than 27 years of experience listed by Apollo. Apollo describes him as a leader in complex coronary and catheter-based cardiac treatment, with clinical and academic leadership roles in Ahmedabad.
 
-**Official Sources:**
-- https://www.apollohospitals.com/doctors/cardiologist/ahmedabad/dr-sameer-dani ;
-- https://www.apollocvhf.com/doctors/dr-sameer-i-dani
-
 ### Areas of Practice
 - Coronary artery disease
 - Acute coronary syndrome and heart attack care
@@ -675,9 +609,6 @@ Senior interventional cardiologist with more than 27 years of experience listed 
 ### Summary
 Cardiologist with 19+ years of experience listed by Apollo. His official profile describes experience in coronary angioplasty/stenting, primary angioplasty and selected paediatric/congenital cardiac interventions.
 
-**Official Sources:**
-- https://www.apollohospitals.com/doctors/cardiologist/ahmedabad/dr-jayesh-prajapati
-
 ### Areas of Practice
 - Assessment and management of coronary artery disease, acute heart attack, chest pain and cardiovascular risk
 - Coronary angiography/angioplasty and stenting
@@ -715,9 +646,6 @@ Cardiologist with 19+ years of experience listed by Apollo. His official profile
 ### Summary
 Paediatric cardiologist with 10+ years of experience listed by Apollo. Apollo notes previous work at Narayana Health facilities and the U. N. Mehta Institute of Cardiology and Research Centre, Ahmedabad.
 
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/pediatric-cardiologist/ahmedabad/dr-pavan-patel
-
 ### Areas of Practice
 - Evaluation of congenital heart disease and other heart conditions in infants, children and adolescents
 - Assessment of congenital heart disease in adults where appropriate
@@ -753,9 +681,6 @@ Paediatric cardiologist with 10+ years of experience listed by Apollo. Apollo no
 
 ### Summary
 Paediatric cardiac surgeon with 12+ years of experience listed by Apollo. Her profile describes surgical care for congenital and acquired heart conditions in infants, children and adolescents.
-
-**Official Sources:**
-- https://www.apollohospitals.com/doctors/paediatric-cardiac-surgery/ahmedabad/dr-deepti-kakkar
 
 ### Areas of Practice
 - Surgical evaluation and treatment of selected congenital heart defects
@@ -793,9 +718,6 @@ Paediatric cardiac surgeon with 12+ years of experience listed by Apollo. Her pr
 
 ### Summary
 Cardiologist with 21+ years of experience listed by Apollo. His profile describes the assessment and management of cardiovascular conditions and preventive heart-health care.
-
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/cardiologist/ahmedabad/dr-sharad-jain
 
 ### Areas of Practice
 - Cardiology consultation
@@ -837,9 +759,6 @@ Cardiologist with 21+ years of experience listed by Apollo. His profile describe
 ### Summary
 Medical oncologist with 16+ years of experience listed on Apollo’s current profile. Apollo describes interests in precision oncology for solid tumours, paediatric malignancies and haemato-oncology.
 
-**Official Sources:**
-- https://www.apollohospitals.com/doctors/medical-oncologist/ahmedabad/dr-akash-shah
-
 ### Areas of Practice
 - Medical cancer care, including evaluation and treatment planning for solid tumours and blood cancers
 - Systemic therapies such as chemotherapy, immunotherapy, targeted therapy and hormonal therapy when indicated
@@ -874,9 +793,6 @@ Medical oncologist with 16+ years of experience listed on Apollo’s current pro
 
 ### Summary
 Nephrologist and transplant physician with 16+ years of experience listed by Apollo. His profile focuses on kidney disease and transplant-related care.
-
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/nephrologist/ahmedabad/dr-haresh-patel
 
 ### Areas of Practice
 - Chronic and acute kidney disease
@@ -916,9 +832,6 @@ Nephrologist and transplant physician with 16+ years of experience listed by Apo
 ### Summary
 Neurosurgeon with 22+ years of experience listed by Apollo. His profile highlights cerebrovascular disorders, epilepsy and brain tumours, as well as neurosurgical and spine-related training.
 
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/neurosurgeon/ahmedabad/dr-somesh-desai
-
 ### Areas of Practice
 - Assessment and surgical management of selected brain, spine and nervous-system disorders
 - Brain tumours
@@ -957,9 +870,6 @@ Neurosurgeon with 22+ years of experience listed by Apollo. His profile highligh
 ### Summary
 Gastroenterologist and hepatology specialist with 25+ years of experience listed by Apollo. His profile describes previous consultant work in Ireland and advanced interests in liver disease and liver transplantation.
 
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/gastroenterologist/ahmedabad/dr-shravan-bohra
-
 ### Areas of Practice
 - Digestive-system disorders
 - Liver and biliary diseases
@@ -997,9 +907,6 @@ Gastroenterologist and hepatology specialist with 25+ years of experience listed
 
 ### Summary
 Obstetrician and gynaecologist with 24+ years of experience listed by Apollo. Her profile describes leadership in obstetrics and gynaecology and specialist experience in high-risk pregnancy and gynaecological cancer surgery.
-
-**Official Sources:**
-- https://mediacdn.apollohospitals.com/doctors/obstetrician-and-gynecologist/ahmedabad/dr-usha-bohra
 
 ### Areas of Practice
 - Routine and high-risk pregnancy care
@@ -2749,10 +2656,6 @@ Thoracic surgeon and lung-transplant service leader listed by Medanta. The curre
 ### Summary
 Senior cardiologist with 35+ years of experience listed by Max. Leads cardiac-sciences development, quality, clinical governance, credentialing, research and cardiology training across Max hospitals. Previous senior roles include Medanta, Apollo, Fortis, Batra Hospital and AIIMS.
 
-**Official Sources:**
-- Primary profile: Max Healthcare official doctor profile
-- Research note: Max lists his current leadership role and education/training. Professional memberships and fellowships are distinct from medical degrees.
-
 ### Areas of Practice
 - Coronary artery disease, chest pain and acute coronary syndromes
 - Coronary angiography and angioplasty/stenting, including complex PCI
@@ -2793,10 +2696,6 @@ Senior cardiologist with 35+ years of experience listed by Max. Leads cardiac-sc
 
 ### Summary
 Interventional cardiologist with 27+ years of experience listed by Max. His official profile highlights complex coronary angioplasty, structural-heart interventions and cardiac rhythm-device procedures.
-
-**Official Sources:**
-- Primary profile: Max Healthcare official doctor profile
-- Research note: The detailed intervention list reflects the official specialty-interest profile; suitability and availability of a particular procedure must be confirmed by the treating team.
 
 ### Areas of Practice
 - Complex coronary angioplasty including multivessel, bifurcation and left-main PCI
@@ -2839,10 +2738,6 @@ Interventional cardiologist with 27+ years of experience listed by Max. His offi
 
 ### Summary
 Senior urologist with 39+ years of experience listed by Max. Previously Professor and Head of Urology and Renal Transplantation at SGPGIMS, Lucknow, and held roles with Fortis, Indraprastha Apollo and Addenbrooke’s Hospital, Cambridge. Max describes extensive kidney-transplant, robotic-urology and uro-oncology experience.
-
-**Official Sources:**
-- Primary profile: Max Healthcare official doctor profile
-- Research note: Past roles at SGPGIMS, Fortis, Apollo and Addenbrooke’s are career history, not current consultation locations.
 
 ### Areas of Practice
 - Kidney transplantation
@@ -2891,10 +2786,6 @@ Senior urologist with 39+ years of experience listed by Max. Previously Professo
 ### Summary
 Senior medical oncologist with 35+ years of experience listed by Max. Before joining Max, he held progressively senior academic posts in Medical Oncology at AIIMS, New Delhi, including Professor and Head of Department. His profile highlights a substantial research record and cancer-treatment expertise.
 
-**Official Sources:**
-- Primary profile: Max Healthcare official doctor profile
-- Research note: Do not confuse this profile with another Max listing for a doctor named Dr. Atul Sharma whose qualifications and career details differ. This document follows Prof. (Dr.) Atul Sharma, Chairman – Medical Oncology and former AIIMS Professor/Head.
-
 ### Areas of Practice
 - Medical cancer care and systemic therapy planning
 - Chemotherapy, immunotherapy, targeted therapy and hormonal therapy where indicated
@@ -2934,10 +2825,6 @@ Senior medical oncologist with 35+ years of experience listed by Max. Before joi
 
 ### Summary
 Senior surgical oncologist with 35+ years of experience listed by Max. Previously led Surgical Oncology at AIIMS and the National Cancer Institute, New Delhi, and served as Oncology Lead and Senior Consultant at Indraprastha Apollo Hospitals before joining Max. Max describes extensive cancer surgery, research and surgical-training experience.
-
-**Official Sources:**
-- Primary profile: Max Healthcare official doctor profile
-- Research note: Max’s public profile provides extensive fellowship history and an MBBS credential, but does not display a complete core postgraduate-degree timeline. No unverified MS/MCh qualification has been added.
 
 ### Areas of Practice
 - Surgical oncology and multidisciplinary cancer management
