@@ -22,6 +22,8 @@
     "media:upload-doctor-images": "node scripts/upload_doctor_images_r2.js",
     "media:cache-bust": "node scripts/cache_bust_media_urls.js",
     "db:rollback:62": "node scripts/restore_bulk_62_savepoint.js",
+    "db:rollback:latest": "node scripts/restore_savepoint_20261027.js",
+    "db:rollback:20261027": "node scripts/restore_savepoint_20261027.js",
     "db:ingest-hospitals": "node scripts/ingest_62_hospitals.js",
     "db:ingest-doctors": "node scripts/ingest_91_doctors.js"
   },
