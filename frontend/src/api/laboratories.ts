@@ -99,7 +99,7 @@ export async function fetchLaboratories(params?: {
     if (params?.search) query.set('search', params.search);
 
     const qs = query.toString() ? `?${query.toString()}` : '';
-    const rawList = await apiFetch<RawLaboratory[]>(`/laboratories${qs}`);
+    const rawList = await apiFetch<RawLaboratory[]>(`/laboratories${qs}`, { skipCache: true });
     return rawList.map((l) => mapLaboratory(l));
   } catch (err) {
     console.warn('API error fetching laboratories:', err);
@@ -109,7 +109,7 @@ export async function fetchLaboratories(params?: {
 
 export async function fetchLaboratoryBySlug(slug: string): Promise<Hospital | null> {
   try {
-    const raw = await apiFetch<RawLaboratory>(`/laboratories/${slug}`);
+    const raw = await apiFetch<RawLaboratory>(`/laboratories/${slug}`, { skipCache: true });
     return mapLaboratory(raw);
   } catch (err) {
     console.warn(`API error fetching laboratory ${slug}:`, err);

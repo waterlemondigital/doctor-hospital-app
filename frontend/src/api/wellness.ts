@@ -87,7 +87,7 @@ export async function fetchWellnessCenters(params?: WellnessQueryParams): Promis
 
     const qs = query.toString();
     const endpoint = `/wellness-centers${qs ? `?${qs}` : ''}`;
-    const rawList = await apiFetch<RawWellnessCenter[]>(endpoint);
+    const rawList = await apiFetch<RawWellnessCenter[]>(endpoint, { skipCache: true });
     return rawList.map((item) => mapWellnessCenter(item));
   } catch (err) {
     console.error('Failed to fetch wellness centers from API:', err);
@@ -97,7 +97,7 @@ export async function fetchWellnessCenters(params?: WellnessQueryParams): Promis
 
 export async function fetchWellnessCenterBySlug(slugOrId: string): Promise<WellnessCenter | null> {
   try {
-    const raw = await apiFetch<RawWellnessCenter>(`/wellness-centers/${encodeURIComponent(slugOrId)}`);
+    const raw = await apiFetch<RawWellnessCenter>(`/wellness-centers/${encodeURIComponent(slugOrId)}`, { skipCache: true });
     return mapWellnessCenter(raw);
   } catch (err) {
     console.error(`Failed to fetch wellness center ${slugOrId}:`, err);
