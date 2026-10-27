@@ -14,6 +14,55 @@ const distPath = fs.existsSync(path.join(__dirname, 'dist', 'index.html'))
   ? path.join(__dirname, 'dist')
   : __dirname;
 
+const BACKEND_URL = (
+  process.env.BACKEND_URL ||
+  process.env.VITE_API_URL ||
+  'http://localhost:8000'
+).replace(/\/+$/, '');
+
+console.log(`Backend API target configured: ${BACKEND_URL}`);
+
+// Reverse proxy all /api requests to backend API server
+app.use('/api', async (req, res) => {
+  try {
+    const targetUrl = `${BACKEND_URL}/api${req.url}`;
+    const headers = {};
+    for (const [key, val] of Object.entries(req.headers)) {
+      if (key.toLowerCase() !== 'host') {
+        headers[key] = val;
+      }
+    }
+
+    const options = {
+      method: req.method,
+      headers,
+    };
+
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      options.body = req;
+      options.duplex = 'half';
+    }
+
+    const backendRes = await fetch(targetUrl, options);
+    res.status(backendRes.status);
+
+    backendRes.headers.forEach((value, key) => {
+      if (key.toLowerCase() !== 'content-encoding') {
+        res.setHeader(key, value);
+      }
+    });
+
+    const arrayBuffer = await backendRes.arrayBuffer();
+    res.send(Buffer.from(arrayBuffer));
+  } catch (error) {
+    console.error(`Proxy error forwarding ${req.method} ${req.originalUrl}:`, error.message);
+    res.status(502).json({
+      error: 'Backend API unreachable from Admin Server',
+      message: error.message,
+    });
+  }
+});
+
 // Serve static assets with CDN-optimized Cache-Control headers
 app.use(
   express.static(distPath, {

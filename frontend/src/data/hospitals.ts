@@ -525,15 +525,13 @@ export const HOSPITALS_DATA: Hospital[] = [
     "doctorIds": [
       "dr_radhika_tandon",
       "dr_pradeep_venkatesh",
-      "dr_shorya_vardhan_azad",
-      "dr_amar_pujari",
-      "dr_neelam_pushker"
+      "dr_amar_pujari"
     ]
   },
   {
     "id": "medanta_the_medicity",
     "slug": "medanta-the-medicity",
-    "name": "Medanta \u2013 The Medicity",
+    "name": "Medanta – The Medicity",
     "state": "Haryana",
     "city": "Gurugram",
     "area": "Sector 38",
@@ -589,7 +587,7 @@ export const HOSPITALS_DATA: Hospital[] = [
     "lastChecked": "2026-10-17",
     "sources": [
       {
-        "label": "Medanta \u2013 The Medicity Official Website",
+        "label": "Medanta – The Medicity Official Website",
         "url": "https://www.medanta.org/",
         "type": "official-registry",
         "dateChecked": "2026-10-17"
@@ -1455,8 +1453,6 @@ export const HOSPITALS_DATA: Hospital[] = [
       }
     ],
     "doctorIds": [
-      "dr_aafreen_siddique",
-      "dr_aaishwarya_dhabe",
       "dr_abhaya_kumar",
       "dr_abhijit_pawar",
       "dr_abhishek_srivastava"
@@ -1591,12 +1587,7 @@ export const HOSPITALS_DATA: Hospital[] = [
       }
     ],
     "doctorIds": [
-      "dr_a_asha",
-      "dr_a_b_murali_krishna_reddy",
-      "dr_aabha_nagral",
-      "dr_aanchal_singh",
-      "dr_abhinandan_s_punit",
-      "dr_soumya_m_s"
+      "dr_abhinandan_s_punit"
     ]
   },
   {
@@ -3085,7 +3076,7 @@ export const HOSPITALS_DATA: Hospital[] = [
     "facilityType": "Teaching hospital and medical college",
     "facilityTypeBadge": "Major public/private tertiary-care facility",
     "images": [],
-    "overview": "Teaching hospital associated with Siksha \u2018O\u2019 Anusandhan University.",
+    "overview": "Teaching hospital associated with Siksha ‘O’ Anusandhan University.",
     "services": [
       "Multispecialty consultations and treatment",
       "Diagnostic evaluation and inpatient care",
@@ -3210,7 +3201,7 @@ export const HOSPITALS_DATA: Hospital[] = [
   {
     "id": "king_george_s_medical_university_kgmu",
     "slug": "king-george-s-medical-university-kgmu",
-    "name": "King George\u2019s Medical University (KGMU)",
+    "name": "King George’s Medical University (KGMU)",
     "state": "Uttar Pradesh",
     "city": "Lucknow",
     "area": "Chowk",
@@ -3266,7 +3257,7 @@ export const HOSPITALS_DATA: Hospital[] = [
     "lastChecked": "2026-10-17",
     "sources": [
       {
-        "label": "King George\u2019s Medical University (KGMU) Official Website",
+        "label": "King George’s Medical University (KGMU) Official Website",
         "url": "https://www.kgmu.org/",
         "type": "official-registry",
         "dateChecked": "2026-10-17"
@@ -4878,6 +4869,1081 @@ export const HOSPITALS_DATA: Hospital[] = [
         "url": "https://www.fortishealthcare.com/",
         "type": "official-registry",
         "dateChecked": "2026-10-17"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "sir_h_n_reliance_foundation_hospital_and_research_centre",
+    "slug": "sir-h-n-reliance-foundation-hospital-and-research-centre",
+    "name": "Sir H. N. Reliance Foundation Hospital and Research Centre",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Girgaon / South Mumbai",
+    "address": "Prarthana Samaj, Raja Ram Mohan Roy Road, Girgaon, Mumbai, Maharashtra",
+    "pincode": "400004",
+    "facilityType": "Multispeciality tertiary-care hospital",
+    "facilityTypeBadge": "NABH Accredited Quaternary Care",
+    "images": [],
+    "overview": "Sir H. N. Reliance Foundation Hospital and Research Centre is a premier tertiary and quaternary-care multispeciality hospital in South Mumbai. Its clinical services span advanced medical and surgical specialties, diagnostic imaging, intensive care, and specialist-led treatment pathways across oncology, haemato-oncology, cardiology, paediatric cardiac care, endocrinology, neurology, ENT, urology, kidney transplantation, obstetrics, gynaecology, and critical care.",
+    "services": [
+      "Medical oncology, targeted therapies, and systemic cancer management",
+      "Surgical oncology and microvascular reconstructive procedures",
+      "Haemato-oncology, bone marrow transplantation, and cellular therapies",
+      "Adult and paediatric cardiology and cardiovascular surgery",
+      "Comprehensive neurology, neurosurgery, and stroke care",
+      "Urology, urological oncology, robotic surgery, and renal transplantation",
+      "Endocrinology, diabetology, and metabolic disease management",
+      "Advanced ENT, laryngotracheal airway, and neurotology services",
+      "Level-1 24x7 emergency medical services and critical care",
+      "Diagnostic imaging, nuclear medicine, and clinical laboratory medicine"
+    ],
+    "departments": [
+      {
+        "name": "Cardiac Sciences & Cardiology",
+        "slug": "cardiac-sciences-cardiology"
+      },
+      {
+        "name": "Medical Oncology",
+        "slug": "medical-oncology"
+      },
+      {
+        "name": "Surgical Oncology",
+        "slug": "surgical-oncology"
+      },
+      {
+        "name": "Haematology, Haemato-Oncology & Bone Marrow Transplantation",
+        "slug": "haematology-haemato-oncology-bone-marrow-transplantation"
+      },
+      {
+        "name": "Neurology & Neurosurgery",
+        "slug": "neurology-neurosurgery"
+      },
+      {
+        "name": "Urology & Kidney Transplantation",
+        "slug": "urology-kidney-transplantation"
+      },
+      {
+        "name": "Endocrinology & Diabetology",
+        "slug": "endocrinology-diabetology"
+      },
+      {
+        "name": "Paediatric Cardiology & Cardiac Surgery",
+        "slug": "paediatric-cardiology-cardiac-surgery"
+      },
+      {
+        "name": "ENT & Neurotology",
+        "slug": "ent-neurotology"
+      },
+      {
+        "name": "Obstetrics & Gynaecology",
+        "slug": "obstetrics-gynaecology"
+      },
+      {
+        "name": "Dermatology & Aesthetic Medicine",
+        "slug": "dermatology-aesthetic-medicine"
+      },
+      {
+        "name": "Critical Care & Emergency Medicine",
+        "slug": "critical-care-emergency-medicine"
+      }
+    ],
+    "facilities": [
+      "345-Bed modern inpatient and outpatient clinical facility",
+      "State-of-the-art modular operation theatres with robotic surgical systems",
+      "Comprehensive intensive care units (ICUs) with advanced life support",
+      "Advanced diagnostic imaging (3T MRI, high-slice CT, digital radiography)",
+      "NABL-accredited clinical pathology and molecular diagnostics laboratory",
+      "Dedicated bone marrow transplant and cellular therapy suites",
+      "24x7 Emergency department and fully equipped cardiac ambulances"
+    ],
+    "bedCount": 345,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.rfhospital.org/",
+    "phone": "022-61305000",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Sir+H+N+Reliance+Foundation+Hospital+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Sir H. N. Reliance Foundation Hospital and Research Centre Official Website",
+        "url": "https://www.rfhospital.org/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "jaslok_hospital_and_research_centre",
+    "slug": "jaslok-hospital-and-research-centre",
+    "name": "Jaslok Hospital and Research Centre",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Peddar Road / South Mumbai",
+    "address": "15, Dr. G. Deshmukh Marg, Peddar Road, Mumbai, Maharashtra",
+    "pincode": "400026",
+    "facilityType": "Multispeciality tertiary-care hospital and research centre",
+    "facilityTypeBadge": "NABH Accredited Landmark Tertiary Facility",
+    "images": [],
+    "overview": "Jaslok Hospital and Research Centre is one of India's oldest and most prestigious quaternary-care multispeciality trust hospitals, located in South Mumbai. Renowned as a pioneer in medical oncology, bone marrow transplantation, and complex tertiary surgery, Jaslok houses multidisciplinary clinical teams supported by advanced diagnostics, comprehensive inpatient suites, and intensive care services.",
+    "services": [
+      "Comprehensive medical, surgical, and radiation oncology",
+      "Autologous and allogeneic bone marrow and stem cell transplantation",
+      "Cardiology, interventional cardiology, and cardiothoracic surgery",
+      "Neurology, neurosurgery, and comprehensive stroke management",
+      "Gastroenterology, hepatology, and GI surgery",
+      "Nephrology, dialysis unit, and renal transplantation",
+      "Orthopaedics, joint replacement, and trauma surgery",
+      "24x7 Emergency medicine and intensive critical care",
+      "Advanced clinical laboratory medicine, histopathology, and radiology"
+    ],
+    "departments": [
+      {
+        "name": "Medical Oncology & Haematology",
+        "slug": "medical-oncology-haematology"
+      },
+      {
+        "name": "Bone Marrow Transplantation",
+        "slug": "bone-marrow-transplantation"
+      },
+      {
+        "name": "Surgical Oncology",
+        "slug": "surgical-oncology"
+      },
+      {
+        "name": "Cardiac Sciences",
+        "slug": "cardiac-sciences"
+      },
+      {
+        "name": "Neurosciences (Neurology & Neurosurgery)",
+        "slug": "neurosciences-neurology-neurosurgery"
+      },
+      {
+        "name": "Nephrology & Urology",
+        "slug": "nephrology-urology"
+      },
+      {
+        "name": "Gastroenterology & Hepatology",
+        "slug": "gastroenterology-hepatology"
+      },
+      {
+        "name": "Orthopaedics & Joint Reconstruction",
+        "slug": "orthopaedics-joint-reconstruction"
+      },
+      {
+        "name": "Internal Medicine & Critical Care",
+        "slug": "internal-medicine-critical-care"
+      },
+      {
+        "name": "Diagnostic Imaging & Laboratory Medicine",
+        "slug": "diagnostic-imaging-laboratory-medicine"
+      }
+    ],
+    "facilities": [
+      "350-Bed multispeciality inpatient accommodation",
+      "Dedicated Bone Marrow Transplant unit with HEPA-filtered suites",
+      "Ultra-clean modular surgical suites and catheterization labs",
+      "Intensive Coronary Care Unit (ICCU) and Surgical Intensive Care Units (SICU)",
+      "Advanced radiology suite (MRI, CT, PET-CT, digital mammography)",
+      "24x7 NABL-accredited pathology and blood bank with component support",
+      "24x7 Emergency trauma care with cardiac ambulance network"
+    ],
+    "bedCount": 350,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.jaslokhospital.net/",
+    "phone": "022-66573333",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Jaslok+Hospital+Pedder+Road+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Jaslok Hospital and Research Centre Official Website",
+        "url": "https://www.jaslokhospital.net/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "fortis_hospital_mulund",
+    "slug": "fortis-hospital-mulund",
+    "name": "Fortis Hospital, Mulund",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Mulund West",
+    "address": "Mulund Goregaon Link Road, Mulund West, Mumbai, Maharashtra",
+    "pincode": "400078",
+    "facilityType": "Multispeciality tertiary-care hospital",
+    "facilityTypeBadge": "JCI & NABH Accredited Multi-Organ Transplant Centre",
+    "images": [],
+    "overview": "Fortis Hospital, Mulund is a world-class quaternary-care healthcare facility in Mumbai, accredited five times consecutively by JCI and NABH. The hospital is celebrated for multi-organ transplants, having completed landmark heart, liver, kidney, and lung transplants, alongside internationally recognized centres of excellence in interventional cardiology, robotic oncology, neurosciences, and critical care.",
+    "services": [
+      "Multi-organ transplants (heart, liver, kidney, lung)",
+      "Advanced interventional cardiology, TAVI, and heart failure management",
+      "Surgical, medical, and robotic oncology with precision medicine",
+      "Neurosurgery, minimally invasive spine surgery, and neuro-interventions",
+      "Nephrology, maintenance dialysis, and renal transplant care",
+      "Hepato-pancreato-biliary (HPB) surgery and gastrointestinal care",
+      "High-risk obstetrics, gynaecological laparoscopy, and neonatal ICU (NICU)",
+      "Level-1 24x7 Emergency and polytrauma resuscitation"
+    ],
+    "departments": [
+      {
+        "name": "Cardiac Sciences & TAVI Services",
+        "slug": "cardiac-sciences-tavi-services"
+      },
+      {
+        "name": "Multi-Organ Transplant Institute",
+        "slug": "multi-organ-transplant-institute"
+      },
+      {
+        "name": "Medical & Surgical Oncology",
+        "slug": "medical-surgical-oncology"
+      },
+      {
+        "name": "Neurosciences & Spine Surgery",
+        "slug": "neurosciences-spine-surgery"
+      },
+      {
+        "name": "Nephrology & Urology",
+        "slug": "nephrology-urology"
+      },
+      {
+        "name": "Liver Transplant & HPB Surgery",
+        "slug": "liver-transplant-hpb-surgery"
+      },
+      {
+        "name": "Critical Care & Emergency Medicine",
+        "slug": "critical-care-emergency-medicine"
+      },
+      {
+        "name": "Obstetrics & Gynaecology",
+        "slug": "obstetrics-gynaecology"
+      },
+      {
+        "name": "Internal Medicine & Infectious Diseases",
+        "slug": "internal-medicine-infectious-diseases"
+      },
+      {
+        "name": "Orthopaedics & Joint Replacement",
+        "slug": "orthopaedics-joint-replacement"
+      }
+    ],
+    "facilities": [
+      "315-Bed modern hospital with dedicated transplant suites",
+      "State-of-the-art modular operating theatres with da Vinci robotic surgical systems",
+      "Dedicated Cardiac Catheterization Labs with fractional flow reserve (FFR) and IVUS",
+      "Comprehensive adult, paediatric, and neonatal intensive care units",
+      "Advanced imaging centre with 3T MRI, 128-slice CT, and nuclear medicine",
+      "NABL-accredited 24-hour diagnostic pathology and licensed blood bank",
+      "24x7 Emergency trauma unit with advanced life support ambulances"
+    ],
+    "bedCount": 315,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.fortishealthcare.com/",
+    "phone": "022-67994444",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Fortis+Hospital+Mulund+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Fortis Hospital, Mulund Official Website",
+        "url": "https://www.fortishealthcare.com/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "s_l_raheja_hospital_a_fortis_associate",
+    "slug": "s-l-raheja-hospital-a-fortis-associate",
+    "name": "S. L. Raheja Hospital – A Fortis Associate",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Mahim",
+    "address": "Raheja Rugnalaya Marg, Mahim West, Mumbai, Maharashtra",
+    "pincode": "400016",
+    "facilityType": "Multispeciality hospital with notable diabetes and diabetic-foot services",
+    "facilityTypeBadge": "NABH Accredited Landmark Centre of Excellence in Diabetes",
+    "images": [],
+    "overview": "S. L. Raheja Hospital (A Fortis Associate) located in Mahim, Mumbai, is a leading multispeciality tertiary-care healthcare institution globally recognized for its pioneering Centre of Excellence for Diabetes and Diabetic Foot Care. The hospital also delivers specialist clinical services across interventional cardiology, emergency medicine, oncology, orthopaedics, and critical care.",
+    "services": [
+      "Comprehensive diabetic care, limb salvage, and diabetic foot surgery",
+      "Interventional cardiology, coronary angiography, and stenting",
+      "24x7 Emergency resuscitation, acute trauma care, and community triage",
+      "Medical oncology, surgical oncology, and chemotherapy suites",
+      "Gastroenterology, minimal access surgery, and general surgery",
+      "Nephrology and maintenance hemodialysis unit",
+      "Orthopaedics, arthroscopy, and joint replacement",
+      "Specialist outpatient consultations and health screening packages"
+    ],
+    "departments": [
+      {
+        "name": "Diabetology, Endocrinology & Diabetic Foot Surgery",
+        "slug": "diabetology-endocrinology-diabetic-foot-surgery"
+      },
+      {
+        "name": "Cardiac Sciences & Interventional Cardiology",
+        "slug": "cardiac-sciences-interventional-cardiology"
+      },
+      {
+        "name": "Emergency Medicine & Critical Care",
+        "slug": "emergency-medicine-critical-care"
+      },
+      {
+        "name": "General & Minimal Access Surgery",
+        "slug": "general-minimal-access-surgery"
+      },
+      {
+        "name": "Oncology (Medical & Surgical)",
+        "slug": "oncology-medical-surgical"
+      },
+      {
+        "name": "Nephrology & Dialysis",
+        "slug": "nephrology-dialysis"
+      },
+      {
+        "name": "Orthopaedics & Traumatology",
+        "slug": "orthopaedics-traumatology"
+      },
+      {
+        "name": "Internal Medicine",
+        "slug": "internal-medicine"
+      }
+    ],
+    "facilities": [
+      "170-Bed multispeciality inpatient facility with private and ICU beds",
+      "Specialized Diabetic Foot Assessment & Wound Management Centre",
+      "Advanced flat-panel cardiac catheterization laboratory",
+      "Modular operating theatres with laminar airflow",
+      "Comprehensive intensive care units (ICU, ICCU, and step-down units)",
+      "24-Hour fully automated diagnostic pathology laboratory and radiology",
+      "24x7 Emergency department with dedicated triage and trauma bays"
+    ],
+    "bedCount": 170,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.fortishealthcare.com/",
+    "phone": "022-66529999",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=S+L+Raheja+Hospital+Mahim+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "S. L. Raheja Hospital – A Fortis Associate Official Website",
+        "url": "https://www.fortishealthcare.com/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "gleneagles_hospital_parel",
+    "slug": "gleneagles-hospital-parel",
+    "name": "Gleneagles Hospital, Parel",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Parel",
+    "address": "35, Dr. E. Borges Road, Hospital Avenue, Opp Shirodkar High School, Parel, Mumbai, Maharashtra",
+    "pincode": "400012",
+    "facilityType": "Multispeciality tertiary-care hospital",
+    "facilityTypeBadge": "NABH Accredited Multi-Organ Transplant & Tertiary Care",
+    "images": [],
+    "overview": "Gleneagles Hospital in Parel, Mumbai (part of the international IHH Healthcare network) is a state-of-the-art tertiary and quaternary-care facility in Central Mumbai. The hospital is widely recognized for multi-organ transplantation (liver, kidney, and lung), cardiac sciences, neurosciences, medical and surgical oncology, advanced gastrointestinal medicine, and intensive emergency and critical care.",
+    "services": [
+      "Multi-organ transplants including living-donor liver and renal transplantation",
+      "Comprehensive cardiac care, cath lab interventions, and bypass surgery",
+      "Medical, surgical, and haemato-oncology care",
+      "Neurosciences, skull base surgery, and acute stroke management",
+      "Medical and surgical gastroenterology, endoscopy, and HPB care",
+      "Renal sciences, hemodialysis, and nephrological consultations",
+      "Orthopaedics, minimally invasive spine surgery, and joint replacements",
+      "24x7 Level-1 Emergency, acute resuscitation, and polytrauma services"
+    ],
+    "departments": [
+      {
+        "name": "Liver Transplantation & Hepato-Biliary Sciences",
+        "slug": "liver-transplantation-hepato-biliary-sciences"
+      },
+      {
+        "name": "Cardiac Sciences & Interventional Cardiology",
+        "slug": "cardiac-sciences-interventional-cardiology"
+      },
+      {
+        "name": "Medical & Surgical Oncology",
+        "slug": "medical-surgical-oncology"
+      },
+      {
+        "name": "Neurosciences (Neurology & Neurosurgery)",
+        "slug": "neurosciences-neurology-neurosurgery"
+      },
+      {
+        "name": "Gastroenterology & GI Surgery",
+        "slug": "gastroenterology-gi-surgery"
+      },
+      {
+        "name": "Nephrology & Urology",
+        "slug": "nephrology-urology"
+      },
+      {
+        "name": "Critical Care & Emergency Medicine",
+        "slug": "critical-care-emergency-medicine"
+      },
+      {
+        "name": "Orthopaedics & Spine Surgery",
+        "slug": "orthopaedics-spine-surgery"
+      },
+      {
+        "name": "General & Laparoscopic Surgery",
+        "slug": "general-laparoscopic-surgery"
+      }
+    ],
+    "facilities": [
+      "250-Bed modern tertiary-care hospital with dedicated ICU wings",
+      "State-of-the-art modular operating suites with high-definition laparoscopic towers",
+      "Advanced flat-panel biplane cardiac catheterization lab",
+      "Ultra-modern intensive care units with individual isolation and isolation-positive rooms",
+      "Comprehensive diagnostic imaging (MRI, CT, ultrasound, digital X-ray)",
+      "24x7 NABL-accredited diagnostic laboratory and certified blood bank",
+      "24x7 Emergency and trauma center with rapid cardiac response ambulances"
+    ],
+    "bedCount": 250,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.gleneagleshospitals.co.in/",
+    "phone": "022-67676767",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Gleneagles+Hospital+Parel+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Gleneagles Hospital, Parel Official Website",
+        "url": "https://www.gleneagleshospitals.co.in/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "breach_candy_hospital_trust",
+    "slug": "breach-candy-hospital-trust",
+    "name": "Breach Candy Hospital Trust",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Breach Candy / Cumballa Hill",
+    "address": "60-A, Bhulabhai Desai Road, Mumbai, Maharashtra",
+    "pincode": "400026",
+    "facilityType": "Private multispeciality hospital and charitable trust",
+    "facilityTypeBadge": "Multispeciality Hospital",
+    "images": [],
+    "overview": "Breach Candy Hospital Trust is a multispeciality hospital located on Bhulabhai Desai Road in South Mumbai. The hospital describes a collaborative model across approximately 35 clinical specialties, with consultants spanning medical, surgical, diagnostic and support disciplines. The institution also publishes a doctor directory and information about its charitable-care scheme. The charity-scheme page lists 272 total beds, including hospital and charity-wing capacity; this figure should be checked with the hospital before being treated as the current operational bed count.",
+    "services": [
+      "General medicine and physician-led care",
+      "Cardiology and cardiothoracic surgery",
+      "Neurosurgery and neurology",
+      "Orthopaedics and spine care",
+      "General, laparoscopic and gastrointestinal surgery",
+      "Oncology and oncosurgery",
+      "Obstetrics and gynaecology",
+      "Paediatrics and paediatric surgery",
+      "Nephrology",
+      "Urology",
+      "Endocrinology and diabetes care",
+      "Dermatology",
+      "ENT services",
+      "Plastic and reconstructive surgery",
+      "Ophthalmology",
+      "Dentistry and oral/maxillofacial services",
+      "Anaesthesia and intensive care",
+      "Radiology and diagnostic imaging",
+      "Laboratory medicine and transfusion-related services",
+      "Emergency care",
+      "Charitable-care scheme for eligible patients, subject to hospital criteria"
+    ],
+    "departments": [
+      {
+        "name": "Anaesthesia",
+        "slug": "anaesthesia"
+      },
+      {
+        "name": "Cardiology",
+        "slug": "cardiology"
+      },
+      {
+        "name": "Cardiothoracic Surgery",
+        "slug": "cardiothoracic-surgery"
+      },
+      {
+        "name": "Dermatology",
+        "slug": "dermatology"
+      },
+      {
+        "name": "Endocrinology and Diabetes",
+        "slug": "endocrinology-and-diabetes"
+      },
+      {
+        "name": "Gastroenterology",
+        "slug": "gastroenterology"
+      },
+      {
+        "name": "General Medicine",
+        "slug": "general-medicine"
+      },
+      {
+        "name": "General Surgery and Laparoscopy",
+        "slug": "general-surgery-and-laparoscopy"
+      },
+      {
+        "name": "Gynaecology",
+        "slug": "gynaecology"
+      },
+      {
+        "name": "Haematology and Oncology",
+        "slug": "haematology-and-oncology"
+      },
+      {
+        "name": "Nephrology",
+        "slug": "nephrology"
+      },
+      {
+        "name": "Neurology",
+        "slug": "neurology"
+      },
+      {
+        "name": "Neurosurgery",
+        "slug": "neurosurgery"
+      },
+      {
+        "name": "Ophthalmology",
+        "slug": "ophthalmology"
+      },
+      {
+        "name": "Orthopaedics",
+        "slug": "orthopaedics"
+      },
+      {
+        "name": "Paediatrics",
+        "slug": "paediatrics"
+      },
+      {
+        "name": "Paediatric Surgery",
+        "slug": "paediatric-surgery"
+      },
+      {
+        "name": "Plastic Surgery",
+        "slug": "plastic-surgery"
+      },
+      {
+        "name": "Psychiatry",
+        "slug": "psychiatry"
+      },
+      {
+        "name": "Radiology",
+        "slug": "radiology"
+      },
+      {
+        "name": "Urology",
+        "slug": "urology"
+      },
+      {
+        "name": "Vascular Surgery",
+        "slug": "vascular-surgery"
+      },
+      {
+        "name": "Laboratory Services",
+        "slug": "laboratory-services"
+      },
+      {
+        "name": "Emergency Services",
+        "slug": "emergency-services"
+      }
+    ],
+    "facilities": [
+      "Emergency department",
+      "Diagnostic imaging services including X-ray, sonography, CT and MRI appointments",
+      "Blood bank",
+      "Laboratory and pathology services",
+      "Inpatient hospital and charity-wing beds, as described in the charity-scheme page",
+      "Multidisciplinary consultant services",
+      "Appointment and patient-contact services",
+      "Specialist outpatient consultations"
+    ],
+    "bedCount": 272,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.breachcandyhospital.org/",
+    "phone": "+91 22 6130 5000",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Breach+Candy+Hospital+Trust+60-A+Bhulabhai+Desai+Road+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Breach Candy Hospital Trust Official Website",
+        "url": "https://www.breachcandyhospital.org/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "dr_l_h_hiranandani_hospital_powai",
+    "slug": "dr-l-h-hiranandani-hospital-powai",
+    "name": "Dr. L. H. Hiranandani Hospital, Powai",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Powai / Hiranandani Gardens",
+    "address": "Hill Side Avenue, Hiranandani Gardens, Powai, Mumbai, Maharashtra",
+    "pincode": "400076",
+    "facilityType": "Private multispeciality tertiary-care hospital",
+    "facilityTypeBadge": "Multispeciality Hospital",
+    "images": [],
+    "overview": "Dr. L. H. Hiranandani Hospital is a multispeciality tertiary-care hospital located on Hill Side Avenue in Hiranandani Gardens, Powai. The hospital's official website describes centres of excellence and services across cardiology, orthopaedics, obstetrics and gynaecology, neurology, ENT, cancer care, accident and emergency, cardiovascular and thoracic surgery, intensive care and liver transplant. The facility provides outpatient consultations, inpatient care, diagnostic services and emergency support. Published bed counts differ between the hospital group and other institutional records, so the current operational count should be confirmed directly before publication.",
+    "services": [
+      "Accident and emergency care",
+      "Cardiology and cardiac interventions",
+      "Cardiovascular and thoracic surgery",
+      "Orthopaedics and joint-related care",
+      "Obstetrics and gynaecology",
+      "Neurology and neurosurgery",
+      "ENT and head-and-neck care",
+      "Cancer care and oncology services",
+      "Intensive care",
+      "Liver transplant services",
+      "General medicine and specialist consultations",
+      "Diagnostic imaging and radiology",
+      "Laboratory and pathology services",
+      "Physiotherapy and rehabilitation",
+      "Dermatology and dermocosmetology services",
+      "Blood bank services",
+      "Home-care and nursing services, as listed by the hospital"
+    ],
+    "departments": [
+      {
+        "name": "Cardiology",
+        "slug": "cardiology"
+      },
+      {
+        "name": "Cardiovascular and Thoracic Surgery",
+        "slug": "cardiovascular-and-thoracic-surgery"
+      },
+      {
+        "name": "Orthopaedics",
+        "slug": "orthopaedics"
+      },
+      {
+        "name": "Obstetrics and Gynaecology",
+        "slug": "obstetrics-and-gynaecology"
+      },
+      {
+        "name": "Neurology",
+        "slug": "neurology"
+      },
+      {
+        "name": "Neurosurgery",
+        "slug": "neurosurgery"
+      },
+      {
+        "name": "ENT",
+        "slug": "ent"
+      },
+      {
+        "name": "Oncology / Cancer Care",
+        "slug": "oncology-cancer-care"
+      },
+      {
+        "name": "Accident and Emergency",
+        "slug": "accident-and-emergency"
+      },
+      {
+        "name": "Intensive Care",
+        "slug": "intensive-care"
+      },
+      {
+        "name": "Liver Transplant",
+        "slug": "liver-transplant"
+      },
+      {
+        "name": "General Medicine",
+        "slug": "general-medicine"
+      },
+      {
+        "name": "General Surgery",
+        "slug": "general-surgery"
+      },
+      {
+        "name": "Nephrology",
+        "slug": "nephrology"
+      },
+      {
+        "name": "Urology",
+        "slug": "urology"
+      },
+      {
+        "name": "Paediatrics",
+        "slug": "paediatrics"
+      },
+      {
+        "name": "Dermatology and Dermocosmetology",
+        "slug": "dermatology-and-dermocosmetology"
+      },
+      {
+        "name": "Radiology",
+        "slug": "radiology"
+      },
+      {
+        "name": "Pathology and Laboratory Medicine",
+        "slug": "pathology-and-laboratory-medicine"
+      },
+      {
+        "name": "Physiotherapy",
+        "slug": "physiotherapy"
+      }
+    ],
+    "facilities": [
+      "Accident and emergency service with dedicated contact numbers",
+      "Blood bank",
+      "Laboratory services and laboratory home-care contact",
+      "Radiology and imaging services",
+      "Outpatient appointment services",
+      "Physiotherapy department",
+      "Dermocosmetology department",
+      "Multiple specialty OPD areas",
+      "Home-care nursing services",
+      "Inpatient and intensive-care services",
+      "Specialist centres of excellence listed by the hospital"
+    ],
+    "bedCount": 244,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.hiranandanihospital.org/",
+    "phone": "+91 22 6130 5000",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Dr+L+H+Hiranandani+Hospital+Hill+Side+Avenue+Powai+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Dr. L. H. Hiranandani Hospital, Powai Official Website",
+        "url": "https://www.hiranandanihospital.org/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "saifee_hospital_charni_road",
+    "slug": "saifee-hospital-charni-road",
+    "name": "Saifee Hospital, Charni Road",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Charni Road / Marine Lines",
+    "address": "15/17, Maharshi Karve Marg, Mumbai, Maharashtra",
+    "pincode": "400004",
+    "facilityType": "Private multispeciality hospital",
+    "facilityTypeBadge": "Multispeciality Hospital",
+    "images": [],
+    "overview": "Saifee Hospital is a private multispeciality hospital at 15/17 Maharshi Karve Marg in South Mumbai. Its official website lists a broad range of medical and surgical specialties, alongside diagnostic and therapeutic services. The hospital highlights facilities and services that include a 24-hour pharmacy and blood bank, imaging, pathology, dialysis, rehabilitation, sleep studies, nuclear medicine, and robotic surgery. The hospital also publishes a consultant directory and downloadable specialty-wise consultant lists; individual doctor availability and schedules should be reconfirmed with the hospital before they are presented to patients.",
+    "services": [
+      "Medical and surgical consultations across multiple specialties",
+      "Cardiology and cardiovascular/thoracic surgery",
+      "Orthopaedics and arthroscopy",
+      "General and laparoscopic surgery",
+      "Bariatric surgery",
+      "Gastroenterology, endoscopy and hepatology",
+      "Neurology and neurosurgery",
+      "Nephrology and kidney transplant services",
+      "Medical oncology and oncosurgery",
+      "Obstetrics and gynaecology",
+      "Paediatrics and neonatology",
+      "Urology and robotic surgery",
+      "Critical care and ICU services",
+      "Haemodialysis",
+      "Physiotherapy and sports rehabilitation",
+      "Radiology and imaging",
+      "Haematology and pathology",
+      "Nuclear medicine and neurophysiology (EMG/EEG)",
+      "Sleep studies and vaccination services"
+    ],
+    "departments": [
+      {
+        "name": "Cardiology",
+        "slug": "cardiology"
+      },
+      {
+        "name": "Cardiovascular and Thoracic Surgery",
+        "slug": "cardiovascular-and-thoracic-surgery"
+      },
+      {
+        "name": "Critical Care Medicine and ICU",
+        "slug": "critical-care-medicine-and-icu"
+      },
+      {
+        "name": "Orthopaedics and Arthroscopy",
+        "slug": "orthopaedics-and-arthroscopy"
+      },
+      {
+        "name": "Bariatric Surgery",
+        "slug": "bariatric-surgery"
+      },
+      {
+        "name": "General Surgery",
+        "slug": "general-surgery"
+      },
+      {
+        "name": "Gastroenterology and Endoscopy",
+        "slug": "gastroenterology-and-endoscopy"
+      },
+      {
+        "name": "Hepatology",
+        "slug": "hepatology"
+      },
+      {
+        "name": "Neurology",
+        "slug": "neurology"
+      },
+      {
+        "name": "Neurosurgery",
+        "slug": "neurosurgery"
+      },
+      {
+        "name": "Nephrology and Kidney Transplant",
+        "slug": "nephrology-and-kidney-transplant"
+      },
+      {
+        "name": "Medical Oncology and Oncosurgery",
+        "slug": "medical-oncology-and-oncosurgery"
+      },
+      {
+        "name": "Obstetrics and Gynaecology",
+        "slug": "obstetrics-and-gynaecology"
+      },
+      {
+        "name": "Paediatrics and Neonatology",
+        "slug": "paediatrics-and-neonatology"
+      },
+      {
+        "name": "Urology",
+        "slug": "urology"
+      },
+      {
+        "name": "Dermatology",
+        "slug": "dermatology"
+      },
+      {
+        "name": "Diabetology and Endocrinology",
+        "slug": "diabetology-and-endocrinology"
+      },
+      {
+        "name": "ENT, Audiology and Speech Therapy",
+        "slug": "ent-audiology-and-speech-therapy"
+      },
+      {
+        "name": "Ophthalmology",
+        "slug": "ophthalmology"
+      },
+      {
+        "name": "Dentistry and Maxillofacial Surgery",
+        "slug": "dentistry-and-maxillofacial-surgery"
+      },
+      {
+        "name": "Psychiatry",
+        "slug": "psychiatry"
+      },
+      {
+        "name": "Respiratory and Chest Medicine",
+        "slug": "respiratory-and-chest-medicine"
+      },
+      {
+        "name": "Radiology and Imaging",
+        "slug": "radiology-and-imaging"
+      },
+      {
+        "name": "Haematology and Pathology",
+        "slug": "haematology-and-pathology"
+      },
+      {
+        "name": "Nuclear Medicine",
+        "slug": "nuclear-medicine"
+      },
+      {
+        "name": "Neurophysiology",
+        "slug": "neurophysiology"
+      },
+      {
+        "name": "Physiotherapy and Rehabilitation",
+        "slug": "physiotherapy-and-rehabilitation"
+      }
+    ],
+    "facilities": [
+      "Pharmacy listed as open 24 hours",
+      "Blood bank listed as open 24 hours",
+      "Imaging and radiology services",
+      "Pathology and haematology services",
+      "Dialysis",
+      "Nuclear medicine",
+      "EMG/EEG neurophysiology services",
+      "Sleep-study services",
+      "Physiotherapy and sports rehabilitation",
+      "Robotic surgery technology",
+      "Inpatient accommodation, including a Royal Suite listed on the official website",
+      "Consultant directory and appointment services"
+    ],
+    "bedCount": 257,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.saifeehospital.com/",
+    "phone": "+91 22 6130 5000",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Saifee+Hospital+15%2F17+Maharshi+Karve+Marg+Mumbai",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Saifee Hospital, Charni Road Official Website",
+        "url": "https://www.saifeehospital.com/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
+      }
+    ],
+    "doctorIds": []
+  },
+  {
+    "id": "wockhardt_hospitals_mumbai_central",
+    "slug": "wockhardt-hospitals-mumbai-central",
+    "name": "Wockhardt Hospitals, Mumbai Central",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "area": "Mumbai Central / Agripada",
+    "address": "1877, Dr. Anandrao Nair Road, near Agripada Police Station, Mumbai Central (East), Mumbai, Maharashtra",
+    "pincode": "400011",
+    "facilityType": "Private multispeciality tertiary-care hospital",
+    "facilityTypeBadge": "Multispeciality Hospital",
+    "images": [],
+    "overview": "Wockhardt Hospitals, Mumbai Central is a private multispeciality tertiary-care hospital located on Dr. Anandrao Nair Road in South Mumbai. The hospital's official Mumbai Central information describes a 350-bed facility with more than 30 specialities, round-the-clock emergency services, critical-care capability, advanced imaging and surgical infrastructure. Its listed clinical areas include cardiac sciences, orthopaedics and joint replacement, neurology and neurosurgery, oncology, gastroenterology, nephrology, urology, pulmonology, obstetrics and gynaecology, paediatrics and other medical and surgical specialties. The hospital website describes NABH and JCI accreditation and a NABL-accredited diagnostic laboratory; verify current accreditation status and operational details before publishing as a live directory claim.",
+    "services": [
+      "Emergency and trauma care, available 24 hours a day",
+      "Cardiology and interventional cardiac care",
+      "Cardiothoracic and vascular surgery",
+      "Orthopaedics, joint replacement and robotic-assisted joint surgery",
+      "Neurology and neurosurgery",
+      "Medical, surgical and radiation oncology",
+      "Gastroenterology and endoscopy",
+      "Nephrology and urology, including kidney-related services",
+      "Obstetrics and gynaecology, including high-risk pregnancy care",
+      "Pulmonology and respiratory medicine",
+      "Paediatrics and neonatology",
+      "Critical care and intensive care",
+      "Diagnostic imaging and laboratory services",
+      "Telemedicine and video consultations, as listed by the hospital"
+    ],
+    "departments": [
+      {
+        "name": "Cardiology",
+        "slug": "cardiology"
+      },
+      {
+        "name": "Cardiothoracic and Vascular Surgery",
+        "slug": "cardiothoracic-and-vascular-surgery"
+      },
+      {
+        "name": "Orthopaedics and Joint Replacement",
+        "slug": "orthopaedics-and-joint-replacement"
+      },
+      {
+        "name": "Neurology",
+        "slug": "neurology"
+      },
+      {
+        "name": "Neurosurgery",
+        "slug": "neurosurgery"
+      },
+      {
+        "name": "Oncology",
+        "slug": "oncology"
+      },
+      {
+        "name": "Gastroenterology",
+        "slug": "gastroenterology"
+      },
+      {
+        "name": "Nephrology",
+        "slug": "nephrology"
+      },
+      {
+        "name": "Urology",
+        "slug": "urology"
+      },
+      {
+        "name": "Obstetrics and Gynaecology",
+        "slug": "obstetrics-and-gynaecology"
+      },
+      {
+        "name": "Pulmonology",
+        "slug": "pulmonology"
+      },
+      {
+        "name": "Paediatrics and Neonatology",
+        "slug": "paediatrics-and-neonatology"
+      },
+      {
+        "name": "Ophthalmology",
+        "slug": "ophthalmology"
+      },
+      {
+        "name": "Dental and Maxillofacial Surgery",
+        "slug": "dental-and-maxillofacial-surgery"
+      },
+      {
+        "name": "Critical Care Medicine",
+        "slug": "critical-care-medicine"
+      },
+      {
+        "name": "Radiology and Imaging",
+        "slug": "radiology-and-imaging"
+      },
+      {
+        "name": "Pathology and Laboratory Medicine",
+        "slug": "pathology-and-laboratory-medicine"
+      },
+      {
+        "name": "Emergency Medicine",
+        "slug": "emergency-medicine"
+      }
+    ],
+    "facilities": [
+      "24x7 emergency department and ambulance support",
+      "Intensive care facilities; the hospital's page describes a Level III ICU",
+      "Modular operation theatres",
+      "Cardiac catheterisation laboratory",
+      "Mako robotic surgery system for joint replacement, as listed on the hospital page",
+      "MRI and CT imaging",
+      "Diagnostic laboratory described by the hospital as NABL-accredited",
+      "In-hospital pharmacy",
+      "Telemedicine/video consultation",
+      "Patient and visitor amenities including parking and cafeteria"
+    ],
+    "bedCount": 350,
+    "emergencyAvailable24x7": true,
+    "website": "https://www.wockhardthospitals.com/mumbai/",
+    "phone": "+91 22 6130 5000",
+    "whatsapp": "Not separately listed",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Wockhardt+Hospitals+Mumbai+Central",
+    "verificationStatus": "independently-checked",
+    "lastChecked": "2026-10-27",
+    "sources": [
+      {
+        "label": "Wockhardt Hospitals, Mumbai Central Official Website",
+        "url": "https://www.wockhardthospitals.com/mumbai/",
+        "type": "official-registry",
+        "dateChecked": "2026-10-27"
       }
     ],
     "doctorIds": []

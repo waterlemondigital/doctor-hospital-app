@@ -208,7 +208,21 @@ export function findEntityMatch(rawInput, dbList, cityHint = '') {
     { pattern: /fortis\s*escorts.*(delhi|okhla)/i, id: 'fortis_escorts_heart_institute_new_delhi' },
     { pattern: /manipal.*(old\s*airport|bengaluru|bangalore)/i, id: 'manipal_hospital_old_airport_road' },
     { pattern: /kalinga|kims.*bhubaneswar/i, id: 'kalinga_institute_of_medical_sciences_kims' },
-    { pattern: /narayana\s*institute\s*of\s*cardiac/i, id: 'narayana_institute_of_cardiac_sciences' }
+    { pattern: /narayana\s*institute\s*of\s*cardiac/i, id: 'narayana_institute_of_cardiac_sciences' },
+    { pattern: /fortis.*(mulund|mumbai)/i, id: 'fortis_hospital_mulund' },
+    { pattern: /raheja/i, id: 's_l_raheja_hospital_a_fortis_associate' },
+    { pattern: /reliance.*foundation/i, id: 'sir_h_n_reliance_foundation_hospital_and_research_centre' },
+    { pattern: /jaslok/i, id: 'jaslok_hospital_and_research_centre' },
+    { pattern: /gleneagles.*parel/i, id: 'gleneagles_hospital_parel' },
+    { pattern: /wockhardt.*(mumbai|central)/i, id: 'wockhardt_hospitals_mumbai_central' },
+    { pattern: /saifee/i, id: 'saifee_hospital_charni_road' },
+    { pattern: /breach\s*candy/i, id: 'breach_candy_hospital_trust' },
+    { pattern: /hiranandani/i, id: 'dr_l_h_hiranandani_hospital_powai' },
+    { pattern: /seven\s*hills/i, id: 'sevenhills_hospital' },
+    { pattern: /criticare/i, id: 'criticare_asia_multispeciality_hospital_andheri_west' },
+    { pattern: /holy\s*family/i, id: 'holy_family_hospital' },
+    { pattern: /surya/i, id: 'surya_hospitals_santacruz' },
+    { pattern: /srcc|children.*narayana/i, id: 'srcc_children_s_hospital_managed_by_narayana_health' }
   ];
 
   for (const rule of aliasRules) {
@@ -331,13 +345,16 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
 
     // --- Name ---
     let name = null;
-    const templateNameMatch = sec.match(/# Doctor:\s*([^-\n]+)/i) || sec.match(/-\s*\*\*Name\*\*:\s*([^-\n]+)/i);
+    const templateNameMatch = sec.match(/-\s*\*\*Name\*\*:\s*`?([^`\r\n]+)`?/i) || sec.match(/# Doctor:\s*`?([^`\r\n]+)`?/i);
     const standardNameMatch = sec.match(/^##\s+\*\*(Dr\.[^*]+)\*\*/m) || sec.match(/^##\s+(Dr\.[^\n]+)/m);
 
     if (templateNameMatch) {
       name = templateNameMatch[1].trim();
     } else if (standardNameMatch) {
       name = standardNameMatch[1].trim();
+    }
+    if (name) {
+      name = name.replace(/`/g, '').trim();
     }
 
     if (
@@ -472,14 +489,14 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
     }
 
     // --- Languages ---
-    let languages = ['English', 'Hindi'];
+    let languages = ['English', 'Hindi', 'Marathi'];
     const langMatch =
       sec.match(/-\s*\*\*Languages\*\*:[^\S\r\n]*([^\r\n]+)/i) ||
       sec.match(/\*\*Languages:\*\*[^\S\r\n]*([^\r\n]+)/i);
     if (langMatch) {
       let rawLang = langMatch[1].trim();
       if (rawLang.includes('**')) rawLang = rawLang.split('**')[0].trim();
-      if (rawLang && !rawLang.startsWith('- **') && !rawLang.startsWith('#')) {
+      if (rawLang && !rawLang.startsWith('- **') && !rawLang.startsWith('#') && !rawLang.toLowerCase().includes('contact our consultant')) {
         const parsedLangs = rawLang
           .split(',')
           .map((l) => l.trim())
@@ -542,6 +559,7 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
         if (hNameMatch) {
           let hName = hNameMatch[1].trim();
           if (hName.includes('**')) hName = hName.split('**')[0].trim();
+          hName = hName.replace(/`/g, '').trim();
           if (hName) {
             const rawDays = daysMatch ? daysMatch[1].trim() : '';
             const rawTimings = timeMatch ? timeMatch[1].trim() : '';
@@ -650,7 +668,9 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
       const lines = areasMatch[1].split('\n');
       for (const line of lines) {
         const clean = line.replace(/^\s*-\s*/, '').trim();
-        if (clean && !clean.startsWith('#')) areas.push(clean);
+        if (clean && !clean.startsWith('#') && !clean.toLowerCase().startsWith('**source') && !clean.toLowerCase().startsWith('source:')) {
+          areas.push(clean);
+        }
       }
     }
 
@@ -661,9 +681,10 @@ export function parseDoctorMarkdown(fileContent, dbHospitals = []) {
     // --- Official Source ---
     let officialSource = '';
     const sourceMatch =
+      sec.match(/\*\*Source\*\*:\s*(https?:\/\/[^\s\n)]+)/i) ||
       sec.match(/#{2,4}\s+\*\*Official Profile[^*]*\*\*[\s\S]*?(https?:\/\/[^\s\n)]+)/i) ||
       sec.match(/#{2,4}\s+\*\*Official Source\*\*[\s\S]*?(https?:\/\/[^\s\n)]+)/i) ||
-      sec.match(/https?:\/\/(?:www\.)?(?:fortishealthcare|narayanahealth|sahyadrihospitals)[^\s\n)]+/);
+      sec.match(/https?:\/\/(?:www\.)?(?:fortishealthcare|narayanahealth|sahyadrihospitals|wockhardthospitals|saifeehospital|breachcandyhospital|hiranandanihospital)[^\s\n)]+/);
     if (sourceMatch) {
       officialSource = sourceMatch[1] || sourceMatch[0];
     }
@@ -803,7 +824,27 @@ async function processDoctorFile(filePath, options = {}) {
     if (existingDocs.length > 0) {
       docId = existingDocs[0].id;
       photo = existingDocs[0].photo || '';
+    }
 
+    // Check Cloudflare R2 if doctor does not yet have a photo
+    if (!photo) {
+      const r2Base = (process.env.R2_PUBLIC_URL || 'https://pub-151166afd0294cb99a7c59679d424908.r2.dev').replace(/\/+$/, '');
+      try {
+        const headRes = await fetch(`${r2Base}/doctors/${docId}/photo.webp`, { method: 'HEAD' });
+        if (headRes.ok) {
+          photo = `${r2Base}/doctors/${docId}/photo.webp`;
+        } else if (d.slug && d.slug !== docId) {
+          const headResSlug = await fetch(`${r2Base}/doctors/${d.slug}/photo.webp`, { method: 'HEAD' });
+          if (headResSlug.ok) {
+            photo = `${r2Base}/doctors/${d.slug}/photo.webp`;
+          }
+        }
+      } catch (err) {
+        // Ignore network error during R2 check
+      }
+    }
+
+    if (existingDocs.length > 0) {
       // Preserve existing canonical_id
       const existingSources = Array.isArray(existingDocs[0].sources)
         ? existingDocs[0].sources
@@ -834,8 +875,9 @@ async function processDoctorFile(filePath, options = {}) {
              languages = $19,
              areas_of_practice = $20,
              sources = $21,
+             photo = COALESCE(NULLIF(doctors.photo, ''), NULLIF($22, ''), ''),
              updated_at = NOW()
-         WHERE id = $22`,
+         WHERE id = $23`,
         [
           (d.name || '').slice(0, 255),
           (d.title || '').slice(0, 255),
@@ -858,10 +900,11 @@ async function processDoctorFile(filePath, options = {}) {
           JSON.stringify(d.languages || ['English', 'Hindi']),
           JSON.stringify(d.areas_of_practice || []),
           JSON.stringify(sources),
+          photo,
           docId,
         ]
       );
-      console.log(`[${i + 1}/${doctors.length}] 🔄 UPDATED / REWRITTEN: "${d.name}" (ID: ${docId})`);
+      console.log(`[${i + 1}/${doctors.length}] 🔄 UPDATED / REWRITTEN: "${d.name}" (ID: ${docId})${photo ? ' 📸 (Photo linked)' : ''}`);
       updatedCount++;
     } else {
       await pool.query(
@@ -1093,7 +1136,9 @@ async function main() {
   await pool.end();
 }
 
-main().catch((err) => {
-  console.error('Fatal error during doctor population:', err);
-  process.exit(1);
-});
+if (process.argv[1] && (process.argv[1].endsWith('populate_doctors.js') || process.argv[1].includes('populate_doctors'))) {
+  main().catch((err) => {
+    console.error('Fatal error during doctor population:', err);
+    process.exit(1);
+  });
+}

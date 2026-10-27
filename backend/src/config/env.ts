@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 function parseCorsOrigins(raw?: string): string[] {
-  if (!raw) return ['http://localhost:3000', 'http://127.0.0.1:3000'];
+  if (!raw) return ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3001', 'http://127.0.0.1:3001'];
   const trimmed = raw.trim();
   if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
     try {

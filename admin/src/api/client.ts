@@ -8,7 +8,40 @@ import {
   TargetType,
 } from '../types';
 
-const API_BASE = '/api/v1/admin';
+const rawApiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+export const API_ROOT = rawApiUrl ? rawApiUrl.replace(/\/+$/, '') : '';
+export const API_BASE = `${API_ROOT}/api/v1/admin`;
+export const PUBLIC_API_BASE = `${API_ROOT}/api/v1`;
+
+export async function fetchAllPublicDoctors(): Promise<any[]> {
+  const res = await fetch(`${PUBLIC_API_BASE}/doctors`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to fetch doctors`);
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error('Server returned non-JSON response (expected doctors API)');
+  }
+  return res.json();
+}
+
+export async function fetchAllPublicHospitals(): Promise<any[]> {
+  const res = await fetch(`${PUBLIC_API_BASE}/hospitals`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to fetch hospitals`);
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error('Server returned non-JSON response (expected hospitals API)');
+  }
+  return res.json();
+}
+
+export async function fetchAllPublicLaboratories(): Promise<any[]> {
+  const res = await fetch(`${PUBLIC_API_BASE}/laboratories`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to fetch laboratories`);
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error('Server returned non-JSON response (expected laboratories API)');
+  }
+  return res.json();
+}
 
 export async function adminLogin(
   username: string,
@@ -414,7 +447,7 @@ export async function uploadEntityImage(
   if (alt) formData.append('alt', alt);
   if (caption) formData.append('caption', caption);
 
-  const res = await fetch('/api/v1/upload/image', {
+  const res = await fetch(`${PUBLIC_API_BASE}/upload/image`, {
     method: 'POST',
     body: formData,
   });
@@ -449,7 +482,7 @@ export async function uploadMultipleEntityImages(
   formData.append('entityType', entityType);
   formData.append('entityId', entityId);
 
-  const res = await fetch('/api/v1/upload/images', {
+  const res = await fetch(`${PUBLIC_API_BASE}/upload/images`, {
     method: 'POST',
     body: formData,
   });

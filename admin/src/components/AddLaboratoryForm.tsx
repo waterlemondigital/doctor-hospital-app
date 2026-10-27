@@ -24,8 +24,13 @@ import {
   Clock,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { TargetDoctor, TargetHospital } from '../types';
-import { createLaboratory, uploadMultipleEntityImages } from '../api/client';
+import { TargetHospital, TargetDoctor } from '../types';
+import {
+  createLaboratory,
+  uploadMultipleEntityImages,
+  fetchAllPublicHospitals,
+  fetchAllPublicDoctors,
+} from '../api/client';
 
 interface AddLaboratoryFormProps {
   hospitals: TargetHospital[];
@@ -143,8 +148,7 @@ export function AddLaboratoryForm({
       setAllHospitals(hospitals);
     } else {
       setIsLoadingHospitals(true);
-      fetch('/api/v1/hospitals')
-        .then((res) => res.json())
+      fetchAllPublicHospitals()
         .then((data: any[]) => {
           if (Array.isArray(data) && data.length > 0) {
             setAllHospitals(
@@ -185,8 +189,7 @@ export function AddLaboratoryForm({
       setAllDoctors(doctors);
     } else {
       setIsLoadingDoctors(true);
-      fetch('/api/v1/doctors')
-        .then((res) => res.json())
+      fetchAllPublicDoctors()
         .then((data: any[]) => {
           if (Array.isArray(data) && data.length > 0) {
             setAllDoctors(

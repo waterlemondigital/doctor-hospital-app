@@ -1,8 +1,8 @@
 /**
- * Rollback / Restore Script for Savepoint: 2026-10-27 11:30
+ * Rollback / Restore Script for Savepoint: 2026-10-27 12:00
  * 
  * Restores the complete database schema and all table rows back to the exact snapshot
- * captured in backend/backups/savepoint_20261027_1130.sql
+ * captured in backend/backups/savepoint_20261027_1200.sql
  */
 
 import { execSync } from 'child_process';
@@ -14,13 +14,13 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const BACKUP_FILE = path.resolve(__dirname, '../backups/savepoint_20261027_1130.sql');
+const BACKUP_FILE = path.resolve(__dirname, '../backups/savepoint_20261027_1650.sql');
 
 // Use direct unpooled connection for restore
 const directUrl = (process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL || '')
   .replace('-pooler', '');
 
-console.log('🔄 Initiating Database Rollback to Savepoint (2026-10-27 11:30)...');
+console.log('🔄 Initiating Database Rollback to Savepoint (2026-10-27 16:50)...');
 console.log(`Backup File: ${BACKUP_FILE}`);
 
 try {

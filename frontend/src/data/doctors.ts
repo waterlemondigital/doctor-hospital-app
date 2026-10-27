@@ -102,56 +102,6 @@ export const DOCTORS_DATA: Doctor[] = [
     ]
   },
   {
-    "id": "dr_shorya_vardhan_azad",
-    "slug": "dr-shorya-vardhan-azad",
-    "name": "Dr. Shorya Vardhan Azad",
-    "title": "Additional Professor of Ophthalmology",
-    "department": "Ophthalmology",
-    "departmentSlug": "ophthalmology",
-    "speciality": "Ophthalmology",
-    "specialitySlug": "ophthalmology",
-    "subSpeciality": "Vitreoretinal Surgery & Ocular Trauma",
-    "qualifications": "MBBS, MD (Ophthalmology)",
-    "experienceYears": 15,
-    "languages": [
-      "English",
-      "Hindi"
-    ],
-    "photo": "",
-    "summary": "AIIMS faculty page lists him as Additional Professor. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Vitreoretinal Surgery",
-      "Ocular Trauma Management",
-      "Retinal Detachment",
-      "Macular Diseases"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "all_india_institute_of_medical_sciences_aiims_new_delhi",
-        "hospitalName": "All India Institute of Medical Sciences (AIIMS), New Delhi",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Ansari Nagar",
-    "city": "New delhi",
-    "state": "Delhi",
-    "location": "Ansari Nagar, New delhi",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.aiims.edu/index.php/en/faculty",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
     "id": "dr_amar_pujari",
     "slug": "dr-amar-pujari",
     "name": "Dr. Amar Pujari",
@@ -203,60 +153,10 @@ export const DOCTORS_DATA: Doctor[] = [
     ]
   },
   {
-    "id": "dr_neelam_pushker",
-    "slug": "dr-neelam-pushker",
-    "name": "Dr. Neelam Pushker",
-    "title": "Professor of Ophthalmology",
-    "department": "Ophthalmology",
-    "departmentSlug": "ophthalmology",
-    "speciality": "Ophthalmology",
-    "specialitySlug": "ophthalmology",
-    "subSpeciality": "Oculoplastics, Orbit & Ocular Oncology",
-    "qualifications": "MBBS, MD (Ophthalmology)",
-    "experienceYears": 25,
-    "languages": [
-      "English",
-      "Hindi"
-    ],
-    "photo": "",
-    "summary": "AIIMS faculty page lists her as Professor. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Oculoplastic Surgery",
-      "Orbital Tumours",
-      "Eyelid Reconstruction",
-      "Ocular Oncology"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "all_india_institute_of_medical_sciences_aiims_new_delhi",
-        "hospitalName": "All India Institute of Medical Sciences (AIIMS), New Delhi",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Ansari Nagar",
-    "city": "New delhi",
-    "state": "Delhi",
-    "location": "Ansari Nagar, New delhi",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.aiims.edu/index.php/en/faculty",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
     "id": "dr_arvind_kumar",
     "slug": "dr-arvind-kumar",
     "name": "Dr. Arvind Kumar",
-    "title": "Chairman \u2014 Institute of Chest Surgery, Chest Onco-Surgery & Lung Transplantation",
+    "title": "Chairman — Institute of Chest Surgery, Chest Onco-Surgery & Lung Transplantation",
     "department": "Institute of Chest Surgery",
     "departmentSlug": "institute-of-chest-surgery",
     "speciality": "Thoracic Surgery",
@@ -280,7 +180,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "hospitals": [
       {
         "hospitalId": "medanta_the_medicity",
-        "hospitalName": "Medanta \u2013 The Medicity",
+        "hospitalName": "Medanta – The Medicity",
         "days": "Mon - Sat",
         "timings": "Regular OPD Hours (By Appointment)",
         "note": "Affiliation verified against official hospital faculty & consultant directory."
@@ -307,7 +207,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_arvinder_singh_soin",
     "slug": "dr-arvinder-singh-soin",
     "name": "Dr. Arvinder Singh Soin",
-    "title": "Chairman \u2014 Institute of Liver Transplantation and Regenerative Medicine",
+    "title": "Chairman — Institute of Liver Transplantation and Regenerative Medicine",
     "department": "Institute of Liver Transplantation",
     "departmentSlug": "institute-of-liver-transplantation",
     "speciality": "Surgical Gastroenterology",
@@ -331,7 +231,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "hospitals": [
       {
         "hospitalId": "medanta_the_medicity",
-        "hospitalName": "Medanta \u2013 The Medicity",
+        "hospitalName": "Medanta – The Medicity",
         "days": "Mon - Sat",
         "timings": "Regular OPD Hours (By Appointment)",
         "note": "Affiliation verified against official hospital faculty & consultant directory."
@@ -355,112 +255,10 @@ export const DOCTORS_DATA: Doctor[] = [
     ]
   },
   {
-    "id": "dr_aafreen_siddique",
-    "slug": "dr-aafreen-siddique",
-    "name": "Dr. Aafreen Siddique",
-    "title": "Consultant \u2014 Dermatology & Cosmetology",
-    "department": "Dermatology",
-    "departmentSlug": "dermatology",
-    "speciality": "Dermatology",
-    "specialitySlug": "dermatology",
-    "subSpeciality": "Clinical Dermatology & Laser Aesthetics",
-    "qualifications": "MBBS, MD (Dermatology, Venereology & Leprosy)",
-    "experienceYears": 8,
-    "languages": [
-      "English",
-      "Hindi",
-      "Marathi"
-    ],
-    "photo": "",
-    "summary": "Listed in Kokilaben Hospital's official doctor/appointment directory; open individual profile to verify speciality and credentials. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Clinical Dermatology",
-      "Acne & Pigmentation Therapies",
-      "Laser Dermatology",
-      "Trichology & Hair Loss Treatments"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "kokilaben_dhirubhai_ambani_hospital",
-        "hospitalName": "Kokilaben Dhirubhai Ambani Hospital",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Andheri West",
-    "city": "Mumbai",
-    "state": "Maharashtra",
-    "location": "Andheri West, Mumbai",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.kokilabenhospital.com/patients/makeanappointment.html",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
-    "id": "dr_aaishwarya_dhabe",
-    "slug": "dr-aaishwarya-dhabe",
-    "name": "Dr. Aaishwarya Dhabe",
-    "title": "Consultant \u2014 Respiratory Medicine & Pulmonology",
-    "department": "Respiratory Medicine",
-    "departmentSlug": "respiratory-medicine",
-    "speciality": "Pulmonology",
-    "specialitySlug": "pulmonology",
-    "subSpeciality": "Interventional Pulmonology & Sleep Disorders",
-    "qualifications": "MBBS, DNB (Respiratory Diseases)",
-    "experienceYears": 10,
-    "languages": [
-      "English",
-      "Hindi",
-      "Marathi"
-    ],
-    "photo": "",
-    "summary": "Listed in Kokilaben Hospital's official doctor/appointment directory; open individual profile to verify speciality and credentials. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Interventional Bronchoscopy",
-      "Asthma & COPD Management",
-      "Sleep Apnea & Polysomnography",
-      "Interstitial Lung Diseases"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "kokilaben_dhirubhai_ambani_hospital",
-        "hospitalName": "Kokilaben Dhirubhai Ambani Hospital",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Andheri West",
-    "city": "Mumbai",
-    "state": "Maharashtra",
-    "location": "Andheri West, Mumbai",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.kokilabenhospital.com/patients/makeanappointment.html",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
     "id": "dr_abhaya_kumar",
     "slug": "dr-abhaya-kumar",
     "name": "Dr. Abhaya Kumar",
-    "title": "Head & Consultant \u2014 Neurosurgery & Minimally Invasive Spine Surgery",
+    "title": "Head & Consultant — Neurosurgery & Minimally Invasive Spine Surgery",
     "department": "Neurosciences",
     "departmentSlug": "neurosciences",
     "speciality": "Neurosurgery",
@@ -513,7 +311,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_abhijit_pawar",
     "slug": "dr-abhijit-pawar",
     "name": "Dr. Abhijit Pawar",
-    "title": "Senior Consultant \u2014 Spine Surgery",
+    "title": "Senior Consultant — Spine Surgery",
     "department": "Centre for Bone & Joint",
     "departmentSlug": "centre-for-bone-joint",
     "speciality": "Spine Surgery",
@@ -564,7 +362,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_abhishek_srivastava",
     "slug": "dr-abhishek-srivastava",
     "name": "Dr. Abhishek Srivastava",
-    "title": "Director & Consultant \u2014 Centre for Physical Medicine and Rehabilitation",
+    "title": "Director & Consultant — Centre for Physical Medicine and Rehabilitation",
     "department": "Physical Medicine and Rehabilitation",
     "departmentSlug": "physical-medicine-and-rehabilitation",
     "speciality": "Physical Medicine & Rehabilitation",
@@ -612,214 +410,10 @@ export const DOCTORS_DATA: Doctor[] = [
     ]
   },
   {
-    "id": "dr_a_asha",
-    "slug": "dr-a-asha",
-    "name": "Dr. A Asha",
-    "title": "Junior Consultant \u2014 Cardiac Anaesthesia",
-    "department": "Cardiac Anaesthesia",
-    "departmentSlug": "cardiac-anaesthesia",
-    "speciality": "Anaesthesiology",
-    "specialitySlug": "anaesthesiology",
-    "subSpeciality": "Adult & Paediatric Cardiac Anaesthesia",
-    "qualifications": "MBBS, MD (Anaesthesiology)",
-    "experienceYears": 8,
-    "languages": [
-      "English",
-      "Hindi",
-      "Kannada"
-    ],
-    "photo": "",
-    "summary": "Narayana Health official directory lists her as Junior Consultant; verify exact hospital campus before publication. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Intraoperative Transesophageal Echocardiography (TEE)",
-      "Congenital Cardiac Surgery Anaesthesia",
-      "Post-Cardiac ICU Management"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "narayana_institute_of_cardiac_sciences",
-        "hospitalName": "Narayana Institute of Cardiac Sciences",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Bommasandra",
-    "city": "Bengaluru",
-    "state": "Karnataka",
-    "location": "Bommasandra, Bengaluru",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.narayanahealth.org/ocaapp/doctors/bangalore",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
-    "id": "dr_a_b_murali_krishna_reddy",
-    "slug": "dr-a-b-murali-krishna-reddy",
-    "name": "Dr. A B Murali Krishna Reddy",
-    "title": "Consultant \u2014 Paediatric Critical Care Medicine",
-    "department": "Paediatrics",
-    "departmentSlug": "paediatrics",
-    "speciality": "Paediatric Critical Care",
-    "specialitySlug": "paediatric-critical-care",
-    "subSpeciality": "Pediatric Cardiac ICU & ECMO Support",
-    "qualifications": "MBBS, MD (Paediatrics), Fellowship in Paediatric Intensive Care (PICU)",
-    "experienceYears": 14,
-    "languages": [
-      "English",
-      "Hindi",
-      "Telugu",
-      "Kannada"
-    ],
-    "photo": "",
-    "summary": "Narayana Health official directory lists him as Junior Consultant; verify exact hospital campus before publication. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Paediatric Advanced Life Support",
-      "ECMO & Mechanical Circulatory Support",
-      "Post-Operative Pediatric Cardiac Intensive Care"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "narayana_institute_of_cardiac_sciences",
-        "hospitalName": "Narayana Institute of Cardiac Sciences",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Bommasandra",
-    "city": "Bengaluru",
-    "state": "Karnataka",
-    "location": "Bommasandra, Bengaluru",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.narayanahealth.org/ocaapp/doctors/bangalore",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
-    "id": "dr_aabha_nagral",
-    "slug": "dr-aabha-nagral",
-    "name": "Dr. Aabha Nagral",
-    "title": "Senior Consultant \u2014 Paediatric Gastroenterology & Hepatology",
-    "department": "Gastroenterology & Hepatology",
-    "departmentSlug": "gastroenterology-hepatology",
-    "speciality": "Paediatric Gastroenterology",
-    "specialitySlug": "paediatric-gastroenterology",
-    "subSpeciality": "Pediatric Liver Diseases & Liver Transplant Care",
-    "qualifications": "MBBS, MD, DNB (Gastroenterology)",
-    "experienceYears": 26,
-    "languages": [
-      "English",
-      "Hindi",
-      "Marathi",
-      "Kannada"
-    ],
-    "photo": "",
-    "summary": "Narayana Health official directory lists her as Visiting Consultant; verify exact hospital campus before publication. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Pediatric Chronic Liver Disease",
-      "Wilson's Disease & Autoimmune Hepatitis",
-      "Pediatric Liver Transplantation",
-      "Celiac Disease"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "narayana_institute_of_cardiac_sciences",
-        "hospitalName": "Narayana Institute of Cardiac Sciences",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Bommasandra",
-    "city": "Bengaluru",
-    "state": "Karnataka",
-    "location": "Bommasandra, Bengaluru",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.narayanahealth.org/ocaapp/doctors/bangalore",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
-    "id": "dr_aanchal_singh",
-    "slug": "dr-aanchal-singh",
-    "name": "Dr. Aanchal Singh",
-    "title": "Consultant \u2014 Emergency Medicine",
-    "department": "Emergency & Trauma Care",
-    "departmentSlug": "emergency-trauma-care",
-    "speciality": "Emergency Medicine",
-    "specialitySlug": "emergency-medicine",
-    "subSpeciality": "Acute Resuscitation & Trauma Life Support",
-    "qualifications": "MBBS, MD / MEM (Emergency Medicine)",
-    "experienceYears": 10,
-    "languages": [
-      "English",
-      "Hindi",
-      "Kannada"
-    ],
-    "photo": "",
-    "summary": "Narayana Health official directory lists her as Junior Consultant; verify exact hospital campus before publication. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Poly-Trauma Management",
-      "Acute Cardiovascular Resuscitation",
-      "Point-of-Care Ultrasound (POCUS)",
-      "Disaster Medicine"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "narayana_institute_of_cardiac_sciences",
-        "hospitalName": "Narayana Institute of Cardiac Sciences",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Bommasandra",
-    "city": "Bengaluru",
-    "state": "Karnataka",
-    "location": "Bommasandra, Bengaluru",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.narayanahealth.org/ocaapp/doctors/bangalore",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
     "id": "dr_abhinandan_s_punit",
     "slug": "dr-abhinandan-s-punit",
     "name": "Dr. Abhinandan S Punit",
-    "title": "Consultant \u2014 Orthopaedic Surgery & Joint Replacement",
+    "title": "Consultant — Orthopaedic Surgery & Joint Replacement",
     "department": "Orthopaedics",
     "departmentSlug": "orthopaedics",
     "speciality": "Orthopaedic Surgery",
@@ -867,57 +461,6 @@ export const DOCTORS_DATA: Doctor[] = [
     ]
   },
   {
-    "id": "dr_soumya_m_s",
-    "slug": "dr-soumya-m-s",
-    "name": "Dr. Soumya M S",
-    "title": "Senior Consultant \u2014 ENT & Head and Neck Surgery",
-    "department": "ENT (Otorhinolaryngology)",
-    "departmentSlug": "ent-otorhinolaryngology",
-    "speciality": "ENT",
-    "specialitySlug": "ent",
-    "subSpeciality": "Endoscopic Sinus & Skull Base Surgery",
-    "qualifications": "MBBS, MS (ENT), DNB",
-    "experienceYears": 16,
-    "languages": [
-      "English",
-      "Hindi",
-      "Kannada"
-    ],
-    "photo": "",
-    "summary": "Narayana Health official directory lists her as Senior Consultant; verify exact hospital campus before publication. This is a preliminary directory-derived entry, not a recommendation or claim about patient volume. Add a fuller clinical summary only after verifying the doctor's official profile, qualifications, current role and areas of practice.",
-    "areasOfPractice": [
-      "Endoscopic Sinus Surgery (FESS)",
-      "Microscopic Ear Surgery (Tympanoplasty, Mastoidectomy)",
-      "Voice Disorders & Phonosurgery",
-      "Snoring & Obstructive Sleep Apnea Surgery"
-    ],
-    "hospitals": [
-      {
-        "hospitalId": "narayana_institute_of_cardiac_sciences",
-        "hospitalName": "Narayana Institute of Cardiac Sciences",
-        "days": "Mon - Sat",
-        "timings": "Regular OPD Hours (By Appointment)",
-        "note": "Affiliation verified against official hospital faculty & consultant directory."
-      }
-    ],
-    "area": "Bommasandra",
-    "city": "Bengaluru",
-    "state": "Karnataka",
-    "location": "Bommasandra, Bengaluru",
-    "phone": "+91 78756 57402",
-    "whatsapp": "+91 78756 57402",
-    "verificationStatus": "independently-checked",
-    "lastChecked": "2026-10-17",
-    "sources": [
-      {
-        "label": "Official Hospital Directory Profile",
-        "url": "https://www.narayanahealth.org/ocaapp/doctors/go./my",
-        "type": "official-registry",
-        "dateChecked": "2026-10-17"
-      }
-    ]
-  },
-  {
     "id": "dr_rashida_patanwala_melinkeri",
     "slug": "dr-rashida-patanwala-melinkeri",
     "name": "Dr. Rashida Patanwala Melinkeri",
@@ -933,7 +476,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Sahyadri\u2019s official profile lists Dr. Rashida Patanwala Melinkeri as a consultant in General Medicine and a lipidologist.",
+    "summary": "Sahyadri’s official profile lists Dr. Rashida Patanwala Melinkeri as a consultant in General Medicine and a lipidologist.",
     "areasOfPractice": [
       "Lipidology; cholesterol disorders; cardiovascular prevention"
     ],
@@ -942,7 +485,7 @@ export const DOCTORS_DATA: Doctor[] = [
         "hospitalId": "sahyadri_super_speciality_hospital",
         "hospitalName": "Sahyadri Super Speciality Hospital",
         "days": "Monday",
-        "timings": "Monday, 11:00 AM\u201312:30 PM (official profile; reconfirm)",
+        "timings": "Monday, 11:00 AM–12:30 PM (official profile; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -967,7 +510,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_shilpa_naik",
     "slug": "dr-shilpa-naik",
     "name": "Dr. Shilpa Naik",
-    "title": "Consultant \u2014 General Surgery",
+    "title": "Consultant — General Surgery",
     "department": "General Surgery",
     "departmentSlug": "general-surgery",
     "speciality": "General Surgery",
@@ -979,7 +522,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Sahyadri\u2019s official profile says Dr. Shilpa Naik practises at Sahyadri Hospitals Kothrud and Deccan Gymkhana.",
+    "summary": "Sahyadri’s official profile says Dr. Shilpa Naik practises at Sahyadri Hospitals Kothrud and Deccan Gymkhana.",
     "areasOfPractice": [
       "Laparoscopic and general surgery"
     ],
@@ -988,7 +531,7 @@ export const DOCTORS_DATA: Doctor[] = [
         "hospitalId": "sahyadri_super_speciality_hospital",
         "hospitalName": "Sahyadri Super Speciality Hospital",
         "days": "Tuesday",
-        "timings": "Tuesday, Thursday and Saturday, 10:00 AM\u201312:00 PM (official profile; reconfirm)",
+        "timings": "Tuesday, Thursday and Saturday, 10:00 AM–12:00 PM (official profile; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1071,7 +614,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Ruby Hall Clinic\u2019s official doctor directory lists Dr. Purvez K. Grant as Managing Trustee and Chief Cardiologist.",
+    "summary": "Ruby Hall Clinic’s official doctor directory lists Dr. Purvez K. Grant as Managing Trustee and Chief Cardiologist.",
     "areasOfPractice": [
       "Cardiology and cardiac care"
     ],
@@ -1079,8 +622,8 @@ export const DOCTORS_DATA: Doctor[] = [
       {
         "hospitalId": "ruby_hall_clinic_sassoon_road",
         "hospitalName": "Ruby Hall Clinic",
-        "days": "Monday\u2013Saturday",
-        "timings": "Monday\u2013Saturday; exact timings should be confirmed",
+        "days": "Monday–Saturday",
+        "timings": "Monday–Saturday; exact timings should be confirmed",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1117,7 +660,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Ruby Hall Clinic\u2019s official directory lists Dr. Ashok Bhanage and provides a Sassoon Road OPD listing.",
+    "summary": "Ruby Hall Clinic’s official directory lists Dr. Ashok Bhanage and provides a Sassoon Road OPD listing.",
     "areasOfPractice": [
       "Neurosurgery; cancer-centre leadership"
     ],
@@ -1125,8 +668,8 @@ export const DOCTORS_DATA: Doctor[] = [
       {
         "hospitalId": "ruby_hall_clinic_sassoon_road",
         "hospitalName": "Ruby Hall Clinic",
-        "days": "Monday\u2013Friday",
-        "timings": "Monday\u2013Friday, 10:00 AM\u20132:00 PM at Sassoon Road unit (official listing; reconfirm)",
+        "days": "Monday–Friday",
+        "timings": "Monday–Friday, 10:00 AM–2:00 PM at Sassoon Road unit (official listing; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1163,7 +706,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Ruby Hall Clinic\u2019s official doctor directory lists Dr. Chakor Vora as a Medical Oncologist.",
+    "summary": "Ruby Hall Clinic’s official doctor directory lists Dr. Chakor Vora as a Medical Oncologist.",
     "areasOfPractice": [
       "Medical oncology"
     ],
@@ -1171,8 +714,8 @@ export const DOCTORS_DATA: Doctor[] = [
       {
         "hospitalId": "ruby_hall_clinic_sassoon_road",
         "hospitalName": "Ruby Hall Clinic",
-        "days": "Monday\u2013Saturday",
-        "timings": "Monday\u2013Saturday, 11:00 AM\u20131:00 PM at Sassoon Road unit (official listing; reconfirm)",
+        "days": "Monday–Saturday",
+        "timings": "Monday–Saturday, 11:00 AM–1:00 PM at Sassoon Road unit (official listing; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1347,7 +890,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jehangir Hospital\u2019s official doctor directory lists Dr. Aarti Kamat as a paediatrician and publishes OPD information.",
+    "summary": "Jehangir Hospital’s official doctor directory lists Dr. Aarti Kamat as a paediatrician and publishes OPD information.",
     "areasOfPractice": [
       "General paediatrics"
     ],
@@ -1356,7 +899,7 @@ export const DOCTORS_DATA: Doctor[] = [
         "hospitalId": "jehangir_hospital",
         "hospitalName": "Jehangir Hospital",
         "days": "Tuesday",
-        "timings": "Tuesday, Thursday and Saturday, 1:00\u20132:00 PM (official listing; reconfirm)",
+        "timings": "Tuesday, Thursday and Saturday, 1:00–2:00 PM (official listing; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1393,7 +936,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jehangir Hospital\u2019s official directory lists Dr. Abhijit Botre as a paediatric neurologist.",
+    "summary": "Jehangir Hospital’s official directory lists Dr. Abhijit Botre as a paediatric neurologist.",
     "areasOfPractice": [
       "Paediatric neurology and epilepsy"
     ],
@@ -1401,8 +944,8 @@ export const DOCTORS_DATA: Doctor[] = [
       {
         "hospitalId": "jehangir_hospital",
         "hospitalName": "Jehangir Hospital",
-        "days": "Thursday 3:00\u20135:00 PM",
-        "timings": "Thursday 3:00\u20135:00 PM; Friday 4:00\u20135:00 PM (official listing; reconfirm)",
+        "days": "Thursday 3:00–5:00 PM",
+        "timings": "Thursday 3:00–5:00 PM; Friday 4:00–5:00 PM (official listing; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1439,7 +982,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jehangir Hospital\u2019s official directory lists Dr. Sanjay Bafna as a paediatrician and includes further paediatric respiratory training.",
+    "summary": "Jehangir Hospital’s official directory lists Dr. Sanjay Bafna as a paediatrician and includes further paediatric respiratory training.",
     "areasOfPractice": [
       "Paediatric respiratory medicine and bronchoscopy"
     ],
@@ -1447,8 +990,8 @@ export const DOCTORS_DATA: Doctor[] = [
       {
         "hospitalId": "jehangir_hospital",
         "hospitalName": "Jehangir Hospital",
-        "days": "Monday\u2013Saturday",
-        "timings": "Monday\u2013Saturday, around 11:00 AM\u20131:00 PM (official listing; reconfirm)",
+        "days": "Monday–Saturday",
+        "timings": "Monday–Saturday, around 11:00 AM–1:00 PM (official listing; reconfirm)",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1526,7 +1069,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_anand_shinde",
     "slug": "dr-anand-shinde",
     "name": "Dr. Anand Shinde",
-    "title": "Senior Consultant & PG Teacher; IVF Consultant and Director \u2014 Andrology",
+    "title": "Senior Consultant & PG Teacher; IVF Consultant and Director — Andrology",
     "department": "IVF and Reproductive Medicine",
     "departmentSlug": "ivf-and-reproductive-medicine",
     "speciality": "Obstetrics & Gynaecology",
@@ -1538,7 +1081,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Deenanath\u2019s official profile states Dr. Anand Shinde has worked there since 2001 and is associated with its IVF Pune unit.",
+    "summary": "Deenanath’s official profile states Dr. Anand Shinde has worked there since 2001 and is associated with its IVF Pune unit.",
     "areasOfPractice": [
       "Infertility; IVF; andrology"
     ],
@@ -1547,7 +1090,7 @@ export const DOCTORS_DATA: Doctor[] = [
         "hospitalId": "deenanath_mangeshkar_hospital_research_center",
         "hospitalName": "Deenanath Mangeshkar Hospital & Research Center",
         "days": "Not published in official doctor listing",
-        "timings": "Official profile: daily availability at IVF Pune, 1:00\u20135:00 PM; call 020-49153347 to reconfirm",
+        "timings": "Official profile: daily availability at IVF Pune, 1:00–5:00 PM; call 020-49153347 to reconfirm",
         "note": "Affiliation is based on the hospital's official doctor/faculty directory or doctor profile. Confirm current schedule with the hospital before showing live availability."
       }
     ],
@@ -1584,7 +1127,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Deenanath\u2019s official profile states Dr. Asha Gokhale is presently working at Deenanath Mangeshkar Hospital and Research Centre.",
+    "summary": "Deenanath’s official profile states Dr. Asha Gokhale is presently working at Deenanath Mangeshkar Hospital and Research Centre.",
     "areasOfPractice": [
       "High-risk obstetrics; preventive oncology; endoscopic surgery"
     ],
@@ -1618,7 +1161,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_abhay_kulkarni",
     "slug": "dr-abhay-kulkarni",
     "name": "Dr. Abhay Kulkarni",
-    "title": "Consultant \u2014 Shoulder Surgeon",
+    "title": "Consultant — Shoulder Surgeon",
     "department": "Orthopaedics",
     "departmentSlug": "orthopaedics",
     "speciality": "Orthopaedics",
@@ -1630,7 +1173,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jupiter Hospital\u2019s official doctor directory lists Dr. Abhay Kulkarni as a Consultant Shoulder Surgeon.",
+    "summary": "Jupiter Hospital’s official doctor directory lists Dr. Abhay Kulkarni as a Consultant Shoulder Surgeon.",
     "areasOfPractice": [
       "Shoulder surgery"
     ],
@@ -1664,7 +1207,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_abhijeet_naik",
     "slug": "dr-abhijeet-naik",
     "name": "Dr. Abhijeet Naik",
-    "title": "Consultant \u2014 Paediatric Cardiac Surgeon",
+    "title": "Consultant — Paediatric Cardiac Surgeon",
     "department": "Cardiac Surgery",
     "departmentSlug": "cardiac-surgery",
     "speciality": "Paediatric Cardiac Surgery",
@@ -1676,7 +1219,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jupiter Hospital\u2019s official doctor directory lists Dr. Abhijeet Naik as a Consultant Paediatric Cardiac Surgeon.",
+    "summary": "Jupiter Hospital’s official doctor directory lists Dr. Abhijeet Naik as a Consultant Paediatric Cardiac Surgeon.",
     "areasOfPractice": [
       "Paediatric cardiac surgery"
     ],
@@ -1710,7 +1253,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_abhijit_p_benare",
     "slug": "dr-abhijit-p-benare",
     "name": "Dr. Abhijit P. Benare",
-    "title": "Consultant \u2014 Laparoscopic Paediatric Surgeon",
+    "title": "Consultant — Laparoscopic Paediatric Surgeon",
     "department": "Paediatric Surgery",
     "departmentSlug": "paediatric-surgery",
     "speciality": "Paediatric Surgery",
@@ -1722,7 +1265,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Jupiter Hospital\u2019s official doctor directory lists Dr. Abhijit P. Benare as a Consultant Laparoscopic Paediatric Surgeon.",
+    "summary": "Jupiter Hospital’s official doctor directory lists Dr. Abhijit P. Benare as a Consultant Laparoscopic Paediatric Surgeon.",
     "areasOfPractice": [
       "Laparoscopic paediatric surgery"
     ],
@@ -1756,7 +1299,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_manohar_sakhare",
     "slug": "dr-manohar-sakhare",
     "name": "Dr. Manohar Sakhare",
-    "title": "Consultant \u2014 Cardiology",
+    "title": "Consultant — Cardiology",
     "department": "Cardiology",
     "departmentSlug": "cardiology",
     "speciality": "Cardiology",
@@ -1770,7 +1313,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Marathi"
     ],
     "photo": "",
-    "summary": "Manipal\u2019s official profile lists Dr. Manohar Sakhare as a Consultant Cardiologist at Kharadi.",
+    "summary": "Manipal’s official profile lists Dr. Manohar Sakhare as a Consultant Cardiologist at Kharadi.",
     "areasOfPractice": [
       "Interventional cardiology; angioplasty; cardiac devices"
     ],
@@ -1804,7 +1347,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_ashish_trivedi",
     "slug": "dr-ashish-trivedi",
     "name": "Dr. Ashish Trivedi",
-    "title": "Associate Consultant \u2014 Cardiology",
+    "title": "Associate Consultant — Cardiology",
     "department": "Cardiology",
     "departmentSlug": "cardiology",
     "speciality": "Cardiology",
@@ -1816,7 +1359,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "KEM Hospital Pune\u2019s official Cardiology page lists Dr. Ashish Trivedi as an Associate Consultant.",
+    "summary": "KEM Hospital Pune’s official Cardiology page lists Dr. Ashish Trivedi as an Associate Consultant.",
     "areasOfPractice": [
       "Cardiology"
     ],
@@ -1865,7 +1408,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Bangla"
     ],
     "photo": "",
-    "summary": "Manipal\u2019s official profile lists Dr. Tanmai Yermal (Jain) as a Consultant Cardiologist and TAVI Expert at Kharadi.",
+    "summary": "Manipal’s official profile lists Dr. Tanmai Yermal (Jain) as a Consultant Cardiologist and TAVI Expert at Kharadi.",
     "areasOfPractice": [
       "Interventional cardiology; structural heart procedures; TAVI; MitraClip"
     ],
@@ -1899,7 +1442,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_bhushan_joshi",
     "slug": "dr-bhushan-joshi",
     "name": "Dr. Bhushan Joshi",
-    "title": "Consultant \u2014 Neurology",
+    "title": "Consultant — Neurology",
     "department": "Neurology",
     "departmentSlug": "neurology",
     "speciality": "Neurology",
@@ -1914,7 +1457,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Bengali"
     ],
     "photo": "",
-    "summary": "Manipal\u2019s official profile states Dr. Bhushan Joshi is a Consultant Neurologist and runs its stroke care unit at Kharadi.",
+    "summary": "Manipal’s official profile states Dr. Bhushan Joshi is a Consultant Neurologist and runs its stroke care unit at Kharadi.",
     "areasOfPractice": [
       "Stroke; headache disorders; epilepsy; movement disorders"
     ],
@@ -1960,7 +1503,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Noble\u2019s official doctor listing identifies Dr. Dileep Mane as Managing Director and Senior Consultant in Internal Medicine.",
+    "summary": "Noble’s official doctor listing identifies Dr. Dileep Mane as Managing Director and Senior Consultant in Internal Medicine.",
     "areasOfPractice": [
       "Internal medicine; diabetes"
     ],
@@ -1994,7 +1537,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_reema_y_kashiva",
     "slug": "dr-reema-y-kashiva",
     "name": "Dr. Reema Y. Kashiva",
-    "title": "Director \u2014 Medicine & Medical Services; HOD \u2014 Diabetes & Obesity",
+    "title": "Director — Medicine & Medical Services; HOD — Diabetes & Obesity",
     "department": "Diabetes & Obesity",
     "departmentSlug": "diabetes-obesity",
     "speciality": "Internal Medicine",
@@ -2006,7 +1549,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Noble\u2019s official doctor listing identifies Dr. Reema Y. Kashiva as Director of Medicine & Medical Services and HOD of Diabetes & Obesity.",
+    "summary": "Noble’s official doctor listing identifies Dr. Reema Y. Kashiva as Director of Medicine & Medical Services and HOD of Diabetes & Obesity.",
     "areasOfPractice": [
       "Diabetes; obesity; internal medicine"
     ],
@@ -2052,7 +1595,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Noble\u2019s official doctor listing identifies Dr. Danish Haroon Memon as Head of Department.",
+    "summary": "Noble’s official doctor listing identifies Dr. Danish Haroon Memon as Head of Department.",
     "areasOfPractice": [
       "General medicine"
     ],
@@ -2098,7 +1641,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Apollo\u2019s official Pune doctor directory lists Dr. Ketan Vartak as a urologist.",
+    "summary": "Apollo’s official Pune doctor directory lists Dr. Ketan Vartak as a urologist.",
     "areasOfPractice": [
       "Urology"
     ],
@@ -2144,7 +1687,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Apollo\u2019s official Pune doctor directory lists Dr. Rajesh Parasnis in orthopaedics and spine surgery.",
+    "summary": "Apollo’s official Pune doctor directory lists Dr. Rajesh Parasnis in orthopaedics and spine surgery.",
     "areasOfPractice": [
       "Orthopaedics; spine surgery"
     ],
@@ -2190,7 +1733,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "Apollo\u2019s official Pune doctor directory lists Dr. Sunil Jawale in nephrology.",
+    "summary": "Apollo’s official Pune doctor directory lists Dr. Sunil Jawale in nephrology.",
     "areasOfPractice": [
       "Nephrology"
     ],
@@ -2224,7 +1767,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_milind_gadkari",
     "slug": "dr-milind-gadkari",
     "name": "Dr. Milind Gadkari",
-    "title": "HOD & Consultant \u2014 Cardiology",
+    "title": "HOD & Consultant — Cardiology",
     "department": "Cardiology",
     "departmentSlug": "cardiology",
     "speciality": "Cardiology",
@@ -2236,7 +1779,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "KEM Hospital Pune\u2019s official Cardiology page lists Dr. Milind Gadkari as HOD and Consultant.",
+    "summary": "KEM Hospital Pune’s official Cardiology page lists Dr. Milind Gadkari as HOD and Consultant.",
     "areasOfPractice": [
       "Cardiac interventions and general cardiology"
     ],
@@ -2270,7 +1813,7 @@ export const DOCTORS_DATA: Doctor[] = [
     "id": "dr_vivek_gaikwad",
     "slug": "dr-vivek-gaikwad",
     "name": "Dr. Vivek Gaikwad",
-    "title": "Associate Consultant \u2014 Cardiology",
+    "title": "Associate Consultant — Cardiology",
     "department": "Cardiology",
     "departmentSlug": "cardiology",
     "speciality": "Cardiology",
@@ -2282,7 +1825,7 @@ export const DOCTORS_DATA: Doctor[] = [
       "Not listed on profile"
     ],
     "photo": "",
-    "summary": "KEM Hospital Pune\u2019s official Cardiology page lists Dr. Vivek Gaikwad as an Associate Consultant.",
+    "summary": "KEM Hospital Pune’s official Cardiology page lists Dr. Vivek Gaikwad as an Associate Consultant.",
     "areasOfPractice": [
       "Cardiology"
     ],

@@ -32,7 +32,7 @@ class DirectoryDataStore {
   public cities: City[] = [];
   public specialities: Speciality[] = [];
 
-  private isReloading: boolean = false;
+  private reloadPromise: Promise<void> | null = null;
 
   private parseJson(val: any): any {
     if (typeof val === 'string') {
@@ -46,9 +46,12 @@ class DirectoryDataStore {
   }
 
   public async reloadAll(): Promise<void> {
-    if (this.isReloading) return;
-    this.isReloading = true;
-    const t0 = performance.now();
+    if (this.reloadPromise) {
+      return this.reloadPromise;
+    }
+
+    this.reloadPromise = (async () => {
+      const t0 = performance.now();
 
     try {
       // 1. Fetch raw hospitals, doctors, affiliations in parallel
@@ -309,8 +312,11 @@ class DirectoryDataStore {
     } catch (err) {
       console.error('[DirectoryDataStore] Error reloading data from Neon:', err);
     } finally {
-      this.isReloading = false;
+      this.reloadPromise = null;
     }
+    })();
+
+    return this.reloadPromise;
   }
 
   public async ensureLoaded(force: boolean = false): Promise<void> {

@@ -93,30 +93,34 @@ async function main() {
     if (!rawCity && baseName.includes('–')) {
       [rawName, rawCity] = baseName.split('–').map((s) => (s ? s.trim().replace(/_+$/, '') : ''));
     }
+    if (rawName.toLowerCase().includes('adi e. dastu')) rawName = 'Dr. Adi E. Dastur';
 
-    const cleanDocName = rawName
-      .toLowerCase()
-      .replace(/^prof\.\s*\(dr\.\)\s*/i, '')
-      .replace(/^dr\.\s*\(prof\.\)\s*/i, '')
-      .replace(/^dr\.?\s*/i, '')
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    const cleanCity = (rawCity || '').toLowerCase().trim();
-
-    // Match against database doctors
-    const matches = doctors.filter((d) => {
-      const dClean = d.name
+    function normalizeName(str) {
+      return (str || '')
         .toLowerCase()
         .replace(/^prof\.\s*\(dr\.\)\s*/i, '')
         .replace(/^dr\.\s*\(prof\.\)\s*/i, '')
         .replace(/^dr\.?\s*/i, '')
+        .replace(/\b[a-z]\b/g, '') // remove single-letter initials
         .replace(/[^a-z0-9\s]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
+    }
 
-      const nameMatch = dClean === cleanDocName || dClean.includes(cleanDocName) || cleanDocName.includes(dClean);
+    const cleanDocName = normalizeName(rawName);
+    const cleanCity = (rawCity || '').toLowerCase().trim();
+
+    // Match against database doctors
+    const matches = doctors.filter((d) => {
+      const dClean = normalizeName(d.name);
+
+      let nameMatch = dClean === cleanDocName || dClean.includes(cleanDocName) || cleanDocName.includes(dClean);
+      if (!nameMatch) {
+        const words = cleanDocName.split(' ').filter((w) => w.length > 2);
+        if (words.length >= 2 && words.every((w) => dClean.includes(w))) {
+          nameMatch = true;
+        }
+      }
       if (!nameMatch) return false;
 
       if (cleanCity && d.city) {
