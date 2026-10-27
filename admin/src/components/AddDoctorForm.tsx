@@ -255,6 +255,46 @@ export function AddDoctorForm({
   };
 
   // Handlers for Hospital Affiliation Schedule
+  // Instantly connect hospital when chosen from the dropdown
+  const handleSelectHospital = (hospId: string) => {
+    setSelectedHospitalId(hospId);
+    if (!hospId) return;
+
+    const hospitalObj = allHospitals.find((h) => h.id === hospId);
+    if (!hospitalObj) return;
+
+    if (!hospitalAffiliations.some((aff) => aff.hospital_id === hospId)) {
+      const newAff: HospitalAffiliationItem = {
+        hospital_id: hospId,
+        hospital_name: hospitalObj.name,
+        hospital_city: hospitalObj.city,
+        days: affDays || 'Mon to Sat',
+        timings: affTimings || '11:00 AM - 02:00 PM',
+        note: affNote || 'Prior appointment required',
+      };
+      setHospitalAffiliations((prev) => [...prev, newAff]);
+      toast.success(`Connected ${hospitalObj.name}`, {
+        description: `Scheduled: ${newAff.days} (${newAff.timings})`,
+      });
+    }
+  };
+
+  const updateActiveSchedule = (field: 'days' | 'timings' | 'note', value: string) => {
+    if (field === 'days') setAffDays(value);
+    if (field === 'timings') setAffTimings(value);
+    if (field === 'note') setAffNote(value);
+
+    if (selectedHospitalId) {
+      setHospitalAffiliations((prev) =>
+        prev.map((aff) =>
+          aff.hospital_id === selectedHospitalId
+            ? { ...aff, [field]: value }
+            : aff
+        )
+      );
+    }
+  };
+
   const handleAddHospitalAffiliation = () => {
     if (!selectedHospitalId) {
       toast.error('Please select a hospital to connect');
@@ -508,12 +548,29 @@ export function AddDoctorForm({
         areas_of_practice: areasOfPractice,
         photo: primaryPhoto,
         images: orderedImages,
-        hospital_affiliations: hospitalAffiliations.map((aff) => ({
-          hospital_id: aff.hospital_id,
-          days: aff.days,
-          timings: aff.timings,
-          note: aff.note,
-        })),
+        // Auto-merge currently active dropdown selection if user forgot to click the "+ Add" button
+        hospital_affiliations: (() => {
+          const list = [...hospitalAffiliations];
+          if (
+            selectedHospitalId &&
+            !list.some((aff) => aff.hospital_id === selectedHospitalId)
+          ) {
+            list.push({
+              hospital_id: selectedHospitalId,
+              hospital_name: allHospitals.find((h) => h.id === selectedHospitalId)?.name || selectedHospitalId,
+              hospital_city: allHospitals.find((h) => h.id === selectedHospitalId)?.city || '',
+              days: affDays || 'Mon to Sat',
+              timings: affTimings || '11:00 AM - 02:00 PM',
+              note: affNote || 'Prior appointment required',
+            });
+          }
+          return list.map((aff) => ({
+            hospital_id: aff.hospital_id,
+            days: aff.days,
+            timings: aff.timings,
+            note: aff.note,
+          }));
+        })(),
         connected_laboratory_ids: selectedLaboratoryIds,
       };
 
@@ -1035,7 +1092,7 @@ export function AddDoctorForm({
                   />
                   <select
                     value={selectedHospitalId}
-                    onChange={(e) => setSelectedHospitalId(e.target.value)}
+                    onChange={(e) => handleSelectHospital(e.target.value)}
                     className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-[#03045e] bg-white"
                   >
                     <option value="">-- Choose Hospital to Affiliate --</option>
@@ -1056,7 +1113,7 @@ export function AddDoctorForm({
                   <input
                     type="text"
                     value={affDays}
-                    onChange={(e) => setAffDays(e.target.value)}
+                    onChange={(e) => updateActiveSchedule('days', e.target.value)}
                     placeholder="e.g. Mon to Sat"
                     className="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-white"
                   />
@@ -1071,7 +1128,7 @@ export function AddDoctorForm({
                   <input
                     type="text"
                     value={affTimings}
-                    onChange={(e) => setAffTimings(e.target.value)}
+                    onChange={(e) => updateActiveSchedule('timings', e.target.value)}
                     placeholder="e.g. 11:00 AM - 02:00 PM"
                     className="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-white"
                   />
@@ -1084,7 +1141,7 @@ export function AddDoctorForm({
                 <input
                   type="text"
                   value={affNote}
-                  onChange={(e) => setAffNote(e.target.value)}
+                  onChange={(e) => updateActiveSchedule('note', e.target.value)}
                   placeholder="e.g. Neuro Sciences Clinic, Prior appointment required"
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-white"
                 />

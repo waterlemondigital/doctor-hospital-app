@@ -893,13 +893,21 @@ adminRouter.post('/admin/hospitals', async (req: Request, res: Response) => {
 
     // Handle connected doctors affiliations
     if (Array.isArray(connected_doctor_ids) && connected_doctor_ids.length > 0) {
-      for (const docId of connected_doctor_ids) {
+      for (const rawDocId of connected_doctor_ids) {
+        const docId = (rawDocId || '').trim();
         if (!docId) continue;
+        const docCheck = await query(
+          'SELECT id FROM doctors WHERE id = $1 OR slug = $1 OR LOWER(name) = LOWER($1) LIMIT 1',
+          [docId]
+        );
+        if (docCheck.rows.length === 0) continue;
+        const resolvedDocId = docCheck.rows[0].id;
+
         await query(
           `INSERT INTO doctor_hospital_affiliations (doctor_id, hospital_id, days, timings, note)
            VALUES ($1, $2, 'By Appointment', 'Regular OPD Hours', 'Hospital consultation verified.')
            ON CONFLICT (doctor_id, hospital_id) DO NOTHING`,
-          [docId, hospitalId]
+          [resolvedDocId, hospitalId]
         );
       }
     }
@@ -1322,12 +1330,16 @@ adminRouter.post('/admin/doctors', async (req: Request, res: Response) => {
     // Handle Hospital Affiliations (Schedule)
     if (Array.isArray(hospital_affiliations) && hospital_affiliations.length > 0) {
       for (const aff of hospital_affiliations) {
-        const hospId = typeof aff === 'string' ? aff : aff.hospital_id;
+        const hospId = (typeof aff === 'string' ? aff : aff.hospital_id || '').trim();
         if (!hospId) continue;
 
-        // Verify hospital exists
-        const hospCheck = await query('SELECT id FROM hospitals WHERE id = $1', [hospId]);
+        // Verify hospital exists (supports id, slug, or name matching)
+        const hospCheck = await query(
+          'SELECT id FROM hospitals WHERE id = $1 OR slug = $1 OR LOWER(name) = LOWER($1) LIMIT 1',
+          [hospId]
+        );
         if (hospCheck.rows.length === 0) continue;
+        const resolvedHospId = hospCheck.rows[0].id;
 
         const days = (typeof aff === 'object' && aff.days) ? aff.days : 'Mon - Sat';
         const timings = (typeof aff === 'object' && aff.timings) ? aff.timings : '11:00 AM - 02:00 PM';
@@ -1340,7 +1352,7 @@ adminRouter.post('/admin/doctors', async (req: Request, res: Response) => {
              days = EXCLUDED.days,
              timings = EXCLUDED.timings,
              note = EXCLUDED.note`,
-          [docId, hospId, days, timings, note]
+          [docId, resolvedHospId, days, timings, note]
         );
       }
     }
