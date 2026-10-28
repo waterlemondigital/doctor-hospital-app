@@ -21,8 +21,7 @@
     "media:upload-doctors": "node scripts/media_optimizer_pipeline.js --upload --type=doctors",
     "media:upload-doctor-images": "node scripts/upload_doctor_images_r2.js",
     "media:cache-bust": "node scripts/cache_bust_media_urls.js",
-    "db:rollback:latest": "node scripts/restore_savepoint_20261027.js",
-    "db:rollback:20261027": "node scripts/restore_savepoint_20261027.js",
+    "db:rollback:latest": "node scripts/restore_savepoint_20261028.js",
     "db:populate-hospitals": "node scripts/populate_hospitals.js",
     "db:ingest-hospitals": "node scripts/populate_hospitals.js",
     "db:ingest-doctors": "node scripts/populate_doctors.js"

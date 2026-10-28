@@ -1645,9 +1645,9 @@ Dr Andie Hartanto Djohan is included in the source hospital record as a connecte
 
 ---
 
-# Doctor: `Adj A/Prof Anand Adinath Ambhore`
+# Doctor: `Adj A Prof Anand Adinath Ambhore`
 
-- **Name**: Adj A/Prof Anand Adinath Ambhore
+- **Name**: Adj A Prof Anand Adinath Ambhore
 - **Title**: Adj / academic clinician
 - **City**: Singapore
 - **Area**: Kent Ridge
@@ -1669,7 +1669,7 @@ Dr Andie Hartanto Djohan is included in the source hospital record as a connecte
 - **Connected Laboratories**: `Contact our consultant`
 
 ### Summary
-Adj A/Prof Anand Adinath Ambhore is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/
+Adj A Prof Anand Adinath Ambhore is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/
 
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
@@ -1965,9 +1965,9 @@ Adj Prof Gabriel Liu is included in the source hospital record as a connected sp
 
 ---
 
-# Doctor: `Adj A/Prof Naresh Kumar`
+# Doctor: `Adj A Prof Naresh Kumar`
 
-- **Name**: Adj A/Prof Naresh Kumar
+- **Name**: Adj A Prof Naresh Kumar
 - **Title**: Adj / academic clinician
 - **City**: Singapore
 - **Area**: Kent Ridge
@@ -1989,7 +1989,7 @@ Adj Prof Gabriel Liu is included in the source hospital record as a connected sp
 - **Connected Laboratories**: `Contact our consultant`
 
 ### Summary
-Adj A/Prof Naresh Kumar is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
+Adj A Prof Naresh Kumar is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
 
 ### Areas of Practice
 - Musculoskeletal conditions
@@ -1997,9 +1997,9 @@ Adj A/Prof Naresh Kumar is included in the source hospital record as a connected
 
 ---
 
-# Doctor: `Adj A/Prof Mark Puhaindran`
+# Doctor: `Adj A Prof Mark Puhaindran`
 
-- **Name**: Adj A/Prof Mark Puhaindran
+- **Name**: Adj A Prof Mark Puhaindran
 - **Title**: Adj / academic clinician
 - **City**: Singapore
 - **Area**: Kent Ridge
@@ -2021,7 +2021,7 @@ Adj A/Prof Naresh Kumar is included in the source hospital record as a connected
 - **Connected Laboratories**: `Contact our consultant`
 
 ### Summary
-Adj A/Prof Mark Puhaindran is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/care-at-nuh/services/hand-and-reconstructive-microsurgery/our-doctors
+Adj A Prof Mark Puhaindran is included in the source hospital record as a connected specialist for National University Hospital (NUH). The specialty mapping shown here is based on the hospital or specialist directory referenced below where available; details not independently confirmed in the reviewed public source are marked for direct verification. Source: https://www.nuh.com.sg/care-at-nuh/services/hand-and-reconstructive-microsurgery/our-doctors
 
 ### Areas of Practice
 - Musculoskeletal conditions

@@ -177,7 +177,7 @@ Raffles Hospital is a private integrated hospital on North Bridge Road and part 
 - **Maps URL**: https://www.google.com/maps/search/?api=1&query=National+University+Hospital+5+Lower+Kent+Ridge+Road+Singapore+119074
 
 #### Relations
-- **Connected Doctors**: Prof Tan Huay Cheem, Prof Mark Chan Yan Yee, Dr Robin Cherian, Dr Jeanette Ting Hsin Yeen, Dr Andie Hartanto Djohan, Adj A/Prof Anand Adinath Ambhore, Dr Sim Hui Wen, Dr Kevin Leong Ming Wei, Dr Anand Jeyasekharan, A/Prof David Tan Shao Peng, Dr Ho Jingshan, Dr Chong Wan Qin, Dr Natalie Ngoi, Prof James Hui, Adj Prof Gabriel Liu, Adj A/Prof Naresh Kumar, Adj A/Prof Mark Puhaindran, A/Prof Joseph Thambiah, Dr Nicholas Chew, Dr Eugene Tan
+- **Connected Doctors**: Prof Tan Huay Cheem, Prof Mark Chan Yan Yee, Dr Robin Cherian, Dr Jeanette Ting Hsin Yeen, Dr Andie Hartanto Djohan, Adj A Prof Anand Adinath Ambhore, Dr Sim Hui Wen, Dr Kevin Leong Ming Wei, Dr Anand Jeyasekharan, A/Prof David Tan Shao Peng, Dr Ho Jingshan, Dr Chong Wan Qin, Dr Natalie Ngoi, Prof James Hui, Adj Prof Gabriel Liu, Adj A Prof Naresh Kumar, Adj A Prof Mark Puhaindran, A/Prof Joseph Thambiah, Dr Nicholas Chew, Dr Eugene Tan
 - **Connected Laboratories**: NUH Laboratory Medicine (confirm test catalogue, referral requirements and international-patient access directly with NUH)
 
 ### Overview
