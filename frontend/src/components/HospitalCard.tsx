@@ -52,11 +52,13 @@ export function HospitalCard({ hospital, className }: HospitalCardProps) {
           )}
 
           {/* Facility Type Badge directly matching hospital page */}
-          <div className="absolute bottom-3 left-3">
-            <span className="rounded-md bg-white/95 backdrop-blur-xs px-2.5 py-1 text-[11px] font-bold text-[#03045e] shadow-2xs border border-white/60">
-              {hospital.facilityTypeBadge}
-            </span>
-          </div>
+          {hospital.facilityTypeBadge && (
+            <div className="absolute bottom-3 left-3">
+              <span className="rounded-md bg-white/95 backdrop-blur-xs px-2.5 py-1 text-[11px] font-bold text-[#03045e] shadow-2xs border border-white/60">
+                {hospital.facilityTypeBadge}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Content Body */}
@@ -81,22 +83,24 @@ export function HospitalCard({ hospital, className }: HospitalCardProps) {
           </p>
 
           {/* Clinical Departments directly matching hospital page */}
-          <div className="space-y-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Departments
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {hospital.departments.slice(0, 3).map((dept) => (
-                <Badge
-                  key={dept.slug}
-                  variant="secondary"
-                  className="text-[11px] py-0.5 px-2 bg-[#caf0f8]/60 text-[#03045e]"
-                >
-                  {dept.name}
-                </Badge>
-              ))}
+          {(hospital.departments && hospital.departments.length > 0) && (
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                Departments
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {hospital.departments.slice(0, 3).map((dept, idx) => (
+                  <Badge
+                    key={dept.slug || dept.name || idx}
+                    variant="secondary"
+                    className="text-[11px] py-0.5 px-2 bg-[#caf0f8]/60 text-[#03045e]"
+                  >
+                    {dept.name}
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </CardContent>
       </div>
 

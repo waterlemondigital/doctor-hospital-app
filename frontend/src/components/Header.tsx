@@ -18,6 +18,8 @@ import {
   Sparkles,
   LayoutDashboard,
   Activity,
+  Globe,
+  ArrowRight,
 } from 'lucide-react';
 import { SITE_NAME } from '../data/config';
 import { Sheet } from './ui/sheet';
@@ -25,12 +27,62 @@ import { SearchDialog } from './SearchDialog';
 import { AuthDialog } from './AuthDialog';
 import { useAuth } from '../lib/auth';
 
+const HOSPITAL_COUNTRIES = [
+  {
+    name: 'India',
+    slug: 'india',
+    flag: '🇮🇳',
+    desc: '60+ Super-speciality & NABH/JCI accredited centers',
+  },
+  {
+    name: 'Singapore',
+    slug: 'singapore',
+    flag: '🇸🇬',
+    desc: 'Mount Elizabeth, Gleneagles, NUH & SGH',
+  },
+  {
+    name: 'Turkey',
+    slug: 'turkey',
+    flag: '🇹🇷',
+    desc: 'Advanced surgical care & international centers',
+  },
+  {
+    name: 'Thailand',
+    slug: 'thailand',
+    flag: '🇹🇭',
+    desc: 'World-renowned medical tourism & wellness',
+  },
+  {
+    name: 'Germany',
+    slug: 'germany',
+    flag: '🇩🇪',
+    desc: 'Pioneering university medicine & oncology',
+  },
+];
+
+const HOSPITAL_SPECIALITIES = [
+  { name: 'Cardiology', icon: '❤️', desc: 'Heart & Interventional' },
+  { name: 'Oncology', icon: '🎗️', desc: 'Cancer Care & Surgery' },
+  { name: 'Neurology', icon: '🧠', desc: 'Brain & Spine Care' },
+  { name: 'Orthopaedics', icon: '🦴', desc: 'Joint & Bone Surgery' },
+  { name: 'Gastroenterology', icon: '🩺', desc: 'Digestive & Liver' },
+  { name: 'Organ Transplant', icon: '🫀', desc: 'Liver, Kidney, Heart' },
+  { name: 'Nephrology & Urology', icon: '💧', desc: 'Renal & Bladder Care' },
+  { name: 'IVF & Fertility', icon: '👶', desc: 'Reproductive Medicine' },
+];
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [isAuthOpen, setIsAuthOpen] = React.useState(false);
   const [authMode, setAuthMode] = React.useState<'login' | 'signup'>('login');
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+
+  // Hospital hover mega-dropdown state
+  const [isHospitalDropdownOpen, setIsHospitalDropdownOpen] = React.useState(false);
+  const hospitalDropdownRef = React.useRef<HTMLDivElement>(null);
+  const hospitalCloseTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [isMobileHospitalOpen, setIsMobileHospitalOpen] = React.useState(false);
 
   const [isAyushDropdownOpen, setIsAyushDropdownOpen] = React.useState(false);
   const ayushDropdownRef = React.useRef<HTMLDivElement>(null);
@@ -41,7 +93,6 @@ export function Header() {
   const userMenuRef = React.useRef<HTMLDivElement>(null);
 
   const mainNavLinks = [
-    { label: 'Hospital', path: '/hospitals' },
     { label: 'Find Doctors', path: '/doctors' },
     { label: 'Laboratories', path: '/laboratories' },
     { label: 'Wellness center', path: '/wellness-centers' },
@@ -52,6 +103,20 @@ export function Header() {
     { label: 'Homeopathy', path: '/homeopathy', desc: 'Classical constitutional clinics' },
     { label: 'Ayurvedic', path: '/ayurvedic', desc: 'Panchakarma & holistic care' },
   ];
+
+  const handleHospitalMouseEnter = () => {
+    if (hospitalCloseTimeoutRef.current) {
+      clearTimeout(hospitalCloseTimeoutRef.current);
+      hospitalCloseTimeoutRef.current = null;
+    }
+    setIsHospitalDropdownOpen(true);
+  };
+
+  const handleHospitalMouseLeave = () => {
+    hospitalCloseTimeoutRef.current = setTimeout(() => {
+      setIsHospitalDropdownOpen(false);
+    }, 180);
+  };
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -67,10 +132,21 @@ export function Header() {
 
   // Close dropdowns on route change
   React.useEffect(() => {
+    setIsHospitalDropdownOpen(false);
+    setIsMobileHospitalOpen(false);
     setIsAyushDropdownOpen(false);
     setIsUserMenuOpen(false);
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Clean up hover timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (hospitalCloseTimeoutRef.current) {
+        clearTimeout(hospitalCloseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Close dropdowns if clicked outside
   React.useEffect(() => {
@@ -78,6 +154,9 @@ export function Header() {
       const target = event.target as Node;
       if (userMenuRef.current && !userMenuRef.current.contains(target)) {
         setIsUserMenuOpen(false);
+      }
+      if (hospitalDropdownRef.current && !hospitalDropdownRef.current.contains(target)) {
+        setIsHospitalDropdownOpen(false);
       }
       if (ayushDropdownRef.current && !ayushDropdownRef.current.contains(target)) {
         setIsAyushDropdownOpen(false);
@@ -106,6 +185,136 @@ export function Header() {
 
           {/* Zone 2: Navigation Links */}
           <nav className="hidden xl:flex items-center gap-6 2xl:gap-8 text-sm 2xl:text-base font-semibold text-slate-700">
+            {/* Hospitals Hover Mega-Dropdown */}
+            <div
+              className="relative"
+              ref={hospitalDropdownRef}
+              onMouseEnter={handleHospitalMouseEnter}
+              onMouseLeave={handleHospitalMouseLeave}
+            >
+              <Link
+                to="/hospitals"
+                className={`relative flex items-center gap-1.5 py-1.5 transition-colors whitespace-nowrap shrink-0 hover:text-[#0077b6] cursor-pointer ${
+                  isActive('/hospitals')
+                    ? 'text-[#0077b6] font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#0077b6] after:rounded-full'
+                    : 'text-slate-700'
+                }`}
+                aria-expanded={isHospitalDropdownOpen}
+              >
+                <span>Hospitals</span>
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                    isHospitalDropdownOpen ? 'rotate-180 text-[#0077b6]' : 'text-slate-400'
+                  }`}
+                />
+              </Link>
+
+              {/* Mega Dropdown Panel */}
+              {isHospitalDropdownOpen && (
+                <div
+                  className="absolute -left-6 top-full mt-2 w-[700px] rounded-2xl bg-white p-5 shadow-2xl border border-[#90e0ef]/70 animate-in fade-in zoom-in-95 duration-150 z-50 text-left"
+                  onMouseEnter={handleHospitalMouseEnter}
+                  onMouseLeave={handleHospitalMouseLeave}
+                >
+                  {/* Top Section: Hospitals by Country */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-4 w-4 text-[#0077b6]" />
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                          Hospitals by Country
+                        </span>
+                      </div>
+                      <Link
+                        to="/hospitals"
+                        onClick={() => setIsHospitalDropdownOpen(false)}
+                        className="text-xs font-bold text-[#0077b6] hover:text-[#023e8a] hover:underline flex items-center gap-1"
+                      >
+                        <span>Browse All Hospitals</span>
+                        <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {HOSPITAL_COUNTRIES.map((country) => (
+                        <Link
+                          key={country.slug}
+                          to={`/hospitals?country=${country.slug}`}
+                          onClick={() => setIsHospitalDropdownOpen(false)}
+                          className="flex items-start gap-3 p-2.5 rounded-xl border border-slate-100 bg-slate-50/60 hover:bg-[#caf0f8]/40 hover:border-[#90e0ef] transition-all group text-left"
+                        >
+                          <span className="text-2xl shrink-0 pt-0.5 drop-shadow-xs">{country.flag}</span>
+                          <div className="min-w-0 flex-1">
+                            <span className="font-bold text-xs text-[#03045e] group-hover:text-[#0077b6] transition-colors block">
+                              {country.name}
+                            </span>
+                            <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                              {country.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Section: Specialities */}
+                  <div className="mt-4 pt-3.5 border-t border-slate-100 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <HeartPulse className="h-4 w-4 text-[#0077b6]" />
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                          Hospitals by Medical Speciality
+                        </span>
+                      </div>
+                      <Link
+                        to="/doctors"
+                        onClick={() => setIsHospitalDropdownOpen(false)}
+                        className="text-xs font-semibold text-slate-500 hover:text-[#0077b6]"
+                      >
+                        Find Doctors →
+                      </Link>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-2">
+                      {HOSPITAL_SPECIALITIES.map((spec) => (
+                        <Link
+                          key={spec.name}
+                          to={`/hospitals?speciality=${encodeURIComponent(spec.name)}`}
+                          onClick={() => setIsHospitalDropdownOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 hover:text-[#0077b6] transition-colors group text-left border border-transparent hover:border-slate-200"
+                        >
+                          <span className="text-sm shrink-0">{spec.icon}</span>
+                          <div className="min-w-0">
+                            <div className="text-xs font-bold text-slate-700 group-hover:text-[#0077b6] truncate">
+                              {spec.name}
+                            </div>
+                            <div className="text-[10px] text-slate-400 truncate">
+                              {spec.desc}
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Footer Info Bar */}
+                  <div className="mt-4 -mx-5 -mb-5 px-5 py-2.5 bg-gradient-to-r from-slate-50 to-[#caf0f8]/30 border-t border-slate-100 rounded-b-2xl flex items-center justify-between text-xs text-slate-600">
+                    <div className="flex items-center gap-1.5">
+                      <ShieldCheck className="h-4 w-4 text-[#0077b6]" />
+                      <span>Factual, verified healthcare facilities with no commercial pay-to-rank listings.</span>
+                    </div>
+                    <Link
+                      to="/about"
+                      onClick={() => setIsHospitalDropdownOpen(false)}
+                      className="font-bold text-[#0077b6] hover:underline whitespace-nowrap ml-2"
+                    >
+                      Verification Standards →
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {mainNavLinks.map((link) => (
               <Link
                 key={link.path}
@@ -570,16 +779,74 @@ export function Header() {
               </Link>
             )}
 
-            <Link
-              to="/hospitals"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors ${
-                isActive('/hospitals') ? 'bg-[#caf0f8] text-[#03045e]' : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              <Building2 className="h-4 w-4 text-[#0077b6]" />
-              <span>Hospital</span>
-            </Link>
+            {/* Mobile Collapsible Dropdown: Hospitals by Country & Speciality */}
+            <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setIsMobileHospitalOpen(!isMobileHospitalOpen)}
+                className="w-full flex items-center justify-between px-3.5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Building2 className="h-4 w-4 text-[#0077b6]" />
+                  <span>Hospitals</span>
+                </div>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+                    isMobileHospitalOpen ? 'rotate-180 text-[#0077b6]' : ''
+                  }`}
+                />
+              </button>
+
+              {isMobileHospitalOpen && (
+                <div className="px-3 pb-3 pt-1 space-y-3 bg-white border-t border-slate-100">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
+                      Hospitals by Country
+                    </span>
+                    <div className="grid grid-cols-1 gap-1">
+                      {HOSPITAL_COUNTRIES.map((country) => (
+                        <Link
+                          key={country.slug}
+                          to={`/hospitals?country=${country.slug}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-2.5 p-2 rounded-lg text-xs font-semibold text-slate-700 hover:bg-[#caf0f8]/50 transition-colors"
+                        >
+                          <span className="text-base">{country.flag}</span>
+                          <span>{country.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
+                      Hospitals by Speciality
+                    </span>
+                    <div className="grid grid-cols-2 gap-1">
+                      {HOSPITAL_SPECIALITIES.map((spec) => (
+                        <Link
+                          key={spec.name}
+                          to={`/hospitals?speciality=${encodeURIComponent(spec.name)}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-1.5 p-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-[#0077b6] hover:bg-slate-50 transition-colors"
+                        >
+                          <span>{spec.icon}</span>
+                          <span className="truncate">{spec.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/hospitals"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-center py-2 text-xs font-bold text-white bg-gradient-to-r from-[#0077b6] to-[#03045e] hover:from-[#023e8a] hover:to-[#03045e] rounded-lg transition-colors shadow-2xs"
+                  >
+                    Browse All Hospitals →
+                  </Link>
+                </div>
+              )}
+            </div>
 
             <Link
               to="/doctors"
