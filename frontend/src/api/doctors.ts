@@ -100,7 +100,7 @@ export async function fetchDoctors(params?: {
     if (params?.search) query.set('search', params.search);
 
     const qs = query.toString() ? `?${query.toString()}` : '';
-    const rawList = await apiFetch<RawDoctor[]>(`/doctors${qs}`, { skipCache: true });
+    const rawList = await apiFetch<RawDoctor[]>(`/doctors${qs}`, { cacheTtlMs: 30 * 1000 });
     return rawList.map((d) => mapDoctor(d));
   } catch (err) {
     console.warn('API error fetching doctors:', err);
@@ -110,7 +110,7 @@ export async function fetchDoctors(params?: {
 
 export async function fetchDoctorBySlug(slug: string): Promise<Doctor | null> {
   try {
-    const raw = await apiFetch<RawDoctor>(`/doctors/${slug}`, { skipCache: true });
+    const raw = await apiFetch<RawDoctor>(`/doctors/${slug}`, { cacheTtlMs: 10 * 1000 });
     return mapDoctor(raw);
   } catch (err) {
     console.warn(`API error fetching doctor ${slug}:`, err);

@@ -101,7 +101,7 @@ export async function fetchHospitals(params?: {
     if (params?.search) query.set('search', params.search);
 
     const qs = query.toString() ? `?${query.toString()}` : '';
-    const rawList = await apiFetch<RawHospital[]>(`/hospitals${qs}`, { skipCache: true });
+    const rawList = await apiFetch<RawHospital[]>(`/hospitals${qs}`, { cacheTtlMs: 30 * 1000 });
     return rawList.map((h, i) => mapHospital(h, i));
   } catch (err) {
     console.warn('API error fetching hospitals:', err);
@@ -111,7 +111,7 @@ export async function fetchHospitals(params?: {
 
 export async function fetchHospitalBySlug(slug: string): Promise<Hospital | null> {
   try {
-    const raw = await apiFetch<RawHospital>(`/hospitals/${slug}`, { skipCache: true });
+    const raw = await apiFetch<RawHospital>(`/hospitals/${slug}`, { cacheTtlMs: 10 * 1000 });
     return mapHospital(raw);
   } catch (err) {
     console.warn(`API error fetching hospital ${slug}:`, err);

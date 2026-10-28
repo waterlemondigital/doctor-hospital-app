@@ -20,7 +20,7 @@ interface CacheEntry<T> {
 
 const memoryCache = new Map<string, CacheEntry<any>>();
 const inFlightRequests = new Map<string, Promise<any>>();
-const DEFAULT_CACHE_TTL_MS = 10 * 1000; // 10 seconds (was 5 minutes) for instant reactivity
+const DEFAULT_CACHE_TTL_MS = 30 * 1000; // 30 seconds: balanced freshness and instant 0ms client navigation
 
 export interface ApiFetchOptions extends RequestInit {
   cacheTtlMs?: number;
