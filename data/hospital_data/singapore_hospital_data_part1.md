@@ -33,14 +33,14 @@ Mount Elizabeth Hospital (Orchard) is a private acute-care hospital in Singapore
 - Multidisciplinary perioperative and critical-care support for complex treatment pathways.
 
 ### Departments
-- **Cardiology** — doctors listed in official Mount Elizabeth specialist/hospital programme materials include Dr Lim Tai Tian, Dr Alfred Cheng, and Dr Ang Teck Kee. Additional relevant specialists in the hospital/medical-centre directory include Dr Agasthian Thirugnanam (cardiothoracic surgery) and Dr Tan Aik Hau (respiratory medicine). Official specialist directory: https://www.memc.com.sg/specialists/
-- **Oncology / Cancer Care** — Dr Ang Peng Tiam and Dr Akhil Chopra are listed under medical oncology in the Mount Elizabeth Medical Centre specialist directory. The exact clinic location and current hospital admitting privileges should be confirmed with the provider. Directory: https://www.memc.com.sg/specialists/
-- **Gastroenterology & Hepatology / Liver Transplantation** — Dr Kieron Lim and Dr Tan Poh Seng are identified in the official Mount Elizabeth liver-transplant programme material. Programme document: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-- **General Surgery** — Dr Chan Chung Yip, Dr Wong Jen San, Dr Tan Yu Meng, Dr Victor Lee, Dr Lee Ser Yee, Dr Tan Ek Khoon and Dr Iyer Shridhar Ganpathi are identified in the hospital’s liver-transplant programme team material. Programme document: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-- **Neurosurgery** — Dr Alvin Hong is listed under neurosurgery in the Mount Elizabeth Medical Centre specialist directory. Directory: https://www.memc.com.sg/specialists/
-- **Cardiothoracic Surgery** — Dr Agasthian Thirugnanam is listed under cardiothoracic surgery in the Mount Elizabeth Medical Centre specialist directory. Directory: https://www.memc.com.sg/specialists/
-- **Respiratory Medicine** — Dr Tan Aik Hau is identified in the hospital’s liver-transplant programme team material. Programme document: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-- **Infectious Diseases** — Dr Asok Kurup is identified in the hospital’s liver-transplant programme team material. Programme document: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
+- Cardiology
+- Oncology / Cancer Care
+- Gastroenterology & Hepatology / Liver Transplantation
+- General Surgery
+- Neurosurgery
+- Cardiothoracic Surgery
+- Respiratory Medicine
+- Infectious Diseases
 
 ### Facilities
 - 24-hour Accident & Emergency / walk-in service; verify emergency routing with the hospital before travel.
@@ -50,7 +50,6 @@ Mount Elizabeth Hospital (Orchard) is a private acute-care hospital in Singapore
 - Diagnostic imaging and interventional radiology services, including CT, MRI, ultrasound, mammography and angiography-related services as listed by the adjacent Mount Elizabeth Medical Centre.
 - Specialist outpatient clinics in a wide range of disciplines.
 - Multidisciplinary liver-transplant programme team as described in the official programme document.
-- Sources: https://www.mountelizabeth.com.sg/ ; https://www.memc.com.sg/facilities-and-services/ ; https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -89,14 +88,14 @@ Gleneagles Hospital is a private hospital on Napier Road in Singapore and part o
 - International-patient enquiries and assistance through the hospital’s official channels.
 
 ### Departments
-- **Cardiology** — consult the official specialist finder for the current Gleneagles-affiliated cardiology roster: https://www.gleneagles.com.sg/
-- **Oncology / Cancer Care** — consult the official specialist finder for current medical and radiation oncology providers: https://www.gleneagles.com.sg/
-- **Obstetrics & Gynaecology** — consult the official specialist finder for current obstetricians and gynaecologists: https://www.gleneagles.com.sg/
-- **Orthopaedics** — consult the official specialist finder for current orthopaedic surgeons: https://www.gleneagles.com.sg/
-- **Gastroenterology** — consult the official specialist finder for current gastroenterologists: https://www.gleneagles.com.sg/
-- **General & Specialist Surgery** — available services and operating privileges should be confirmed with the hospital and individual surgeon.
-- **Diagnostic Imaging** — diagnostic investigations are arranged according to the treating specialist’s clinical plan.
-- **Emergency Medicine** — emergency access and current services should be confirmed directly before travel.
+- Cardiology
+- Oncology / Cancer Care
+- Obstetrics & Gynaecology
+- Orthopaedics
+- Gastroenterology
+- General & Specialist Surgery
+- Diagnostic Imaging
+- Emergency Medicine
 
 ### Facilities
 - Inpatient hospital wards and operating theatres.
@@ -144,13 +143,13 @@ Raffles Hospital is a private integrated hospital on North Bridge Road and part 
 - International-patient coordination, medical referrals, appointment assistance and interpreter support.
 
 ### Departments
-- **Cardiology / Heart Centre** — Dr Ng Wai Lin, Dr Lee Yian Ping, Dr Philip Wong En Hou, Dr Tan Sian-Tsung and Dr Jimmy Ong Heng Ann are listed on the official Raffles Heart Centre specialist page. Source: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
-- **Oncology / Cancer Centre** — Dr Lee Chern Siang (medical oncology), Dr Brendan Chia Seng Hup (radiation oncology), Dr Shaun Ho Zhirui (radiation oncology) and Dr Ooi Wei Seong (medical oncology) are listed on the official Raffles Cancer Centre specialist page. Source: https://www.rafflesmedicalgroup.com/services/specialist-centres/cancer/our-specialists/
-- **General Surgery / Gastrointestinal & Bariatric Surgery** — Dr Baladas Haridas Ganesan is listed in the Raffles Medical Group doctor directory under general surgery, gastrointestinal and bariatric surgery. Source: https://www.rafflesmedicalgroup.com/doctor/
-- **Orthopaedics** — Dr Bernard Lin Kuo Hung is listed in the Raffles Medical Group doctor directory under orthopaedic surgery. Source: https://www.rafflesmedicalgroup.com/doctor/
-- **Women’s Health** — Dr Aswini Balachandran is listed at Raffles Women’s Centre. Confirm the current clinical scope and appointment availability with the centre. Source: https://www.rafflesmedicalgroup.com/doctor/
-- **ENT / Otorhinolaryngology** — Dr Aw Chong Yin is listed at Raffles ENT Centre. Source: https://www.rafflesmedicalgroup.com/doctor/
-- **Neuroscience, urology, fertility, breast services and rehabilitation** — dedicated centres are listed in the hospital’s official directory. Source: https://www.rafflesmedicalgroup.com/services/hospital/patients-visitors/visitors/directory/
+- Cardiology / Heart Centre
+- Oncology / Cancer Centre
+- General Surgery / Gastrointestinal & Bariatric Surgery
+- Orthopaedics
+- Women’s Health
+- ENT / Otorhinolaryngology
+- Neuroscience, urology, fertility, breast services and rehabilitation
 
 ### Facilities
 - Intensive Care Unit, operating theatres and day-surgery ward.
@@ -159,7 +158,6 @@ Raffles Hospital is a private integrated hospital on North Bridge Road and part 
 - Raffles Specialist Centre with dedicated centres for heart, cancer, neuroscience, women’s health, fertility, orthopaedics, urology, breast care, rehabilitation and pain management.
 - Nuclear medicine and radiotherapy facilities.
 - 24-hour International Patients Centre contact line; interpreter support in multiple languages is listed by the hospital.
-- Sources: https://www.rafflesmedicalgroup.com/our-group/about-us/corporate-fact-sheet/ ; https://www.rafflesmedicalgroup.com/services/hospital/about-raffles-hospital/contact-us/
 
 ---
 
@@ -198,12 +196,12 @@ National University Hospital is Singapore’s university hospital and a major pu
 - Overseas referral enquiries via the official contact channel: https://www.nuh.com.sg/about-nuh/contact-nuh
 
 ### Departments
-- **Cardiology / National University Heart Centre Singapore** — Prof Tan Huay Cheem, Prof Mark Chan Yan Yee, Dr Robin Cherian, Dr Jeanette Ting Hsin Yeen and Dr Andie Hartanto Djohan are identified in official NUH/NUHCS doctor profiles. Additional official profiles include Adj A/Prof Anand Adinath Ambhore, Dr Sim Hui Wen, Dr Kevin Leong Ming Wei, Dr Nicholas Chew and Adj Asst Prof Eugene Tan. Sources: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Tan_Huay_Cheem ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Mark_Chan ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Robin_Cherian ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Jeanette-Ting
-- **Haematology-Oncology / National University Cancer Institute, Singapore** — Dr Anand Jeyasekharan, A/Prof David Tan Shao Peng, Dr Ho Jingshan, Dr Chong Wan Qin and Dr Natalie Ngoi are identified in official NUH doctor profiles. Sources: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Anand_Jeyasekharan ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/David_Tan_Shao_Peng ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Ho_Jingshan ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Chong_Wan_Qin ; https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Natalie_Ngoi
-- **Orthopaedic Surgery** — Prof James Hui, Adj Prof Gabriel Liu, Adj A/Prof Naresh Kumar, Adj A/Prof Mark Puhaindran and A/Prof Joseph Thambiah are listed on the official orthopaedic doctor page. Source: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
-- **Hand & Reconstructive Microsurgery** — Adj A/Prof Sandeep Jacob Sebastin Muttah, Prof Aymeric Lim Yu Tang, A/Prof Alphonsus Chong, Adj Prof Mark Edward Puhaindran and Asst Prof Andre Cheah are listed on the official team page. Source: https://www.nuh.com.sg/care-at-nuh/services/hand-and-reconstructive-microsurgery/our-doctors
-- **Medicine** — the department covers advanced internal medicine, geriatrics, dermatology, endocrinology, gastroenterology and hepatology, infectious diseases, nephrology, neurology, rehabilitation medicine, rheumatology and allergy, respiratory and critical care medicine, and supportive/palliative care. Source: https://www.nuh.com.sg/care-at-nuh/services/medicine
-- **Obstetrics & Gynaecology, paediatrics, surgery, ophthalmology, urology, transplant medicine, emergency medicine and laboratory medicine** — listed among NUH’s medical services. Source: https://www.nuh.com.sg/for-healthcare-professionals/medical
+- Cardiology / National University Heart Centre Singapore
+- Haematology
+- Orthopaedic Surgery
+- Hand & Reconstructive Microsurgery
+- Medicine
+- Obstetrics & Gynaecology, paediatrics, surgery, ophthalmology, urology, transplant medicine, emergency medicine and laboratory medicine
 
 ### Facilities
 - 1,289 beds, 44 wards, 12 delivery rooms and 36 operating theatres (official figures as of March 2026).
@@ -213,7 +211,6 @@ National University Hospital is Singapore’s university hospital and a major pu
 - Organ-transplant services and specialised paediatric kidney and liver transplant programmes.
 - Diagnostic imaging, laboratory medicine, pathology and multidisciplinary inpatient/outpatient support.
 - Overseas referral contact: +65 6779 2777 (as listed on the official contact page).
-- Sources: https://www.nuh.com.sg/about-nuh ; https://www.nuh.com.sg/about-nuh/contact-nuh
 
 ---
 
@@ -252,14 +249,14 @@ Singapore General Hospital is Singapore’s largest acute tertiary hospital and 
 - Specialist appointments and patient-experience support through official SGH channels.
 
 ### Departments
-- **Cardiology** — use the current official SGH department directory to confirm the current named roster before assigning individual doctors: https://www.sgh.com.sg/
-- **Oncology / Cancer Care** — use the official SGH and SingHealth cancer-care directories to confirm current treatment teams and hospital affiliation: https://www.sgh.com.sg/
-- **Neurology / Neuroscience** — use the current SGH and National Neuroscience Institute directory to verify the specific clinician’s campus and appointment location: https://www.sgh.com.sg/
-- **Orthopaedic Surgery** — confirm current SGH orthopaedic specialists through the official hospital directory: https://www.sgh.com.sg/
-- **Gastroenterology & Hepatology** — confirm current SGH gastroenterology specialists through the official hospital directory: https://www.sgh.com.sg/
-- **Renal Medicine / Nephrology** — confirm current department roster and referral requirements through the official hospital directory: https://www.sgh.com.sg/
-- **Diagnostic Radiology / Nuclear Medicine** — SGH lists nuclear medicine and molecular imaging appointment services, including PET-CT and other nuclear medicine tests. Source: https://www.sgh.com.sg/patient-services/contact-us
-- **Emergency Medicine** — the Emergency Department is located in the SGH Emergency / NNI Building; official directions and access information are available at https://www.sgh.com.sg/clinic-visit/emergency-care
+- Cardiology
+- Oncology / Cancer Care
+- Neurology / Neuroscience
+- Orthopaedic Surgery
+- Gastroenterology & Hepatology
+- Renal Medicine / Nephrology
+- Diagnostic Radiology / Nuclear Medicine
+- Emergency Medicine
 
 ### Facilities
 - 1,931 beds (official figures for the year ended 31 March 2025).
@@ -269,12 +266,3 @@ Singapore General Hospital is Singapore’s largest acute tertiary hospital and 
 - Campus links to specialist institutions within the SingHealth healthcare network.
 - Central appointment service for specialist outpatient clinics.
 - Emergency department location and directions: https://www.sgh.com.sg/clinic-visit/emergency-care
-- Sources: https://www.sgh.com.sg/about-sgh/who-we-are ; https://www.sgh.com.sg/patient-services/contact-us
-
----
-
-## Research and interlinking notes
-- This file preserves the supplied hospital template fields and headings. Doctor names appear under the relevant department bullets only where an official hospital or specialist-centre source identified them.
-- A doctor’s clinic may be in an associated medical centre rather than inside the inpatient hospital building. Before publishing a doctor-to-hospital relationship, confirm current hospital admitting privileges and clinic location with the provider.
-- The official pages reviewed did not consistently publish a hospital-specific bed count or a current named roster for every department. These fields are marked “Contact our consultant” or direct readers to the official directory rather than inventing data.
-- For the later doctor file, reuse the exact doctor names above and link each to the hospital and department stated here. Do not add a doctor to a hospital roster solely because they practise elsewhere in the same healthcare group.

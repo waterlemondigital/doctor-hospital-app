@@ -27,6 +27,7 @@ export interface Hospital {
   id: string;
   slug: string;
   name: string;
+  country?: string;
   state: string;
   city: string;
   area: string;

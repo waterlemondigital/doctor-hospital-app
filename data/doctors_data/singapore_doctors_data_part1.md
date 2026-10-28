@@ -1,11 +1,3 @@
-# Doctor Data for Singapore Hospitals — Part 1
-
-This file follows the uploaded doctor template. It contains one profile for each distinct doctor name in the connected-doctor lists of the five Singapore hospitals in the hospital-data file: Mount Elizabeth Hospital (Orchard), Gleneagles Hospital, Raffles Hospital, National University Hospital (NUH), and Singapore General Hospital (SGH).
-
-Doctor names are preserved from the hospital-data file. Where official public sources reviewed did not reliably confirm qualifications, experience, languages, clinic schedule, laboratory affiliations, or a current specialty/affiliation, the field is marked **Contact our consultant** rather than guessed. A clinic in a hospital or medical centre does not by itself prove hospital employment or admitting privileges; confirm those details directly before publishing.
-
----
-
 # Doctor: `Dr Kieron Lim`
 
 - **Name**: Dr Kieron Lim
@@ -34,8 +26,6 @@ Dr Kieron Lim is included in the source hospital record as a connected specialis
 
 ### Areas of Practice
 - Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -68,8 +58,6 @@ Dr Tan Poh Seng is included in the source hospital record as a connected special
 ### Areas of Practice
 - Contact our consultant to confirm current specialty, scope of practice and appointment availability
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Asok Kurup`
@@ -101,8 +89,6 @@ Dr Asok Kurup is included in the source hospital record as a connected specialis
 ### Areas of Practice
 - Contact our consultant to confirm current specialty, scope of practice and appointment availability
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Tan Aik Hau`
@@ -133,8 +119,6 @@ Dr Tan Aik Hau is included in the source hospital record as a connected speciali
 
 ### Areas of Practice
 - Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -168,8 +152,6 @@ Dr Lim Tai Tian is included in the source hospital record as a connected special
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.memc.com.sg/specialists/
-
 ---
 
 # Doctor: `Dr Lim Hsien Jer`
@@ -179,9 +161,9 @@ Dr Lim Tai Tian is included in the source hospital record as a connected special
 - **City**: Singapore
 - **Area**: Orchard
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Anaesthesiology
+- **Department**: Anaesthesiology
+- **Sub-Speciality**: Perioperative anaesthesia
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -199,9 +181,7 @@ Dr Lim Tai Tian is included in the source hospital record as a connected special
 Dr Lim Hsien Jer was carried over exactly from the connected-doctor list in the hospital data file for Mount Elizabeth Hospital (Orchard). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.memc.com.sg/specialists/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.memc.com.sg/specialists/
+- Perioperative anaesthesia
 
 ---
 
@@ -235,8 +215,6 @@ Dr Chan Chung Yip is included in the source hospital record as a connected speci
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Wong Jen San`
@@ -268,8 +246,6 @@ Dr Wong Jen San is included in the source hospital record as a connected special
 ### Areas of Practice
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
-
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -303,8 +279,6 @@ Dr Tan Yu Meng is included in the source hospital record as a connected speciali
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Victor Lee`
@@ -336,8 +310,6 @@ Dr Victor Lee is included in the source hospital record as a connected specialis
 ### Areas of Practice
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
-
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -371,8 +343,6 @@ Dr Lee Ser Yee is included in the source hospital record as a connected speciali
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Tan Ek Khoon`
@@ -404,8 +374,6 @@ Dr Tan Ek Khoon is included in the source hospital record as a connected special
 ### Areas of Practice
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
-
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
 
 ---
 
@@ -439,8 +407,6 @@ Dr Iyer Shridhar Ganpathi is included in the source hospital record as a connect
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
 
-**Source / verification link**: https://www.mountelizabeth.com.sg/docs/default-source/default-document-library/mount-elizabeth-orchard-liver-transplant-programme.pdf
-
 ---
 
 # Doctor: `Dr Agasthian Thirugnanam`
@@ -471,8 +437,6 @@ Dr Agasthian Thirugnanam is included in the source hospital record as a connecte
 
 ### Areas of Practice
 - Cardiothoracic surgical assessment and treatment
-
-**Source / verification link**: https://www.memc.com.sg/specialists/
 
 ---
 
@@ -506,8 +470,6 @@ Dr Alfred Cheng is included in the source hospital record as a connected special
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.memc.com.sg/specialists/
-
 ---
 
 # Doctor: `Dr Ang Teck Kee`
@@ -539,8 +501,6 @@ Dr Ang Teck Kee is included in the source hospital record as a connected special
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.memc.com.sg/specialists/
 
 ---
 
@@ -574,8 +534,6 @@ Dr Ang Peng Tiam is included in the source hospital record as a connected specia
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
 
-**Source / verification link**: https://www.memc.com.sg/specialists/
-
 ---
 
 # Doctor: `Dr Akhil Chopra`
@@ -608,8 +566,6 @@ Dr Akhil Chopra is included in the source hospital record as a connected special
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
 
-**Source / verification link**: https://www.memc.com.sg/specialists/
-
 ---
 
 # Doctor: `Dr Alvin Hong`
@@ -640,8 +596,6 @@ Dr Alvin Hong is included in the source hospital record as a connected specialis
 
 ### Areas of Practice
 - Neurosurgical assessment and treatment
-
-**Source / verification link**: https://www.memc.com.sg/specialists/
 
 ---
 
@@ -675,8 +629,6 @@ Dr Antony Gardner is included in the source hospital record as a connected speci
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.memc.com.sg/specialists/
-
 ---
 
 # Doctor: `Dr Foo Kian Fong`
@@ -708,8 +660,6 @@ Senior Consultant Medical Oncologist at Parkway Cancer Centre. His published pro
 ### Areas of Practice
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
-
-**Source / verification link**: https://www.parkwaycancercentre.com/sg/our-team/our-doctors/doctor-details/dr-foo-kian-fong
 
 ---
 
@@ -743,8 +693,6 @@ Deputy Medical Director and Senior Consultant Medical Oncologist at Parkway Canc
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
 
-**Source / verification link**: https://www.parkwaycancercentre.com/sg/our-team/our-doctors/doctor-details/dr-khoo-kei-siong
-
 ---
 
 # Doctor: `Dr Lee Yuh Shan`
@@ -754,9 +702,9 @@ Deputy Medical Director and Senior Consultant Medical Oncologist at Parkway Canc
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Haematology
+- **Department**: Haematology / Oncology
+- **Sub-Speciality**: Blood cancers, lymphoma, myeloma and stem-cell transplantation
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -774,9 +722,7 @@ Deputy Medical Director and Senior Consultant Medical Oncologist at Parkway Canc
 Dr Lee Yuh Shan was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Blood cancers, lymphoma, myeloma and stem-cell transplantation
 
 ---
 
@@ -787,9 +733,9 @@ Dr Lee Yuh Shan was carried over exactly from the connected-doctor list in the h
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Haematology
+- **Department**: Haematology / Oncology
+- **Sub-Speciality**: Blood cancers and stem-cell transplantation
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -807,9 +753,7 @@ Dr Lee Yuh Shan was carried over exactly from the connected-doctor list in the h
 Dr Teo Cheng Peng was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Blood cancers and stem-cell transplantation
 
 ---
 
@@ -820,9 +764,9 @@ Dr Teo Cheng Peng was carried over exactly from the connected-doctor list in the
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Medical Oncology
+- **Department**: Oncology
+- **Sub-Speciality**: Genitourinary, upper gastrointestinal and lung cancers
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -840,9 +784,7 @@ Dr Teo Cheng Peng was carried over exactly from the connected-doctor list in the
 Dr Wong Siew Wei was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Genitourinary, upper gastrointestinal and lung cancers
 
 ---
 
@@ -853,9 +795,9 @@ Dr Wong Siew Wei was carried over exactly from the connected-doctor list in the 
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Obstetrics & Gynaecology
+- **Department**: Obstetrics & Gynaecology
+- **Sub-Speciality**: Colposcopy, cervical cancer prevention and gynaecological oncology
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -873,9 +815,7 @@ Dr Wong Siew Wei was carried over exactly from the connected-doctor list in the 
 Dr Quek Swee Chong was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Colposcopy, cervical cancer prevention and gynaecological oncology
 
 ---
 
@@ -886,9 +826,9 @@ Dr Quek Swee Chong was carried over exactly from the connected-doctor list in th
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Obstetrics & Gynaecology
+- **Department**: Obstetrics & Gynaecology
+- **Sub-Speciality**: Obstetrics, gynaecological care and minimally invasive gynaecological surgery
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -906,9 +846,7 @@ Dr Quek Swee Chong was carried over exactly from the connected-doctor list in th
 Dr Siow Yew Ming Anthony was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Obstetrics, gynaecological care and minimally invasive gynaecological surgery
 
 ---
 
@@ -919,9 +857,9 @@ Dr Siow Yew Ming Anthony was carried over exactly from the connected-doctor list
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Cardiology
+- **Department**: Cardiology
+- **Sub-Speciality**: Advanced heart failure, mechanical circulatory support and women’s cardiovascular health
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -939,9 +877,7 @@ Dr Siow Yew Ming Anthony was carried over exactly from the connected-doctor list
 Dr Chan Wan Xian was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Advanced heart failure, mechanical circulatory support and women’s cardiovascular health
 
 ---
 
@@ -952,9 +888,9 @@ Dr Chan Wan Xian was carried over exactly from the connected-doctor list in the 
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Cardiology
+- **Department**: Cardiology
+- **Sub-Speciality**: Advanced heart failure, heart-transplant intensive care and cardiovascular imaging
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -972,9 +908,7 @@ Dr Chan Wan Xian was carried over exactly from the connected-doctor list in the 
 Dr Chuang Hsuan-Hung was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Advanced heart failure, heart-transplant intensive care and cardiovascular imaging
 
 ---
 
@@ -985,9 +919,9 @@ Dr Chuang Hsuan-Hung was carried over exactly from the connected-doctor list in 
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Cardiology
+- **Department**: Cardiology
+- **Sub-Speciality**: Interventional and structural cardiology, transcatheter valve procedures and pulmonary hypertension
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -1005,9 +939,7 @@ Dr Chuang Hsuan-Hung was carried over exactly from the connected-doctor list in 
 Dr Edgar Tay was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Interventional and structural cardiology, transcatheter valve procedures and pulmonary hypertension
 
 ---
 
@@ -1018,9 +950,9 @@ Dr Edgar Tay was carried over exactly from the connected-doctor list in the hosp
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Cardiology
+- **Department**: Cardiology
+- **Sub-Speciality**: Echocardiography, preventive cardiology and women’s cardiovascular health
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -1038,9 +970,7 @@ Dr Edgar Tay was carried over exactly from the connected-doctor list in the hosp
 Dr Goh Ping Ping was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Echocardiography, preventive cardiology and women’s cardiovascular health
 
 ---
 
@@ -1051,9 +981,9 @@ Dr Goh Ping Ping was carried over exactly from the connected-doctor list in the 
 - **City**: Singapore
 - **Area**: Napier / Tanglin
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Cardiology
+- **Department**: Cardiology / Electrophysiology
+- **Sub-Speciality**: Cardiac electrophysiology, arrhythmia ablation and cardiac implantable devices
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -1071,9 +1001,7 @@ Dr Goh Ping Ping was carried over exactly from the connected-doctor list in the 
 Dr Jeremy Chow was carried over exactly from the connected-doctor list in the hospital data file for Gleneagles Hospital. I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.gleneagles.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.gleneagles.com.sg/
+- Cardiac electrophysiology, arrhythmia ablation and cardiac implantable devices
 
 ---
 
@@ -1107,8 +1035,6 @@ Interventional cardiologist whose specialist profile describes management of com
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.ahvc.com.sg/our-doctors/
-
 ---
 
 # Doctor: `Dr Tan Chong Hiok`
@@ -1140,8 +1066,6 @@ Interventional cardiologist and accredited echocardiologist. His profile describ
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.ahvc.com.sg/doctor/dr-tan-chong-hiok/
 
 ---
 
@@ -1175,8 +1099,6 @@ Dr Ng Wai Lin is included in the source hospital record as a connected specialis
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
-
 ---
 
 # Doctor: `Dr Lee Yian Ping`
@@ -1208,8 +1130,6 @@ Dr Lee Yian Ping is included in the source hospital record as a connected specia
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
 
 ---
 
@@ -1243,8 +1163,6 @@ Dr Philip Wong En Hou is included in the source hospital record as a connected s
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
-
 ---
 
 # Doctor: `Dr Tan Sian-Tsung`
@@ -1276,8 +1194,6 @@ Dr Tan Sian-Tsung is included in the source hospital record as a connected speci
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
 
 ---
 
@@ -1311,8 +1227,6 @@ Dr Jimmy Ong Heng Ann is included in the source hospital record as a connected s
 - Cardiovascular assessment and treatment
 - Intensive care medicine
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/heart/our-specialists/
-
 ---
 
 # Doctor: `Dr Lee Chern Siang`
@@ -1344,8 +1258,6 @@ Dr Lee Chern Siang is included in the source hospital record as a connected spec
 ### Areas of Practice
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/cancer/our-specialists/
 
 ---
 
@@ -1379,8 +1291,6 @@ Dr Brendan Chia Seng Hup is included in the source hospital record as a connecte
 - Radiotherapy consultation and planning
 - Radiation treatment for suitable cancers
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/cancer/our-specialists/
-
 ---
 
 # Doctor: `Dr Shaun Ho Zhirui`
@@ -1412,8 +1322,6 @@ Dr Shaun Ho Zhirui is included in the source hospital record as a connected spec
 ### Areas of Practice
 - Radiotherapy consultation and planning
 - Radiation treatment for suitable cancers
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/cancer/our-specialists/
 
 ---
 
@@ -1447,8 +1355,6 @@ Dr Ooi Wei Seong is included in the source hospital record as a connected specia
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/services/specialist-centres/cancer/our-specialists/
-
 ---
 
 # Doctor: `Dr Aswini Balachandran`
@@ -1480,8 +1386,6 @@ Dr Aswini Balachandran is included in the source hospital record as a connected 
 ### Areas of Practice
 - Women’s health assessment
 - Obstetric and gynaecological care; confirm current scope with the clinic
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/doctor/
 
 ---
 
@@ -1515,8 +1419,6 @@ Dr Aw Chong Yin is included in the source hospital record as a connected special
 - Ear, nose and throat conditions
 - Specialist ENT assessment
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/doctor/
-
 ---
 
 # Doctor: `Dr Baladas Haridas Ganesan`
@@ -1548,8 +1450,6 @@ Dr Baladas Haridas Ganesan is included in the source hospital record as a connec
 ### Areas of Practice
 - General surgical assessment
 - Specialist surgical care according to confirmed practice
-
-**Source / verification link**: https://www.rafflesmedicalgroup.com/doctor/
 
 ---
 
@@ -1583,8 +1483,6 @@ Dr Bernard Lin Kuo Hung is included in the source hospital record as a connected
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.rafflesmedicalgroup.com/doctor/
-
 ---
 
 # Doctor: `Prof Tan Huay Cheem`
@@ -1616,8 +1514,6 @@ Prof Tan Huay Cheem is included in the source hospital record as a connected spe
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Tan_Huay_Cheem
 
 ---
 
@@ -1651,8 +1547,6 @@ Prof Mark Chan Yan Yee is included in the source hospital record as a connected 
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Mark_Chan
-
 ---
 
 # Doctor: `Dr Robin Cherian`
@@ -1684,8 +1578,6 @@ Dr Robin Cherian is included in the source hospital record as a connected specia
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Robin_Cherian
 
 ---
 
@@ -1719,8 +1611,6 @@ Dr Jeanette Ting Hsin Yeen is included in the source hospital record as a connec
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Jeanette-Ting
-
 ---
 
 # Doctor: `Dr Andie Hartanto Djohan`
@@ -1752,8 +1642,6 @@ Dr Andie Hartanto Djohan is included in the source hospital record as a connecte
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.nuh.com.sg/
 
 ---
 
@@ -1787,8 +1675,6 @@ Adj A/Prof Anand Adinath Ambhore is included in the source hospital record as a 
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.nuh.com.sg/
-
 ---
 
 # Doctor: `Dr Sim Hui Wen`
@@ -1820,8 +1706,6 @@ Dr Sim Hui Wen is included in the source hospital record as a connected speciali
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.nuh.com.sg/
 
 ---
 
@@ -1855,8 +1739,6 @@ Dr Kevin Leong Ming Wei is included in the source hospital record as a connected
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.nuh.com.sg/
-
 ---
 
 # Doctor: `Dr Anand Jeyasekharan`
@@ -1888,8 +1770,6 @@ Dr Anand Jeyasekharan is included in the source hospital record as a connected s
 ### Areas of Practice
 - Blood disorders and haematological malignancies
 - Multidisciplinary cancer assessment
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Anand_Jeyasekharan
 
 ---
 
@@ -1923,8 +1803,6 @@ A/Prof David Tan Shao Peng is included in the source hospital record as a connec
 - Specialist cancer assessment
 - Systemic anti-cancer treatment planning and monitoring
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/David_Tan_Shao_Peng
-
 ---
 
 # Doctor: `Dr Ho Jingshan`
@@ -1956,8 +1834,6 @@ Dr Ho Jingshan is included in the source hospital record as a connected speciali
 ### Areas of Practice
 - Specialist cancer assessment
 - Treatment planning with the multidisciplinary oncology team
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Ho_Jingshan
 
 ---
 
@@ -1991,8 +1867,6 @@ Dr Chong Wan Qin is included in the source hospital record as a connected specia
 - Specialist cancer assessment
 - Treatment planning with the multidisciplinary oncology team
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Chong_Wan_Qin
-
 ---
 
 # Doctor: `Dr Natalie Ngoi`
@@ -2024,8 +1898,6 @@ Dr Natalie Ngoi is included in the source hospital record as a connected special
 ### Areas of Practice
 - Specialist cancer assessment
 - Treatment planning with the multidisciplinary oncology team
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/find-a-doctor/doctor-details/Natalie_Ngoi
 
 ---
 
@@ -2059,8 +1931,6 @@ Prof James Hui is included in the source hospital record as a connected speciali
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
-
 ---
 
 # Doctor: `Adj Prof Gabriel Liu`
@@ -2092,8 +1962,6 @@ Adj Prof Gabriel Liu is included in the source hospital record as a connected sp
 ### Areas of Practice
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
 
 ---
 
@@ -2127,8 +1995,6 @@ Adj A/Prof Naresh Kumar is included in the source hospital record as a connected
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
-
 ---
 
 # Doctor: `Adj A/Prof Mark Puhaindran`
@@ -2160,8 +2026,6 @@ Adj A/Prof Mark Puhaindran is included in the source hospital record as a connec
 ### Areas of Practice
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
-
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/services/hand-and-reconstructive-microsurgery/our-doctors
 
 ---
 
@@ -2195,8 +2059,6 @@ A/Prof Joseph Thambiah is included in the source hospital record as a connected 
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.nuh.com.sg/care-at-nuh/services/orthopaedic-surgery/our-doctors
-
 ---
 
 # Doctor: `Dr Nicholas Chew`
@@ -2228,8 +2090,6 @@ Dr Nicholas Chew is included in the source hospital record as a connected specia
 ### Areas of Practice
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
-
-**Source / verification link**: https://www.nuh.com.sg/
 
 ---
 
@@ -2263,8 +2123,6 @@ Dr Eugene Tan is included in the source hospital record as a connected specialis
 - Assessment and management of cardiovascular conditions
 - Specialist consultation and investigations as clinically indicated
 
-**Source / verification link**: https://www.nuh.com.sg/
-
 ---
 
 # Doctor: `Prof Tan Eng King`
@@ -2296,8 +2154,6 @@ Senior Consultant Neurologist at the National Neuroscience Institute, with an ap
 ### Areas of Practice
 - Assessment of neurological conditions
 - Subspecialty care according to confirmed clinical interests
-
-**Source / verification link**: https://www.singhealth.com.sg/doctor/neurology/tan-eng-king
 
 ---
 
@@ -2331,8 +2187,6 @@ Listed in the official NNI@SGH neurology specialist roster. The source reviewed 
 - Assessment of neurological conditions
 - Subspecialty care according to confirmed clinical interests
 
-**Source / verification link**: https://www.nni.com.sg/our-specialties/neurology/specialists-sgh
-
 ---
 
 # Doctor: `Assoc Prof Prakash Kumar Manharlal`
@@ -2364,8 +2218,6 @@ Assoc Prof Prakash Kumar Manharlal is included in the source hospital record as 
 ### Areas of Practice
 - Assessment of neurological conditions
 - Subspecialty care according to confirmed clinical interests
-
-**Source / verification link**: https://www.nni.com.sg/our-specialties/neurology/specialists-sgh
 
 ---
 
@@ -2399,8 +2251,6 @@ Senior Consultant neurologist at NNI@SGH. The official NNI roster lists general 
 - Assessment of neurological conditions
 - Subspecialty care according to confirmed clinical interests
 
-**Source / verification link**: https://www.nni.com.sg/our-specialties/neurology/specialists-sgh
-
 ---
 
 # Doctor: `Dr Kaavya Narasimhalu`
@@ -2433,8 +2283,6 @@ Neurologist whose official NNI profile lists general neurology, neurogenetics, s
 - Assessment of neurological conditions
 - Subspecialty care according to confirmed clinical interests
 
-**Source / verification link**: https://www.nni.com.sg/our-specialties/neurology/specialists-sgh
-
 ---
 
 # Doctor: `Dr Jason Choo Chon Jun`
@@ -2465,8 +2313,6 @@ Listed by SingHealth’s clinician directory under Singapore General Hospital wi
 
 ### Areas of Practice
 - Kidney disease assessment and management
-
-**Source / verification link**: https://www.singhealth.com.sg/our-specialties/genomic-medicine-centre/singapore-rare-disease-models-and-mechanisms-rdmm-network/list-of-clinicians
 
 ---
 
@@ -2500,8 +2346,6 @@ Listed by SingHealth as an SGH institution lead in the Genomic Medicine Centre, 
 - General internal medicine
 - Adult genetics where indicated by the official profile
 
-**Source / verification link**: https://www.singhealth.com.sg/our-specialties/genomic-medicine-centre/our-medical-specialists
-
 ---
 
 # Doctor: `Dr Michelle Kam Li Wei`
@@ -2533,8 +2377,6 @@ Listed by SingHealth under Singapore General Hospital with expertise in respirat
 ### Areas of Practice
 - Respiratory disorders
 - Critical care medicine
-
-**Source / verification link**: https://www.singhealth.com.sg/our-specialties/genomic-medicine-centre/singapore-rare-disease-models-and-mechanisms-rdmm-network/list-of-clinicians
 
 ---
 
@@ -2568,8 +2410,6 @@ Listed by SingHealth under Singapore General Hospital with expertise in gynaecol
 - Gynaecological oncology genetics
 - Specialist assessment and referral
 
-**Source / verification link**: https://www.singhealth.com.sg/our-specialties/genomic-medicine-centre/singapore-rare-disease-models-and-mechanisms-rdmm-network/list-of-clinicians
-
 ---
 
 # Doctor: `Prof Andrew Tan Hwee Chye`
@@ -2602,8 +2442,6 @@ SingHealth’s Cell Therapy Centre lists Prof Andrew Tan Hwee Chye under bone an
 - Musculoskeletal conditions
 - Orthopaedic surgical assessment
 
-**Source / verification link**: https://www.singhealth.com.sg/our-specialties/cell-therapy-centre/our-care-team
-
 ---
 
 # Doctor: `Assoc Prof Darren Tay Keng Jin`
@@ -2613,9 +2451,9 @@ SingHealth’s Cell Therapy Centre lists Prof Andrew Tan Hwee Chye under bone an
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Adult reconstruction, hip and knee arthroplasty, complex joint replacement
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2633,9 +2471,7 @@ SingHealth’s Cell Therapy Centre lists Prof Andrew Tan Hwee Chye under bone an
 Assoc Prof Darren Tay Keng Jin was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Adult reconstruction, hip and knee arthroplasty, complex joint replacement
 
 ---
 
@@ -2646,9 +2482,9 @@ Assoc Prof Darren Tay Keng Jin was carried over exactly from the connected-docto
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Knee preservation, sports injuries, ligament and cartilage surgery
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2666,9 +2502,7 @@ Assoc Prof Darren Tay Keng Jin was carried over exactly from the connected-docto
 Dr Lee Kong Hwee was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Knee preservation, sports injuries, ligament and cartilage surgery
 
 ---
 
@@ -2679,9 +2513,9 @@ Dr Lee Kong Hwee was carried over exactly from the connected-doctor list in the 
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Trauma surgery, upper-extremity trauma and hip fractures
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2699,9 +2533,7 @@ Dr Lee Kong Hwee was carried over exactly from the connected-doctor list in the 
 Dr Joyce Koh Suang Bee was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Trauma surgery, upper-extremity trauma and hip fractures
 
 ---
 
@@ -2712,9 +2544,9 @@ Dr Joyce Koh Suang Bee was carried over exactly from the connected-doctor list i
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Orthopaedic trauma surgery
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2732,9 +2564,7 @@ Dr Joyce Koh Suang Bee was carried over exactly from the connected-doctor list i
 Prof Howe Tet Sen was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Orthopaedic trauma surgery
 
 ---
 
@@ -2745,9 +2575,9 @@ Prof Howe Tet Sen was carried over exactly from the connected-doctor list in the
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Foot and ankle surgery, lower-limb reconstruction and minimally invasive orthopaedics
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2765,9 +2595,7 @@ Prof Howe Tet Sen was carried over exactly from the connected-doctor list in the
 Dr Nicholas Yeo Eng Meng was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Foot and ankle surgery, lower-limb reconstruction and minimally invasive orthopaedics
 
 ---
 
@@ -2778,9 +2606,9 @@ Dr Nicholas Yeo Eng Meng was carried over exactly from the connected-doctor list
 - **City**: Singapore
 - **Area**: Outram
 - **State**: Singapore
-- **Speciality**: Contact our consultant
-- **Department**: Contact our consultant
-- **Sub-Speciality**: Contact our consultant
+- **Speciality**: Orthopaedic Surgery
+- **Department**: Orthopaedic Surgery
+- **Sub-Speciality**: Musculoskeletal tumour service and orthopaedic surgery
 - **Qualifications**: Contact our consultant
 - **Experience Years**: Contact our consultant
 - **Languages**: Contact our consultant
@@ -2798,6 +2626,4 @@ Dr Nicholas Yeo Eng Meng was carried over exactly from the connected-doctor list
 Dr Henry Soeharno was carried over exactly from the connected-doctor list in the hospital data file for Singapore General Hospital (SGH). I could not reliably verify a matching current official doctor profile and specialty from the sources reviewed; do not publish this record as clinically verified until the hospital confirms the doctor’s identity, specialty and affiliation. Source for verification: https://www.sgh.com.sg/
 
 ### Areas of Practice
-- Contact our consultant to confirm current specialty, scope of practice and appointment availability
-
-**Source / verification link**: https://www.sgh.com.sg/
+- Musculoskeletal tumour service and orthopaedic surgery

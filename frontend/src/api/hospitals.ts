@@ -64,6 +64,7 @@ export function mapHospital(raw: RawHospital): Hospital {
     id: raw.id,
     slug: raw.slug,
     name: raw.name,
+    country: (raw as any).country || ((raw.city && raw.city.toLowerCase() === 'singapore') || (raw.state && raw.state.toLowerCase() === 'singapore') ? 'Singapore' : 'India'),
     state: raw.state || 'Maharashtra',
     city: raw.city ? raw.city.charAt(0).toUpperCase() + raw.city.slice(1) : 'Pune',
     area: raw.area || 'Pune',
