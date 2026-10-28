@@ -1,4 +1,5 @@
 import { query } from '../db/postgres.js';
+import { clearCache } from '../middleware/cache.js';
 import {
   Hospital,
   Doctor,
@@ -309,6 +310,8 @@ class DirectoryDataStore {
       console.log(
         `⚡ [DirectoryDataStore] Indexed from Neon: ${this.hospitals.length} hospitals, ${this.doctors.length} doctors, ${this.laboratories.length} labs, ${this.wellnessCenters.length} wellness, ${this.cities.length} cities in ${elapsed}ms.`
       );
+      // Invalidate HTTP-level response cache so fresh data is served immediately
+      clearCache();
     } catch (err) {
       console.error('[DirectoryDataStore] Error reloading data from Neon:', err);
     } finally {
@@ -319,10 +322,25 @@ class DirectoryDataStore {
     return this.reloadPromise;
   }
 
+  /**
+   * Ensures data is loaded in memory.
+   * Uses Stale-While-Revalidate: If data is already in RAM, serves the user in <1ms
+   * and triggers background revalidation if the TTL has expired without blocking the response.
+   */
   public async ensureLoaded(force: boolean = false): Promise<void> {
     const isStale = Date.now() - this.lastLoadedAt > this.ttlSeconds * 1000;
-    if (force || !this.isLoaded || isStale) {
+    
+    // First boot or forced refresh: must wait for data
+    if (force || !this.isLoaded) {
       await this.reloadAll();
+      return;
+    }
+
+    // Stale-While-Revalidate: Serve instantly from RAM, revalidate silently in background!
+    if (isStale) {
+      this.reloadAll().catch((err) => {
+        console.warn('⚠️ [DirectoryDataStore] Background revalidation warning:', err?.message);
+      });
     }
   }
 

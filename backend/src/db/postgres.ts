@@ -18,8 +18,9 @@ function getPoolConfig(): pg.PoolConfig {
   return {
     connectionString,
     ssl: isNeon ? { rejectUnauthorized: false } : undefined,
+    min: 1, // Keep at least 1 warm connection alive in the pool
     max: 10,
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: 300000, // 5 minutes (prevent premature connection teardown)
     connectionTimeoutMillis: 15000,
   };
 }
@@ -29,6 +30,34 @@ export const pool = new Pool(getPoolConfig());
 pool.on('error', (err) => {
   console.error('Unexpected error on idle PostgreSQL client:', err);
 });
+
+// --- Neon Keep-Alive Heartbeat (Pings every 3.5 minutes to prevent Neon compute sleep) ---
+let keepAliveTimer: NodeJS.Timeout | null = null;
+
+export function startPostgresKeepAlive() {
+  if (keepAliveTimer) return;
+  keepAliveTimer = setInterval(async () => {
+    try {
+      await pool.query('SELECT 1 as keepalive');
+    } catch (err: any) {
+      console.warn('⚠️ [Postgres KeepAlive] Heartbeat ping failed:', err?.message);
+    }
+  }, 210000); // 3.5 minutes (Neon scale-to-zero occurs at 5 min idle)
+
+  if (keepAliveTimer.unref) {
+    keepAliveTimer.unref();
+  }
+}
+
+export function stopPostgresKeepAlive() {
+  if (keepAliveTimer) {
+    clearInterval(keepAliveTimer);
+    keepAliveTimer = null;
+  }
+}
+
+// Start keep-alive immediately
+startPostgresKeepAlive();
 
 export async function query<T extends pg.QueryResultRow = any>(
   text: string,
