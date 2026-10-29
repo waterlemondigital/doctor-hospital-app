@@ -9,12 +9,14 @@ import {
   Zap,
   Activity,
   LogOut,
+  Stethoscope,
+  Edit3,
 } from 'lucide-react';
 import { AdminStats } from '../types';
 
 interface HeaderProps {
-  currentTab: 'add-entity' | 'dispatch';
-  onSelectTab: (tab: 'add-entity' | 'dispatch') => void;
+  currentTab: 'add-entity' | 'edit-doctors' | 'edit-hospitals' | 'dispatch';
+  onSelectTab: (tab: 'add-entity' | 'edit-doctors' | 'edit-hospitals' | 'dispatch') => void;
   stats: AdminStats | null;
   isLoading: boolean;
   onRefresh: () => void;
@@ -115,6 +117,44 @@ export function Header({
 
         {/* Bottom Tier: Desk Navigation Tabs */}
         <nav className="flex items-center gap-2 pt-2.5 pb-2 overflow-x-auto no-scrollbar">
+          {/* Edit Doctors Tab */}
+          <button
+            type="button"
+            onClick={() => onSelectTab('edit-doctors')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 ${
+              currentTab === 'edit-doctors'
+                ? 'bg-[#0077b6] text-white shadow-xs'
+                : 'text-slate-600 hover:text-[#03045e] hover:bg-slate-100'
+            }`}
+          >
+            <Stethoscope className="h-4 w-4" />
+            <span>Edit Doctors</span>
+            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+              currentTab === 'edit-doctors' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-800'
+            }`}>
+              {stats?.totalDoctors || '328'}
+            </span>
+          </button>
+
+          {/* Edit Hospitals Tab */}
+          <button
+            type="button"
+            onClick={() => onSelectTab('edit-hospitals')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 ${
+              currentTab === 'edit-hospitals'
+                ? 'bg-[#0077b6] text-white shadow-xs'
+                : 'text-slate-600 hover:text-[#03045e] hover:bg-slate-100'
+            }`}
+          >
+            <Building2 className="h-4 w-4" />
+            <span>Edit Hospitals</span>
+            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+              currentTab === 'edit-hospitals' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-800'
+            }`}>
+              {stats?.totalHospitals || '91'}
+            </span>
+          </button>
+
           {/* Add Entity Section Tab */}
           <button
             type="button"

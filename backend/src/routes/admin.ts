@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { query } from '../db/postgres.js';
 import { directoryStore } from '../services/directoryCache.js';
+import { clearCache } from '../middleware/cache.js';
 import { env } from '../config/env.js';
 
 export const adminRouter = Router();
@@ -927,6 +928,7 @@ adminRouter.post('/admin/hospitals', async (req: Request, res: Response) => {
 
     // Invalidate & Reload in-memory store
     await directoryStore.reloadAll();
+    clearCache();
 
     return res.status(201).json({
       success: true,
@@ -937,6 +939,242 @@ adminRouter.post('/admin/hospitals', async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error('Error adding hospital in admin:', err);
     res.status(500).json({ error: 'Failed to create hospital record', details: err?.message });
+  }
+});
+
+// 8b. Update Existing Hospital by ID
+adminRouter.put('/admin/hospitals/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      city,
+      area,
+      state,
+      country = 'India',
+      address,
+      pincode = '',
+      facility_type = 'Super-Speciality Tertiary Care',
+      facility_type_badge = 'Accredited Tertiary Hospital',
+      bed_count,
+      emergency_available_24x7 = true,
+      phone = '',
+      whatsapp = '',
+      website = '',
+      maps_url = '',
+      overview = '',
+      services = [],
+      departments = [],
+      facilities = [],
+      images = [],
+      verification_status = 'provider-confirmed',
+      last_checked,
+      connected_doctor_ids = [],
+      connected_laboratory_ids = [],
+    } = req.body;
+
+    if (!name || !city || !state || !address) {
+      return res.status(400).json({
+        error: 'Missing required hospital fields: name, city, state, and address are mandatory.',
+      });
+    }
+
+    // Verify hospital exists
+    const existing = await query('SELECT * FROM hospitals WHERE id = $1', [id]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: `Hospital with id '${id}' not found` });
+    }
+
+    // Format Departments
+    let formattedDepts: Array<{ name: string; slug: string }> = [];
+    if (Array.isArray(departments)) {
+      formattedDepts = departments
+        .map((d: any) => {
+          if (typeof d === 'string') {
+            const trimmed = d.trim();
+            return trimmed ? { name: trimmed, slug: slugifyEntity(trimmed) } : null;
+          }
+          if (d && d.name) {
+            return { name: d.name.trim(), slug: d.slug || slugifyEntity(d.name) };
+          }
+          return null;
+        })
+        .filter(Boolean) as Array<{ name: string; slug: string }>;
+    }
+
+    // Format Services
+    let formattedServices: string[] = [];
+    if (Array.isArray(services)) {
+      formattedServices = services.map((s: any) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean);
+    } else if (typeof services === 'string') {
+      formattedServices = (services as string).split('\n').map((s) => s.trim().replace(/^[-*•]\s*/, '')).filter(Boolean);
+    }
+
+    // Format Facilities
+    let formattedFacilities: string[] = [];
+    if (Array.isArray(facilities)) {
+      formattedFacilities = facilities.map((f: any) => (typeof f === 'string' ? f.trim() : '')).filter(Boolean);
+    } else if (typeof facilities === 'string') {
+      formattedFacilities = (facilities as string).split('\n').map((f) => f.trim().replace(/^[-*•]\s*/, '')).filter(Boolean);
+    }
+
+    const cleanCity = city.toLowerCase().trim();
+    const cleanCountry = country ? country.trim() : (existing.rows[0].country || 'India');
+    const checkedDate = last_checked || new Date().toISOString().split('T')[0];
+    const parsedBeds = (bed_count !== undefined && bed_count !== null && bed_count !== '') 
+      ? parseInt(bed_count.toString(), 10) 
+      : null;
+
+    const updateSql = `
+      UPDATE hospitals SET
+        name = $1,
+        city = $2,
+        area = $3,
+        state = $4,
+        country = $5,
+        address = $6,
+        pincode = $7,
+        facility_type = $8,
+        facility_type_badge = $9,
+        bed_count = $10,
+        emergency_available_24x7 = $11,
+        phone = $12,
+        whatsapp = $13,
+        website = $14,
+        maps_url = $15,
+        overview = $16,
+        services = $17,
+        departments = $18,
+        facilities = $19,
+        verification_status = $20,
+        last_checked = $21,
+        updated_at = NOW()
+      WHERE id = $22
+      RETURNING *
+    `;
+
+    const result = await query(updateSql, [
+      name.slice(0, 255),
+      cleanCity.slice(0, 100),
+      (area || cleanCity).slice(0, 100),
+      state.slice(0, 100),
+      cleanCountry.slice(0, 100),
+      address,
+      (pincode || '').slice(0, 20),
+      facility_type.slice(0, 100),
+      facility_type_badge.slice(0, 100),
+      parsedBeds,
+      !!emergency_available_24x7,
+      (phone || '').slice(0, 255),
+      (whatsapp || phone || '').slice(0, 255),
+      (website || '').slice(0, 255),
+      maps_url || '',
+      overview || null,
+      JSON.stringify(formattedServices),
+      JSON.stringify(formattedDepts),
+      JSON.stringify(formattedFacilities),
+      verification_status || 'provider-confirmed',
+      checkedDate,
+      id,
+    ]);
+
+    // Handle connected doctors affiliations:
+    await query('DELETE FROM doctor_hospital_affiliations WHERE hospital_id = $1', [id]);
+    if (Array.isArray(connected_doctor_ids) && connected_doctor_ids.length > 0) {
+      for (const rawDoc of connected_doctor_ids) {
+        const rawDocId = (typeof rawDoc === 'string' ? rawDoc : rawDoc.doctor_id || '').trim();
+        if (!rawDocId) continue;
+
+        const docCheck = await query(
+          'SELECT id FROM doctors WHERE id = $1 OR slug = $1 OR LOWER(name) = LOWER($1) LIMIT 1',
+          [rawDocId]
+        );
+        if (docCheck.rows.length === 0) continue;
+        const resolvedDocId = docCheck.rows[0].id;
+
+        const days = (typeof rawDoc === 'object' && rawDoc.days) ? rawDoc.days : 'Contact our consultant';
+        const timings = (typeof rawDoc === 'object' && rawDoc.timings) ? rawDoc.timings : 'Contact our consultant';
+        const note = (typeof rawDoc === 'object' && rawDoc.note) ? rawDoc.note : 'Contact our consultant';
+
+        await query(
+          `INSERT INTO doctor_hospital_affiliations (doctor_id, hospital_id, days, timings, note)
+           VALUES ($1, $2, $3, $4, $5)
+           ON CONFLICT (doctor_id, hospital_id) DO UPDATE SET
+             days = EXCLUDED.days,
+             timings = EXCLUDED.timings,
+             note = EXCLUDED.note`,
+          [resolvedDocId, id, days, timings, note]
+        );
+      }
+    }
+
+    // Handle connected laboratories affiliations
+    await query('DELETE FROM hospital_laboratory_affiliations WHERE hospital_id = $1', [id]);
+    if (Array.isArray(connected_laboratory_ids) && connected_laboratory_ids.length > 0) {
+      for (const rawLabId of connected_laboratory_ids) {
+        const labId = (typeof rawLabId === 'string' ? rawLabId : '').trim();
+        if (!labId) continue;
+        const labCheck = await query('SELECT id FROM laboratories WHERE id = $1', [labId]);
+        if (labCheck.rows.length === 0) continue;
+
+        await query(
+          `INSERT INTO hospital_laboratory_affiliations (hospital_id, laboratory_id)
+           VALUES ($1, $2)
+           ON CONFLICT (hospital_id, laboratory_id) DO NOTHING`,
+          [id, labId]
+        );
+      }
+    }
+
+    // Handle gallery images
+    if (Array.isArray(images) && images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        const img = images[i];
+        if (!img.url) continue;
+        const imgId = `${id}_img_${i + 1}`;
+        await query(
+          `INSERT INTO images (id, entity_type, entity_id, object_key, content_hash, url, card_url, full_url, mime_type, sort_order)
+           VALUES ($1, 'hospitals', $2, $3, $4, $5, $6, $7, 'image/webp', $8)
+           ON CONFLICT (id) DO UPDATE SET url = EXCLUDED.url, card_url = EXCLUDED.card_url`,
+          [imgId, id, img.url, `${id}_${i}`, img.url, img.card_url || img.url, img.url, i + 1]
+        );
+      }
+    }
+
+    // Reload in-memory store
+    await directoryStore.reloadAll();
+    clearCache();
+
+    return res.json({
+      success: true,
+      hospital: result.rows[0],
+      message: `Hospital "${name}" updated successfully!`,
+      frontendUrl: `/hospitals/${result.rows[0].slug}`,
+    });
+  } catch (err: any) {
+    console.error('Error updating hospital in admin:', err);
+    res.status(500).json({ error: 'Failed to update hospital record', details: err?.message });
+  }
+});
+
+// 8c. Delete Hospital by ID
+adminRouter.delete('/admin/hospitals/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await query('DELETE FROM doctor_hospital_affiliations WHERE hospital_id = $1', [id]);
+    await query('DELETE FROM hospital_laboratory_affiliations WHERE hospital_id = $1', [id]);
+    await query('DELETE FROM images WHERE entity_type = $1 AND entity_id = $2', ['hospitals', id]);
+    const delRes = await query('DELETE FROM hospitals WHERE id = $1 RETURNING *', [id]);
+    await directoryStore.reloadAll();
+    clearCache();
+    return res.json({
+      success: true,
+      message: `Hospital ${id} deleted successfully`,
+      deletedCount: delRes.rowCount,
+    });
+  } catch (err: any) {
+    console.error('Error deleting hospital:', err);
+    res.status(500).json({ error: 'Failed to delete hospital', details: err?.message });
   }
 });
 
@@ -1403,7 +1641,217 @@ adminRouter.post('/admin/doctors', async (req: Request, res: Response) => {
   }
 });
 
-// 12. Delete Doctor by ID
+// 12. Update Doctor by ID
+adminRouter.put('/admin/doctors/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      title = 'Consultant Specialist',
+      city,
+      area = '',
+      state = 'Maharashtra',
+      country = 'India',
+      speciality,
+      department,
+      sub_speciality = '',
+      qualifications,
+      experience_years,
+      languages = ['English'],
+      phone = '',
+      whatsapp = '',
+      summary = '',
+      areas_of_practice = [],
+      photo = '',
+      images = [],
+      verification_status = 'provider-confirmed',
+      last_checked,
+      hospital_affiliations = [],
+      connected_laboratory_ids = [],
+    } = req.body;
+
+    if (!name || !city || !speciality) {
+      return res.status(400).json({
+        error: 'Missing required doctor fields: name, city, and speciality are mandatory.',
+      });
+    }
+
+    // Verify doctor exists
+    const existing = await query('SELECT * FROM doctors WHERE id = $1', [id]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: `Doctor with id '${id}' not found` });
+    }
+
+    // Format Languages
+    let formattedLanguages: string[] = [];
+    if (Array.isArray(languages)) {
+      formattedLanguages = languages.map((l: any) => (typeof l === 'string' ? l.trim() : '')).filter(Boolean);
+    } else if (typeof languages === 'string') {
+      formattedLanguages = (languages as string).split(/[,|\n]/).map((l) => l.trim()).filter(Boolean);
+    }
+
+    // Format Areas of Practice
+    let formattedAreas: string[] = [];
+    if (Array.isArray(areas_of_practice)) {
+      formattedAreas = areas_of_practice.map((a: any) => (typeof a === 'string' ? a.trim() : '')).filter(Boolean);
+    } else if (typeof areas_of_practice === 'string') {
+      formattedAreas = (areas_of_practice as string).split('\n').map((a) => a.trim().replace(/^[-*•]\s*/, '')).filter(Boolean);
+    }
+
+    const deptVal = department || speciality;
+    const deptSlug = slugifyEntity(deptVal);
+    const specSlug = slugifyEntity(speciality);
+    const parsedExp = (experience_years !== undefined && experience_years !== null && experience_years !== '') 
+      ? parseInt(experience_years.toString(), 10) 
+      : null;
+
+    // Determine primary photo
+    let primaryPhoto = photo || '';
+    if (Array.isArray(images) && images.length > 0) {
+      const primaryImg = images.find((img: any) => img.is_primary) || images[0];
+      if (primaryImg && primaryImg.url) {
+        primaryPhoto = primaryImg.url;
+      }
+    }
+
+    const cleanCity = city.toLowerCase().trim();
+    const cleanCountry = country ? country.trim() : (existing.rows[0].country || 'India');
+    const checkedDate = last_checked || new Date().toISOString().split('T')[0];
+
+    const updateSql = `
+      UPDATE doctors SET
+        name = $1,
+        title = $2,
+        department = $3,
+        department_slug = $4,
+        speciality = $5,
+        speciality_slug = $6,
+        sub_speciality = $7,
+        qualifications = $8,
+        experience_years = $9,
+        photo = $10,
+        summary = $11,
+        city = $12,
+        state = $13,
+        country = $14,
+        area = $15,
+        location = $16,
+        phone = $17,
+        whatsapp = $18,
+        verification_status = $19,
+        last_checked = $20,
+        languages = $21,
+        areas_of_practice = $22,
+        updated_at = NOW()
+      WHERE id = $23
+      RETURNING *
+    `;
+
+    const result = await query(updateSql, [
+      name.slice(0, 255),
+      (title || 'Consultant Specialist').slice(0, 255),
+      deptVal.slice(0, 100),
+      deptSlug.slice(0, 100),
+      speciality.slice(0, 100),
+      specSlug.slice(0, 100),
+      sub_speciality ? sub_speciality.slice(0, 255) : null,
+      (qualifications || 'MBBS').slice(0, 255),
+      parsedExp,
+      primaryPhoto,
+      summary || null,
+      cleanCity.slice(0, 100),
+      state.slice(0, 100),
+      cleanCountry.slice(0, 100),
+      (area || city).slice(0, 100),
+      `${area ? `${area}, ` : ''}${city}`.slice(0, 255),
+      (phone || '').slice(0, 255),
+      (whatsapp || phone || '').slice(0, 255),
+      verification_status || 'provider-confirmed',
+      checkedDate,
+      JSON.stringify(formattedLanguages),
+      JSON.stringify(formattedAreas),
+      id,
+    ]);
+
+    // Update Hospital Affiliations
+    await query('DELETE FROM doctor_hospital_affiliations WHERE doctor_id = $1', [id]);
+    if (Array.isArray(hospital_affiliations) && hospital_affiliations.length > 0) {
+      for (const aff of hospital_affiliations) {
+        const hospId = (typeof aff === 'string' ? aff : aff.hospital_id || '').trim();
+        if (!hospId) continue;
+
+        const hospCheck = await query(
+          'SELECT id FROM hospitals WHERE id = $1 OR slug = $1 OR LOWER(name) = LOWER($1) LIMIT 1',
+          [hospId]
+        );
+        if (hospCheck.rows.length === 0) continue;
+        const resolvedHospId = hospCheck.rows[0].id;
+
+        const days = (typeof aff === 'object' && aff.days) ? aff.days : 'Contact our consultant';
+        const timings = (typeof aff === 'object' && aff.timings) ? aff.timings : 'Contact our consultant';
+        const note = (typeof aff === 'object' && aff.note) ? aff.note : 'Contact our consultant';
+
+        await query(
+          `INSERT INTO doctor_hospital_affiliations (doctor_id, hospital_id, days, timings, note)
+           VALUES ($1, $2, $3, $4, $5)
+           ON CONFLICT (doctor_id, hospital_id) DO UPDATE SET
+             days = EXCLUDED.days,
+             timings = EXCLUDED.timings,
+             note = EXCLUDED.note`,
+          [id, resolvedHospId, days, timings, note]
+        );
+      }
+    }
+
+    // Update Connected Laboratory Affiliations
+    await query('DELETE FROM doctor_laboratory_affiliations WHERE doctor_id = $1', [id]);
+    if (Array.isArray(connected_laboratory_ids) && connected_laboratory_ids.length > 0) {
+      for (const labId of connected_laboratory_ids) {
+        if (!labId) continue;
+        const labCheck = await query('SELECT id FROM laboratories WHERE id = $1', [labId]);
+        if (labCheck.rows.length === 0) continue;
+
+        await query(
+          `INSERT INTO doctor_laboratory_affiliations (doctor_id, laboratory_id)
+           VALUES ($1, $2)
+           ON CONFLICT (doctor_id, laboratory_id) DO NOTHING`,
+          [id, labId]
+        );
+      }
+    }
+
+    // Store gallery images in images table if any
+    if (Array.isArray(images) && images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        const img = images[i];
+        if (!img.url) continue;
+        const imgId = `${id}_img_${i + 1}`;
+        await query(
+          `INSERT INTO images (id, entity_type, entity_id, object_key, content_hash, url, card_url, full_url, mime_type, sort_order)
+           VALUES ($1, 'doctors', $2, $3, $4, $5, $6, $7, 'image/webp', $8)
+           ON CONFLICT (id) DO UPDATE SET url = EXCLUDED.url, card_url = EXCLUDED.card_url`,
+          [imgId, id, img.url, `${id}_${i}`, img.url, img.card_url || img.url, img.url, i + 1]
+        );
+      }
+    }
+
+    // Reload in-memory store and clear response cache
+    await directoryStore.reloadAll();
+    clearCache();
+
+    return res.json({
+      success: true,
+      doctor: result.rows[0],
+      message: `Doctor "${name}" updated successfully!`,
+      frontendUrl: `/doctors/${result.rows[0].slug}`,
+    });
+  } catch (err: any) {
+    console.error('Error updating doctor in admin:', err);
+    res.status(500).json({ error: 'Failed to update doctor record', details: err?.message });
+  }
+});
+
+// 13. Delete Doctor by ID
 adminRouter.delete('/admin/doctors/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

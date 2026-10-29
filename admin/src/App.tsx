@@ -7,6 +7,8 @@ import { TargetDirectory } from './components/TargetDirectory';
 import { TargetPortalModal } from './components/TargetPortalModal';
 import { AdminLoginGate } from './components/AdminLoginGate';
 import { AddEntitySection } from './components/AddEntitySection';
+import { EditDoctorSection } from './components/EditDoctorSection';
+import { EditHospitalSection } from './components/EditHospitalSection';
 import {
   AdminStats,
   PatientLead,
@@ -36,7 +38,7 @@ export function App() {
     return null;
   });
 
-  const [currentTab, setCurrentTab] = useState<'add-entity' | 'dispatch'>('add-entity');
+  const [currentTab, setCurrentTab] = useState<'add-entity' | 'edit-doctors' | 'edit-hospitals' | 'dispatch'>('edit-hospitals');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [doctors, setDoctors] = useState<TargetDoctor[]>([]);
   const [hospitals, setHospitals] = useState<TargetHospital[]>([]);
@@ -147,6 +149,22 @@ export function App() {
             wellness={wellness}
             onLeadCreated={handleLeadCreated}
             onPreviewTarget={handlePreviewTarget}
+          />
+        )}
+
+        {currentTab === 'edit-doctors' && (
+          <EditDoctorSection
+            hospitals={hospitals}
+            laboratories={laboratories}
+            onDataChanged={loadAllData}
+          />
+        )}
+
+        {currentTab === 'edit-hospitals' && (
+          <EditHospitalSection
+            doctors={doctors}
+            laboratories={laboratories}
+            onDataChanged={loadAllData}
           />
         )}
 

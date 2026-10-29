@@ -80,10 +80,15 @@ class DirectoryDataStore {
 
       // Map hospital-laboratory affiliations
       const hospitalsByLab = new Map<string, string[]>();
+      const laboratoriesByHospital = new Map<string, string[]>();
       for (const aff of hospLabAffRes.rows) {
         const list = hospitalsByLab.get(aff.laboratory_id) || [];
         list.push(aff.hospital_id);
         hospitalsByLab.set(aff.laboratory_id, list);
+
+        const hospLabList = laboratoriesByHospital.get(aff.hospital_id) || [];
+        hospLabList.push(aff.laboratory_id);
+        laboratoriesByHospital.set(aff.hospital_id, hospLabList);
       }
 
       // Map doctor-laboratory affiliations
@@ -153,6 +158,7 @@ class DirectoryDataStore {
         name: h.name,
         state: h.state,
         city: h.city,
+        country: h.country || (h.city === 'singapore' ? 'Singapore' : 'India'),
         area: h.area,
         address: h.address,
         pincode: h.pincode,
@@ -173,6 +179,7 @@ class DirectoryDataStore {
         facilities: this.parseJson(h.facilities),
         sources: this.parseJson(h.sources),
         doctors: affiliationsByHospital.get(h.id) || [],
+        connected_laboratory_ids: laboratoriesByHospital.get(h.id) || [],
       }));
 
       // Format Doctors
@@ -192,6 +199,7 @@ class DirectoryDataStore {
         summary: d.summary,
         city: d.city,
         state: d.state,
+        country: d.country || 'India',
         area: d.area,
         location: d.location,
         phone: d.phone || '+91 78756 57402',
@@ -342,6 +350,36 @@ class DirectoryDataStore {
         console.warn('⚠️ [DirectoryDataStore] Background revalidation warning:', err?.message);
       });
     }
+  }
+
+  /**
+   * Immediately updates or replaces a doctor in memory for 0ms UI freshness
+   */
+  public updateDoctorInMemory(doc: Doctor): void {
+    const idx = this.doctors.findIndex((d) => d.id === doc.id);
+    if (idx !== -1) {
+      this.doctors[idx] = doc;
+    } else {
+      this.doctors.push(doc);
+    }
+    this.doctorsById.set(doc.id, doc);
+    this.doctorsBySlug.set(doc.slug, doc);
+    clearCache();
+  }
+
+  /**
+   * Immediately updates or replaces a hospital in memory for 0ms UI freshness
+   */
+  public updateHospitalInMemory(hosp: Hospital): void {
+    const idx = this.hospitals.findIndex((h) => h.id === hosp.id);
+    if (idx !== -1) {
+      this.hospitals[idx] = hosp;
+    } else {
+      this.hospitals.push(hosp);
+    }
+    this.hospitalsById.set(hosp.id, hosp);
+    this.hospitalsBySlug.set(hosp.slug, hosp);
+    clearCache();
   }
 
   // =========================================================================

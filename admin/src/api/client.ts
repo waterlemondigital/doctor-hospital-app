@@ -250,8 +250,75 @@ export async function createHospital(hospitalData: {
   return res.json();
 }
 
+export async function fetchHospitalById(id: string): Promise<any> {
+  const res = await fetch(`${PUBLIC_API_BASE}/hospitals/${id}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.detail || `Failed to fetch hospital with id ${id}`);
+  }
+  return res.json();
+}
+
+export async function updateHospital(
+  id: string,
+  hospitalData: {
+    name: string;
+    city: string;
+    area: string;
+    state: string;
+    country?: string;
+    address: string;
+    pincode?: string;
+    facility_type?: string;
+    facility_type_badge?: string;
+    bed_count?: number;
+    emergency_available_24x7?: boolean;
+    phone?: string;
+    whatsapp?: string;
+    website?: string;
+    maps_url?: string;
+    overview?: string;
+    services?: string[];
+    departments?: Array<string | { name: string; slug: string }>;
+    facilities?: string[];
+    images?: Array<{ url: string; card_url?: string; alt?: string; caption?: string }>;
+    connected_doctor_ids?: string[];
+    connected_laboratory_ids?: string[];
+    verification_status?: string;
+    last_checked?: string;
+  }
+): Promise<{
+  success: boolean;
+  hospital: any;
+  message: string;
+  frontendUrl: string;
+}> {
+  const res = await fetch(`${API_BASE}/hospitals/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(hospitalData),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.detail || 'Failed to update hospital');
+  }
+
+  return res.json();
+}
+
+export async function deleteHospital(id: string): Promise<{ success: boolean; message: string }> {
+  const res = await fetch(`${API_BASE}/hospitals/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.detail || 'Failed to delete hospital');
+  }
+  return res.json();
+}
+
 export async function createLaboratory(labData: {
-  name: string;
   city: string;
   area: string;
   state: string;
@@ -367,6 +434,72 @@ export async function deleteDoctor(id: string): Promise<{ success: boolean; mess
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || err.detail || 'Failed to delete doctor');
   }
+  return res.json();
+}
+
+export async function fetchDoctorById(id: string): Promise<any> {
+  const res = await fetch(`${PUBLIC_API_BASE}/doctors/${id}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.detail || `Failed to fetch doctor with id ${id}`);
+  }
+  return res.json();
+}
+
+export async function updateDoctor(
+  id: string,
+  doctorData: {
+    name: string;
+    title: string;
+    city: string;
+    area: string;
+    state: string;
+    country?: string;
+    speciality: string;
+    department: string;
+    sub_speciality?: string;
+    qualifications: string;
+    experience_years?: number;
+    languages?: string[];
+    phone?: string;
+    whatsapp?: string;
+    summary?: string;
+    areas_of_practice?: string[];
+    photo?: string;
+    verification_status?: string;
+    last_checked?: string;
+    images?: Array<{
+      url: string;
+      card_url?: string;
+      alt?: string;
+      caption?: string;
+      is_primary?: boolean;
+    }>;
+    hospital_affiliations?: Array<{
+      hospital_id: string;
+      days: string;
+      timings: string;
+      note?: string;
+    }>;
+    connected_laboratory_ids?: string[];
+  }
+): Promise<{
+  success: boolean;
+  doctor: any;
+  message: string;
+  frontendUrl: string;
+}> {
+  const res = await fetch(`${API_BASE}/doctors/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(doctorData),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.detail || 'Failed to update doctor');
+  }
+
   return res.json();
 }
 

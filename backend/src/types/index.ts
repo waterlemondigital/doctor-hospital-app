@@ -14,6 +14,7 @@ export interface Hospital {
   name: string;
   state: string;
   city: string;
+  country?: string | null;
   area: string;
   address: string;
   pincode: string;
@@ -34,6 +35,7 @@ export interface Hospital {
   facilities: string[];
   sources: any[];
   doctors: HospitalDoctorAffiliation[];
+  connected_laboratory_ids?: string[];
 }
 
 export interface DoctorAffiliation {
@@ -62,6 +64,7 @@ export interface Doctor {
   summary?: string | null;
   city: string;
   state: string;
+  country?: string | null;
   area?: string | null;
   location?: string | null;
   phone: string;
@@ -81,6 +84,7 @@ export interface Laboratory {
   name: string;
   state: string;
   city: string;
+  country?: string | null;
   area: string;
   address: string;
   pincode: string;
@@ -110,6 +114,7 @@ export interface WellnessCenter {
   category: string;
   state: string;
   city: string;
+  country?: string | null;
   area: string;
   address: string;
   pincode: string;
