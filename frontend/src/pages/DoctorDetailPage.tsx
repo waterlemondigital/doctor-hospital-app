@@ -172,7 +172,12 @@ export function DoctorDetailPage() {
                       className="inline-flex items-center gap-1 text-[#0077b6] font-bold bg-[#caf0f8]/80 hover:bg-[#90e0ef]/60 px-2.5 py-0.5 rounded-full transition-colors"
                       title={`Filter all doctors in ${doctor.city}`}
                     >
-                      <span>{doctor.city}{doctor.area ? ` (${doctor.area})` : ''}</span>
+                      <span>
+                        {doctor.city}
+                        {doctor.area && doctor.area.trim().toLowerCase() !== doctor.city.trim().toLowerCase()
+                          ? ` (${doctor.area})`
+                          : `(${doctor.city})`}
+                      </span>
                       <span className="text-[10px] font-normal underline opacity-80">(Filter by city)</span>
                     </Link>
                   </div>

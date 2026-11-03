@@ -189,7 +189,7 @@ export function LaboratoriesPage() {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder="Search by lab name, test (e.g. Thyroid, Lipid, CBC, Biopsy), or area..."
+            placeholder="Search by lab name"
             className="w-full h-12 pl-10 pr-10 rounded-xl border border-slate-300 bg-white text-sm font-medium text-[#03045e] placeholder:text-slate-400 focus:outline-none focus:border-[#0077b6] focus:ring-2 focus:ring-[#90e0ef] transition-colors shadow-2xs"
           />
           {query && (

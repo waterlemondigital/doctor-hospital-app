@@ -28,6 +28,7 @@ interface RawDoctor {
   summary?: string;
   city: string;
   state: string;
+  country?: string;
   area?: string;
   location?: string;
   phone?: string;
@@ -57,6 +58,10 @@ export function mapDoctor(raw: RawDoctor): Doctor {
     dateChecked: s.dateChecked || s.date_checked || raw.last_checked || '2026-10-17',
   }));
 
+  const mappedCity = raw.city ? raw.city.charAt(0).toUpperCase() + raw.city.slice(1) : '';
+  const hasArea = !!(raw.area && raw.area.trim().length > 0);
+  const mappedArea = hasArea ? raw.area!.trim() : mappedCity;
+
   return {
     id: raw.id,
     slug: raw.slug,
@@ -74,10 +79,11 @@ export function mapDoctor(raw: RawDoctor): Doctor {
     summary: raw.summary || '',
     areasOfPractice: raw.areas_of_practice || [],
     hospitals: affiliations,
-    location: raw.location || raw.area || 'Pune',
-    area: raw.area || 'Pune',
-    city: raw.city ? raw.city.charAt(0).toUpperCase() + raw.city.slice(1) : 'Pune',
+    location: (raw.location && raw.location.trim().length > 0) ? raw.location.trim() : mappedArea,
+    area: mappedArea,
+    city: mappedCity || 'Pune',
     state: raw.state || 'Maharashtra',
+    country: raw.country || (raw.city && raw.city.toLowerCase() === 'singapore' ? 'Singapore' : 'India'),
     phone: raw.phone || CONTACT_PHONE,
     whatsapp: raw.whatsapp || CONTACT_WHATSAPP,
     verificationStatus: (raw.verification_status as any) || 'independently-checked',

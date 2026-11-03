@@ -134,28 +134,6 @@ export function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Provider CTA */}
-      <section className="rounded-3xl bg-[#caf0f8]/40 border border-[#90e0ef] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="space-y-1.5 max-w-xl text-center sm:text-left">
-          <h3 className="text-lg font-bold text-[#03045e]">
-            Are you a healthcare provider in Pune?
-          </h3>
-          <p className="text-xs text-slate-600">
-            Ensure your facility departments or outpatient consulting schedules are up to date. You can request corrections or submit verified documentation directly.
-          </p>
-        </div>
-
-        <Button
-          type="button"
-          onClick={openCorrectionDialog}
-          variant="default"
-          className="bg-[#0077b6] hover:bg-[#03045e] shrink-0 gap-2"
-        >
-          <Flag className="h-4 w-4" />
-          <span>Submit a Correction</span>
-        </Button>
-      </section>
     </div>
   );
 }

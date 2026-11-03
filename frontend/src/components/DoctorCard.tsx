@@ -49,7 +49,7 @@ export function DoctorCard({ doctor, className, showHospitalList = true }: Docto
               {doctor.city && (
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-[#caf0f8]/60 border border-[#90e0ef]/60 px-1.5 py-0.5 rounded-md">
                   <MapPin className="h-3 w-3 text-[#0077b6]" />
-                  {doctor.city}{doctor.area ? ` · ${doctor.area}` : ''}
+                  {doctor.city}{doctor.area && doctor.area.toLowerCase() !== doctor.city.toLowerCase() ? ` · ${doctor.area}` : ''}
                 </span>
               )}
             </div>

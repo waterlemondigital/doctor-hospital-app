@@ -190,7 +190,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
                         {d.name}
                       </p>
                       <p className="text-xs text-slate-500">
-                        {d.title} · {d.speciality} · {d.city}{d.area ? ` (${d.area})` : ''}
+                        {d.title} · {d.speciality} · {d.city}{d.area && d.area.toLowerCase() !== d.city.toLowerCase() ? ` (${d.area})` : `(${d.city})`}
                       </p>
                     </div>
                     <ArrowRight className="h-4 w-4 text-slate-300 group-hover:text-[#0077b6] group-hover:translate-x-0.5 transition-all" />

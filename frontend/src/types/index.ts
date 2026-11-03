@@ -85,6 +85,7 @@ export interface Doctor {
   area?: string;
   city?: string;
   state?: string;
+  country?: string;
   phone: string;
   whatsapp: string;
   verificationStatus: VerificationStatus;
