@@ -21,6 +21,11 @@ function parseCorsOrigins(raw?: string): string[] {
   return trimmed.split(',').map((o) => o.trim()).filter(Boolean);
 }
 
+function cleanEnvString(raw?: string, fallback = ''): string {
+  if (!raw) return fallback;
+  return raw.trim().replace(/^["']|["']$/g, '').trim();
+}
+
 export const env = {
   PROJECT_NAME: process.env.PROJECT_NAME || 'MedVexa API',
   ENVIRONMENT: process.env.ENVIRONMENT || 'development',
@@ -33,8 +38,9 @@ export const env = {
   JWT_ALGORITHM: process.env.JWT_ALGORITHM || 'HS256',
   ACCESS_TOKEN_EXPIRE_MINUTES: parseInt(process.env.ACCESS_TOKEN_EXPIRE_MINUTES || '1440', 10),
   REFRESH_TOKEN_EXPIRE_DAYS: parseInt(process.env.REFRESH_TOKEN_EXPIRE_DAYS || '7', 10),
-  ADMIN_USERNAME: process.env.ADMIN_USERNAME || 'admin@medvexa.health',
-  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'MedVexa@Admin2026',
+  ADMIN_USERNAME: cleanEnvString(process.env.ADMIN_USERNAME, 'admin@medvexa.health'),
+  ADMIN_PASSWORD: cleanEnvString(process.env.ADMIN_PASSWORD, 'Medvexa@123'),
+  ADMIN_PASSCODE: cleanEnvString(process.env.ADMIN_PASSCODE, '482910'),
   AUTH_COOKIE_SECURE: process.env.ENVIRONMENT === 'production',
   AUTH_COOKIE_SAMESITE: (process.env.AUTH_COOKIE_SAMESITE || 'lax') as 'lax' | 'strict' | 'none',
   R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID || '',

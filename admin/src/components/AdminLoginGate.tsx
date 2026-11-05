@@ -103,7 +103,7 @@ export function AdminLoginGate({ onLoginSuccess }: AdminLoginGateProps) {
               />
             </div>
             <span className="text-[10px] text-slate-400 mt-1 block">
-              Configured in <code>admin/.env</code> (VITE_ADMIN_USERNAME)
+              Enter <code>admin</code> or <code>admin@medvexa.health</code> (or your deployment <code>ADMIN_USERNAME</code>)
             </span>
           </div>
 
@@ -133,7 +133,7 @@ export function AdminLoginGate({ onLoginSuccess }: AdminLoginGateProps) {
               </button>
             </div>
             <span className="text-[10px] text-slate-400 mt-1 block">
-              Configured in <code>admin/.env</code> (VITE_ADMIN_PASSWORD)
+              Configured via <code>ADMIN_PASSWORD</code> (or <code>VITE_ADMIN_PASSWORD</code>) in deployment env
             </span>
           </div>
 
