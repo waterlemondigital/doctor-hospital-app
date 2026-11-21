@@ -4,16 +4,23 @@ import { Toaster } from 'sonner';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { CorrectionDialog } from './CorrectionDialog';
+import { initAnalytics, trackPageView } from '../lib/analytics';
 
 export function Layout() {
   const [isCorrectionOpen, setIsCorrectionOpen] = React.useState(false);
   const [correctionSubject, setCorrectionSubject] = React.useState('General Directory Listing');
   const location = useLocation();
 
-  // Scroll to top on route change
+  // Initialize analytics once globally on mount
+  React.useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  // Scroll to top and track SPA page views on route change
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
 
   // Global listener for opening correction dialog from anywhere (e.g. footer or in-page links)
   React.useEffect(() => {

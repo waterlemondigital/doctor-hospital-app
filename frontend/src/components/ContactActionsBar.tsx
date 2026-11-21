@@ -5,6 +5,7 @@ import {
   CONTACT_PHONE_CLEAN,
   CONTACT_WHATSAPP_CLEAN,
 } from '../data/config';
+import { trackEnquiryClick } from '../lib/analytics';
 
 interface ContactActionsBarProps {
   phone?: string;
@@ -32,6 +33,16 @@ export function ContactActionsBar({
   );
 
   const waUrl = `https://wa.me/${cleanWaNumber}?text=${waMessage}`;
+
+  const handleQueryClick = () => {
+    trackEnquiryClick({
+      targetType,
+      targetName,
+      buttonText: 'Send a Non-Clinical Query',
+      clickLocation: 'ContactActionsBar',
+    });
+    onOpenQuery();
+  };
 
   return (
     <>
@@ -89,7 +100,7 @@ export function ContactActionsBar({
           {/* 3. Send Query Modal Button */}
           <button
             type="button"
-            onClick={onOpenQuery}
+            onClick={handleQueryClick}
             className="flex items-center justify-start gap-3 rounded-xl bg-[#0077b6] hover:bg-[#03045e] text-white p-3 text-xs font-semibold transition-all shadow-xs w-full group cursor-pointer"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 text-white shrink-0">
@@ -132,7 +143,7 @@ export function ContactActionsBar({
 
             <button
               type="button"
-              onClick={onOpenQuery}
+              onClick={handleQueryClick}
               className="flex flex-col items-center justify-center gap-1 py-1.5 px-2 rounded-xl bg-[#0077b6] text-white text-[11px] font-semibold active:bg-[#03045e]"
             >
               <Send className="h-4 w-4" />

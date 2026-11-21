@@ -20,6 +20,7 @@ import {
 import { toast } from 'sonner';
 import { fetchWellnessCenterBySlug } from '../api/wellness';
 import { WellnessCenter } from '../types';
+import { trackWellnessProfileView } from '../lib/analytics';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { HospitalGallery } from '../components/HospitalGallery';
@@ -61,6 +62,19 @@ export function WellnessDetailPage() {
       isMounted = false;
     };
   }, [slug]);
+
+  // Track wellness profile view for GTM & GA4
+  React.useEffect(() => {
+    if (center) {
+      trackWellnessProfileView({
+        id: center.id,
+        name: center.name,
+        slug: center.slug,
+        category: center.category,
+        city: center.city,
+      });
+    }
+  }, [center]);
 
   const handleShare = () => {
     if (navigator.clipboard) {

@@ -25,6 +25,7 @@ import { EmergencyNoticeCard } from '../components/EmergencyNoticeCard';
 import { ContactActionsBar } from '../components/ContactActionsBar';
 import { DoctorCard } from '../components/DoctorCard';
 import { QueryDialog } from '../components/QueryDialog';
+import { trackHospitalProfileView, trackEnquiryClick } from '../lib/analytics';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -177,6 +178,21 @@ export function HospitalDetailPage() {
       if (t) setActiveTab(t);
     }
   }, [searchParams]);
+
+  // Track hospital profile view for GTM & GA4
+  React.useEffect(() => {
+    if (hospital) {
+      trackHospitalProfileView({
+        id: hospital.id,
+        name: hospital.name,
+        slug: hospital.slug,
+        city: hospital.city,
+        state: hospital.state,
+        country: hospital.country,
+        facilityType: hospital.facilityTypeBadge,
+      });
+    }
+  }, [hospital]);
 
   // Doctors affiliated with this hospital
   const consultingDoctors = React.useMemo(() => {

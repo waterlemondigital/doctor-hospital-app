@@ -16,6 +16,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
+import { trackEnquirySubmit } from '../lib/analytics';
 
 const queryFormSchema = z.object({
   fullName: z
@@ -109,6 +110,14 @@ export function QueryDialog({
 
       // Brief simulated network settle
       await new Promise((resolve) => setTimeout(resolve, 600));
+
+      // Track successful enquiry submission in GTM & GA4
+      trackEnquirySubmit({
+        targetType,
+        targetName,
+        targetId,
+        formType: 'query_dialog',
+      });
 
       toast.success('Inquiry sent successfully', {
         description: `Your general enquiry regarding ${targetName} has been logged. The facility liaison will contact you via phone.`,
