@@ -19,7 +19,6 @@ import { fetchHospitals } from '../api/hospitals';
 import { Doctor, Hospital } from '../types';
 import { ContactActionsBar } from '../components/ContactActionsBar';
 import { QueryDialog } from '../components/QueryDialog';
-import { trackDoctorProfileView } from '../lib/analytics';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -59,21 +58,6 @@ export function DoctorDetailPage() {
     }
     return () => { isMounted = false; };
   }, [slug]);
-
-  // Track doctor profile view for GTM & GA4
-  React.useEffect(() => {
-    if (doctor) {
-      trackDoctorProfileView({
-        id: doctor.id,
-        name: doctor.name,
-        slug: doctor.slug,
-        speciality: doctor.speciality,
-        department: doctor.department,
-        hospitalName: doctor.hospitals?.[0]?.hospitalName,
-        city: doctor.city,
-      });
-    }
-  }, [doctor]);
 
   if (isLoading) {
     return (

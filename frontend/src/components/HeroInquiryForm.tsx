@@ -6,7 +6,6 @@ import {
   CONTACT_PHONE_CALL_HREF,
   CONTACT_WHATSAPP_CLEAN,
 } from '../data/config';
-import { trackEnquirySubmit } from '../lib/analytics';
 
 const COUNTRIES = [
   'India',
@@ -64,17 +63,6 @@ export function HeroInquiryForm() {
     }
 
     setIsSubmitted(true);
-
-    // Track successful enquiry submission in GTM & GA4
-    trackEnquirySubmit({
-      targetType: 'general',
-      targetName: 'Medvexa Patient Consultation Desk',
-      formType: 'hero_inquiry_form',
-      city,
-      state,
-      country,
-    });
-
     toast.success('Inquiry submitted successfully!', {
       description: `Thank you, ${patientName}. Our healthcare team will contact you shortly regarding care in ${city}, ${state}.`,
     });

@@ -24,7 +24,6 @@ import { fetchHospitals } from '../api/hospitals';
 import { Hospital } from '../types';
 import { HospitalGallery } from '../components/HospitalGallery';
 import { QueryDialog } from '../components/QueryDialog';
-import { trackLaboratoryProfileView } from '../lib/analytics';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -65,19 +64,6 @@ export function LaboratoryDetailPage() {
     }
     return () => { isMounted = false; };
   }, [slug]);
-
-  // Track laboratory profile view for GTM & GA4
-  React.useEffect(() => {
-    if (laboratory) {
-      trackLaboratoryProfileView({
-        id: laboratory.id,
-        name: laboratory.name,
-        slug: laboratory.slug,
-        nabl: laboratory.isNablAccredited,
-        city: laboratory.city,
-      });
-    }
-  }, [laboratory]);
 
   if (isLoading) {
     return (
@@ -534,9 +520,6 @@ export function LaboratoryDetailPage() {
             <div className="space-y-2.5">
               <Button
                 onClick={() => setIsQueryOpen(true)}
-                data-track-appointment="true"
-                data-target-name={laboratory.name}
-                data-target-type="laboratory"
                 className="w-full bg-[#0077b6] hover:bg-[#03045e] text-white font-bold h-11 text-xs gap-2 shadow-xs"
               >
                 <Sparkles className="h-4 w-4" />
